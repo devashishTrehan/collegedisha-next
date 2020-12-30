@@ -1,8 +1,10 @@
-import { Button, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Typography, useMediaQuery } from '@material-ui/core';
+import { Button, FormControl, FormControlLabel, Grid, InputLabel, makeStyles, MenuItem, Select, Typography, useMediaQuery } from '@material-ui/core';
 import React, { FormEvent, useEffect } from 'react';
 import { FormHead } from '../FormHead.component';
 import InputField from '../TextField.component/TextField.component';
 import { Theme } from '../../Services/App.service';
+import SelectField from '../SelectField.component/SelectField.component';
+
 
 export const CounsellingForm = (props: any) => {
 
@@ -55,8 +57,9 @@ export const CounsellingForm = (props: any) => {
         return yearList;
     }
 
-    const submitForm = (event: FormEvent) => {
+    const submitForm = async (event: FormEvent) => {
         event.preventDefault();
+
     }
 
     return (
@@ -143,34 +146,24 @@ export const CounsellingForm = (props: any) => {
                         onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                 </Grid>
                 <Grid item xs={12} sm={6} >
-
-                    <FormControl variant="outlined" style={{ width: '100%' }} size='small' >
-                        <InputLabel id="demo-simple-select-outlined-label">Counselling Year</InputLabel>
-                        <Select
-                            ref={(ref: any) => { inputRefs[3] = ref }}
-                            error={Form.counsellingYear === ''}
-                            name='counsellingYear'
-                            style={{ textAlign: 'left', fontSize: 14 }}
-                            value={Form.counsellingYear}
-                            MenuProps={{
-                                getContentAnchorEl: null,
-                                anchorOrigin: {
-                                    vertical: "bottom",
-                                    horizontal: "left"
-                                }
-                            }}
-                            onChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} >
-
-                            {
-                                YearList?.map((year: number) => {
-                                    return (
-                                        <MenuItem key={year} style={{ fontSize: '14px' }} value={year}>{year}</MenuItem>
-                                    )
-                                })
-                            }
-                        </Select>
-                    </FormControl>
+                    <SelectField
+                        ref={(ref: any) => { inputRefs[3] = ref }}
+                        label='Counselling Year'
+                        error={Form.counsellingYear === ''}
+                        name='counsellingYear'
+                        value={Form.counsellingYear}
+                        onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} >
+                        {
+                            YearList?.map((year: number) => {
+                                return (
+                                    <MenuItem key={year} value={year}>{year}</MenuItem>
+                                )
+                            })
+                        }
+                    </SelectField>
                 </Grid>
+
+
                 <Grid item xs={12} sm={6} >
                     <InputField
                         ref={(ref: any) => { inputRefs[7] = ref }}
@@ -179,6 +172,7 @@ export const CounsellingForm = (props: any) => {
                         value={Form.guardianName}
                         onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                 </Grid>
+                
                 <Grid item xs={12} sm={6} >
                     <InputField
                         ref={(ref: any) => { inputRefs[8] = ref }}

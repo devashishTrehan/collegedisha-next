@@ -23,6 +23,7 @@ const useStyles = makeStyles({
   },
   LogoWrap: {
     width: 190,
+    // width: 135,
     marginTop: 7,
     cursor: 'pointer',
     '& img': {
@@ -32,6 +33,7 @@ const useStyles = makeStyles({
   },
   LogoWrap_M: {
     width: 120,
+    // width: 100,
   },
 
   navLinkSectionsWrap: {

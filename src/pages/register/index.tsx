@@ -1,5 +1,5 @@
 
-import { Button, Grid, Typography, useMediaQuery } from '@material-ui/core';
+import { Button, Grid, MenuItem, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import { Routes, Theme, ValidateFields } from '@/Services/App.service';
@@ -8,17 +8,24 @@ import InputField from '@/Components/TextField.component/TextField.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import Link from 'next/link';
+import DateField from '@/Components/DateField.component/DateField.component';
+import SelectField from '@/Components/SelectField.component/SelectField.component';
 
 
 const useStyles = makeStyles({
   sectionBackground: {
-    // backgroundImage: `url(/assets/images/founderBg1.png),url(/assets/images/founderBg2.png)`,
-    // backgroundPosition: 'left center , right center',
-    // backgroundRepeat: 'no-repeat',
-
+    overflow: 'hidden'
   },
   wrapper: {
     padding: '50px 5%',
+  },
+  SelectOption: {
+    lineHeight: '30px',
+    color: '#fff',
+    backgroundColor: Theme.primary,
+    '&:hover': {
+      backgroundColor: Theme.secondary
+    }
   },
   formContainer: {
     width: 500,
@@ -172,7 +179,7 @@ function RegisterPage(props: any) {
 
   const submitForm = (event: React.FormEvent) => {
     event.preventDefault();
-    const formErrorConditions = [!Form.name, !Form.email, !Form.password, !Form.password !== !Form.confirmPassword];
+    const formErrorConditions = [!Form.name, !Form.email, !Form.password, !Form.password !== !Form.confirmPassword, !Form.DOB, !Form.gender, !Form.mobile, !Form.address];
 
     ValidateFields(formErrorConditions, inputRefs);
   }
@@ -193,11 +200,11 @@ function RegisterPage(props: any) {
 
     <>
 
-      <div className='container'>
+      <div className={styles.sectionBackground}>
+        <div className='container'>
 
-        <div className={styles.wrapper}>
+          <div className={styles.wrapper}>
 
-          <div className={styles.sectionBackground}>
 
             <div className={styles.formContainer}>
 
@@ -290,6 +297,81 @@ function RegisterPage(props: any) {
                     </Grid>
 
                     <Grid item xs={12} md={6}>
+                      <div className='inputContainer'>
+                        <DateField
+                          ref={(ref: any) => { inputRefs[4] = ref }}
+                          label='Date of Birth'
+                          error={!Form.DOB}
+                          errormessage="Date of birth is required"
+                          isrequired
+                          type='date'
+                          name="DOB"
+                          variant='outlined'
+                          size='small'
+                          color='primary'
+                          value={Form.DOB}
+                          onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
+                      </div>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <div className='inputContainer'>
+                        <SelectField
+                          ref={(ref: any) => { inputRefs[5] = ref }}
+                          label='gender'
+                          error={!Form.gender}
+                          errormessage="Gender is required"
+                          name="gender"
+                          variant='outlined'
+                          color='primary'
+                          value={Form.gender}
+                          onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)}>
+
+                          <MenuItem value='' >--Select--</MenuItem>
+                          <MenuItem value='female'  >Female </MenuItem>
+                          <MenuItem value='male' >Male</MenuItem>
+                          <MenuItem value='others' >Others</MenuItem>
+
+                        </SelectField>
+                      </div>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <div className='inputContainer'>
+                        <InputField
+                          ref={(ref: any) => { inputRefs[6] = ref }}
+                          label='Contact number'
+                          variant='outlined'
+                          size='small'
+                          error={Form.mobile === ''}
+                          errormessage='Contact number is required'
+                          isrequired
+                          type='number'
+                          name='mobile'
+                          color='primary'
+                          value={Form.mobile}
+                          onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
+                      </div>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <div className='inputContainer'>
+                        <InputField
+                          ref={(ref: any) => { inputRefs[7] = ref }}
+                          label='Address'
+                          variant='outlined'
+                          size='small'
+                          error={Form.address === ''}
+                          errormessage='Address is required'
+                          isrequired
+                          name='address'
+                          color='primary'
+                          value={Form.address}
+                          onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
+                      </div>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
                       <div className='inputContainer buttonContainer'>
                         <Button type='submit' variant='contained' color='primary'>Register</Button>
                       </div>
@@ -330,7 +412,7 @@ function RegisterPage(props: any) {
           </div>
 
         </div>
-      </div>
+      </div >
 
 
       <Footer />

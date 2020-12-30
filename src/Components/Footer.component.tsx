@@ -237,7 +237,7 @@ export const Footer = (props: any) => {
         { label: 'Terms & Conditions', link: Routes.TermsConditions },
         { label: 'Privacy policy', link: Routes.PrivacyPolicy },
         { label: 'FAQ', link: Routes.FAQ },
-        { label: 'Promote With US', link: Routes.Contact },
+        { label: 'Promote With US', link: Routes.Advertisement },
         { label: 'Founder', link: Routes.Founder },
     ]
     const BestTags: any = ['College', 'Course', 'Career', 'Counsellor', 'Exams', 'Boards', 'Articles'];

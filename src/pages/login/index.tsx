@@ -12,10 +12,7 @@ import Link from 'next/link';
 
 const useStyles = makeStyles({
   sectionBackground: {
-    // backgroundImage: `url(/assets/images/founderBg1.png),url(/assets/images/founderBg2.png)`,
-    // backgroundPosition: 'left center , right center',
-    // backgroundRepeat: 'no-repeat',
-
+    overflow: 'hidden'
   },
   wrapper: {
     padding: '50px 5%',
@@ -184,11 +181,11 @@ function LoginPage(props: any) {
 
     <>
 
-      <div className='container'>
+      <div className={styles.sectionBackground}>
+        <div className='container'>
 
-        <div className={styles.wrapper}>
+          <div className={styles.wrapper}>
 
-          <div className={styles.sectionBackground}>
 
             <div className={styles.formContainer}>
 

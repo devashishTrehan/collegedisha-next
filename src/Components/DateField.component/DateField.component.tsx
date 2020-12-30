@@ -1,30 +1,31 @@
 import * as React from 'react';
-import styles from './TextArea.module.css';
-import { TextareaAutosize } from '@material-ui/core';
+import FieldStyles from './DateField.module.css';
 import classNames from 'classnames';
-import { Theme } from '../../Services/App.service';
 
-interface TextFieldState {
+
+interface DateFieldState {
     error: string,
     value: string,
     isTouched: boolean,
     isDirty: boolean,
-    isFocused: boolean
+    isFocused: boolean,
 }
 
-// const styles = {
 
-//     lightFont: {
-//         fontSize: 12,
-//         color: 'gray'
-//     }
-// }
+const styles = {
+
+    lightFont: {
+        fontSize: 12,
+        color: 'gray'
+    }
+}
 
 
 
-class InputArea extends React.Component<any, TextFieldState> {
+class DateField extends React.Component<any, DateFieldState> {
     static propTypes: { classes: any; };
 
+    Ref: HTMLElement | null = null;
 
     constructor(props: any) {
         super(props)
@@ -38,7 +39,7 @@ class InputArea extends React.Component<any, TextFieldState> {
     }
 
 
-    static getDerivedStateFromProps(props: any, state: TextFieldState) {
+    static getDerivedStateFromProps(props: any, state: DateFieldState) {
         if (props.error !== state.error || props.value !== state.value) {
             console.log('changed', props)
             return { ...state, error: props.error, value: props.value }
@@ -46,6 +47,7 @@ class InputArea extends React.Component<any, TextFieldState> {
             return null;
         }
     }
+
 
     touchField = () => {
         if (!this.state.isTouched) {
@@ -56,17 +58,19 @@ class InputArea extends React.Component<any, TextFieldState> {
 
     makeDirty = () => {
         if (!this.state.isDirty) {
-            console.log('dirting')
+            console.log('dirting date')
             this.setState({ isDirty: true })
         }
     }
 
     focusHandler = () => {
+        this.Ref && this.Ref.setAttribute('type', 'date');
         this.setState({ isFocused: true })
         this.touchField();
     }
 
     blurHandler = () => {
+        this.Ref && this.Ref.setAttribute('type', 'text');
         this.setState({ isFocused: false })
     }
 
@@ -79,39 +83,50 @@ class InputArea extends React.Component<any, TextFieldState> {
         this.makeDirty();
     }
 
-
     render() {
 
         const { errormessage } = this.props;
         const isError = this.state.error && this.state.isDirty;
 
+        let newProps = { ...this.props, error: isError }
 
         return (
             <div style={this.props.containerStyle} >
-                <div className={styles.textInputWrap}>
-                    <label className={classNames(styles.textLabel, {
-                        [styles.labelFocused]: this.state.isFocused || this.state.value,
-                        [styles.labelError]: isError,
-                    })} >{this.props.label}</label>
-                    <TextareaAutosize color='secondary'
-                        rowsMin={3}
-                        rowsMax={5}
-                        className={classNames(
-                            styles.input,
-                            {
-                                [styles.focusedInput]: this.state.isFocused,
-                                [styles.errorInput]: isError,
-                            })}
-                        style={{ width: '100%', borderColor: isError ? Theme.error : 'gray' }}
-                        {...this.props} onFocus={() => this.focusHandler()}
-                        onKeyDown={(event: any) => this.keyDownHandler(event)}
+
+                <div className={classNames(
+                    FieldStyles.inputWrap,
+                    {
+                        [FieldStyles.focusedInput]: this.state.isFocused,
+                        [FieldStyles.errorInput]: isError,
+                    })}>
+                    {
+                        this.props.label ?
+                            <label className={classNames([FieldStyles.inputLabel], {
+                                [FieldStyles.labelFocused]: this.state.isFocused || this.state.value,
+                                [FieldStyles.labelError]: isError,
+                            })} >{this.props.label}</label>
+                            : null
+                    }
+                    <input
+                        ref={(ref) => this.Ref = ref}
+                        color='secondary'
+                        style={{ width: '100%', ...styles.lightFont }}
+                        className={FieldStyles.input}
+                        {...newProps}
+                        onFocus={() => this.focusHandler()}
                         onChange={(event: any) => this.keyDownHandler(event)}
                         onBlur={() => this.blurHandler()}
+
+                        onKeyDown={(event: any) => {
+                            this.keyDownHandler(event)
+                        }}
+                        type={'text'}
                     />
                 </div>
+
                 {
                     this.props.error && this.state.isDirty ?
-                        <p className='error' style={{ marginLeft: 10, fontSize: 12, }}><small>{errormessage}</small></p>
+                        <p className='error' style={{ marginLeft: 10, marginTop: 5, fontSize: 12, }}><small>{errormessage}</small></p>
                         : null
                 }
             </div >
@@ -120,4 +135,4 @@ class InputArea extends React.Component<any, TextFieldState> {
 }
 
 
-export default InputArea;
+export default DateField;

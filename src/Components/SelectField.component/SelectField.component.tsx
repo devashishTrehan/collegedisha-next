@@ -1,11 +1,11 @@
 import * as React from 'react';
-import FieldStyles from './TextField.module.css';
 import classNames from 'classnames';
-import { InputProps } from '@material-ui/core';
+import { Select, SelectProps } from '@material-ui/core';
+import FieldStyles from './SelectField.module.css';
 import { CSSProperties } from '@material-ui/styles';
 
 
-interface TextFieldState {
+interface SelectFieldState {
     error: string,
     value: string,
     isTouched: boolean,
@@ -13,7 +13,7 @@ interface TextFieldState {
     isFocused: boolean,
 }
 
-interface SelectFieldProps extends InputProps {
+interface SelectFieldProps extends SelectProps {
     onValueChange?: Function,
     errormessage?: string,
     containerStyle?: CSSProperties,
@@ -22,10 +22,20 @@ interface SelectFieldProps extends InputProps {
 }
 
 
+const styles = {
 
-class InputField extends React.Component<any, TextFieldState> {
+    lightFont: {
+        fontSize: 12,
+        color: 'gray'
+    }
+}
+
+
+
+class SelectField extends React.Component<SelectFieldProps, SelectFieldState> {
     static propTypes: { classes: any; };
 
+    Ref: HTMLElement | null = null;
 
     constructor(props: any) {
         super(props)
@@ -39,7 +49,7 @@ class InputField extends React.Component<any, TextFieldState> {
     }
 
 
-    static getDerivedStateFromProps(props: any, state: TextFieldState) {
+    static getDerivedStateFromProps(props: any, state: SelectFieldState) {
         if (props.error !== state.error || props.value !== state.value) {
             console.log('changed', props)
             return { ...state, error: props.error, value: props.value }
@@ -58,17 +68,19 @@ class InputField extends React.Component<any, TextFieldState> {
 
     makeDirty = () => {
         if (!this.state.isDirty) {
-            console.log('dirting')
+            console.log('dirting date')
             this.setState({ isDirty: true })
         }
     }
 
     focusHandler = () => {
+        this.Ref && this.Ref.setAttribute('type', 'date');
         this.setState({ isFocused: true })
         this.touchField();
     }
 
     blurHandler = () => {
+        this.Ref && this.Ref.setAttribute('type', 'text');
         this.setState({ isFocused: false })
     }
 
@@ -105,29 +117,24 @@ class InputField extends React.Component<any, TextFieldState> {
                             })} >{this.props.label}</label>
                             : null
                     }
-                    <input
-                        color='secondary'
-                        style={{ width: '100%' }}
-                        className={FieldStyles.input}
+                    <Select
                         {...newProps}
                         onFocus={() => this.focusHandler()}
                         onChange={(event: any) => this.keyDownHandler(event)}
                         onBlur={() => this.blurHandler()}
+                        className={FieldStyles.input}
+                        MenuProps={{
+                            getContentAnchorEl: null,
+                            anchorOrigin: {
+                                vertical: "bottom",
+                                horizontal: "left"
+                            }
+                        }} >
 
-                        // startAdornment={this.props?.icon ? (
-                        //     <InputAdornment position="start">
-                        //         <span style={styles.lightFont}>
-                        //             {
-                        //                 this.props.icon
-                        //             }
-                        //         </span>
-                        //     </InputAdornment>
-                        // ) : null}
-
-                        onKeyDown={(event: any) => {
-                            this.keyDownHandler(event)
-                        }}
-                    />
+                        {
+                            this.props.children
+                        }
+                    </Select>
                 </div>
 
                 {
@@ -141,4 +148,4 @@ class InputField extends React.Component<any, TextFieldState> {
 }
 
 
-export default InputField;
+export default SelectField;

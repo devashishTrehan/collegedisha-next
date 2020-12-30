@@ -14,11 +14,16 @@
     border-color: #e8e8e8 !important;
 }
 
+.input:hover {
+    border-color: var(--TPrimary) !important;
+}
+
 .textLabel {
     position: absolute;
     top: 5px;
     left: 10px;
     z-index: 0;
+    text-transform: capitalize;
     font-size: 16px;
     font-weight: 500;
     transition: .3s;
@@ -29,7 +34,7 @@
 }
 
 .labelFocused {
-    top: -7px;
+    top: -8px;
     left: 10px;
     font-size: 10px;
     z-index: 2;
@@ -41,8 +46,7 @@
 }
 
 .focusedInput {
-    border-width: 2px;
-    border-color: var(--TPrimary) !important;
+    border-color: var(--TPrimary);
 }
 
 .errorInput {

@@ -31,7 +31,7 @@ const useStyles = makeStyles({
         marginBottom: 20,
         '& h6': {
           fontWeight: 600,
-          fontSize: 16,
+          fontSize: 15,
           color: '#444',
           marginBottom: 5,
         },

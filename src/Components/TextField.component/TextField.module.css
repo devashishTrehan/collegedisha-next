@@ -1,0 +1,95 @@
+.label {
+    margin-right: 20px
+}
+
+.inputWrap {
+    position: relative;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: #ddd;
+    height: 40px;
+    transition: .3s;
+    outline: 0;
+}
+
+.borderNone {
+    border: none !important;
+}
+
+.input {
+    padding: 0 10px !important;
+    border: none;
+    border-radius: 5px;
+    height: 100%;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.inputLabel {
+    position: absolute;
+    top: calc(20px - 9px);
+    left: 5px;
+    z-index: 0;
+    font-size: 16px;
+    font-weight: 500;
+    transition: .3s;
+    background-color: #fff;
+    padding: 0 5px;
+    font-size: 12px;
+    text-transform: capitalize;
+    color: #666;
+}
+
+.inputLabel.labelFocused {
+    top: -7px;
+    left: 10px;
+    font-size: 10px;
+    color: var(--TPrimary);
+    z-index: 2;
+}
+
+.labelError {
+    color: var(--TError);
+}
+
+.focusedInput {
+    border-width: 2px;
+    border-color: var(--TPrimary) !important;
+}
+
+.errorInput {
+    border-color: var(--TError) !important;
+}
+
+.inputBorder {
+    border-color: var(--TPrimary) !important;
+}
+
+
+/* .input:focus {
+    border-color: blue !important;
+    box-shadow: 1px 1px 3px blue;
+}
+
+.errorInput {
+    border-color: red;
+    box-shadow: 1px 1px 3px red;
+} */
+
+.MuiFormLabel-root {
+    background-color: #fff;
+    padding: 0px 5px 0 0 !important;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input[type=number] {
+    -moz-appearance: textfield;
+}

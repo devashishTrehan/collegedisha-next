@@ -1,0 +1,50 @@
+.textInputWrap {
+    position: relative;
+}
+
+.input {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    outline: 0;
+    padding: 10px 10px;
+    resize: vertical;
+    transition: .2s;
+    color: var(--TFontColor);
+    border-color: #e8e8e8 !important;
+}
+
+.textLabel {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    z-index: 0;
+    font-size: 16px;
+    font-weight: 500;
+    transition: .3s;
+    background-color: #fff;
+    padding: 0 5px;
+    font-size: 12px;
+    color: #666;
+}
+
+.labelFocused {
+    top: -7px;
+    left: 10px;
+    font-size: 10px;
+    z-index: 2;
+    color: var(--TPrimary)
+}
+
+.labelError {
+    color: var(--TError);
+}
+
+.focusedInput {
+    border-width: 2px;
+    border-color: var(--TPrimary) !important;
+}
+
+.errorInput {
+    border-color: var(--TError) !important;
+}

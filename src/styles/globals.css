@@ -1,0 +1,348 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css');
+
+/* @import url('http://fonts.cdnfonts.com/css/gordita'); */
+
+@font-face {
+    font-family: 'gorditaThin';
+    src: local('Gordita'), url('@/fonts/gordita/Gordita Thin.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'gordita';
+    src: local('Gordita'), url('@/fonts/gordita/Gordita Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'gorditaBold';
+    src: local('Gordita'), url('@/fonts/gordita/Gordita Bold.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'gorditaMedium';
+    src: local('Gordita'), url('@/fonts/gordita/Gordita Medium.woff') format('woff');
+}
+
+:root {
+    /* --TPrimary: #44b4d6; */
+    --TPrimary: #213858;
+    --TPrimaryhover: #ff0737;
+    --TSecondary: #43acef;
+    --TFontColor: #444;
+    --TSecondaryFontColor: #5c6b8a;
+    --TError: #ff4444;
+    --TSuccess: #00C851;
+    --TWarning: #ffbb33;
+    --TInfo: #33b5e5;
+    --TDark: #3a3a3a;
+    --TLightDark: #b1b1b1;
+    --TGray: #757575;
+    --TPrimaryTransparent: #ee294f22;
+    --TBoxShadow: -5px -5px 25px 5px #ffffff67, 5px 5px 25px 0 #aeaec067;
+    --TFontHeadColor: #1d2746;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--TPrimary) #fff0;
+}
+
+html {
+    scroll-behavior: smooth
+}
+
+body {
+    text-align: center;
+    margin: 0 !important;
+    font-family: 'gordita', 'sans-serif', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue' !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* overflow-x: hidden; */
+}
+
+* img {
+    width: 100%
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--TPrimary);
+    border-radius: 5px;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+*:focus {
+    outline: none !important;
+}
+
+::selection {
+    background-color: var(--TSecondary);
+    color: #fff;
+}
+
+.container {
+    width: 100%;
+    max-width: 1450px !important;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 auto !important;
+}
+
+.heading1 {
+    color: var(--TPrimary);
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.error {
+    color: var(--TError);
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: left;
+}
+
+.sectionHead {
+    width: 400px;
+    max-width: 100%;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.sectionHead .heading1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    /* font-weight: 500; */
+    font-family: 'gorditaMedium';
+    color: var(--TFontHeadColor);
+}
+
+.sectionHead .bodyText {
+    text-align: justify;
+    font-size: 14px;
+}
+
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.smallText {
+    font-size: 14px !important;
+    color: var(--TFontColor);
+}
+
+.shiftUp {
+    animation: ShiftUp 2s;
+}
+
+.shiftLeft {
+    animation: ShiftLeft 1.5s;
+}
+
+.beat {
+    animation: Beat 2s alternate;
+    animation-delay: 1s;
+}
+
+
+/* ----------+++++ Animations +++++---------- */
+
+@keyframes SwipeRight {
+    0% {
+        transform: translate(-100px, 0);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes GrowShiftDown {
+    0% {
+        opacity: 0;
+        transform: translateZ(-50), scale(.5);
+    }
+    50% {
+        transform: translateZ(20), scale(1.25);
+    }
+    100% {
+        opacity: 1;
+        transform: translateZ(0), scale(1);
+    }
+}
+
+@keyframes Wander {
+    0% {
+        transform: translate(0px, 0px);
+        opacity: 1;
+    }
+    25% {
+        transform: translate(30px, 30px);
+        opacity: .5;
+    }
+    50% {
+        transform: translate(30px, 0px);
+        opacity: 0;
+    }
+    75% {
+        transform: translate(0px, 30px);
+        opacity: .5;
+    }
+    100% {
+        transform: translate(0px, 0px);
+        opacity: 1;
+    }
+}
+
+@keyframes MoveBackground {
+    0% {
+        background-position: 0% 0%, 100% 50%, 0% 100%;
+    }
+    50% {
+        background-position: -10% 0%, 100% 40%, 10% 100%;
+    }
+    100% {
+        background-position: 0% 0%, 100% 50%, 0% 100%;
+    }
+    /* 50% {
+        background-position: 0% 0%, 50% 100%, 0% 100%;
+    }
+    75% {
+        background-position: -10% 0%, 75% 75%, 10% 100%;
+    }
+    100% {
+        background-position: 0% 0%, 100% 50%, 0% 100%;
+    } */
+}
+
+@keyframes MoveBackground2 {
+    0% {
+        background-position: 0% 0%, 100% 100%;
+    }
+    50% {
+        background-position: -10% 0%, 90% 100%;
+    }
+    100% {
+        background-position: 0% 0%, 100% 100%;
+    }
+}
+
+@keyframes MoveBackgroundUpDown {
+    0% {
+        background-position: bottom, 0px 0px, 100% 0px;
+    }
+    50% {
+        background-position: bottom, 0px 30px, 100% -30px;
+    }
+    100% {
+        background-position: bottom, 0px 0px, 100% 0px;
+    }
+    100% {
+        background-position: bottom, 0px -30px, 100% 30px;
+    }
+    100% {
+        background-position: bottom, 0px 0px, 100% 0px;
+    }
+}
+
+@keyframes ShiftUp {
+    0% {
+        transform: translate(0, 100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes ShiftLeft {
+    0% {
+        transform: translate(100px, 0px);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0px, 0px);
+        opacity: 1;
+    }
+}
+
+@keyframes translateX {
+    0% {
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px)
+    }
+    50% {
+        -webkit-transform: translateX(20px);
+        transform: translateX(20px)
+    }
+    100% {
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px)
+    }
+}
+
+@keyframes translateY {
+    0% {
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px)
+    }
+    50% {
+        -webkit-transform: translateY(-20px);
+        transform: translateY(-20px)
+    }
+    100% {
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px)
+    }
+}
+
+@keyframes scale {
+    0% {
+        -webkit-transform: scale(.8);
+        transform: scale(.8)
+    }
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+    100% {
+        -webkit-transform: scale(.8);
+        transform: scale(.8)
+    }
+}
+
+@keyframes Beat {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    75% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

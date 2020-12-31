@@ -1,8 +1,16 @@
 import * as React from 'react';
 import { Format_INS } from '../Services/App.service';
 
+interface Props {
+    start?: number,
+    duration?: number,
+    steps?: number,
+    end: number,
+    id: string,
+    startDelay?: number
+}
 
-export function Counter(props: any) {
+export function Counter(props: Props) {
 
     const [value, setValue] = React.useState(props.start ? props.start : 0);
     const [start, setStart] = React.useState(props.start ? props.start : 0);

@@ -1,13 +1,13 @@
 
-import { Button, Typography, useMediaQuery } from '@material-ui/core';
+import { Button, Divider, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import { Routes, Theme, ValidateFields } from '@/Services/App.service';
-import { Footer } from '@/Components/Footer.component';
 import InputField from '@/Components/TextField.component/TextField.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 
 const useStyles = makeStyles({
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     overflow: 'hidden'
   },
   wrapper: {
-    padding: '50px 5%',
+    padding: '30px 5% 50px',
   },
   formContainer: {
     width: 500,
@@ -32,23 +32,13 @@ const useStyles = makeStyles({
   form: {
     width: '100%',
     backgroundColor: '#fff',
-    padding: Theme.spacingMore,
+    padding: `${Theme.spacingLess}px ${Theme.spacingMore}px ${Theme.spacingMore}px`,
     boxShadow: Theme.boxShadow,
     borderRadius: Theme.radius2,
     '& .formHead': {
-      padding: 20,
-      textAlign: 'left',
       '& .heading': {
-        margin: '10px 0',
-        fontSize: 20,
-        fontFamily: 'gorditaMedium',
-        color: Theme.primary
+        margin: '25px 0 10px',
       },
-      '& .text': {
-        fontSize: 12,
-        lineHeight: '24px',
-        color: Theme.fontColorSecondary
-      }
     },
     '& .inputContainer': {
       padding: '10px 20px',
@@ -152,6 +142,8 @@ function LoginPage(props: any) {
   const isMobile = useMediaQuery('(max-width:600px)');
   const isTablet = useMediaQuery('(max-width:992px)');
 
+  const router = useRouter();
+
   let inputRefs: any = [];
 
 
@@ -197,14 +189,21 @@ function LoginPage(props: any) {
               </div>
 
               <div className={styles.form} style={isMobile ? { padding: 0 } : {}}>
-                <form onSubmit={submitForm} >
 
-                  <div className='formHead'>
-                    <div><Typography variant={'h1'} className={'heading'}>Login to account</Typography></div>
-                    <div><Typography variant={'body1'} className={'text'}>To keep connected with us please login with your personal information by email address and password</Typography></div>
+                <div className='formHead'>
+
+                  <div className='FormLogoWrap' onClick={() => router.replace(Routes.Home)}>
+                    <img src='assets/images/BLogo.png' alt='College Disha' />
                   </div>
 
+                  <Divider />
 
+                  <div><Typography variant={'h1'} className={'heading'}>Login to account</Typography></div>
+                  <div><Typography variant={'body1'} className={'subHeading'}>To keep connected with us please login with your personal information by email address and password</Typography></div>
+                </div>
+
+
+                <form onSubmit={submitForm} >
                   <div className='inputContainer'>
                     <InputField
                       ref={(ref: any) => { inputRefs[0] = ref }}
@@ -278,7 +277,6 @@ function LoginPage(props: any) {
       </div>
 
 
-      <Footer />
     </>
 
   );

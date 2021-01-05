@@ -1,6 +1,5 @@
-import { Button, FormControl, FormControlLabel, Grid, InputLabel, makeStyles, MenuItem, Select, Typography, useMediaQuery } from '@material-ui/core';
+import { Button, Grid, MenuItem, Typography, useMediaQuery } from '@material-ui/core';
 import React, { FormEvent, useEffect } from 'react';
-import { FormHead } from '../FormHead.component';
 import InputField from '../TextField.component/TextField.component';
 import { Theme } from '../../Services/App.service';
 import SelectField from '../SelectField.component/SelectField.component';

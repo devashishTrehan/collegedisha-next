@@ -15,8 +15,8 @@ import { Storages } from "./App.service";
 
 /////////////////------------ for testing -----------\\\\\\\\\\\\\
 
-export const BASE_URL = 'http://192.168.1.202/web-service/api/';
-export const Domain = 'http://192.168.1.202';
+export const BASE_URL = 'http://192.168.1.65:7000/web-service/api/';
+export const Domain = 'http://192.168.1.65:7000';
 
 
 const UserUrl = BASE_URL + 'user/';

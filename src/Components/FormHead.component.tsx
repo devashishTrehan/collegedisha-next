@@ -1,3 +1,4 @@
+import { Theme } from '@/Services/App.service';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
@@ -7,11 +8,14 @@ const useStyles = makeStyles({
 
     title: {
         fontSize: 20,
-        marginBottom: 15,
+        marginBottom: 10,
         fontFamily: 'gorditaMedium',
-        textAlign: 'center'
+        textAlign: 'center',
+        color: Theme.primary,
     },
     subTitle: {
+        fontSize: 16,
+        color: Theme.fontColor,
 
     },
     imageWrapper: {
@@ -25,25 +29,27 @@ const useStyles = makeStyles({
 
 })
 
-export function FormHead(props: any) {
+interface Props {
+    title: string,
+    subTitle?: string,
+    image?: string,
+    titleProps?: any
+    subTitleProps?: any
+}
 
-    const [loading, setLoading] = React.useState(false);
+export function FormHead(props: Props) {
 
-    const { loadingText, title } = props;
-
-    React.useEffect(() => {
-        setLoading(props?.loading)
-    }, [props?.loading])
+    const { title, subTitle, image } = props;
 
     const styles = useStyles();
 
     return (
         <div>
             {
-                props?.headImage && (
+                image && (
 
                     <div className={styles.imageWrapper}>
-                        <img src={'/assets/images/FormHeadImage.png'} alt='' />
+                        <img src={image} alt='' />
                     </div>
                 )
             }

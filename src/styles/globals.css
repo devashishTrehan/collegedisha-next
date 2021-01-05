@@ -39,6 +39,7 @@
     --TPrimaryTransparent: #ee294f22;
     --TBoxShadow: -5px -5px 25px 5px #ffffff67, 5px 5px 25px 0 #aeaec067;
     --TFontHeadColor: #1d2746;
+    --TFontColorSecondary: #374957;
 }
 
 * {
@@ -99,6 +100,33 @@ code {
     padding-left: 15px;
     padding-right: 15px;
     margin: 0 auto !important;
+}
+
+.FormLogoWrap {
+    width: 120px;
+    cursor: pointer;
+    margin: 0 auto 20px;
+}
+
+.FormLogoWrap>img {
+    width: 100%;
+}
+
+.formHead {
+    padding: 20px
+}
+
+.formHead .subHeading {
+    font-size: 14px;
+    line-height: 24px;
+    color: var(--TFontColorSecondary);
+}
+
+.formHead .heading {
+    margin: 10px 0;
+    font-size: 20px;
+    font-family: 'gorditaMedium';
+    color: var(--TPrimary);
 }
 
 .heading1 {

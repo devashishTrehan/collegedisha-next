@@ -1,10 +1,8 @@
-import { Button, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Typography, useMediaQuery } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { Button, Grid, useMediaQuery } from '@material-ui/core';
 import React, { FormEvent, useEffect } from 'react';
-import { FormHead } from '../FormHead.component';
 import InputArea from '../TextArea.component/TextArea.component';
 import InputField from '../TextField.component/TextField.component';
-import { Theme, ValidateFields } from '../../Services/App.service';
+import {  ValidateFields } from '../../Services/App.service';
 
 export const QueryForm = (props: any) => {
 

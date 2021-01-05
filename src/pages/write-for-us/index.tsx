@@ -1,7 +1,7 @@
 
-import { Grid, Hidden, Table, Typography, useMediaQuery } from '@material-ui/core';
+import { Grid, Hidden, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import * as React from 'react';
+import React from 'react';
 import { Footer } from '@/Components/Footer.component';
 import { Theme } from '@/Services/App.service';
 import classNames from 'classnames';
@@ -55,6 +55,7 @@ const useStyles = makeStyles({
       marginBottom: '5%',
       '&.imageWrap_M': {
         maxWidth: 250,
+        // margin: 'auto',
       },
       '& img': {
         width: '100%',
@@ -98,6 +99,29 @@ const useStyles = makeStyles({
   imageRight: {
     alignItems: 'flex-end',
   },
+  list: {
+    paddingLeft: 16,
+    marginTop: 10,
+    fontSize: 15,
+    textAlign: 'left',
+    '& .listHeading': {
+      fontSize: 18,
+      fontWeight: 600,
+      color: Theme.primary,
+      marginLeft: -16,
+      marginBottom: 8,
+      marginTop: 15,
+    },
+    '& li': {
+      '&::marker': {
+        fontSize: 25,
+        color: Theme.primary,
+      },
+      marginBottom: 5,
+      lineHeight: '24px',
+      color: Theme.fontColorSecondary
+    }
+  },
   pageSection: {
 
     '& .contentWrap': {
@@ -114,28 +138,6 @@ const useStyles = makeStyles({
         marginBottom: 10,
         color: Theme.fontColorSecondary
       },
-      '& ul': {
-        paddingLeft: 16,
-        marginTop: 10,
-        fontSize: 15,
-        '& .listHeading': {
-          fontSize: 18,
-          fontWeight: 600,
-          color: Theme.primary,
-          marginLeft: -16,
-          marginBottom: 8,
-          marginTop: 15,
-        },
-        '& li': {
-          '&::marker': {
-            fontSize: 25,
-            color: Theme.primary,
-          },
-          marginBottom: 5,
-          lineHeight: '24px',
-          color: Theme.fontColorSecondary
-        }
-      }
     },
     '& .imageContainer': {
       display: 'flex',
@@ -205,24 +207,77 @@ const useStyles = makeStyles({
   PlanTableWrap: {
     backgroundColor: '#f8f9fb',
     padding: '40px 0',
+    '& .tableContainer': {
+      width: 750,
+      maxWidth: '100%',
+      margin: 'auto',
+      overflowY: 'scroll',
+      borderRadius: Theme.radius2,
+      boxShadow: Theme.boxShadow,
+      padding: Theme.spacingMid,
+      backgroundColor: '#fff',
+    },
     '& table': {
       width: '100%',
-      borderRadius: Theme.radius2,
-      backgroundColor: '#fff',
-      padding: Theme.spacingMid,
-      boxShadow: Theme.boxShadow,
+      minWidth: 500,
       '& thead': {
-        color: Theme.primary
+        '& th': {
+          color: Theme.primary,
+          fontFamily: 'gorditaMedium',
+          padding: '0 0 10px',
+        },
       },
       '& tbody': {
         '& tr': {
           '& td': {
-            fontSize: 14
+            padding: '10px 0 ',
+            fontSize: 12
           }
         }
       }
+    },
+    '& .note': {
+      color: Theme.primary,
+      textAlign: 'left',
+      fontSize: 14,
+      marginTop: 50,
     }
-
+  },
+  infoSection: {
+    marginTop: 50,
+    textAlign: 'left',
+    '& .title': {
+      fontFamily: 'gorditaMedium',
+      color: Theme.primary,
+      fontSize: 24,
+    },
+    '& .subTitle': {
+      fontWeight: 600,
+      color: Theme.fontColorSecondary,
+      fontSize: 18,
+      margin: '25px 0',
+    },
+    '& .bodyText': {
+      margin: '10px 0',
+      lineHeight: '26px',
+      fontSize: 15,
+      marginBottom: 15,
+      color: Theme.fontColorSecondary,
+      '& .pointTitle': {
+        fontFamily: 'gorditaMedium',
+        color: Theme.primary,
+      },
+      '& a': {
+        textDecoration: 'none',
+        color: Theme.secondary
+      },
+    },
+    '& ul': {
+      '& li': {
+        marginBottom: 10,
+        fontSize: 14,
+      }
+    },
   }
 })
 
@@ -258,6 +313,13 @@ interface Section {
 interface SectionProps {
   section: Section,
   index: number
+}
+
+interface GuidlineSection {
+  title: string
+  subTitle: string,
+  list: string[],
+  note?: string
 }
 
 function Advertisement(props: any) {
@@ -357,6 +419,48 @@ function Advertisement(props: any) {
     { content: '1 Nofollow Link', price: '$25', duration: '6 Months' },
   ]
 
+  const ApprovalGuidlines: GuidlineSection = {
+    title: 'Article Approval Guidelines:',
+    subTitle: 'Notify us and be a part of our company!!! Have a look at this frame and we will be in touch with you shortly.',
+    list: [
+      'Word limit minimum - 600',
+      'The article must be exquisitely composed',
+      'Not supposed to write promotional content',
+      'Check plagiarism before',
+      'Be aware of punctuation and spelling errors.',
+      'The content must be 100% unique with nothing being accumulated from anywhere. The content will be checked by our copy content devices.',
+      'College Disha want to inform you After 3 months Dofollow link will be changed into Nofollow link.',
+      'And after 6 months your website link will be removed from College Disha.',
+      'Every content must hold at least one picture.',
+      'Add on infographics, videos, and data as well..',
+      'Before submitting the pictures, or any kind of media records, please consider the copyright laws and let us know about the source file(s).',
+      'We have the privilege to reconstruct your submitted content if required in any case.',
+    ],
+  }
+
+
+  const renderApprovalGuidlines = () => {
+    const { title, subTitle, list, note } = ApprovalGuidlines;
+    return (
+      <>
+        <Typography variant='h4' className='title'>{title}</Typography>
+        <Typography variant='h6' className='subTitle'>{subTitle}</Typography>
+        <ul className={styles.list}>
+          {
+            list?.map((point: string, index: number) => {
+              return (
+                <li key={index}>
+                  {point}
+                </li>
+              )
+            })
+          }
+        </ul>
+        <Typography variant='body1' className='bodyText'><span className='pointHead'>Note:</span>If any other issues, you can contact <a href='mailTo:editor@collegedisha.com'>editor@collegedisha.com</a> and get more details.</Typography>
+      </>
+    )
+  }
+
 
 
 
@@ -440,7 +544,7 @@ function Advertisement(props: any) {
                       : null
                   }
 
-                  <ul>
+                  <ul className={styles.list}>
 
                     {
                       list?.listTitle ?
@@ -532,7 +636,7 @@ function Advertisement(props: any) {
         <div className={styles.wrapper} style={{ margin: `10px 0` }}>
 
           <div style={{ marginBottom: 40 }}>
-            <Typography variant='h5' style={{ fontFamily: 'gorditaMedium', marginBottom: 10 }}>Site Performance - May 220 to Oct 2020</Typography>
+            <Typography variant='h5' style={{ fontFamily: 'gorditaMedium', color: Theme.primary, marginBottom: 10 }}>Site Performance - May 220 to Oct 2020</Typography>
           </div>
 
           <Grid container spacing={isMobile ? 4 : 8} justify='center' >
@@ -552,36 +656,121 @@ function Advertisement(props: any) {
         </div>
       </div>
 
-      <div className={classNames('container', styles.PlanTableWrap)}>
+      <div className={classNames('container')}>
         <div className={styles.wrapper} style={{ margin: `10px 0` }}>
 
-          <div style={{ marginBottom: 40 }}>
-            <Typography variant='h5' style={{ fontFamily: 'gorditaMedium', marginBottom: 10 }}>Site Performance - May 220 to Oct 2020</Typography>
-          </div>
+          <div className={styles.infoSection}>
+            <Typography variant='body1' className='bodyText'><span className='pointTitle'>Amaze Audience: </span>In order to amaze your target audience, you need to fulfil 3 C’s</Typography>
+            <ul className={styles.list}>
+              <li>Clean Content</li>
+              <li>Compelling Content</li>
+              <li>Correct Platform</li>
+            </ul>
 
-          <table>
-            <thead>
-              <th>Do-follow & No-follow links</th>
-              <th>Price</th>
-              <th>Duration</th>
-            </thead>
-            <tbody>
-              {
-                PlansList.map((plan: PlanItem) => {
-                  return (
-                    <tr>
-                      <td>{plan.content}</td>
-                      <td>{plan.price}</td>
-                      <td>{plan.duration}</td>
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-          </table>
+            <div className='desc'>
+              <Typography variant='body1' className='bodyText'>Content alone is not sufficient to induce the audience. Our main audience is the students, therefore we need to work on those aspects which will attract them.</Typography>
+            </div>
+
+            <Typography variant='body1' className='bodyText'><span className='pointTitle'>Stay Consistent:</span>The key is consistency! You’ve created a terrific ad with compelling content. Great. Then now you have to make sure that more and more people see your innovative knowledge and ideas and read it so that the users don’t forget about you. And that’s where we can help you!</Typography>
+
+          </div>
 
         </div>
       </div>
+
+      <div className={classNames('container', styles.PlanTableWrap)} style={isMobile ? { padding: 0 } : {}}>
+        <div className={styles.wrapper} style={{ margin: `10px 0` }}>
+
+          <div style={{ marginBottom: 40 }}>
+            <Typography variant='h5' style={{ fontFamily: 'gorditaMedium', color: Theme.primary, marginBottom: 10 }}>Site Performance - May 220 to Oct 2020</Typography>
+          </div>
+
+          <TableContainer className='tableContainer' >
+
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Do-follow & No-follow links</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>Duration</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  PlansList.map((plan: PlanItem, index: number) => {
+                    return (
+                      <TableRow key={index}>
+                        <TableCell>{plan.content}</TableCell>
+                        <TableCell>{plan.price}</TableCell>
+                        <TableCell>{plan.duration}</TableCell>
+                      </TableRow>
+                    )
+                  })
+                }
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+          <Typography className='note'><b>Note:</b> We will change the do-follow link into the No-follow link After 3 Months. And After 6 Months will be removed your website link from College Disha (www.collegedisha.com). But if you want to continue your site link on College Disha (www.collegedisha.com) then you will pay for the continuation as a renewal for the next 6 months at the same price.</Typography>
+
+        </div>
+      </div>
+
+      <div className={classNames('container')}>
+        <div className={styles.wrapper} style={{ margin: `10px 0` }}>
+
+          <div className={styles.infoSection}>
+            {
+              renderApprovalGuidlines()
+            }
+          </div>
+
+          <div className={styles.infoSection}>
+            <Typography variant='h4' className='title'>We Believe that you’ll meet our Expectations:</Typography>
+            <ul className={styles.list}>
+              <li>Education centric</li>
+              <li>Articles on education</li>
+              <li>Academic Contents</li>
+              <li>How-to guides</li>
+              <li>Guides and other practical advice for education</li>
+            </ul>
+          </div>
+
+          <div className={styles.infoSection}>
+            <Typography variant='h4' className='title'>We Believe that you’ll meet our Expectations:</Typography>
+            <div className='desc'>
+              <Typography variant='body1' className='bodyText'>As we run an education guest posting site, we strive to publish contents that meet the requirements of the students. Therefore, we hope you meet our expectations and render your best services. You can grab ideas from our past published content and make your content more creative and innovative before you submit your content.</Typography>
+              <Typography variant='body1' className='bodyText'>College Disha is a student-centric web educational portal that works with the sole motto to provide every essential information regarding academics. Here, we help students by publishing exam contents, courses, coaching institutes, articles, board content, news, career option contents, and several other relevant information.</Typography>
+            </div>
+
+          </div>
+
+          <div className={styles.infoSection}>
+            <Typography variant='h4' className='title'>Why Advertise with Us?</Typography>
+            <ul className={styles.list}>
+              <li>We have one of the most reliable guest posting site for education that aims to serve students with the best possible information.</li>
+              <li>Be Seen: Here we assure you that, if we place your contents on our platform than hundreds of students benefiting from will read your content. More people will see your content, the better response you get!</li>
+              <li>Stay Relevant: We make your work simpler! Our designing team create attractive featured and cover images to make your content look more beautiful, to-point, and relevant. We work with you to make your content compatible with the power to impel your potential audience.</li>
+              <li>Want to become a contributor at Education Guest Posting Site (College Disha)? If so, we invite you, if your application is admitted then you will receive a welcome Email within 24 hours.</li>
+            </ul>
+          </div>
+
+          <div className={styles.infoSection}>
+            <Typography variant='h4' className='title'>Why should you join an education guest posting site?</Typography>
+            <div className='desc'>
+              <Typography variant='body1' className='bodyText'>A number of people are investing their time into guest posting sites. You may be confused whether you should write a guest post or not. Before starting this, you should know why you should join an education guest posting site. There are a number of reasons to start guest posting. Some of the major reasons are as follow:</Typography>
+            </div>
+
+            <Typography variant='body1' className='bodyText'><span className='pointTitle'>Increase Community</span>: If you are writing for an education website, you will get a chance to interact with a large number of students. This is the best way to increase your community.</Typography>
+            <Typography variant='body1' className='bodyText'><span className='pointTitle'>Increase Reliability</span>: You will start gaining the popularity and trust among the community of online students. Because you provide them valuable information through education guest posting sites. This also represents your expertise in a field.</Typography>
+            <Typography variant='body1' className='bodyText'><span className='pointTitle'>Give Authoritative Backlinks:</span> If you are running your own educational blog, this will help you to create more backlinks. These backlinks help your page to rank in the search engine.</Typography>
+            <Typography variant='body1' className='bodyText'><span className='pointTitle'>Improve Writing Skills:</span> The thumb rule to improve your writing skills is ‘practice’. Education guest posting sites allows you to write content for websites. This not only improves your writing skills but also gives you experience of online content writing.</Typography>
+
+          </div>
+
+        </div>
+      </div>
+
 
       <Footer />
     </>

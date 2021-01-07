@@ -45,7 +45,7 @@ const useStyles = makeStyles({
     padding: Theme.spacingMid,
     borderRadius: Theme.radius2,
     boxShadow: Theme.boxShadow,
-    backgroundColor: '#fff',
+    backgroundColor: Theme.backgroundColor,
 
     '& .imageWrap': {
       width: 100,

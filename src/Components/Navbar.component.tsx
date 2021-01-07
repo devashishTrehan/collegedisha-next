@@ -97,7 +97,7 @@ const useStyles = makeStyles({
 
   },
   collapsible: {
-    // backgroundColor: '#fff',
+    // backgroundColor: Theme.backgroundColor,
   },
 
   menuIcon: {

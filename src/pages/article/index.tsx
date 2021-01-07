@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     transition: '.5s',
     overflow: 'visible',
     position: 'relative',
-    background: '#fff',
+    background: Theme.backgroundColor,
     margin: 'auto',
     '&:hover': {
       transform: 'scale(1.06)',

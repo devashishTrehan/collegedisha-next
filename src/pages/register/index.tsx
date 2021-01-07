@@ -41,7 +41,7 @@ const useStyles = makeStyles({
   },
   form: {
     width: '100%',
-    backgroundColor: '#fff',
+    backgroundColor: Theme.backgroundColor,
     padding: `${Theme.spacingLess}px ${Theme.spacingMore}px ${Theme.spacingMore}px`,
     boxShadow: Theme.boxShadow,
     borderRadius: Theme.radius2,

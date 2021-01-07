@@ -161,7 +161,7 @@ const useStyles = makeStyles({
     minHeight: 200,
     borderRadius: Theme.radius2,
     padding: Theme.spacingMore,
-    backgroundColor: '#fff',
+    backgroundColor: Theme.backgroundColor,
     scrollbarWidth: 'thin',
     scrollbarColor: `${Theme.primary} #fff0`,
     display: 'flex',
@@ -215,7 +215,7 @@ const useStyles = makeStyles({
       borderRadius: Theme.radius2,
       boxShadow: Theme.boxShadow,
       padding: Theme.spacingMid,
-      backgroundColor: '#fff',
+      backgroundColor: Theme.backgroundColor,
     },
     '& table': {
       width: '100%',

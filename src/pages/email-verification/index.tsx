@@ -47,13 +47,13 @@ const useStyles = makeStyles({
       alignItems: 'center',
       zIndex: 2,
       left: 'calc(50% - 30px)',
-      backgroundColor: '#fff',
+      backgroundColor: Theme.backgroundColor,
       color: '#666',
     }
   },
   form: {
     width: '100%',
-    backgroundColor: '#fff',
+    backgroundColor: Theme.backgroundColor,
     padding: `${Theme.spacingLess}px ${Theme.spacingMore}px ${Theme.spacingMore}px`,
     boxShadow: Theme.boxShadow,
     borderRadius: Theme.radius2,

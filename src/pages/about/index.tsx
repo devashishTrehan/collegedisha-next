@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     display: 'flex',
     overflow: 'visible',
     position: 'relative',
-    background: '#fff',
+    background: Theme.backgroundColor,
     margin: 'auto',
     transition: '.3s',
     '&:hover': {
@@ -58,7 +58,7 @@ const useStyles = makeStyles({
       padding: '30px',
       maxWidth: '100%',
       borderRadius: '10px',
-      backgroundColor: '#fff',
+      backgroundColor: Theme.backgroundColor,
       scrollbarWidth: 'thin',
       scrollbarColor: `${Theme.primary} #fff0`,
       display: 'flex',

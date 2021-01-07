@@ -39,7 +39,7 @@ export const HeaderStyles = makeStyles({
     boxShadow: Theme.boxShadow,
     borderRadius: Theme.radius3,
     padding: Theme.spacingMid,
-    backgroundColor: '#fff',
+    backgroundColor: Theme.backgroundColor,
     maxWidth: '90%',
     width: 330,
     '& .imgWrap': {
@@ -147,7 +147,7 @@ export const ContentCardStyles = makeStyles({
     position: 'relative',
     '& .stepCard': {
       boxShadow: Theme.boxShadow,
-      backgroundColor: '#fff',
+      backgroundColor: Theme.backgroundColor,
       display: 'flex',
       flexDiraction: 'row',
       borderRadius: Theme.radius2,
@@ -239,7 +239,7 @@ export const ContentCardStyles = makeStyles({
     padding: 5,
     '& .stepCard': {
       boxShadow: 'none',
-      backgroundColor: '#fff',
+      backgroundColor: Theme.backgroundColor,
       display: 'block',
       margin: '0 5px',
       textAlign: 'center',
@@ -373,7 +373,7 @@ export const CounsellingStyles = makeStyles({
     borderRadius: Theme.radius2,
     boxShadow: Theme.boxShadow,
     padding: '30px',
-    backgroundColor: '#fff',
+    backgroundColor: Theme.backgroundColor,
     maxWidth: '100%',
     scrollbarWidth: 'thin',
     scrollbarColor: `${Theme.primary} #fff0`
@@ -381,7 +381,7 @@ export const CounsellingStyles = makeStyles({
   formsWrapper: {
     position: 'relative',
     '& .form': {
-      background: '#fff',
+      background: Theme.backgroundColor,
     }
   },
   textWrap: {
@@ -417,7 +417,7 @@ export const FeatureSectionStyles = makeStyles({
     transition: '.5s',
     overflow: 'visible',
     position: 'relative',
-    background: '#fff',
+    background: Theme.backgroundColor,
     margin: 'auto',
     '&:hover': {
       transform: 'scale(1.06)',

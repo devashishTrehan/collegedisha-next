@@ -47,7 +47,7 @@ export const SearchForm = (props: any) => {
             '& input': {
                 height: 'calc(100%)',
                 width: '100%',
-                backgroundColor: '#fff',
+                backgroundColor: Theme.backgroundColor,
                 padding: '0 10px',
                 boxSizing: 'border-box',
                 fontSize: 16,

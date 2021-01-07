@@ -18,7 +18,7 @@ const useStyles = makeStyles({
         transition: '.5s',
         '& .listView': {
             padding: ' 10px 5px',
-            background: '#fff',
+            background: Theme.backgroundColor,
             borderRadius: Theme.radius1,
             boxShadow: Theme.boxShadow,
             position: 'relative',
@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     },
     ArrowTip: {
         position: 'absolute',
-        background: '#fff',
+        background: Theme.backgroundColor,
     },
     listItem: {
         padding: '5px 10px',

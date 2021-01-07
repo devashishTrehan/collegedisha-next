@@ -307,7 +307,7 @@ export const ContentCards = () => {
 
                             {/* <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', margin: '20px 0', alignItems: 'center' }}>
                     <div style={{ position: 'absolute', width: '100%', height: 2, backgroundColor: '#ccc' }} ></div>
-                    <div style={{ position: 'absolute', padding: 10, backgroundColor: '#fff', }}>
+                    <div style={{ position: 'absolute', padding: 10, backgroundColor: Theme.backgroundColor, }}>
                     <Button variant='contained' size='large' color='primary'>Get Started For Free</Button>
                     </div>
                 </div> */}

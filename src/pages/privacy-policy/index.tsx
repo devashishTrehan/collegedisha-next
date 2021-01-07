@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     padding: ' 0px 5% 50px',
   },
   policyCard: {
-    background: '#fff',
+    background: Theme.backgroundColor,
     textAlign: 'left',
     paddingTop: 40,
     '& h2': {
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
       fontFamily: 'gorditaMedium',
       position: 'sticky',
       top: 0,
-      backgroundColor: '#fff',
+      backgroundColor: Theme.backgroundColor,
     },
     '& p': {
       color: Theme.fontColorSecondary,
@@ -48,7 +48,7 @@ const useStyles = makeStyles({
     top: 70
   },
   policyList: {
-    background: '#fff',
+    background: Theme.backgroundColor,
     textAlign: 'left',
     margin: '50px 0',
     '& li': {

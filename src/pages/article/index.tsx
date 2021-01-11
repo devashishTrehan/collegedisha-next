@@ -2,9 +2,10 @@
 import { useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
-import { Theme } from '../../Services/App.service';
+import { Routes, Theme } from '../../Services/App.service';
 import classNames from 'classnames';
 import { SubscribeSection } from '@/Components/Subscribe.component';
+import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 
 const useStyles = makeStyles({
   card: {
@@ -135,7 +136,7 @@ function Article(props: any) {
   return (
 
     <>
-
+      {/* <CustomBreadCrumb breadcrumbs={[{ name: , endPoint: `/${Routes}` }]} /> */}
       <div className='container'>
 
         <div className='wrapper' style={{ margin: `50px 0` }}>

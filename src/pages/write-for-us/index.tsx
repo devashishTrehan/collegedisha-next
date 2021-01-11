@@ -3,9 +3,10 @@ import { Grid, Hidden, Table, TableBody, TableCell, TableContainer, TableHead, T
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import { Footer } from '@/Components/Footer.component';
-import { Theme } from '@/Services/App.service';
+import { Routes, Theme } from '@/Services/App.service';
 import classNames from 'classnames';
 import { AnimatedSection } from '@/Components/AnimatedView.component';
+import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 
 const useStyles = makeStyles({
   headBG: {
@@ -578,6 +579,8 @@ function Advertisement(props: any) {
   return (
 
     <>
+
+      <CustomBreadCrumb breadcrumbs={[{ name: 'write-for-us', endPoint: `${Routes.Advertisement}` }]} />
 
       <div className={classNames('container', styles.headBG)}>
 

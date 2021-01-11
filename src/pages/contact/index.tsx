@@ -4,10 +4,11 @@ import { Email, LocationOn, Phone } from '@material-ui/icons';
 import * as React from 'react';
 import { Footer, SocialMediaGroup } from '@/Components/Footer.component';
 import { PageHead } from '@/Components/PageHead.component';
-import { ContactInfo, Theme } from '@/Services/App.service';
+import { ContactInfo, Routes, Theme } from '@/Services/App.service';
 import classNames from 'classnames';
 import { QueryForm } from '@/Components/Forms/QueryForm.page';
 import { SubscribeSection } from '@/Components/Subscribe.component';
+import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 
 const useStyles = makeStyles({
   wrapper: {
@@ -132,6 +133,9 @@ function Contact(props: any) {
   return (
 
     <>
+      <CustomBreadCrumb breadcrumbs={[{ name: 'contact', endPoint: `${Routes.Contact}` }]} />
+
+
       <PageHead PageName='Contact Us' />
       <div className='container'>
 

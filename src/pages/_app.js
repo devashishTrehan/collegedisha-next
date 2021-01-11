@@ -63,27 +63,26 @@ function MyApp({ Component, pageProps }) {
   // }, [])
 
   useEffect(() => {
-    Client.query({
-      query: gql`{ allColleges {
-          name
-        }
-      }
-      `
-    }).then(result => console.log('graphql result', result)).catch(error => console.log('graphql error', error))
+    // Client.query({
+    //   query: gql`{ allColleges {
+    //       name
+    //     }
+    //   }
+    //   `
+    // }).then(result => console.log('graphql result', result)).catch(error => console.log('graphql error', error))
   })
 
   return <>
     <ThemeProvider theme={theme}>
-      <>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <MenuContextProvider>
           <NavBar />
         </MenuContextProvider>
         <div style={{ paddingTop: 64, flexGrow: 1, }}>
-          <CustomBreadCrumb breadcrumbs={[]} />
           <Component {...pageProps} />
         </div>
         <CopyRightStrip style={{ backgroundColor: Theme.primary, color: '#fff' }} />
-      </>
+      </div>
     </ThemeProvider>
   </>
 }

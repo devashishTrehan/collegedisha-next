@@ -26,7 +26,7 @@
     /* --TPrimary: #44b4d6; */
     --TPrimary: #213858;
     --TPrimaryhover: #ff0737;
-    --TSecondary: #43acef;
+    --TSecondary: #33a0ab;
     --TFontColor: #444;
     --TSecondaryFontColor: #5c6b8a;
     --TError: #ff4444;
@@ -85,14 +85,19 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+.clearfix {
+    clear: both;
+}
+
 *:focus {
     outline: none !important;
 }
 
-::selection {
-    background-color: var(--TSecondary);
+
+/* ::selection {
+    background-color: '';
     color: #fff;
-}
+} */
 
 .container {
     width: 100%;

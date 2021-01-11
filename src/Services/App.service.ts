@@ -1,8 +1,8 @@
 export const Theme = {
     // primary: '#44b4d6',
     primary: '#213858',
-    // secondary: '#1ba6df',
-    secondary: '#43acef',
+    secondary: '#33a0ab',
+    // secondary: '#43acef',
     tertiary: '#385a64',
     secondaryFontColor: '#5c6b8a',
     fontColor: '#444',
@@ -72,6 +72,10 @@ export const Routes = {
     Founder: '/college-disha-founder',
     Disclaimer: '/disclaimer',
     Advertisement: '/write-for-us',
+    Institutes: '/institutes',
+    Colleges: '/colleges',
+    Exams: '/exams',
+    Universities: '/universities',
     ProfileEdit: '/profile-edit/',
     Profile: '/profile/',
     MailSent: '/mailSent',
@@ -178,20 +182,38 @@ export const Format_INS = (number: number | string) => {
 
 export function NFormatter(num, digits) {
     var si = [
-      { value: 1, symbol: "" },
-      { value: 1E3, symbol: "k" },
-      { value: 1E6, symbol: "M" },
-      { value: 1E9, symbol: "G" },
-      { value: 1E12, symbol: "T" },
-      { value: 1E15, symbol: "P" },
-      { value: 1E18, symbol: "E" }
+        { value: 1, symbol: "" },
+        { value: 1E3, symbol: "k" },
+        { value: 1E6, symbol: "M" },
+        { value: 1E9, symbol: "G" },
+        { value: 1E12, symbol: "T" },
+        { value: 1E15, symbol: "P" },
+        { value: 1E18, symbol: "E" }
     ];
     var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
     var i;
     for (i = si.length - 1; i > 0; i--) {
-      if (num >= si[i].value) {
-        break;
-      }
+        if (num >= si[i].value) {
+            break;
+        }
     }
     return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
-  }
+}
+
+export const CurrencySymbols = {
+    'USD': '$', // US Dollar
+    'EUR': '€', // Euro
+    'CRC': '₡', // Costa Rican Colón
+    'GBP': '£', // British Pound Sterling
+    'ILS': '₪', // Israeli New Sheqel
+    'INR': '₹', // Indian Rupee
+    'JPY': '¥', // Japanese Yen
+    'KRW': '₩', // South Korean Won
+    'NGN': '₦', // Nigerian Naira
+    'PHP': '₱', // Philippine Peso
+    'PLN': 'zł', // Polish Zloty
+    'PYG': '₲', // Paraguayan Guarani
+    'THB': '฿', // Thai Baht
+    'UAH': '₴', // Ukrainian Hryvnia
+    'VND': '₫', // Vietnamese Dong
+};

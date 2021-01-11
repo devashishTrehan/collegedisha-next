@@ -1,5 +1,4 @@
 import { } from '@apollo/client';
-import { type } from 'os';
 
 export interface InstituteListItem {
     id: number,
@@ -16,5 +15,5 @@ export interface InstituteList {
 }
 
 export interface detailedInstitute extends InstituteListItem {
-
+    views: number
 }

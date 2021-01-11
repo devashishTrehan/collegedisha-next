@@ -10,6 +10,7 @@ import Link from 'next/link';
 import DateField from '@/Components/DateField.component/DateField.component';
 import SelectField from '@/Components/SelectField.component/SelectField.component';
 import { useRouter } from 'next/router';
+import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 
 
 const useStyles = makeStyles({
@@ -191,6 +192,9 @@ function RegisterPage(props: any) {
   return (
 
     <>
+
+      <CustomBreadCrumb breadcrumbs={[{ name: 'register', endPoint: `${Routes.Register}` }]} />
+
 
       <div className={styles.sectionBackground}>
         <div className='container'>

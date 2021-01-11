@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 
 })
 
-interface UrlObject {
+export interface UrlObject {
     endPoint: string,
     name: string,
 }
@@ -42,29 +42,24 @@ interface Props {
     breadcrumbs: UrlObject[]
 }
 
-function CustomBreadCrumb() {
+function CustomBreadCrumb(props: Props) {
 
     // const { breadcrumbs } = props;
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
 
-    const [breadcrumbs, setBreadCrumbs] = React.useState<UrlObject[]>([]);
+    const makeCrumbList = (crumbs: UrlObject[]) => {
+        return [{ name: 'home', endPoint: '/' }, ...crumbs]
+    }
+
+    const [breadcrumbs, setBreadCrumbs] = React.useState<UrlObject[]>(makeCrumbList(props.breadcrumbs));
 
     const styles = useStyles();
-    const router = useRouter();
 
     React.useEffect(() => {
-        let urlString = router.asPath;
-        const pathList = urlString.split('/');
-        if (pathList[1] === '') {
-            pathList.pop();
-        }
-        let crumbs = pathList.map((path: string) => {
-            return { name: path ? path.split('#')[0] : 'home', endPoint: '' }
-        });
-        setBreadCrumbs(crumbs);
-    }, [router?.asPath])
+        setBreadCrumbs(makeCrumbList(props.breadcrumbs));
+    }, [props.breadcrumbs])
 
 
     console.log('breadcrumbs', breadcrumbs);
@@ -97,3 +92,21 @@ function CustomBreadCrumb() {
 }
 
 export default CustomBreadCrumb;
+
+
+
+
+
+
+
+// --------   code to get endpoint text    ------\\
+
+// let urlString = router.asPath;
+//         const pathList = urlString.split('/');
+//         if (pathList[1] === '') {
+//             pathList.pop();
+//         }
+//         let crumbs = pathList.map((path: string) => {
+//             return { name: path ? path.split('#')[0] : 'home', endPoint: '' }
+//         });
+//         setBreadCrumbs(crumbs);

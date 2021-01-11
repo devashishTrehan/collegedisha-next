@@ -3,10 +3,13 @@ import { Grid, Hidden, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import { Footer } from '../../Components/Footer.component';
-import { Theme } from '../../Services/App.service';
+import { Routes, Theme } from '../../Services/App.service';
 import classNames from 'classnames';
 import { PageHead } from '../../Components/PageHead.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
+import { Head } from 'next/document';
+import { Title } from '@material-ui/icons';
+import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 
 const useStyles = makeStyles({
   wrapper: {
@@ -197,7 +200,7 @@ function About(props: any) {
   return (
 
     <>
-
+      <CustomBreadCrumb breadcrumbs={[{ name: 'about', endPoint: `${Routes.About}` }]} />
       <PageHead PageName={'About Us'} />
 
       <div className='container'>

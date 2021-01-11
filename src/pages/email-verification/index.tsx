@@ -5,6 +5,7 @@ import * as React from 'react';
 import { Routes, Theme, ValidateFields } from '@/Services/App.service';
 import InputField from '@/Components/TextField.component/TextField.component';
 import { useRouter } from 'next/router';
+import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 
 
 const useStyles = makeStyles({
@@ -148,6 +149,9 @@ function EmailVerificationPage(props: any) {
   return (
 
     <>
+
+<CustomBreadCrumb breadcrumbs={[{ name: 'email-verification', endPoint: `${Routes.EmailVerification}` }]} />
+    
 
       <div className={styles.sectionBackground}>
         <div className='container'>

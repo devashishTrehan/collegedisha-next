@@ -15,13 +15,12 @@ const listHeight = 34 * 12;
 
 const useStyles = makeStyles({
     container: {
-        padding: '10px 5%',
         overflowX: 'hidden',
         display: 'flex',
         flexDirection: 'row',
         '&>div': {
             display: 'flex',
-            overflowX: 'scroll',
+            overflow: 'auto',
             flexDirection: 'row',
             paddingBottom: 10,
             justifyContent: 'flex-start',
@@ -63,7 +62,7 @@ const useStyles = makeStyles({
     chip: {
         padding: '5px 10px',
         borderRadius: Theme.radius1,
-        background: Theme.backgroundColor,
+        background: 'transparent',
         color: Theme.primary,
         border: 'none'
     },
@@ -76,7 +75,7 @@ const useStyles = makeStyles({
         padding: '5px 5px 5px 0'
     },
     list: {
-        overflowY: 'scroll',
+        overflow: 'auto',
         paddingTop: 45,
         maxHeight: listHeight
     },
@@ -354,97 +353,95 @@ export const Filters = (props: any) => {
     }
 
     return (
-        <div className='container'>
 
-            <div className={styles.container} >
-                <span className={classNames(styles.filterLabel, { [styles.filterLabel_M]: isMobile })}>
-                    <Typography style={{ fontSize: 14 }} >Filters</Typography>
-                    <FilterList style={{ fontSize: 24 }} />
-                </span>
-                <div style={isMobile ? {} : { flexWrap: 'wrap', overflowX: 'hidden', paddingBottom: 0 }} >
-                    {
-                        filters.map((field: any, index: number) => {
-                            let currentField = filterFields[field];
-                            return (
-                                <>
-                                    <span key={field} style={{ margin: '0 5px', display: 'inline-block' }}>
+        <div className={styles.container} >
+            <span className={classNames(styles.filterLabel, { [styles.filterLabel_M]: isMobile })}>
+                <Typography style={{ fontSize: 14 }} >Filters</Typography>
+                <FilterList style={{ fontSize: 24 }} />
+            </span>
+            <div style={isMobile ? {} : { flexWrap: 'wrap', paddingBottom: 0 }} >
+                {
+                    filters.map((field: any, index: number) => {
+                        let currentField = filterFields[field];
+                        return (
+                            <>
+                                <span key={field} style={{ margin: '0 5px', display: 'inline-block' }}>
 
 
-                                        <Chip
-                                            // variant={currentField?.value?.length ? 'default' : 'outlined'}
-                                            variant={'outlined'}
-                                            color={'primary'}
-                                            size='medium'
-                                            className={styles.chip}
-                                            label={
-                                                currentField?.value?.length > 1 ?
-                                                    `${currentField.defaultLabel} (${currentField?.value?.length})`
-                                                    : currentField?.value?.length === 1
-                                                        ? currentField?.label
-                                                        : currentField.defaultLabel}
+                                    <Chip
+                                        // variant={currentField?.value?.length ? 'default' : 'outlined'}
+                                        variant={'outlined'}
+                                        color={'primary'}
+                                        size='medium'
+                                        className={styles.chip}
+                                        label={
+                                            currentField?.value?.length > 1 ?
+                                                `${currentField.defaultLabel} (${currentField?.value?.length})`
+                                                : currentField?.value?.length === 1
+                                                    ? currentField?.label
+                                                    : currentField.defaultLabel}
 
-                                            deleteIcon={<FontAwesomeIcon icon={currentField?.value?.length ? faTimes : faChevronDown} />}
-                                            onClick={(event: any) => handleOpen(event, field)}
-                                            onDelete={(event: any) => {
-                                                if (currentField?.value?.length) {
-                                                    handleDelete(field)
-                                                } else {
-                                                    handleOpen(event, field)
-                                                }
-                                            }}
-                                        />
+                                        deleteIcon={<FontAwesomeIcon icon={currentField?.value?.length ? faTimes : faChevronDown} />}
+                                        onClick={(event: any) => handleOpen(event, field)}
+                                        onDelete={(event: any) => {
+                                            if (currentField?.value?.length) {
+                                                handleDelete(field)
+                                            } else {
+                                                handleOpen(event, field)
+                                            }
+                                        }}
+                                    />
 
-                                        <Popover
-                                            id={field}
-                                            anchorEl={filterFields[field].anchor}
-                                            keepMounted
-                                            open={Boolean(filterFields[field].anchor)}
-                                            onClose={() => handleClose(field)}
-                                            getContentAnchorEl={null}
-                                            PaperProps={{
-                                                style: {
-                                                    maxHeight: listHeight + 45,
-                                                    minWidth: isMobile ? 200 : 250,
-                                                    maxWidth: isMobile ? 250 : 280,
-                                                    overflow: 'visible',
-                                                    paddingBottom: 10,
-                                                }
-                                            }}
-                                            style={{ marginTop: 10 }}
-                                            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                                            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                                    <Popover
+                                        id={field}
+                                        anchorEl={filterFields[field].anchor}
+                                        keepMounted
+                                        open={Boolean(filterFields[field].anchor)}
+                                        onClose={() => handleClose(field)}
+                                        getContentAnchorEl={null}
+                                        PaperProps={{
+                                            style: {
+                                                maxHeight: listHeight + 45,
+                                                minWidth: isMobile ? 200 : 250,
+                                                maxWidth: isMobile ? 250 : 280,
+                                                overflow: 'visible',
+                                                paddingBottom: 10,
+                                            }
+                                        }}
+                                        style={{ marginTop: 10 }}
+                                        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                                        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
 
-                                        >
-                                            <div className={styles.submitButtonWrap}>
-                                                <Button onClick={() => handleSelect(field)} variant='outlined' size='small' color='secondary'>Done</Button>
-                                            </div>
+                                    >
+                                        <div className={styles.submitButtonWrap}>
+                                            <Button onClick={() => handleSelect(field)} variant='outlined' size='small' color='secondary'>Done</Button>
+                                        </div>
 
-                                            <List className={styles.list} >
-                                                {
-                                                    filterFields[field]?.options?.map((option: any) => {
+                                        <List className={styles.list} >
+                                            {
+                                                filterFields[field]?.options?.map((option: any) => {
 
-                                                        return <ListItem button dense={true} key={option.value}
-                                                            className={styles.listItem}
-                                                            onClick={() => handleSelect2(field, option?.label, option.value)}>
-                                                            <Checkbox className={styles.checkbox} checked={filterFields[field]?.value.includes(option.value)} />
-                                                            <Typography noWrap>{option.label}</Typography>
-                                                        </ListItem>
+                                                    return <ListItem button dense={true} key={option.value}
+                                                        className={styles.listItem}
+                                                        onClick={() => handleSelect2(field, option?.label, option.value)}>
+                                                        <Checkbox className={styles.checkbox} checked={filterFields[field]?.value.includes(option.value)} />
+                                                        <Typography noWrap>{option.label}</Typography>
+                                                    </ListItem>
 
-                                                    })
-                                                }
-                                            </List>
-                                        </Popover>
-                                    </span>
-                                    {
-                                        (index !== filters?.length - 1)
-                                            ? <Divider style={{ boxShadow: '20px 20px 50px #00d2c6, -30px -30px 60px #00ffff;' }} orientation='vertical' />
-                                            : null
-                                    }
-                                </>
-                            )
-                        })
-                    }
-                </div>
+                                                })
+                                            }
+                                        </List>
+                                    </Popover>
+                                </span>
+                                {
+                                    (index !== filters?.length - 1)
+                                        ? <Divider style={{ boxShadow: '20px 20px 50px #00d2c6, -30px -30px 60px #00ffff;' }} orientation='vertical' />
+                                        : null
+                                }
+                            </>
+                        )
+                    })
+                }
             </div>
         </div>
     )

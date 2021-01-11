@@ -3,12 +3,13 @@ import { Grid, Hidden, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import Link from 'next/link';
-import { Theme } from '@/Services/App.service';
+import { Routes, Theme } from '@/Services/App.service';
 import classNames from 'classnames';
 import { PageHead } from '@/Components/PageHead.component';
 import { ViewportTracker } from '@/Components/ViewportTracker.component';
 import { Footer } from '@/Components/Footer.component';
 import { useRouter } from 'next/router';
+import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 
 const useStyles = makeStyles({
   wrapper: {
@@ -193,48 +194,48 @@ function TermsConditions(props: any) {
           onEnter={() => { InViewEnter(index) }}
           onLeave={() => { InViewExit(index) }} >
 
-        <div id={slug} className={classNames(styles.policyCard)}>
-          <Typography variant='h2'>{index + 1}. {title}</Typography>
+          <div id={slug} className={classNames(styles.policyCard)}>
+            <Typography variant='h2'>{index + 1}. {title}</Typography>
 
-          {
-            description?.length ?
-              <ul>
-                {
-                  description.map((item: string, index: number) => (<Typography key={index} variant='body1'>{item}</Typography>))
-                }
-              </ul>
-              : null
-          }
-          {
-            list?.length ?
-              <ul className='list'>
-                {
-                  list.map((item: TermListItem, index: number) => (<li key={index} >
-                    {
-                      item.title ?
-                        <Typography className='listTitle'>{item?.title}</Typography>
-                        : null
-                    }
-                    {
-                      item?.points?.length ?
-                        <ul className='list' style={!item?.title ? { listStyle: 'none', paddingLeft: 0 } : {}}>
-                          {
+            {
+              description?.length ?
+                <ul>
+                  {
+                    description.map((item: string, index: number) => (<Typography key={index} variant='body1'>{item}</Typography>))
+                  }
+                </ul>
+                : null
+            }
+            {
+              list?.length ?
+                <ul className='list'>
+                  {
+                    list.map((item: TermListItem, index: number) => (<li key={index} >
+                      {
+                        item.title ?
+                          <Typography className='listTitle'>{item?.title}</Typography>
+                          : null
+                      }
+                      {
+                        item?.points?.length ?
+                          <ul className='list' style={!item?.title ? { listStyle: 'none', paddingLeft: 0 } : {}}>
+                            {
 
-                            item.points?.map((listItem: string, index: number) => {
-                              return (
-                                <li key={index} dangerouslySetInnerHTML={{ __html: listItem }} />
-                              )
-                            })
-                          }
-                        </ul>
-                        : null
-                    }
-                  </li>))
-                }
-              </ul>
-              : null
-          }
-        </div>
+                              item.points?.map((listItem: string, index: number) => {
+                                return (
+                                  <li key={index} dangerouslySetInnerHTML={{ __html: listItem }} />
+                                )
+                              })
+                            }
+                          </ul>
+                          : null
+                      }
+                    </li>))
+                  }
+                </ul>
+                : null
+            }
+          </div>
         </ViewportTracker>
       </React.Fragment>
     )
@@ -259,6 +260,9 @@ function TermsConditions(props: any) {
   return (
 
     <>
+
+      <CustomBreadCrumb breadcrumbs={[{ name: 'website-usage-policy', endPoint: `${Routes.TermsConditions}` }]} />
+
       <PageHead PageName='Terms & conditions' />
 
       <div className='container'>

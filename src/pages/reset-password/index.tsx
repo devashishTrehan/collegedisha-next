@@ -5,6 +5,7 @@ import * as React from 'react';
 import { Routes, Theme, ValidateFields } from '@/Services/App.service';
 import InputField from '@/Components/TextField.component/TextField.component';
 import { useRouter } from 'next/router';
+import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 
 
 const useStyles = makeStyles({
@@ -123,6 +124,9 @@ function ResetPasswordPage(props: any) {
   return (
 
     <>
+
+      <CustomBreadCrumb breadcrumbs={[{ name: 'reset-password', endPoint: `${Routes.ResetPassword}` }]} />
+
 
       <div className={styles.sectionBackground}>
         <div className='container'>

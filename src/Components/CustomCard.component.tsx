@@ -219,7 +219,7 @@ interface Props {
     isSaved?: boolean,
 }
 
-const defaultImage = '/assets/images/defaults/institute.png'
+const defaultImage = '/assets/images/defaults/institute.jpg'
 
 const CustomCard = memo(function (props: Props) {
 

@@ -21,5 +21,4 @@ export interface ExamList {
 }
 
 export interface detailedExam extends CourseListItem {
-
 }

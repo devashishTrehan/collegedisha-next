@@ -1,15 +1,20 @@
 import { Theme } from '@/Services/App.service';
 import { detailedInstitute } from '@/Services/GraphQlDataTypes/Institutes';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import CustomBreadCrumb, { UrlObject } from '@/Components/CustomBreadCrumb.component';
-import CourseCard from '@/Components/CourseCard.component';
-import { Grid, ListItem, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
-import Link from 'next/link';
+import { ListItem, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { LocationOnOutlined, Visibility } from '@material-ui/icons';
 import { Rating } from '@material-ui/lab';
 import classNames from 'classnames';
-import { CourseListItem } from '@/Services/GraphQlDataTypes/Courses';
+import { RenderInformation } from './InstituteInformation.component';
+import { RenderAdmission } from './InstituteAdmission.component';
+import { RenderReview } from './InstituteReview.component';
+import { RenderGallery } from './InstituteGallery.component';
+import { RenderFaculty } from './InstituteFaculty.component';
+import { RenderHostel } from './InstituteHostel.component';
+import { RenderPlacement } from './InstitutePlacement.component';
+import { RenderCoursesFees } from './InstituteCourses.component';
 
 
 
@@ -135,9 +140,9 @@ const useStyles = makeStyles({
         }
     },
     sectionListContainer: {
-        background: Theme.primary,
+        background: '#00000005',
         width: '100%',
-        padding: '15px 15px 5px',
+        padding: '20px 15px 10px',
         '& .sectionList': {
             overflow: 'auto',
             listStyle: 'none',
@@ -151,16 +156,25 @@ const useStyles = makeStyles({
             '& .sectionListItemAnchor': {
                 display: 'inline-block',
                 borderRadius: Theme.radius1,
-                // boxShadow: Theme.boxShadow,
-                background: Theme.backgroundColor,
                 color: Theme.primary,
                 textDecoration: 'none',
-                margin: '0 5px 10px',
+                margin: '0 10px 10px',
                 textTransform: 'capitalize',
                 '& .sectionListItem': {
                     padding: '5px 15px',
+                },
+                '&.active': {
+                    background: Theme.backgroundColor,
+                    boxShadow: Theme.boxShadow,
                 }
 
+            }
+        }
+    },
+    sectionListContainer_M: {
+        '& .sectionList': {
+            '& .sectionListItemAnchor': {
+                fontSize: 14,
             }
         }
     }
@@ -181,7 +195,7 @@ const pageSections = {
     placement: 'placement',
 }
 
-const defaultImage = '/assets/images/defaults/institute.png';
+const defaultImage = '/assets/images/defaults/institute.jpg';
 
 
 function InstituteDetailComponent(props: Props) {
@@ -198,8 +212,8 @@ function InstituteDetailComponent(props: Props) {
     });
     const [slugs, setSlugs] = useState<string[]>([]);
     const [currentSection, setCurrentSection] = useState<string>(pageSections.Information);
-    const currentPageUrl = `${props.breadcrumbs[props.breadcrumbs?.length - 1].endPoint}/${slugs[0]}`;
-    const [breadCrumbs, setBreadCrumbs] = useState<UrlObject[]>([...props.breadcrumbs, { name: instituteDetails ? instituteDetails.name : slugs[0], endPoint: `${currentPageUrl}` }])
+    let currentPageUrl = `${props.breadcrumbs[props.breadcrumbs?.length - 1].endPoint}/${slugs[0]}`;
+    const [breadCrumbs, setBreadCrumbs] = useState<UrlObject[]>([]);
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -208,7 +222,19 @@ function InstituteDetailComponent(props: Props) {
 
     useEffect(() => {
         if (router.query.instituteSlug?.length) {
-            setSlugs(router.query.instituteSlug as string[]);
+            let slugList = router.query.instituteSlug as string[];
+            console.log('slug list', slugList);
+
+            setSlugs(slugList);
+
+            if (!breadCrumbs?.length) {
+
+                setBreadCrumbs((prev: UrlObject[]) => {
+                    return [...props.breadcrumbs, { name: instituteDetails ? instituteDetails.name : slugList[0], endPoint: `${currentPageUrl}` }];
+                });
+            }
+
+            currentPageUrl = `${props.breadcrumbs[props.breadcrumbs?.length - 1].endPoint}/${slugList[0]}`
         }
     }, [router.query?.instituteSlug])
 
@@ -219,6 +245,20 @@ function InstituteDetailComponent(props: Props) {
             setCurrentSection(slugs[1]);
         }
     }, [slugs])
+
+    const showpageSection = (section: string) => {
+        setBreadCrumbs((prev: UrlObject[]) => {
+            if (prev.length > 2) {
+                prev.length = 2;
+            }
+            let route = prev[prev.length - 1].endPoint;
+            console.log('breadCrumbs', [...prev, { endPoint: `${route}/${section}`, name: section }])
+            return [...prev, { endPoint: `${route}/${section}`, name: section }];
+        })
+        router.push({
+            pathname: currentPageUrl + `/${pageSections[section]}`,
+        }, undefined, { shallow: true })
+    }
 
     const { name, location, image, rating, isApplied, isSaved, views } = instituteDetails;
 
@@ -259,20 +299,16 @@ function InstituteDetailComponent(props: Props) {
                 </div>
             </div>
 
-            <div className={styles.sectionListContainer} >
+            <div className={classNames(styles.sectionListContainer, { [styles.sectionListContainer_M]: isMobile })} >
                 <div className={'sectionList'}>
                     {
                         Object.keys(pageSections).map((section: string, index: number) => {
-                            return (
-                                <Link key={index} href={{
-                                    pathname: currentPageUrl + `/${pageSections[section]}`,
-                                }} shallow={true} >
-                                    <a className={'sectionListItemAnchor'}>
-                                        <ListItem button className={'sectionListItem'} >
-                                            {section}
-                                        </ListItem>
-                                    </a>
-                                </Link>
+                            console.log(section, currentPageUrl);
+                            return (<a key={index} className={classNames('sectionListItemAnchor', { 'active': currentSection === pageSections[section] })}>
+                                <ListItem button onClick={() => showpageSection(section)} className={'sectionListItem'} >
+                                    {section}
+                                </ListItem>
+                            </a>
                             )
                         })
                     }
@@ -319,104 +355,3 @@ const RenderPageSection = (props: { section: string }) => {
     }
 
 }
-
-
-function RenderInformation() {
-    return (
-        <div>
-
-        </div>
-    );
-}
-
-const CourseStyles = makeStyles({
-    container: {
-
-    },
-    courseList: {
-        boxShadow: Theme.boxShadow,
-        borderRadius: Theme.radius1,
-        padding: '50px 20px'
-    }
-})
-
-function RenderCoursesFees() {
-
-    const [courses, setCourses] = useState<CourseListItem[]>([
-        { id: 1, name: 'B.Tech', type: 'full-time', totalFees: { currency: 'INR', amount: 480000, frequency: 'year' }, duration: '4 year', feesBreakdown: [{ currency: 'INR', amount: 120000, frequency: 'year' }, { currency: 'INR', amount: 120000, frequency: 'year' }, { currency: 'INR', amount: 120000, frequency: 'year' }, { currency: 'INR', amount: 120000, frequency: 'year' },], streams: ['computer science', 'mechanical', 'civil', 'electronics'] },
-        { id: 2, name: 'M.Tech', type: 'full-time', totalFees: { currency: 'INR', amount: 480000, frequency: 'year' }, duration: '4 year', feesBreakdown: [{ currency: 'INR', amount: 120000, frequency: 'year' }, { currency: 'INR', amount: 120000, frequency: 'year' }, { currency: 'INR', amount: 120000, frequency: 'year' }, { currency: 'INR', amount: 120000, frequency: 'year' },], streams: ['computer science', 'mechanical', 'civil', 'electronics'] },
-        { id: 3, name: 'BCA', type: 'full-time', totalFees: { currency: 'INR', amount: 480000, frequency: 'year' }, duration: '4 year', feesBreakdown: [{ currency: 'INR', amount: 120000, frequency: 'year' }, { currency: 'INR', amount: 120000, frequency: 'year' }, { currency: 'INR', amount: 120000, frequency: 'year' }, { currency: 'INR', amount: 120000, frequency: 'year' },], streams: ['computer science', 'mechanical', 'civil', 'electronics'] },
-        { id: 4, name: 'MCA', type: 'full-time', totalFees: { currency: 'INR', amount: 480000, frequency: 'year' }, duration: '4 year', feesBreakdown: [{ currency: 'INR', amount: 120000, frequency: 'year' }, { currency: 'INR', amount: 120000, frequency: 'year' }, { currency: 'INR', amount: 120000, frequency: 'year' }, { currency: 'INR', amount: 120000, frequency: 'year' },], streams: ['computer science', 'mechanical', 'civil', 'electronics'] },
-    ])
-
-    const styles = CourseStyles();
-
-    return (
-
-        <Grid container >
-            <Grid item xs={12} md={8} className={styles.courseList}>
-
-                <Grid container spacing={5}>
-                    {
-                        courses?.map((course: CourseListItem) => {
-                            return (
-                                <Grid item>
-                                    <CourseCard {...course} />
-                                </Grid>
-                            )
-                        })
-                    }
-                </Grid>
-            </Grid>
-        </Grid>
-    );
-}
-
-function RenderAdmission() {
-    return (
-        <div>
-            Admission
-        </div>
-    );
-}
-
-function RenderReview() {
-    return (
-        <div>
-            RenderReview
-        </div>
-    );
-}
-
-function RenderFaculty() {
-    return (
-        <div>
-            faculty
-        </div>
-    );
-}
-
-function RenderHostel() {
-    return (
-        <div>
-            hostel
-        </div>
-    );
-}
-
-function RenderPlacement() {
-    return (
-        <div>
-            Placement
-        </div>
-    );
-}
-
-function RenderGallery() {
-    return (
-        <div>
-            gallery
-        </div>
-    );
-}
-

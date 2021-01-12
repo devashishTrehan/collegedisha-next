@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Theme, } from '../Services/App.service';
 import { IconButton, useMediaQuery } from '@material-ui/core';
 import { Close, } from '@material-ui/icons';
-import { MenuContext } from '../Context/Menu.Context';
+import { MenuContext } from '../Context/Menu.context';
 import { C_MenuList } from './MultiLevelList.component';
 import { LoginRegisterButton } from './LoginRegisterButton.component';
 

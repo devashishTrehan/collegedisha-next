@@ -7,7 +7,7 @@ import { AppBar, Drawer, IconButton, Slide, Toolbar, Tooltip, useMediaQuery, use
 import classNames from 'classnames';
 import { Domain, Menu as MenuIcon } from '@material-ui/icons';
 import DrawerComponent from './Drawer.component';
-import { MenuContext } from '../Context/Menu.Context';
+import { MenuContext } from '../Context/Menu.context';
 import { MenuListInterface } from '../Services/Interfaces.interface';
 import { MultiLevelList } from './MultiLevelList2.component';
 import { LoginRegisterButton } from './LoginRegisterButton.component';

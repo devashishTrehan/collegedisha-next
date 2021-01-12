@@ -15,8 +15,8 @@ const useStyles = makeStyles({
     fSection: {
         width: '100%',
         padding: '0 5%',
-        backgroundColor: '#213858',
-        backgroundImage: `url('/assets/images/footerBg.png')`,
+        backgroundColor: Theme.footerBackground,
+        backgroundImage: `url('/assets/images/footerBg.jpg')`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'bottom',
     },

@@ -1,17 +1,18 @@
 import { Grid, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import React, { memo, useEffect, useState } from 'react';
+import React, { createRef, memo, useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 interface cardSizeProps {
     small: number,
-    regular: number
+    regular: number,
+    minHeight?: number
 }
 
 const useStyles = makeStyles({
     container: (props: cardSizeProps) => ({
         width: props.regular,
-        minHeight: 200,
+        minHeight: props.minHeight ? props.minHeight : 200,
         margin: 'auto',
         height: '100%',
         maxWidth: '100%',
@@ -28,7 +29,6 @@ interface Props {
     cardCount: number,
     withGrid?: boolean,
     spacing?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
-    parentWidth?: number,
     cardWidth?: { small: number, regular: number },
 }
 
@@ -36,43 +36,36 @@ interface Props {
 const DummyCards = memo((props: Props) => {
 
     const isTablet = useMediaQuery('(max-width:992px)');
-    const [__window, setWindow] = useState({
-        innerWidth: 0,
-        innerHeight: 0
-    });
+    const [parentWidth, setParentWidth] = useState(1250 - (1250 * .05 + 30));
+
+    let _ref: HTMLDivElement;
+
 
     useEffect(() => {
-        setWindow(window);
-        window.onresize = ((event) => {
-            let { innerHeight, innerWidth } = event.target;
-            console.log('dimensions', innerHeight, innerWidth);
-            setWindow({
-                innerHeight: innerHeight,
-                innerWidth: innerWidth
-            });
-        })
-    }, [])
+        console.log('____ref', _ref);
+        if (_ref) {
+            let width = _ref.closest('.MuiGrid-container').getBoundingClientRect().width;
+            setParentWidth(width);
+            console.log('parentWidth by ref', width);
+        }
+    }, [_ref]);
 
     let cardSize = props.cardWidth ? props.cardWidth : { small: 200, regular: 240 }
 
     const styles = useStyles(cardSize);
 
-    let { innerWidth } = __window;
-    let availableSpace;
-    if (props.parentWidth) {
-        availableSpace = props.parentWidth;
-    } else {
-        availableSpace = (innerWidth - (innerWidth * 0.10 + 40));
-    }
 
     let smallCard = props.cardWidth ? props.cardWidth.small : cardSize.small;
     let regularCard = props.cardWidth ? props.cardWidth.regular : cardSize.regular;
     let spacing = props.spacing ? props.spacing : 5;
     let _cardSize = (isTablet ? smallCard : regularCard) + (spacing * 4);
+    console.log('parentWidth', parentWidth);
 
-    let cardInRow = Math.floor(availableSpace / _cardSize);
+    let cardInRow = Math.floor(parentWidth / _cardSize);
+    console.log('cards in row', cardInRow);
 
     let cardToAdd = ((cardInRow * Math.ceil(props.cardCount / cardInRow)) - props.cardCount)
+    console.log('cards to add', cardToAdd);
     let cards = new Array();
     for (let i = 0; i < cardToAdd; i++) {
         cards.push(i);
@@ -83,7 +76,8 @@ const DummyCards = memo((props: Props) => {
 
     if (props.withGrid) {
         return (
-            <>
+            <  >
+                <div ref={ref => _ref = ref}></div>
                 {
 
                     cards.map(_ => {
@@ -103,6 +97,7 @@ const DummyCards = memo((props: Props) => {
 
         return (
             <>
+                <div ref={ref => _ref = ref}></div>
                 {
 
                     cards.map(_ => {

@@ -70,7 +70,7 @@ function CustomBreadCrumb(props: Props) {
 
             <div className={'container'}>
                 <div className={styles.container}>
-                    <Breadcrumbs maxItems={3}  >
+                    <Breadcrumbs maxItems={4}  >
                         {breadcrumbs.map((breadcrumb: UrlObject, index: number) => {
                             return (
                                 <Link key={index} href={breadcrumb.endPoint} >

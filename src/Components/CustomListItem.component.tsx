@@ -177,7 +177,7 @@ interface Props {
     isSaved?: boolean,
 }
 
-const defaultImage = '/assets/images/defaults/institute.png'
+const defaultImage = '/assets/images/defaults/institute.jpg'
 
 const CustomListItem = memo(function (props: Props) {
 

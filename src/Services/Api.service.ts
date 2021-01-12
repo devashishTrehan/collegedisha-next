@@ -50,7 +50,7 @@ const ApiRoutes = {
 
 }
 
-const setHeader = (token: string = '') => {
+export const setHeader = (token: string = '') => {
     let header = new Headers();
     // header.append('authorization', token);
     if (token) {
@@ -64,7 +64,7 @@ setHeader();
 
 const ApiService = {}
 
-const PostRequestObject = (data: object, token: string = ''): AxiosRequestConfig => ({
+export const PostRequestObject = (data: object, token: string = ''): AxiosRequestConfig => ({
     headers: setHeader(token),
     method: 'POST',
     data: data,

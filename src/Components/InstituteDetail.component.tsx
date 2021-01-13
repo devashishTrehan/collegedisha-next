@@ -140,18 +140,18 @@ const useStyles = makeStyles({
         }
     },
     sectionListContainer: {
-        background: '#00000005',
+        background: '#fafafa',
         width: '100%',
         padding: '20px 15px 10px',
+        position: 'sticky',
+        top: 65,
+        zIndex: 10,
         '& .sectionList': {
             overflow: 'auto',
             listStyle: 'none',
             whiteSpace: 'nowrap',
             '&::-webkit-scrollbar': {
                 height: 3
-            },
-            '&::-webkit-scrollbar-thumb': {
-                background: '#fff8'
             },
             '& .sectionListItemAnchor': {
                 display: 'inline-block',

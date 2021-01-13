@@ -70,7 +70,7 @@ export function RenderAdmission() {
 
     return (
         <Grid container >
-            <Grid item xs={12} md={8} className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+            <Grid item xs={12} md={9} className={styles.container} style={isMobile ? { padding: '20px' } : null}>
 
                 <div>
                     <MarkdownParser children={markdown} />

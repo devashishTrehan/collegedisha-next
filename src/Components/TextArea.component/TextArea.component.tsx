@@ -94,7 +94,6 @@ class InputArea extends React.Component<any, TextFieldState> {
                         [styles.labelError]: isError,
                     })} >{this.props.label}</label>
                     <TextareaAutosize color='secondary'
-                        rowsMin={3}
                         rowsMax={5}
                         className={classNames(
                             styles.input,
@@ -102,6 +101,7 @@ class InputArea extends React.Component<any, TextFieldState> {
                                 [styles.focusedInput]: this.state.isFocused,
                                 [styles.errorInput]: isError,
                             })}
+    
                         style={{ width: '100%', borderColor: isError ? Theme.error : 'gray' }}
                         {...this.props} onFocus={() => this.focusHandler()}
                         onKeyDown={(event: any) => this.keyDownHandler(event)}

@@ -3,62 +3,77 @@ import { makeStyles } from '@material-ui/styles';
 import React, { createRef, memo, useEffect, useState } from 'react';
 import classNames from 'classnames';
 
-interface cardSizeProps {
-    small: number,
-    regular: number,
-    minHeight?: number
-}
 
 const useStyles = makeStyles({
-    container: (props: cardSizeProps) => ({
-        width: props.regular,
-        minHeight: props.minHeight ? props.minHeight : 200,
+    container: (props: cardSizeType) => ({
+        width: props.width.regular,
+        minHeight: props.minHeight ? props.minHeight : 100,
         margin: 'auto',
         height: '100%',
         maxWidth: '100%',
-
     }),
 
-    container_T: (props: cardSizeProps) => ({
-        width: props.small,
-        minHeight: 260,
+    container_T: (props: cardSizeType) => ({
+        width: props.width.small,
     }),
+
 })
+
+interface cardSizeType {
+    width: {
+        small: number,
+        regular: number,
+    },
+    minHeight?: number
+}
 
 interface Props {
     cardCount: number,
     withGrid?: boolean,
     spacing?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
-    cardWidth?: { small: number, regular: number },
+    cardSize?: cardSizeType,
 }
 
 
-const DummyCards = memo((props: Props) => {
+const DummyCards = (props: Props) => {
 
     const isTablet = useMediaQuery('(max-width:992px)');
+    const isMobile = useMediaQuery('(max-width:769px)');
     const [parentWidth, setParentWidth] = useState(1250 - (1250 * .05 + 30));
+    const [WidthHelperVisibility, setWidthHelperVisibility] = useState(true);
 
-    let _ref: HTMLDivElement;
+    let _ref: HTMLSpanElement;
 
-
-    useEffect(() => {
-        console.log('____ref', _ref);
+    const UpdateParentWidth = () => {
         if (_ref) {
             let width = _ref.closest('.MuiGrid-container').getBoundingClientRect().width;
+            setWidthHelperVisibility(false);
             setParentWidth(width);
             console.log('parentWidth by ref', width);
         }
+    }
+
+
+    useEffect(() => {
+        window.removeEventListener('resize', () => {
+        });
+        window.onresize = () => {
+            UpdateParentWidth();
+        }
+        UpdateParentWidth();
+
     }, [_ref]);
 
-    let cardSize = props.cardWidth ? props.cardWidth : { small: 200, regular: 240 }
+    let cardSize: cardSizeType = props.cardSize ? props.cardSize : { width: { small: 200, regular: 240 }, minHeight: 200 }
 
     const styles = useStyles(cardSize);
 
 
-    let smallCard = props.cardWidth ? props.cardWidth.small : cardSize.small;
-    let regularCard = props.cardWidth ? props.cardWidth.regular : cardSize.regular;
+    let smallCard = props.cardSize?.width ? props.cardSize?.width.small : cardSize.width.small;
+    let regularCard = props.cardSize?.width ? props.cardSize?.width.regular : cardSize.width.regular;
     let spacing = props.spacing ? props.spacing : 5;
-    let _cardSize = (isTablet ? smallCard : regularCard) + (spacing * 4);
+    let _cardSize = (isTablet ? smallCard : regularCard) + (spacing * (4 * 2));
+    console.log('cardWidth', _cardSize);
     console.log('parentWidth', parentWidth);
 
     let cardInRow = Math.floor(parentWidth / _cardSize);
@@ -77,7 +92,11 @@ const DummyCards = memo((props: Props) => {
     if (props.withGrid) {
         return (
             <  >
-                <div ref={ref => _ref = ref}></div>
+                {
+                    WidthHelperVisibility ?
+                        <span ref={ref => _ref = ref}></span>
+                        : null
+                }
                 {
 
                     cards.map(_ => {
@@ -97,12 +116,17 @@ const DummyCards = memo((props: Props) => {
 
         return (
             <>
-                <div ref={ref => _ref = ref}></div>
+                {
+                    WidthHelperVisibility ?
+                        <span ref={ref => _ref = ref}></span>
+                        : null
+                }
                 {
 
                     cards.map(_ => {
                         return (
                             <div className={classNames(styles.container, { [styles.container_T]: isTablet })}>
+
                             </div>
                         )
                     })
@@ -111,7 +135,7 @@ const DummyCards = memo((props: Props) => {
 
         );
     }
-})
+}
 
 
 export default DummyCards;

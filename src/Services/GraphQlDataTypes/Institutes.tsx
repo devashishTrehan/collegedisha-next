@@ -25,6 +25,39 @@ export interface InstituteGallery {
     videos: string[],
 }
 
+export interface InstituteFaculty {
+    id,
+    name: string,
+    designation: string,
+    mailId: string,
+    mobileNo: string,
+    image: string,
+}
+
+export interface Institutefaculties {
+    facultyList: InstituteFaculty[],
+}
+
+
+export interface InstituteHostelFees {
+    room: string,
+    AC: string,
+    Non_AC: string,
+}
+export type InstituteHostelFacility = 'wifi' | 'gym' | 'power_supply' | 'canteen' | 'auditorium' | 'library' | 'laboratory' | 'medical' | 'sports' | 'computer_lab' | null;
+
+export interface InstituteHostelDetails {
+    fees: InstituteHostelFees[],
+    facilities: InstituteHostelFacility[],
+    hostel_content: string,
+}
+
+export interface InstituteHostel {
+    female: InstituteHostelDetails | null,
+    male: InstituteHostelDetails | null,
+    gender?: 'male' | 'female' | 'common'
+}
+
 export interface InstituteCourses {
     courseList: CourseListItem,
     course_content: string

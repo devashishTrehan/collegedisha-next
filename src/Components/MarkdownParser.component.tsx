@@ -11,6 +11,7 @@ const useStyles = makeStyles({
         fontFamily: 'gordita',
         textAlign: 'left',
         color: Theme.fontColorSecondary,
+        // overflow: 'scroll',
         '& *': {
             clear: 'both',
         },
@@ -18,6 +19,16 @@ const useStyles = makeStyles({
             borderCollapse: 'collapse',
             width: '100%',
             marginBottom: 10,
+            '& thead': {
+                '& th': {
+                    position: 'sticky',
+                    top: 135,
+                    zIndex: 5,
+                    // '&:first-child': {
+                    //     left: 0,
+                    // },
+                }
+            },
             '& th': {
                 paddingTop: 12,
                 paddingBottom: 12,
@@ -32,12 +43,13 @@ const useStyles = makeStyles({
             '& tr': {
                 transition: '.2s',
                 fontSize: 14,
+                // '& td:first-child': {
+                //     position: 'sticky',
+                //     left: 0,
+                // },
                 '&:nth-child(even)': {
                     backgroundColor: '#f6f6f6',
                 },
-                // '&:hover': {
-                //     backgroundColor: '#eee',
-                // }
             }
         },
         '& h4,h3,h2': {
@@ -137,16 +149,14 @@ const useStyles = makeStyles({
 const stripIndent = (content: string) => {
     try {
         const lines = content.split("\n")
-
         const firstContentfulLine = lines[0].trim() ? lines[0] : lines[1]
 
         const indent = firstContentfulLine.match(/^\s*/)[0].length
 
         const result = lines
-            .map((line: string) => line.slice(indent))
+            .map((line: string) => line.trim())
             .join("\n")
-            .trim()
-        console.log('indent result', result);
+
         return result
     } catch (_error) {
         console.log('indent error', _error);
@@ -173,7 +183,7 @@ function MarkdownParser(props: Props) {
     return (
         <div className={classNames(styles.markdownContainer, { [styles.markdownContainer_M]: isMobile })}>
 
-            <ReactMarkdown plugins={[remarkGfm]} children={content} escapeHtml={true} />
+            <ReactMarkdown plugins={[remarkGfm]} children={stripIndent(content)} escapeHtml={false} />
 
         </div>
     );

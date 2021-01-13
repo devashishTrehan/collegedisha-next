@@ -226,7 +226,7 @@ function NavBar(props: any) {
 
   return (
     <>
-      <HideOnScroll {...props}>
+      {/* <HideOnScroll {...props}> */}
         <AppBar className={styles.navBar}>
           <div className={styles.navLinkSectionsWrap}>
             <Toolbar>
@@ -288,7 +288,7 @@ function NavBar(props: any) {
             </Toolbar>
           </div>
         </AppBar>
-      </HideOnScroll>
+      {/* </HideOnScroll> */}
 
       <Drawer anchor={'left'} open={DrawerOpen} onClose={toggleDrawer(false)} >
         <DrawerComponent onClose={toggleDrawer(false)} />

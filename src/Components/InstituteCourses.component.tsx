@@ -9,12 +9,12 @@ import CourseCard from './CourseCard.component';
 // ----- courses section start ----- \\
 const CourseStyles = makeStyles({
     container: {
-
-    },
-    courseList: {
         boxShadow: Theme.boxShadow,
         borderRadius: Theme.radius1,
-        padding: '50px 20px'
+        padding: '20px 20px'
+    },
+    courseInfoContainer: {
+        marginTop: 50,
     }
 })
 
@@ -30,26 +30,91 @@ export function RenderCoursesFees() {
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
 
+    const markdown = `
+    #### **Galgotias College Fees Structure(Official)**
+   
+    ---  
+       
+             ###### **Courses Details:**
+            **The college offers 5 courses to students:**
+                         * Undergraduate Programmes
+                  * Postgraduate Programmes
+                          * Diploma Programmes
+               * Integrated Programmes
+                 * Doctoral Programmes
+    ### School of Electrical, Electronics & Communication Engineering
+    * B.Tech in Electronics and Communication Engineering with specialization in the Internet of Things(IOT)
+    #### Eligibility
+    1. Minimum 60 % in PCM(10 + 2)
+    2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
+    #### **Fees Structure**
+   **Duration**|**4 years**
+    ---| ---
+    Annual Fees | 1, 49, 000
+    Exam Fee | 10, 000
+    * B.Tech in Electronics and Communication Engineering with specialization in Embedded System
+    #### **Eligibility**
+    1. Minimum 60 % in PCM(10 + 2)
+    2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
+    #### **Fee Structure**
+   **Duration**|**4 years**
+    ---| ---
+    Annual Fees | 1, 49, 000
+    Exam Fee | 10, 000
+    * B.Tech in Electronics and Communication Engineering with specialization in VLSI
+    #### **Eligibility**
+    1. Minimum 60 % in PCM(10 + 2)
+    2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
+    #### **Fee Structure**
+   **Duration**|**4 years**
+    ---| ---
+    Annual Fees | 1, 49, 000
+    Exam Fee | 10, 000
+    * B.Tech in Electronics & Communication Engineering
+    #### **Eligibility**
+    1. Minimum 60 % in PCM(10 + 2)
+    2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
+    #### **Fee Structure**
+   **Duration**|**4 years**
+    ---| ---
+    Annual Fees | 1, 49, 000
+    Exam Fee | 10, 000
+    * B.Tech in Electrical Engineering
+    #### **Eligibility**
+    * Minimum 60 % in PCM(10 + 2)
+    * Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
+
+`
+
     const styles = CourseStyles();
 
     return (
+        <>
+            <Grid container >
+                <Grid item xs={12} md={9} className={styles.container} style={isMobile ? { padding: '20px' } : null}>
 
-        <Grid container >
-            <Grid item xs={12} md={8} className={styles.courseList} style={isMobile ? { padding: '20px' } : null}>
-
-                <Grid container spacing={5}>
-                    {
-                        courses?.map((course: CourseListItem) => {
-                            return (
-                                <Grid item xs={12} key={course.id} >
-                                    <CourseCard {...course} />
-                                </Grid>
-                            )
-                        })
-                    }
+                    <Grid container spacing={5}>
+                        {
+                            courses?.map((course: CourseListItem) => {
+                                return (
+                                    <Grid item xs={12} key={course.id} >
+                                        <CourseCard {...course} />
+                                    </Grid>
+                                )
+                            })
+                        }
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
+            <Grid container className={styles.courseInfoContainer}>
+                <Grid item xs={12} md={9} className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+
+                    <div>
+                        <MarkdownParser children={markdown} />
+                    </div>
+                </Grid>
+            </Grid>
+        </>
     );
 }
 // ----- Courses section end ----- \\

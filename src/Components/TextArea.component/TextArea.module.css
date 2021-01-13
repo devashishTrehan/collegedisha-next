@@ -20,7 +20,7 @@
 
 .textLabel {
     position: absolute;
-    top: 5px;
+    top: 10px;
     left: 10px;
     z-index: 0;
     text-transform: capitalize;

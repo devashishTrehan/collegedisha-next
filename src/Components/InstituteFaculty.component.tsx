@@ -16,17 +16,7 @@ const useStyles = makeStyles({
         borderRadius: Theme.radius1,
         padding: '20px 20px',
     },
-    containerHead: {
-        textAlign: 'left',
-        marginBottom: 20,
-        '& h4': {
-            color: Theme.primary,
-            fontFamily: 'gorditaMedium',
-            textTransform: 'capitalize',
-            fontSize: 22,
 
-        }
-    },
 })
 
 const useCardStyles = makeStyles({
@@ -124,25 +114,23 @@ export function RenderFaculty() {
     const styles = useStyles();
 
     return (
-        <Grid container >
-            <Grid item xs={12} md={9} className={styles.container} >
-                <div className={styles.containerHead}>
-                    <Typography variant='h4'>Our Faculties</Typography>
-                </div>
-                <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
-                    {
-                        faculties?.map((faculty: InstituteFaculty) => {
-                            return <Grid item xs={12} sm={6}>
-                                <FacultyCard faculty={faculty} />
-                            </Grid>
-                        })
-                    }
-                    {
-                        !isMobile &&
-                        <DummyCards cardCount={faculties?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 200, regular: 280 } }} />
-                    }
-                </Grid>
+        <div className={styles.container} >
+            <div className={'containerHead'}>
+                <Typography variant='h4'>Our Faculties</Typography>
+            </div>
+            <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
+                {
+                    faculties?.map((faculty: InstituteFaculty) => {
+                        return <Grid item xs={12} sm={6}>
+                            <FacultyCard faculty={faculty} />
+                        </Grid>
+                    })
+                }
+                {
+                    !isMobile &&
+                    <DummyCards cardCount={faculties?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 200, regular: 280 } }} />
+                }
             </Grid>
-        </Grid>
+        </div>
     );
 }

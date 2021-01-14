@@ -15,17 +15,7 @@ const GalleryStyles = makeStyles({
         borderRadius: Theme.radius1,
         padding: '20px 20px',
     },
-    containerHead: {
-        textAlign: 'left',
-        marginBottom: 20,
-        '& h4': {
-            color: Theme.primary,
-            fontFamily: 'gorditaMedium',
-            textTransform: 'capitalize',
-            fontSize: 22,
 
-        }
-    },
     imageWrap: {
         width: 240,
         borderRadius: Theme.radius1,
@@ -105,30 +95,28 @@ export function RenderGallery() {
 
     return (
         <>
-            <Grid container >
-                <Grid item xs={12} md={9} className={styles.container} style={isMobile ? { padding: '20px' } : null}>
-                    <div className={styles.containerHead}>
-                        <Typography variant='h4'>Our gallery</Typography>
-                    </div>
-                    <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
-                        {
-                            Images?.map((image: string) => {
-                                return <Grid item>
-                                    <RenderImage image={image} />
-                                </Grid>
-                            })
-                        }
-                        {
-                            !isMobile &&
-                            <DummyCards cardCount={Images?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 180, regular: 240 } }} />
-                        }
-                    </Grid>
+            <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+                <div className={'containerHead'}>
+                    <Typography variant='h4'>Our gallery</Typography>
+                </div>
+                <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
+                    {
+                        Images?.map((image: string) => {
+                            return <Grid item>
+                                <RenderImage image={image} />
+                            </Grid>
+                        })
+                    }
+                    {
+                        !isMobile &&
+                        <DummyCards cardCount={Images?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 180, regular: 240 } }} />
+                    }
                 </Grid>
-            </Grid>
+            </div>
 
-            <Grid container className={styles.videosContainer} >
-                <Grid item xs={12} md={9} className={styles.container} style={isMobile ? { padding: '20px' } : null}>
-                    <div className={styles.containerHead}>
+            <div className={styles.videosContainer} >
+                <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+                    <div className={'containerHead'}>
                         <Typography variant='h4'>Our Videos</Typography>
                     </div>
                     <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
@@ -144,8 +132,8 @@ export function RenderGallery() {
                             <DummyCards cardCount={Images?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 180, regular: 240 } }} />
                         }
                     </Grid>
-                </Grid>
-            </Grid>
+                </div>
+            </div>
         </>
     );
 }

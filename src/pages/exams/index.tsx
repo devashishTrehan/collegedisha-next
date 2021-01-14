@@ -1,5 +1,5 @@
 import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
-import CustomCard from '@/Components/CustomCard.component';
+import CustomCard from '@/Components/InstituteCard.component';
 import DummyCards from '@/Components/DummyCard.component';
 import ExamCard from '@/Components/ExamCard.component';
 import { ExamCategories } from '@/Components/ExamCategories.component';

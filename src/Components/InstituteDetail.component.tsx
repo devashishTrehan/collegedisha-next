@@ -3,7 +3,7 @@ import { detailedInstitute } from '@/Services/GraphQlDataTypes/Institutes';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import CustomBreadCrumb, { UrlObject } from '@/Components/CustomBreadCrumb.component';
-import { ListItem, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
+import { Grid, ListItem, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { LocationOnOutlined, Visibility } from '@material-ui/icons';
 import { Rating } from '@material-ui/lab';
 import classNames from 'classnames';
@@ -15,6 +15,7 @@ import { RenderFaculty } from './InstituteFaculty.component';
 import { RenderHostel } from './InstituteHostel.component';
 import { RenderPlacement } from './InstitutePlacement.component';
 import { RenderCoursesFees } from './InstituteCourses.component';
+import { NavbarContext } from '@/Context/Navbar.context';
 
 
 
@@ -144,7 +145,7 @@ const useStyles = makeStyles({
         width: '100%',
         padding: '20px 15px 10px',
         position: 'sticky',
-        top: 65,
+        top: 64,
         zIndex: 10,
         '& .sectionList': {
             overflow: 'auto',
@@ -190,7 +191,7 @@ const pageSections = {
     admission: 'admission',
     ['review & rating']: 'review',
     gallery: 'gallery',
-    faculty: 'faculty',
+    faculty: 'college-faculty',
     hostel: 'hostel',
     placement: 'placement',
 }
@@ -214,6 +215,7 @@ function InstituteDetailComponent(props: Props) {
     const [currentSection, setCurrentSection] = useState<string>(pageSections.Information);
     let currentPageUrl = `${props.breadcrumbs[props.breadcrumbs?.length - 1].endPoint}/${slugs[0]}`;
     const [breadCrumbs, setBreadCrumbs] = useState<UrlObject[]>([]);
+    const { navHeight } = useContext(NavbarContext);
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -260,7 +262,7 @@ function InstituteDetailComponent(props: Props) {
         }, undefined, { shallow: true })
     }
 
-    const { name, location, image, rating, isApplied, isSaved, views } = instituteDetails;
+    const { id, name, location, image, rating, isApplied, isSaved, views } = instituteDetails;
 
     return (
         <div>
@@ -299,7 +301,7 @@ function InstituteDetailComponent(props: Props) {
                 </div>
             </div>
 
-            <div className={classNames(styles.sectionListContainer, { [styles.sectionListContainer_M]: isMobile })} >
+            <div className={classNames(styles.sectionListContainer, { [styles.sectionListContainer_M]: isMobile })} style={{ top: navHeight }} >
                 <div className={'sectionList'}>
                     {
                         Object.keys(pageSections).map((section: string, index: number) => {
@@ -317,12 +319,16 @@ function InstituteDetailComponent(props: Props) {
 
             <div className='container'>
                 <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '50px 5%' }}>
-
-                    {
-                        <RenderPageSection section={currentSection} />
-                    }
+                    <Grid container >
+                        <Grid item xs={12} md={9} >
+                            {
+                                <RenderPageSection institute={{ id: id, name: name }} section={currentSection} />
+                            }
+                        </Grid>
+                    </Grid>
                 </div>
             </div>
+
         </div>
     );
 }
@@ -330,7 +336,15 @@ function InstituteDetailComponent(props: Props) {
 export default InstituteDetailComponent;
 
 
-const RenderPageSection = (props: { section: string }) => {
+interface PageSectionProps {
+    section: string,
+    institute: {
+        name: string,
+        id: number
+    }
+}
+
+const RenderPageSection = (props: PageSectionProps) => {
 
     switch (props.section) {
         case pageSections.Information:
@@ -340,7 +354,7 @@ const RenderPageSection = (props: { section: string }) => {
         case pageSections.admission:
             return <RenderAdmission />;
         case pageSections['review & rating']:
-            return <RenderReview />;
+            return <RenderReview institute={props.institute} />;
         case pageSections.gallery:
             return <RenderGallery />;
         case pageSections.faculty:

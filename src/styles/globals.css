@@ -113,6 +113,18 @@ code {
     margin: 0 auto 20px;
 }
 
+.containerHead {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.containerHead h4 {
+    color: var(--TPrimary);
+    font-family: 'gorditaMedium';
+    text-transform: capitalize;
+    font-size: 22px;
+}
+
 .wrapper {
     padding: 50px 5%;
 }

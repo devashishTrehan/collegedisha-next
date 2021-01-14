@@ -1,4 +1,4 @@
-import { faCaretDown, faChevronDown, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
@@ -15,7 +15,7 @@ const listHeight = 34 * 12;
 
 const useStyles = makeStyles({
     container: {
-        overflowX: 'hidden',
+        // overflowX: 'hidden',
         display: 'flex',
         flexDirection: 'row',
         '&>div': {
@@ -26,14 +26,14 @@ const useStyles = makeStyles({
             justifyContent: 'flex-start',
             flexWrap: 'nowrap',
             '&::-webkit-scrollbar': {
-                height: 5,
+                height: 3,
                 borderRadius: 5,
             },
             '&::-webkit-scrollbar-track': {
                 backgroundColor: '#eee',
             },
             '&::-webkit-scrollbar-thumb': {
-                backgroundColor: Theme.primary + 'aa',
+                backgroundColor: Theme.primary + 'a0',
             },
         }
     },
@@ -41,7 +41,7 @@ const useStyles = makeStyles({
         display: 'flex',
         alignItems: 'center',
         color: Theme.primary,
-        borderBottom: `2px solid ${Theme.primary}`,
+        borderBottom: `3px solid ${Theme.primary}a0`,
         marginRight: 5,
         '&>p': {
             fontSize: 14,
@@ -51,7 +51,7 @@ const useStyles = makeStyles({
         }
     },
     filterLabel_M: {
-        borderWidth: 1,
+        borderWidth: 3,
         '&>p': {
             fontSize: 12,
         },

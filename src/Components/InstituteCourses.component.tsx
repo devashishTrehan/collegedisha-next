@@ -90,30 +90,27 @@ export function RenderCoursesFees() {
 
     return (
         <>
-            <Grid container >
-                <Grid item xs={12} md={9} className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+            <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
 
-                    <Grid container spacing={5}>
-                        {
-                            courses?.map((course: CourseListItem) => {
-                                return (
-                                    <Grid item xs={12} key={course.id} >
-                                        <CourseCard {...course} />
-                                    </Grid>
-                                )
-                            })
-                        }
-                    </Grid>
+                <Grid container spacing={5}>
+                    {
+                        courses?.map((course: CourseListItem) => {
+                            return (
+                                <Grid item xs={12} key={course.id} >
+                                    <CourseCard {...course} />
+                                </Grid>
+                            )
+                        })
+                    }
                 </Grid>
-            </Grid>
-            <Grid container className={styles.courseInfoContainer}>
-                <Grid item xs={12} md={9} className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+            </div>
 
-                    <div>
-                        <MarkdownParser children={markdown} />
-                    </div>
-                </Grid>
-            </Grid>
+            <div className={styles.courseInfoContainer}>
+                <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+
+                    <MarkdownParser children={markdown} />
+                </div>
+            </div>
         </>
     );
 }

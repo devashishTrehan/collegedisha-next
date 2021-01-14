@@ -14,17 +14,7 @@ const useStyles = makeStyles({
         borderRadius: Theme.radius1,
         padding: '20px 20px'
     },
-    containerHead: {
-        textAlign: 'left',
-        marginBottom: 20,
-        '& h4': {
-            color: Theme.primary,
-            fontFamily: 'gorditaMedium',
-            textTransform: 'capitalize',
-            fontSize: 20,
 
-        }
-    },
     hostelFacilityContent: {
         marginBottom: 50,
         '&:last-child': {
@@ -184,42 +174,36 @@ export function RenderHostel() {
                     return (
                         <>
                             <div className={styles.hostelFeesContainer}>
-                                <Grid container >
-                                    <Grid item xs={12} md={9} className={styles.container} >
-                                        <div className={styles.containerHead}>
-                                            <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel fees</Typography>
-                                        </div>
-                                        {
-                                            RenderFees(data[hostelType].fees)
-                                        }
-                                    </Grid>
-                                </Grid>
+                                <div className={styles.container} >
+                                    <div className={'containerHead'}>
+                                        <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel fees</Typography>
+                                    </div>
+                                    {
+                                        RenderFees(data[hostelType].fees)
+                                    }
+                                </div>
                             </div>
 
                             <div className={styles.hostelFacilityContainer}>
-                                <Grid container >
-                                    <Grid item xs={12} md={9} className={styles.container} >
-                                        <div className={styles.containerHead}>
-                                            <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel facilities</Typography>
-                                        </div>
-                                        {
-                                            RenderFacilities(data[hostelType].facilities)
-                                        }
-                                    </Grid>
-                                </Grid>
+                                <div className={styles.container} >
+                                    <div className={'containerHead'}>
+                                        <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel facilities</Typography>
+                                    </div>
+                                    {
+                                        RenderFacilities(data[hostelType].facilities)
+                                    }
+                                </div>
                             </div>
 
                             <div className={styles.hostelFacilityContent}>
-                                <Grid container >
-                                    <Grid item xs={12} md={9} className={styles.container} style={isMobile ? { padding: '20px' } : null}>
-                                        <div className={styles.containerHead}>
-                                            <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel details</Typography>
-                                        </div>
-                                        <div>
-                                            <MarkdownParser children={data[hostelType].hostel_content} />
-                                        </div>
-                                    </Grid>
-                                </Grid>
+                                <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+                                    <div className={'containerHead'}>
+                                        <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel details</Typography>
+                                    </div>
+                                    <div>
+                                        <MarkdownParser children={data[hostelType].hostel_content} />
+                                    </div>
+                                </div>
                             </div>
                         </>
                     )

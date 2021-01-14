@@ -1,6 +1,6 @@
 import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
-import CustomCard from '@/Components/CustomCard.component';
-import CustomListItem from '@/Components/CustomListItem.component';
+import InstitituteCard from '@/Components/InstituteCard.component';
+import InstitituteListCard from '@/Components/InstituteListCard.component';
 import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
@@ -11,6 +11,8 @@ import { Button, Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import InstituteListCard from '@/Components/InstituteListCard.component';
+import InstituteCard from '@/Components/InstituteCard.component';
 
 interface Props {
 
@@ -121,11 +123,16 @@ function Institutes(props: Props) {
             <Grid container spacing={5} justify='space-evenly'>
                 {
                     universities?.map((university: InstituteListItem, index: number) => {
-                        return (<Grid item key={index}
-                        >
-                            {/* <CustomListItem {...university} /> */}
-                            <CustomCard {...university} />
-                        </Grid>)
+                        if (isMobile) {
+
+                            return (<Grid item key={index} xs={12}>
+                                <InstitituteListCard {...university} />
+                            </Grid>)
+                        } else {
+                            return (<Grid item key={index}>
+                                <InstituteCard {...university} />
+                            </Grid>)
+                        }
                     })
                 }
 
@@ -145,8 +152,8 @@ function Institutes(props: Props) {
                             {
 
                             }
-                            {/* <CustomListItem {...university} /> */}
-                            <CustomCard {...university} />
+                            <InstituteListCard {...university} />
+                            {/* <InstituteCard {...university} /> */}
                         </Grid>)
                     })
                 }
@@ -182,7 +189,7 @@ function Institutes(props: Props) {
                             {/* <div className='underlay'></div> */}
 
                             <div className={classNames('activeHelper', { 'active': pageType === 'university' })}></div>
-                            <Button color='secondary' onClick={() => changePageType('university')}>Universities</Button>
+                            <Button color='primary' onClick={() => changePageType('university')}>Universities</Button>
                         </div>
 
                         <div className='buttonWrap' >
@@ -191,12 +198,12 @@ function Institutes(props: Props) {
                             {/* <div className='underlay'></div> */}
 
                             <div className={classNames('activeHelper', { 'active': pageType === 'college' })}></div>
-                            <Button color='secondary' onClick={() => changePageType('college')}>Colleges</Button>
+                            <Button color='primary' onClick={() => changePageType('college')}>Colleges</Button>
                         </div>
 
                     </div>
 
-                    <div className={styles.filterContentWrap} style={{ borderTopLeftRadius: pageType === 'university' ? 0 : Theme.radius1 }}>
+                    <div className={styles.filterContentWrap} style={{ borderTopLeftRadius: pageType === 'university' ? 0 : Theme.radius1, padding: isMobile ? '0 10px 20px' : '0 20px 20px' }}>
                         <div style={{ padding: '30px 0 40px' }}>
                             <Filters />
                         </div>

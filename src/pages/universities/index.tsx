@@ -1,5 +1,6 @@
 import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
-import CustomCard from '@/Components/CustomCard.component';
+import InstitituteCard from '@/Components/InstituteCard.component';
+import InstitituteListCard from '@/Components/InstituteListCard.component';
 import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
@@ -9,6 +10,8 @@ import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
 import { Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
+import InstituteCard from '@/Components/InstituteCard.component';
+import InstituteListCard from '@/Components/InstituteListCard.component';
 
 interface Props {
 
@@ -61,8 +64,8 @@ function Universities(props: Props) {
                             universities?.map((university: InstituteListItem, index: number) => {
                                 return (<Grid item key={index}
                                 >
-                                    {/* <CustomListItem {...university} /> */}
-                                    <CustomCard {...university} />
+                                    {/* <InstituteListCard {...university} /> */}
+                                    <InstituteCard {...university} />
                                 </Grid>)
                             })
                         }

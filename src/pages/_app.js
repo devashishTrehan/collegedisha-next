@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { Theme } from '@/Services/App.service';
-import NavBar from '@/Components/Navbar.component';
 import { CopyRightStrip } from '@/Components/CopyRightStrip.component';
 import '../styles/globals.css'
 import { useRouter } from 'next/router';
-import MenuContextProvider from '@/Context/Menu.context';
 import GraphClientContextProvider from '@/Context/GraphClient.context';
+import NavbarContextProvider, { NavbarContext } from '@/Context/Navbar.context';
 // import './fonts/gordita/Gordita';
 
 const theme = createMuiTheme({
@@ -23,28 +22,37 @@ const theme = createMuiTheme({
   }
 })
 
+function MyAppMainComponent({ Component, pageProps }) {
 
+  const { navHeight } = useContext(NavbarContext);
+  console.log('NavbarContext', navHeight);
 
-function MyApp({ Component, pageProps }) {
+  return (
+    <div style={{ paddingTop: navHeight, flexGrow: 1, }}>
+      <Component {...pageProps} />
+    </div>
+  )
+}
+
+function MyApp(props) {
 
   const router = useRouter()
-
 
   return <>
     <ThemeProvider theme={theme}>
       <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-        <MenuContextProvider>
-          <NavBar />
-        </MenuContextProvider>
-        <div style={{ paddingTop: 64, flexGrow: 1, }}>
 
-          <GraphClientContextProvider>
 
-            <Component {...pageProps} />
 
-          </GraphClientContextProvider>
 
-        </div>
+        <GraphClientContextProvider>
+          <NavbarContextProvider>
+
+            <MyAppMainComponent {...props} />
+
+          </NavbarContextProvider>
+        </GraphClientContextProvider>
+
         <CopyRightStrip style={{ backgroundColor: Theme.copyrightStripBackground, color: '#fff' }} />
       </div>
     </ThemeProvider>

@@ -185,14 +185,12 @@ export function RenderInformation() {
 
 
     return (
-        <Grid container >
-            <Grid item xs={12} md={9} className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+        <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
 
-                <div>
-                    <MarkdownParser children={markdown} />
-                </div>
-            </Grid>
-        </Grid>
+            <div>
+                <MarkdownParser children={markdown} />
+            </div>
+        </div>
     );
 }
 // ----- information section end ----- \\

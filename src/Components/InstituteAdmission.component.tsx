@@ -69,14 +69,10 @@ export function RenderAdmission() {
 
 
     return (
-        <Grid container >
-            <Grid item xs={12} md={9} className={styles.container} style={isMobile ? { padding: '20px' } : null}>
 
-                <div>
-                    <MarkdownParser children={markdown} />
-                </div>
-            </Grid>
-        </Grid>
+        <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+            <MarkdownParser children={markdown} />
+        </div>
     );
 }
 // ----- Admission section End ----- \\

@@ -14,17 +14,7 @@ const useStyles = makeStyles({
         borderRadius: Theme.radius1,
         padding: '20px 20px',
     },
-    containerHead: {
-        textAlign: 'left',
-        marginBottom: 20,
-        '& h4': {
-            color: Theme.primary,
-            fontFamily: 'gorditaMedium',
-            textTransform: 'capitalize',
-            fontSize: 22,
 
-        }
-    },
     reviewFormContainer: {
         marginTop: 50,
     }
@@ -88,76 +78,72 @@ export function RenderPlacement() {
 
     return (
         <>
-            <Grid container >
-                <Grid item xs={12} md={9} className={styles.container} >
-                    <div className={styles.containerHead}>
-                        <Typography variant='h4'>Our Faculties</Typography>
-                    </div>
-                    <Grid container spacing={5} justify={isMobile ? 'center' : 'flex-start'}>
-                        {
-                            RenderCompanyCards(companiesCount)
-                        }
-                    </Grid>
+            <div className={styles.container} >
+                <div className={'containerHead'}>
+                    <Typography variant='h4'>Our Faculties</Typography>
+                </div>
+                <Grid container spacing={5} justify={isMobile ? 'center' : 'flex-start'}>
+                    {
+                        RenderCompanyCards(companiesCount)
+                    }
                 </Grid>
-            </Grid>
+            </div>
 
             <div className={styles.reviewFormContainer}>
-                <Grid container >
-                    <Grid item xs={12} md={9} className={styles.container} >
-                        <div className={styles.containerHead}>
-                            <Typography variant='h4'>Write Review for college placement</Typography>
-                        </div>
+                <div className={styles.container} >
+                    <div className={'containerHead'}>
+                        <Typography variant='h4'>Write Review for college placement</Typography>
+                    </div>
 
-                        <div>
-                            <form>
+                    <div>
+                        <form>
 
-                                <Grid container spacing={3}>
-                                    <Grid item xs={12}>
+                            <Grid container spacing={3}>
+                                <Grid item xs={12}>
 
-                                        <InputArea
-                                            label='Write your college placement review here...'
-                                            name="review"
-                                            rowsMin={isMobile ? 15 : 25}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} md={4}>
-
-                                        <InputField
-                                            label='Your Name'
-                                            name="name"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} md={4}>
-
-                                        <InputField
-                                            label='Email Address'
-                                            name="email"
-                                        />
-                                    </Grid >
-                                    <Grid item xs={12} md={4}>
-
-                                        <InputField
-                                            label='designation'
-                                            name="designation"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <div
-                                            style={{ textAlign: 'right' }}
-                                        >
-
-                                            <Button
-                                                className='submitButton'
-                                                color='primary'
-                                                variant='contained'
-                                            >Submit</Button>
-                                        </div>
-                                    </Grid>
+                                    <InputArea
+                                        label='Write your college placement review here...'
+                                        name="review"
+                                        rowsMin={isMobile ? 15 : 25}
+                                    />
                                 </Grid>
-                            </form>
-                        </div>
-                    </Grid>
-                </Grid>
+                                <Grid item xs={12} md={4}>
+
+                                    <InputField
+                                        label='Your Name'
+                                        name="name"
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={4}>
+
+                                    <InputField
+                                        label='Email Address'
+                                        name="email"
+                                    />
+                                </Grid >
+                                <Grid item xs={12} md={4}>
+
+                                    <InputField
+                                        label='designation'
+                                        name="designation"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <div
+                                        style={{ textAlign: 'right' }}
+                                    >
+
+                                        <Button
+                                            className='submitButton'
+                                            color='primary'
+                                            variant='contained'
+                                        >Submit</Button>
+                                    </div>
+                                </Grid>
+                            </Grid>
+                        </form>
+                    </div>
+                </div>
             </div>
         </>
     );

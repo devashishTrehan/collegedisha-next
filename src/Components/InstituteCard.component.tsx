@@ -221,7 +221,7 @@ interface Props {
 
 const defaultImage = '/assets/images/defaults/institute.jpg'
 
-const CustomCard = memo(function (props: Props) {
+const InstituteCard = memo(function (props: Props) {
 
     const { name, location, image, rating, isApplied, isSaved, onDownload, onApply, onSave, onShare } = props;
 
@@ -285,4 +285,4 @@ const CustomCard = memo(function (props: Props) {
 })
 
 
-export default CustomCard;
+export default InstituteCard;

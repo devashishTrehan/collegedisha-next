@@ -8,7 +8,7 @@ import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
 import { Routes, Theme } from '@/Services/App.service';
 import { ExamListItem } from '@/Services/GraphQlDataTypes/Exams';
-import { Grid, Hidden, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
+import { Divider, Grid, Hidden, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 
@@ -19,20 +19,11 @@ interface Props {
 const SectionSpacing = 50;
 
 const useStyles = makeStyles({
-    pageHeading: {
-        textAlign: 'left',
-        fontSize: '28px',
-        color: Theme.primary,
-        fontFamily: 'gorditaBold',
-        textTransform: 'capitalize',
-    },
-    pageHeading_M: {
-        fontSize: '20px',
-    },
+
     listContentWrap: {
         display: 'inline-flex',
         '& .examListWrap': {
-            '&>div': {
+            '& .listcontainer': {
                 marginRight: SectionSpacing,
                 borderRadius: Theme.radius2,
                 // boxShadow: Theme.boxShadow,
@@ -138,18 +129,7 @@ function Universities(props: Props) {
 
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
-    const [ExamContentWidth, setExamContentWidth] = React.useState<number>(0);
 
-    React.useEffect(() => {
-        let windowWidth = window.innerWidth;
-        let contentWidth;
-        if (isTablet) {
-            contentWidth = windowWidth - (windowWidth * 0.10 + 70)
-        } else {
-            contentWidth = windowWidth - (windowWidth * 0.10 + 70 + 200 + SectionSpacing)
-        }
-        setExamContentWidth(contentWidth);
-    }, [])
 
     useEffect(() => {
         document.body.style.backgroundColor = Theme.secondary + '08';
@@ -170,7 +150,7 @@ function Universities(props: Props) {
 
             <div className='container'>
                 <div style={{ padding: '20px 5% 0' }}>
-                    <Typography variant='h2' className={classNames(styles.pageHeading, { [styles.pageHeading_M]: isMobile })}>List of all popular entrance exams and government exams in India</Typography>
+                    <Typography variant='h1' className={'pageHeading'}>List of all popular entrance exams and government exams in India</Typography>
                 </div>
             </div>
 
@@ -181,15 +161,23 @@ function Universities(props: Props) {
 
                         <Hidden smDown>
                             <div className='examListWrap'>
-                                <div>
+                                <div className='listcontainer'>
+                                    <div style={{ marginBottom: 20, }}>
+                                        <div className='containerHead'>
+                                            <Typography variant='h4' style={{ fontSize: 18 }}>Exams category</Typography>
+                                        </div>
+                                        <Divider light />
+                                    </div>
                                     <ExamCategories />
                                 </div>
                             </div>
                         </Hidden>
 
                         <div className='examCardsWrap'>
-
-                            <Grid container spacing={6} justify='space-evenly'>
+                            <div className='containerHead'>
+                                <Typography variant='h4' style={{ fontSize: 18 }}>Top Entrance exams</Typography>
+                            </div>
+                            <Grid container spacing={isMobile ? 3 : 6} justify='space-evenly'>
                                 {
                                     exams?.map((university: ExamListItem, index: number) => {
                                         return (<Grid item key={index}
@@ -200,7 +188,7 @@ function Universities(props: Props) {
                                     })
                                 }
 
-                                <DummyCards parentWidth={ExamContentWidth} spacing={6} cardWidth={{ small: 180, regular: 240 }} cardCount={exams.length} withGrid={true} />
+                                <DummyCards spacing={6} cardSize={{ width: { small: 160, regular: 220 }, minHeight: 160 }} cardCount={exams.length} withGrid={true} />
 
                             </Grid>
                         </div>

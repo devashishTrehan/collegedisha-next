@@ -76,6 +76,7 @@ export const Routes = {
     Advertisement: '/write-for-us',
     Institutes: '/institutes',
     Colleges: '/colleges',
+    Coachings: '/coaching',
     Exams: '/exams',
     Universities: '/universities',
     ProfileEdit: '/profile-edit/',

@@ -64,7 +64,7 @@ export function RenderReview(props: Props) {
         academic: 5,
         accommodation: 2,
         faculty: 7,
-        infrastucture: 6,
+        infrastructure: 6,
         placement: 7,
         social: 8
     }
@@ -93,12 +93,12 @@ export function RenderReview(props: Props) {
             </div>
             <Grid container spacing={4}>
                 {
-                    Object.keys(ratings)?.map((rating: string) => {
+                    Object.keys(ratings)?.map((rating: string, index: number) => {
                         return (
-                            <Grid item md={4}>
+                            <Grid item md={4} key={index}>
                                 <div className={styles.RateItem}>
                                     <div className='imageWrap'>
-                                        <img src={0 ? `/assets/images/instituteRateItems/${rating}.png` : `/assets/images/defaults/user.png`} alt='' />
+                                        <img src={`/assets/images/instituteRatings/${rating}.png`} alt='' />
                                     </div>
                                     <div className='rateWrap'>
                                         <Typography className='rating'>{ratings[rating]}/{totalRatePoints}</Typography>

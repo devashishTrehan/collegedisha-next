@@ -71,7 +71,7 @@ export function RenderAdmission() {
     return (
 
         <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
-            <MarkdownParser children={markdown} />
+            <MarkdownParser content={markdown} />
         </div>
     );
 }

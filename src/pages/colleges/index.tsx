@@ -25,17 +25,17 @@ function Colleges(props: Props) {
 
 
     const [Colleges, setColleges] = useState<InstituteListItem[]>([
-        { id: 1, name: 'Bennett University', isApplied: true, isSaved: false, image: '', location: 'noida, india', rating: 4.5, },
-        { id: 2, name: 'Integral University', isApplied: false, isSaved: true, image: '', location: 'agra, india', rating: 4.4, },
-        { id: 3, name: 'Shri Ramswaroop Memorial University', isApplied: true, isSaved: false, image: '', location: 'noida, india', rating: 3.5, },
-        { id: 4, name: 'Sanskriti University', isApplied: true, isSaved: false, image: '', location: 'vishakha patnam, india', rating: 4.5, },
-        { id: 5, name: 'Amity University', isApplied: true, isSaved: false, image: '', location: 'chennai, india', rating: 2.5, },
-        { id: 6, name: 'Era University', isApplied: false, isSaved: true, image: '', location: 'durg, india', rating: 4.8, },
-        { id: 7, name: 'Vaugh Institute of Agricultural Engineering and Technology', isApplied: true, isSaved: false, image: '', location: 'shimla, india', rating: 2.5, },
-        { id: 8, name: 'Naraina Group Of Institutions', isApplied: false, isSaved: true, image: '', location: 'gaziabad, india', rating: 4.5, },
-        { id: 9, name: 'IIMT University', isApplied: true, isSaved: false, image: '', location: 'delhi, india', rating: 4.5, },
-        { id: 10, name: 'Swami Vivekanand Subharti University', isApplied: false, isSaved: true, image: '', location: 'nanital, india', rating: 3.5, },
-        { id: 11, name: 'Rama University', isApplied: true, isSaved: false, image: '', location: 'noida, india', rating: 2.5, },
+        { id: 1, slug: 'xyz-slug', name: 'Bennett University', isApplied: true, isSaved: false, image: '', location: 'noida, india', rating: 4.5, },
+        { id: 2, slug: 'xyz-slug', name: 'Integral University', isApplied: false, isSaved: true, image: '', location: 'agra, india', rating: 4.4, },
+        { id: 3, slug: 'xyz-slug', name: 'Shri Ramswaroop Memorial University', isApplied: true, isSaved: false, image: '', location: 'noida, india', rating: 3.5, },
+        { id: 4, slug: 'xyz-slug', name: 'Sanskriti University', isApplied: true, isSaved: false, image: '', location: 'vishakha patnam, india', rating: 4.5, },
+        { id: 5, slug: 'xyz-slug', name: 'Amity University', isApplied: true, isSaved: false, image: '', location: 'chennai, india', rating: 2.5, },
+        { id: 6, slug: 'xyz-slug', name: 'Era University', isApplied: false, isSaved: true, image: '', location: 'durg, india', rating: 4.8, },
+        { id: 7, slug: 'xyz-slug', name: 'Vaugh Institute of Agricultural Engineering and Technology', isApplied: true, isSaved: false, image: '', location: 'shimla, india', rating: 2.5, },
+        { id: 8, slug: 'xyz-slug', name: 'Naraina Group Of Institutions', isApplied: false, isSaved: true, image: '', location: 'gaziabad, india', rating: 4.5, },
+        { id: 9, slug: 'xyz-slug', name: 'IIMT University', isApplied: true, isSaved: false, image: '', location: 'delhi, india', rating: 4.5, },
+        { id: 10, slug: 'xyz-slug', name: 'Swami Vivekanand Subharti University', isApplied: false, isSaved: true, image: '', location: 'nanital, india', rating: 3.5, },
+        { id: 11, slug: 'xyz-slug', name: 'Rama University', isApplied: true, isSaved: false, image: '', location: 'noida, india', rating: 2.5, },
     ]);
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -59,19 +59,28 @@ function Colleges(props: Props) {
                 <div className='wrapper'>
                     <Grid container spacing={5} justify='space-evenly'>
                         {
-                            Colleges?.map((university: InstituteListItem, index: number) => {
-                                return (<Grid item key={index}
-                                >
-                                    {
+                            Colleges?.map((college: InstituteListItem, index: number) => {
+                                if (isMobile) {
 
-                                    }
-                                    {/* <InstituteListCard {...university} /> */}
-                                    <InstituteCard {...university} />
-                                </Grid>)
+                                    return (
+                                        <Grid item key={index} xs={12}>
+                                            <InstitituteListCard {...college} />
+                                        </Grid>
+                                    )
+                                } else {
+                                    return (
+                                        <Grid item key={index}>
+                                            <InstituteCard {...college} />
+                                        </Grid>
+                                    )
+                                }
                             })
                         }
-
-                        <DummyCards cardCount={Colleges.length} withGrid={true} />
+                        {
+                            !isMobile ?
+                                <DummyCards cardCount={Colleges.length} withGrid={true} />
+                                : null
+                        }
 
                     </Grid>
                 </div>

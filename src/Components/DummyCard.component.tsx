@@ -7,7 +7,7 @@ import classNames from 'classnames';
 const useStyles = makeStyles({
     container: (props: cardSizeType) => ({
         width: props.width.regular,
-        minHeight: props.minHeight ? props.minHeight : 100,
+        minHeight: props.minHeight ? props.minHeight : 10,
         margin: 'auto',
         height: '100%',
         maxWidth: '100%',
@@ -55,14 +55,23 @@ const DummyCards = (props: Props) => {
 
 
     useEffect(() => {
-        window.removeEventListener('resize', () => {
-        });
-        window.onresize = () => {
-            UpdateParentWidth();
-        }
+        let timeout;
+        window.addEventListener('resize', () => {
+
+            clearTimeout(timeout);
+            setTimeout(() => {
+                console.log('listening');
+                UpdateParentWidth();
+            }, 500)
+
+        })
         UpdateParentWidth();
 
-    }, [_ref]);
+        return window.removeEventListener('resize', () => {
+            console.log('listener removed')
+        })
+
+    }, []);
 
     let cardSize: cardSizeType = props.cardSize ? props.cardSize : { width: { small: 200, regular: 240 }, minHeight: 200 }
 

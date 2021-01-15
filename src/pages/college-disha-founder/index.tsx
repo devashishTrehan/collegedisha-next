@@ -179,47 +179,46 @@ function FounderPage(props: any) {
 
     return (
       <>
-      <CustomBreadCrumb breadcrumbs={[{ name: 'founders', endPoint: `${Routes.Founder}` }]} />
 
-      <Grid item xs={12} sm={6} key={index} >
+        <Grid item xs={12} sm={6} key={index} >
 
-        <div className={styles.CardWrap}>
-          <div className='background' style={index % 2 !== 0 ? {
-            backgroundImage: `url(/assets/images/founderCardBg2.png),url(/assets/images/DotsShape1.png)`,
-            backgroundPosition: '100% 100%,0% 0%',
-          } : {}}></div>
+          <div className={styles.CardWrap}>
+            <div className='background' style={index % 2 !== 0 ? {
+              backgroundImage: `url(/assets/images/founderCardBg2.png),url(/assets/images/DotsShape1.png)`,
+              backgroundPosition: '100% 100%,0% 0%',
+            } : {}}></div>
 
-          <div className={styles.Card}>
-            <div className='imageWrap'>
-              <img src={`/assets/images/founders/${image}`} alt={name} />
-            </div>
+            <div className={styles.Card}>
+              <div className='imageWrap'>
+                <img src={`/assets/images/founders/${image}`} alt={name} />
+              </div>
 
-            <div className='head'>
-              <span><Typography variant='h6' className='name' >{name}</Typography></span>
-              <span><Typography className='designation'>{designation}</Typography></span>
-            </div>
-            <Typography className='description'>{description}</Typography>
+              <div className='head'>
+                <span><Typography variant='h6' className='name' >{name}</Typography></span>
+                <span><Typography className='designation'>{designation}</Typography></span>
+              </div>
+              <Typography className='description'>{description}</Typography>
 
-            <div className="SMGroup">
-              <span>
-                <a href={facebook}>
-                  <FontAwesomeIcon icon={faFacebookF} />
-                </a>
-              </span>
-              <span>
-                <a href={twitter}>
-                  <FontAwesomeIcon icon={faTwitter} />
-                </a>
-              </span>
-              <span>
-                <a href={instagram}>
-                  <FontAwesomeIcon icon={faInstagram} />
-                </a>
-              </span>
+              <div className="SMGroup">
+                <span>
+                  <a href={facebook}>
+                    <FontAwesomeIcon icon={faFacebookF} />
+                  </a>
+                </span>
+                <span>
+                  <a href={twitter}>
+                    <FontAwesomeIcon icon={faTwitter} />
+                  </a>
+                </span>
+                <span>
+                  <a href={instagram}>
+                    <FontAwesomeIcon icon={faInstagram} />
+                  </a>
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      </Grid >
+        </Grid >
       </>
     )
   }
@@ -233,6 +232,8 @@ function FounderPage(props: any) {
   return (
 
     <>
+      <CustomBreadCrumb breadcrumbs={[{ name: 'founders', endPoint: `${Routes.Founder}` }]} />
+
       <PageHead PageName='Founders' />
 
       <div className={styles.SectionBackground}>

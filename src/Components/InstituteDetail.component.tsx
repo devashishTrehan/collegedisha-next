@@ -21,6 +21,12 @@ import { NavbarContext } from '@/Context/Navbar.context';
 
 
 const useStyles = makeStyles({
+    backgroundContainer: {
+        backgroundImage: "url('/assets/images/innerPages/instituteBanner.jpg')",
+        backgroundSize: '100%',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'right',
+    },
     headContainer: {
         '& .wrap': {
             display: 'flex',
@@ -209,7 +215,8 @@ function InstituteDetailComponent(props: Props) {
         id: 1,
         image: '',
         rating: 3.4,
-        views: 2345
+        views: 2345,
+        slug: '',
     });
     const [slugs, setSlugs] = useState<string[]>([]);
     const [currentSection, setCurrentSection] = useState<string>(pageSections.Information);
@@ -268,8 +275,8 @@ function InstituteDetailComponent(props: Props) {
         <div>
             <CustomBreadCrumb breadcrumbs={breadCrumbs} />
 
-            <div className='container'>
-                <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '50px 5%' }}>
+            <div className={classNames('container', styles.backgroundContainer)} >
+                <div className='wrapper' style={{ padding: isMobile ? '30px 5%' : '80px 5%' }}>
 
 
                     <div className={classNames(styles.headContainer, { [styles.headContainer_M]: isMobile })}>

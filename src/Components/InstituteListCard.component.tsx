@@ -6,6 +6,7 @@ import React, { memo } from 'react';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 
 
 
@@ -40,6 +41,7 @@ const useStyles = makeStyles({
         width: 'calc(100% - 100px)',
         display: 'flex',
         flexDirection: 'column',
+        cursor: 'pointer',
         justifyContent: 'space-between',
         textTransform: 'capitalize',
         '& .topSection': {
@@ -119,19 +121,27 @@ interface Props {
     onShare?: Function,
     isApplied?: boolean,
     isSaved?: boolean,
+    slug: string
 }
 
 const defaultImage = '/assets/images/defaults/institute.jpg'
 
 const InstituteListCard = memo(function (props: Props) {
 
-    const { name, location, image, rating, isApplied, isSaved, onDownload, onApply, onSave, onShare } = props;
+    const { name, location, image, rating, isApplied, isSaved, onDownload, onApply, onSave, onShare, slug } = props;
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
+    const router = useRouter();
 
 
     const styles = useStyles();
+
+    const ViewDetails = (slug: string) => {
+        router.push({
+            pathname: `${router.pathname}/${slug}`
+        })
+    }
 
 
     return (
@@ -143,7 +153,7 @@ const InstituteListCard = memo(function (props: Props) {
                 </div>
             </div>
 
-            <div className={classNames(styles.InfoSetion)}>
+            <div onClick={() => ViewDetails(slug)} className={classNames(styles.InfoSetion)}>
                 <div className={'topSection'}>
                     <div className={'nameContainer'}>
                         <span className={'ratingWrap'}>

@@ -118,7 +118,8 @@ code {
     margin-bottom: 20px;
 }
 
-.containerHead h4 {
+.containerHead h4,
+.containerHead h2 {
     color: var(--TPrimary);
     font-family: 'gorditaMedium';
     text-transform: capitalize;
@@ -127,6 +128,22 @@ code {
 
 .wrapper {
     padding: 50px 5%;
+}
+
+.pageHeading {
+    text-align: left;
+    font-size: 26px !important;
+    color: var(--TPrimary);
+    font-family: 'gorditaBold' !important;
+    text-transform: capitalize;
+}
+
+.imageWrap {
+    border-radius: 10px;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
 }
 
 .FormLogoWrap>img {
@@ -211,6 +228,15 @@ code {
 .beat {
     animation: Beat 2s alternate;
     animation-delay: 1s;
+}
+
+
+/* ----------+++++ Media Queries +++++---------- */
+
+@media(max-width:600px) {
+    .pageHeading {
+        font-size: 20px !important;
+    }
 }
 
 

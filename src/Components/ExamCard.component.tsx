@@ -10,7 +10,7 @@ import { ExamListItem, ExamListItemLink } from '@/Services/GraphQlDataTypes/Exam
 
 const useStyles = makeStyles({
     container: {
-        width: 240,
+        width: 220,
         minHeight: 220,
         margin: 'auto',
         display: 'flex',
@@ -83,14 +83,10 @@ const useStyles = makeStyles({
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            color: "#444",
             '& *': {
-                fontSize: 14,
-            },
-            '& svg': {
-                fontSize: 20,
-                verticalAlign: 'middle',
-                marginLeft: -4
+                fontFamily: 'gorditaMedium',
+                color: "#777",
+                fontSize: 11,
             }
 
         }
@@ -98,16 +94,17 @@ const useStyles = makeStyles({
     footerSection: {
         padding: `0px ${Theme.spacingMid}px ${Theme.spacingMid}px`,
 
-        '& .titleWrap': {
+        '& .footerTitleWrap': {
             display: 'flex',
             color: '#888',
             alignItems: 'center',
             '& svg': {
-                fontSize: 18,
+                fontSize: 16,
 
             },
             '& p': {
-                fontSize: 12,
+                color: "#777",
+                fontSize: 10,
                 textTransform: 'capitalize'
             }
         },
@@ -120,8 +117,8 @@ const useStyles = makeStyles({
                     color: Theme.secondaryFontColor,
                     textDecoration: 'none',
                     fontSize: 12,
-                    margin: '2px 5px 2px 0',
-                    padding: '3px 5px 3px 0',
+                    margin: '2px 10px 2px 0',
+                    padding: '3px 10px 3px 0',
                 }
             }
         }
@@ -147,19 +144,14 @@ const useStyles = makeStyles({
         },
         '& .subTitleWrap': {
             '& *': {
-                fontSize: 12,
+                fontSize: 10,
             },
-            '& svg': {
-                fontSize: 16,
-                marginLeft: -3
-            }
-
         },
 
     },
     footerSection_T: {
         padding: `0px ${Theme.spacingLess}px ${Theme.spacingLess}px`,
-        '& .titleWrap': {
+        '& .footerTitleWrap': {
             '& svg': {
                 fontSize: 16,
 
@@ -208,7 +200,7 @@ const ExamCard = memo(function (props: Props) {
                 </div>
             </div>
             <div className={classNames(styles.footerSection, { [styles.footerSection_T]: isTablet })}>
-                <span className='titleWrap'>
+                <span className='footerTitleWrap'>
                     <LinkIcon />
                     <Typography>other useful links</Typography>
                 </span>

@@ -8,7 +8,8 @@ export interface InstituteListItem {
     rating: number,
     location: string,
     isApplied: boolean,
-    isSaved: boolean
+    isSaved: boolean,
+    slug: string
 }
 
 export interface InstituteList {
@@ -17,7 +18,11 @@ export interface InstituteList {
 
 export interface InstituteInformation {
     about: string,
-    address: string
+    address_detail: {
+        timings: string,
+        contact_no?: string,
+        address: string,
+    }
 }
 
 export interface InstituteGallery {

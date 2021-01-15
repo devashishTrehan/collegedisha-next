@@ -30,10 +30,15 @@ const sectionStyles = makeStyles({
         boxShadow: Theme.boxShadow,
         '& svg': {
             width: '22px !important',
-            height: 22
+            height: 22,
+            transition: '.3s',
         },
         '&:hover': {
-            opacity: .5,
+            opacity: .8,
+            padding: '5px 6px 10px',
+            '& svg': {
+                transform: 'translate(0,-5px)',
+            }
         }
     },
 });
@@ -74,7 +79,9 @@ export const CopyRightStrip = (props: any) => {
             <div>
                 <p>Copyright @{CurrentYear}. CollegeDisha.com . All rights reserved</p>
             </div>
-            <span onClick={() => scrollToTop()} className={styles.scrollTopButton} style={{ display: isOnTop ? 'none' : 'flex' }} ><KeyboardArrowUp /></span>
+            <span onClick={() => scrollToTop()} className={styles.scrollTopButton} style={{ display: isOnTop ? 'none' : 'flex' }} >
+                <KeyboardArrowUp />
+            </span>
         </div>
     )
 

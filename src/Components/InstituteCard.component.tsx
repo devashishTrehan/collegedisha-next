@@ -4,6 +4,7 @@ import { Bookmark, BookmarkBorder, GetAppRounded, LocationOnOutlined, Share, Sta
 import { makeStyles } from '@material-ui/styles';
 import React, { memo } from 'react';
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 
 
 
@@ -107,6 +108,7 @@ const useStyles = makeStyles({
         textAlign: 'left',
         flexGrow: 1,
         textTransform: 'capitalize',
+        cursor: 'pointer',
         '& .productName': {
             color: Theme.fontColorSecondary,
             fontFamily: 'gorditaMedium',
@@ -217,20 +219,27 @@ interface Props {
     onShare?: Function,
     isApplied?: boolean,
     isSaved?: boolean,
+    slug: string
 }
 
 const defaultImage = '/assets/images/defaults/institute.jpg'
 
 const InstituteCard = memo(function (props: Props) {
 
-    const { name, location, image, rating, isApplied, isSaved, onDownload, onApply, onSave, onShare } = props;
+    const { name, location, image, rating, isApplied, isSaved, onDownload, onApply, onSave, onShare, slug } = props;
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
+    const router = useRouter();
 
 
     const styles = useStyles();
 
+    const ViewDetails = (slug: string) => {
+        router.push({
+            pathname: `${router.pathname}/${slug}`
+        })
+    }
 
     return (
         <div className={classNames(styles.container, { [styles.container_T]: isTablet })}>
@@ -249,7 +258,7 @@ const InstituteCard = memo(function (props: Props) {
                     </IconButton>
                 </div>
             </div>
-            <div className={classNames(styles.InfoSetion, { [styles.InfoSetion_T]: isTablet })}>
+            <div onClick={() => ViewDetails(slug)} className={classNames(styles.InfoSetion, { [styles.InfoSetion_T]: isTablet })}>
                 <Typography className={'productName'} >{name}</Typography>
                 <div className={'locationWrap'}>
                     <LocationOnOutlined />

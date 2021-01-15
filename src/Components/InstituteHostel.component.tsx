@@ -201,7 +201,7 @@ export function RenderHostel() {
                                         <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel details</Typography>
                                     </div>
                                     <div>
-                                        <MarkdownParser children={data[hostelType].hostel_content} />
+                                        <MarkdownParser content={data[hostelType].hostel_content} />
                                     </div>
                                 </div>
                             </div>

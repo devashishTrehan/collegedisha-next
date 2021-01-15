@@ -6,7 +6,7 @@ export interface ReviewRatingItems {
     faculty: number,
     placement: number,
     social: number,
-    infrastucture: number,
+    infrastructure: number,
 }
 
 export interface ReviewType {

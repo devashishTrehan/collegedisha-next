@@ -18,7 +18,7 @@ const useStyles = makeStyles({
         '& table': {
             borderCollapse: 'collapse',
             width: '100%',
-            marginBottom: 10,
+            margin: '10px 0px',
             '& thead': {
                 '& th': {
                     position: 'sticky',
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
             '& th': {
                 paddingTop: 12,
                 paddingBottom: 12,
-                backgroundColor: Theme.primary,
+                backgroundColor: Theme.fontColorSecondary,
                 color: '#fff',
                 fontSize: 15,
             },
@@ -53,14 +53,14 @@ const useStyles = makeStyles({
             }
         },
         '& h4,h3,h2': {
-            padding: '10px 0 5px',
-            color: Theme.primary,
-            fontSize: 20,
-        },
-        '& h6,h5': {
-            padding: '10px 0 5px',
+            padding: '10px 0',
             color: Theme.primary,
             fontSize: 18,
+        },
+        '& h6,h5': {
+            padding: '10px 0',
+            color: Theme.primary,
+            fontSize: 16,
         },
         '& hr': {
             height: '1px',
@@ -165,13 +165,12 @@ const stripIndent = (content: string) => {
 }
 
 interface Props {
-    children: string,
+    content: string,
 }
 
 function MarkdownParser(props: Props) {
 
     const styles = useStyles();
-    const [content, setContent] = useState(props.children);
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -183,7 +182,7 @@ function MarkdownParser(props: Props) {
     return (
         <div className={classNames(styles.markdownContainer, { [styles.markdownContainer_M]: isMobile })}>
 
-            <ReactMarkdown plugins={[remarkGfm]} children={stripIndent(content)} escapeHtml={false} />
+            <ReactMarkdown plugins={[remarkGfm]} children={stripIndent(props.content)} escapeHtml={false} />
 
         </div>
     );

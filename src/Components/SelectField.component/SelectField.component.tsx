@@ -101,14 +101,16 @@ class SelectField extends React.Component<SelectFieldProps, SelectFieldState> {
         let newProps = { ...this.props, error: isError }
 
         return (
-            <div style={this.props.containerStyle} >
+            <div  >
 
                 <div className={classNames(
                     FieldStyles.inputWrap,
                     {
                         [FieldStyles.focusedInput]: this.state.isFocused,
                         [FieldStyles.errorInput]: isError,
-                    })}>
+                    })}
+                    style={this.props.containerStyle}
+                >
                     {
                         this.props.label ?
                             <label className={classNames([FieldStyles.inputLabel], {
@@ -122,7 +124,9 @@ class SelectField extends React.Component<SelectFieldProps, SelectFieldState> {
                         onFocus={() => this.focusHandler()}
                         onChange={(event: any) => this.keyDownHandler(event)}
                         onBlur={() => this.blurHandler()}
+                        
                         className={FieldStyles.input}
+                        // style={}
                         MenuProps={{
                             getContentAnchorEl: null,
                             anchorOrigin: {

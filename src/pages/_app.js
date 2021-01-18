@@ -36,7 +36,9 @@ function MyAppMainComponent({ Component, pageProps }) {
 
 function MyApp(props) {
 
-  const router = useRouter()
+  const router = useRouter();
+
+
 
   return <>
     <ThemeProvider theme={theme}>
@@ -47,9 +49,9 @@ function MyApp(props) {
 
         <GraphClientContextProvider>
           <NavbarContextProvider>
-
-            <MyAppMainComponent {...props} />
-
+            <>
+              <MyAppMainComponent {...props} />
+            </>
           </NavbarContextProvider>
         </GraphClientContextProvider>
 

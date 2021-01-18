@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import React, { memo } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
+import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
 
 
 
@@ -208,18 +209,11 @@ const useStyles = makeStyles({
     }
 })
 
-interface Props {
-    name: string,
-    location: string,
-    rating: number,
-    image?: string,
+interface Props extends InstituteListItem {
     onSave?: Function,
     onDownload?: Function,
     onApply?: Function,
     onShare?: Function,
-    isApplied?: boolean,
-    isSaved?: boolean,
-    slug: string
 }
 
 const defaultImage = '/assets/images/defaults/institute.jpg'

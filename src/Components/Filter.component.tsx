@@ -364,8 +364,8 @@ export const Filters = (props: any) => {
                     filters.map((field: any, index: number) => {
                         let currentField = filterFields[field];
                         return (
-                            <>
-                                <span key={field} style={{ margin: '0 5px', display: 'inline-block' }}>
+                            <React.Fragment key={field}>
+                                <span style={{ margin: '0 5px', display: 'inline-block' }}>
 
 
                                     <Chip
@@ -438,7 +438,7 @@ export const Filters = (props: any) => {
                                         ? <Divider style={{ boxShadow: '20px 20px 50px #00d2c6, -30px -30px 60px #00ffff;' }} orientation='vertical' />
                                         : null
                                 }
-                            </>
+                            </React.Fragment>
                         )
                     })
                 }

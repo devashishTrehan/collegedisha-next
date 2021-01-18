@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
+import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
 
 
 
@@ -110,18 +111,11 @@ const useStyles = makeStyles({
     },
 })
 
-interface Props {
-    name: string,
-    location: string,
-    rating: number,
-    image?: string,
+interface Props extends InstituteListItem{ 
     onSave?: Function,
     onDownload?: Function,
     onApply?: Function,
     onShare?: Function,
-    isApplied?: boolean,
-    isSaved?: boolean,
-    slug: string
 }
 
 const defaultImage = '/assets/images/defaults/institute.jpg'

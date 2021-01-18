@@ -139,8 +139,6 @@ code {
 }
 
 .imageWrap {
-    border-radius: 10px;
-    background-color: #eee;
     display: flex;
     align-items: center;
     overflow: hidden;

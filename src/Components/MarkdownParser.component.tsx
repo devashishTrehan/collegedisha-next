@@ -1,100 +1,103 @@
 import { Theme } from '@/Services/App.service';
 import { useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import classNames from 'classnames';
 import remarkGfm from 'remark-gfm';
+import { NavbarContext } from '@/Context/Navbar.context';
 
 const useStyles = makeStyles({
-    markdownContainer: {
-        fontFamily: 'gordita',
-        textAlign: 'left',
-        color: Theme.fontColorSecondary,
-        // overflow: 'scroll',
-        '& *': {
-            clear: 'both',
-        },
-        '& table': {
-            borderCollapse: 'collapse',
-            width: '100%',
-            margin: '10px 0px',
-            '& thead': {
+    markdownContainer: (props: { navHeight: number }) => {
+        return {
+            fontFamily: 'gordita',
+            textAlign: 'left',
+            color: Theme.fontColorSecondary,
+            // overflow: 'scroll',
+            '& *': {
+                clear: 'both',
+            },
+            '& table': {
+                borderCollapse: 'collapse',
+                width: '100%',
+                margin: '10px 0px',
+                '& thead': {
+                    '& th': {
+                        position: 'sticky',
+                        top: props.navHeight + 73,
+                        zIndex: 5,
+                        // '&:first-child': {
+                        //     left: 0,
+                        // },
+                    }
+                },
                 '& th': {
-                    position: 'sticky',
-                    top: 135,
-                    zIndex: 5,
-                    // '&:first-child': {
+                    paddingTop: 12,
+                    paddingBottom: 12,
+                    backgroundColor: Theme.fontColorSecondary,
+                    color: '#fff',
+                    fontSize: 15,
+                },
+                '& td,th': {
+                    border: '1px solid #eee',
+                    padding: Theme.spacingLess,
+                },
+                '& tr': {
+                    transition: '.2s',
+                    fontSize: 14,
+                    // '& td:first-child': {
+                    //     position: 'sticky',
                     //     left: 0,
                     // },
+                    '&:nth-child(even)': {
+                        backgroundColor: '#f6f6f6',
+                    },
                 }
             },
-            '& th': {
-                paddingTop: 12,
-                paddingBottom: 12,
-                backgroundColor: Theme.fontColorSecondary,
-                color: '#fff',
+            '& h4,h3,h2': {
+                padding: '10px 0',
+                color: Theme.primary,
+                fontSize: 18,
+            },
+            '& h6,h5': {
+                padding: '10px 0',
+                color: Theme.primary,
+                fontSize: 16,
+            },
+            '& hr': {
+                height: '1px',
+                backgroundColor: '#ccc',
+                border: 'none',
+                margin: '20px 0',
+            },
+            '& p': {
+                lineHeight: '28px',
+                marginTop: 10,
                 fontSize: 15,
             },
-            '& td,th': {
-                border: '1px solid #eee',
-                padding: Theme.spacingLess,
-            },
-            '& tr': {
-                transition: '.2s',
-                fontSize: 14,
-                // '& td:first-child': {
-                //     position: 'sticky',
-                //     left: 0,
-                // },
-                '&:nth-child(even)': {
-                    backgroundColor: '#f6f6f6',
-                },
-            }
-        },
-        '& h4,h3,h2': {
-            padding: '10px 0',
-            color: Theme.primary,
-            fontSize: 18,
-        },
-        '& h6,h5': {
-            padding: '10px 0',
-            color: Theme.primary,
-            fontSize: 16,
-        },
-        '& hr': {
-            height: '1px',
-            backgroundColor: '#ccc',
-            border: 'none',
-            margin: '20px 0',
-        },
-        '& p': {
-            lineHeight: '28px',
-            marginTop: 10,
-            fontSize: 15,
-        },
-        '& ul': {
-            paddingLeft: 20,
-            marginTop: 10,
-            marginBottom: 20,
-            '& li': {
-                '&::marker': {
-                    fontSize: 18,
-                },
-                lineHeight: '28px',
-                fontSize: 14,
-            }
-        },
-        '& ol': {
-            paddingLeft: 20,
-            marginTop: 10,
-            marginBottom: 20,
-            '& li': {
-                '&::marker': {
+            '& ul': {
+                paddingLeft: 20,
+                marginTop: 10,
+                marginBottom: 20,
+                '& li': {
+                    '&::marker': {
+                        fontSize: 18,
+                    },
+                    lineHeight: '28px',
                     fontSize: 14,
-                },
-                lineHeight: '28px',
-                fontSize: 14,
+                }
+            },
+            '& ol': {
+                paddingLeft: 20,
+                marginTop: 10,
+                marginBottom: 20,
+                '& li': {
+                    '&::marker': {
+                        fontSize: 14,
+                    },
+                    lineHeight: '28px',
+                    fontSize: 14,
+                }
             }
         }
     },
@@ -170,7 +173,8 @@ interface Props {
 
 function MarkdownParser(props: Props) {
 
-    const styles = useStyles();
+    const { navHeight } = useContext(NavbarContext);
+    const styles = useStyles({ navHeight: navHeight });
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');

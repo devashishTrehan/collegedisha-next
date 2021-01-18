@@ -18,9 +18,16 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    PageName: string,
     backgroundImageName?: string,
+    PageName?: string,
+    children?: JSX.Element
 }
+
+// interface PropsWithPageName extends Props {
+// }
+
+// interface PropsWithChildren extends Props {
+// }
 
 export const PageHead = (props: Props) => {
 
@@ -30,7 +37,11 @@ export const PageHead = (props: Props) => {
         <div className={styles.background} style={{ backgroundImage: `url(/assets/images/patternUnit.jpg)` }}>
             <div className='container'>
                 <div className={styles.wrapper}>
-                    <Typography className={styles.heading} variant='h1'>{props.PageName}</Typography>
+                    {
+                        props.children ?
+                            props.children
+                            : <Typography className={styles.heading} variant='h1'>{props.PageName}</Typography>
+                    }
                 </div>
             </div>
         </div>

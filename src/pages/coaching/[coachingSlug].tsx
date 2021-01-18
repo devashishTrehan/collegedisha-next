@@ -1,186 +1,20 @@
 import { Routes, Theme } from '@/Services/App.service';
-import { detailedInstitute } from '@/Services/GraphQlDataTypes/Institutes';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import CustomBreadCrumb, { UrlObject } from '@/Components/CustomBreadCrumb.component';
-import { Grid, ListItem, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
-import { LocationOnOutlined, Visibility } from '@material-ui/icons';
-import { Rating } from '@material-ui/lab';
-import classNames from 'classnames';
+import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { detailedCoaching } from '@/Services/GraphQlDataTypes/Coachings';
 import { AddressDetailComponent, AddressDetailProps } from '@/Components/InstituteInformation.component';
 import MarkdownParser from '@/Components/MarkdownParser.component';
-import { abort } from 'process';
+import { PageNavigation } from '@/Components/PageNavigation.component';
+import { InnerPageHead } from '@/Components/InnerPageHead.component';
 
 
 
 
 const useStyles = makeStyles({
-    backgroundContainer: {
-        backgroundImage: "url('/assets/images/innerPages/instituteBanner.jpg')",
-        backgroundSize: '100%',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'right',
-    },
-    headContainer: {
-        '& .wrap': {
-            display: 'flex',
-            textAlign: 'left',
-            verticalAlign: 'middle',
-            alignItems: 'center',
-        },
-        '& .imageWrap': {
-            width: 180,
-            height: 180,
-            borderRadius: Theme.radius2,
-            boxShadow: Theme.boxShadow,
-            overflow: 'hidden',
-        },
-        '& .detailWrap': {
-            padding: '20px 0',
-            margin: '-10px 0 -10px 20px',
-            textTransform: 'capitalize',
-            color: Theme.primary,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
 
-            '& .name': {
-                fontFamily: 'gorditaMedium',
-                textTransform: 'uppercase',
-                fontSize: 24,
-            },
-            '& .location': {
-                color: 'gray',
-                fontSize: 18,
-                '& svg': {
-                    fontSize: 20,
-                    verticalAlign: 'middle',
-                    marginRight: 5,
-                    marginLeft: -3,
-                }
-
-            },
-            '& .views': {
-                fontFamily: 'gorditaMedium',
-                marginRight: 5,
-                fontSize: 14,
-                '& svg': {
-                    fontSize: 16,
-                    marginRight: 5,
-                    verticalAlign: 'middle',
-                }
-
-            },
-            '& .ratingWrap': {
-                display: 'flex',
-                alignItems: 'center',
-                marginTop: 5,
-                '& .subWrap': {
-                    display: 'flex',
-                    '& .rating': {
-                        fontSize: 18,
-                    },
-                    '& .total': {
-                        fontFamily: 'gorditaMedium',
-                        margin: '0 6px',
-                        fontSize: 8,
-                        '& p': {
-                            verticalAlign: 'middle'
-                        }
-                    }
-                }
-            },
-            '& .group': {
-                margin: '10px 0',
-            }
-        }
-    },
-    headContainer_M: {
-
-        '& .imageWrap': {
-            width: 100,
-            height: 100,
-            borderRadius: Theme.radius1,
-        },
-        '& .detailWrap': {
-            padding: '10px 0',
-            margin: '-5px 0 -5px 10px',
-
-            '& .name': {
-                fontSize: 18,
-            },
-            '& .location': {
-                fontSize: 14,
-                marginRight: 3,
-                '& svg': {
-                    fontSize: 16,
-                }
-            },
-            '& .views': {
-                fontSize: 10,
-                marginRight: 3,
-                '& svg': {
-                    fontSize: 12,
-                }
-
-            },
-            '& .ratingWrap': {
-                '& .subWrap': {
-                    '& .rating': {
-                        fontSize: 14,
-                    },
-                    '& .total': {
-                        margin: '0 3px',
-                        fontSize: 6,
-                    }
-                }
-            },
-            '& .group': {
-                margin: '8px 0',
-            }
-        }
-    },
-    sectionListContainer: {
-        background: '#fafafa',
-        width: '100%',
-        padding: '20px 15px 10px',
-        position: 'sticky',
-        top: 64,
-        zIndex: 10,
-        '& .sectionList': {
-            overflow: 'auto',
-            listStyle: 'none',
-            whiteSpace: 'nowrap',
-            '&::-webkit-scrollbar': {
-                height: 3
-            },
-            '& .sectionListItemAnchor': {
-                display: 'inline-block',
-                borderRadius: Theme.radius1,
-                color: Theme.primary,
-                textDecoration: 'none',
-                margin: '0 10px 10px',
-                textTransform: 'capitalize',
-                '& .sectionListItem': {
-                    padding: '5px 15px',
-                },
-                '&.active': {
-                    background: Theme.backgroundColor,
-                    boxShadow: Theme.boxShadow,
-                }
-
-            }
-        }
-    },
-    sectionListContainer_M: {
-        '& .sectionList': {
-            '& .sectionListItemAnchor': {
-                fontSize: 14,
-            }
-        }
-    }
 })
 
 const sectionStyles = makeStyles({
@@ -213,8 +47,8 @@ const breadcrumbs = [{ name: 'coachings', endPoint: `${Routes.Coachings}` }];
 
 function CoachingDetailsPage(props: Props) {
 
-    const [coachinDetails, setCoachinDetails] = useState<detailedCoaching | null>({
-        name: 'abc institute',
+    const [coachingDetails, setCoachinDetails] = useState<detailedCoaching | null>({
+        name: 'abc Coaching',
         isSaved: true,
         location: 'agra',
         id: 1,
@@ -401,71 +235,38 @@ function CoachingDetailsPage(props: Props) {
     const styles = useStyles();
     const router = useRouter();
 
-    const showpageSection = (section: string) => {
-        let targetElement = document.getElementById(section);
+    const HashChangeHandler = (event: HashChangeEvent) => {
+        event.preventDefault();
+        let hash = event.newURL.split('#')[1];
+        setCurrentSection(hash)
+        let targetElement = document.getElementById(hash);
         if (targetElement) {
-            targetElement.scrollIntoView({
-                block: 'start',
-            });
-            window.location.hash = section;
+            window.scrollTo(0, targetElement.offsetTop - (navHeight + 73 + 30));
         }
     }
 
+    useEffect(() => {
+        window.addEventListener('hashchange', HashChangeHandler)
 
-    const { id, name, location, image, rating, isSaved, views, about, course_details, admission, address_details } = coachinDetails;
+        return () => {
+            window.removeEventListener('hashchange', HashChangeHandler)
+        };
+    }, [])
+
+    const showpageSection = (section: string) => {
+        window.location.hash = pageSections[section];
+    }
+
+
+    const { id, name, about, course_details, admission, address_details } = coachingDetails;
 
     return (
         <div>
             <CustomBreadCrumb breadcrumbs={breadcrumbs} />
 
-            <div className={classNames('container', styles.backgroundContainer)} >
-                <div className='wrapper' style={{ padding: isMobile ? '30px 5%' : '80px 5%' }}>
+            <InnerPageHead {...coachingDetails} />
 
-
-                    <div className={classNames(styles.headContainer, { [styles.headContainer_M]: isMobile })}>
-                        <div className='wrap'>
-                            <div className='imageWrap'>
-                                <img src={image ? image : defaultImage} alt='' />
-                            </div>
-                            <div className='detailWrap'>
-                                <div className='group'>
-                                    <Typography variant='h4' className='name'>{name}</Typography>
-                                    <Typography variant='h6' className='location'><LocationOnOutlined />{location}</Typography>
-                                </div>
-                                <div className='group'>
-                                    <Typography className='views'><Visibility />{views}</Typography>
-                                    <div className='ratingWrap' >
-                                        <span className='subWrap'>
-                                            <span className='rating'>{rating}</span>
-                                            <span className='total'>
-                                                <p>out</p>
-                                                <p>of 5</p>
-                                            </span>
-                                        </span>
-                                        <Rating precision={0.5} value={rating} readOnly size='small' />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className={classNames(styles.sectionListContainer, { [styles.sectionListContainer_M]: isMobile })} style={{ top: navHeight }} >
-                <div className={'sectionList'}>
-                    {
-                        Object.keys(pageSections).map((section: string, index: number) => {
-
-                            return (<a key={index} className={classNames('sectionListItemAnchor', { 'active': currentSection === pageSections[section] })}>
-                                <ListItem button onClick={() => showpageSection(pageSections[section])} className={'sectionListItem'} >
-                                    {section}
-                                </ListItem>
-                            </a>
-                            )
-                        })
-                    }
-                </div>
-            </div>
+            <PageNavigation pageSections={pageSections} currentSection={currentSection} onLinkClick={(section: string) => showpageSection(section)} />
 
             <div className='container'>
                 <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '50px 5%' }}>

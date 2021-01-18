@@ -78,6 +78,7 @@ export const Routes = {
     Colleges: '/colleges',
     Coachings: '/coaching',
     Exams: '/exams',
+    Boards: '/boards',
     Universities: '/universities',
     ProfileEdit: '/profile-edit/',
     Profile: '/profile/',

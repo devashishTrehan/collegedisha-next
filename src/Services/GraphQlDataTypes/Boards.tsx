@@ -77,6 +77,11 @@ export interface detailedBoard {
     isApplied: boolean,
     isSaved: boolean,
     slug: string,
-    views?: number
+    views?: number,
+    boardSections: { [key: string]: string },
+    initialSection: {
+        title: string,
+        content: string
+    }
 }
 

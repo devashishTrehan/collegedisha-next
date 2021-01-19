@@ -14,6 +14,7 @@ import Particles from 'react-particles-js';
 import ParticlesConfig from '../particlesjs-config';
 import { ViewportTracker } from '@/Components/ViewportTracker.component';
 import { FormHead } from '@/Components/FormHead.component';
+import { NavbarContext } from '@/Context/Navbar.context';
 
 let pageContentRef: any = React.createRef();
 let CounsellingSectionRef: any = React.createRef();
@@ -22,9 +23,10 @@ let CounsellingSectionRef: any = React.createRef();
 
 export const Header = () => {
 
-    const styles = HeaderStyles();
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
+    const { navHeight } = React.useContext(NavbarContext);
+    const styles = HeaderStyles(navHeight);
 
     const scrollTo = (ref: any) => {
         ref?.scrollIntoView({ behavior: 'smooth', block: 'start', });
@@ -34,7 +36,7 @@ export const Header = () => {
     return (
         <div className={classNames('container')}>
 
-            <div className={classNames(styles.container, { [styles.containerTablet]: isTablet, [styles.containerMobile]: isMobile })}>
+            <div className={classNames(styles.container, { [styles.containerTablet]: isTablet })}>
 
                 <Particles className={styles.particleSystem} params={ParticlesConfig} />
 

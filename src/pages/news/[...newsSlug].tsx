@@ -6,7 +6,7 @@ import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { PageNavigation } from '@/Components/PageNavigation.component';
 import { InnerPageHead } from '@/Components/InnerPageHead.component';
-import { detailedBoard } from '@/Services/GraphQlDataTypes/Boards';
+import { detailedNews } from '@/Services/GraphQlDataTypes/News';
 import MarkdownParser from '@/Components/MarkdownParser.component';
 
 
@@ -22,47 +22,33 @@ interface Props {
 }
 
 
-const LastBreadcrumbs = [{ name: 'boards', endPoint: `${Routes.Boards}` }];
+const LastBreadcrumbs = [{ name: 'news', endPoint: `${Routes.News}` }];
 
 const defaultImage = '/assets/images/defaults/institute.jpg';
 
 
-function BoardDetailsPage(props: Props) {
+function newsDetailsPage(props: Props) {
 
-    const [boardDetails, setBoardDetails] = useState<detailedBoard | null>({
-        name: 'abc Board',
-        isApplied: true,
+    const [newsDetails, setnewsDetails] = useState<detailedNews | null>({
+        title: 'Top 10 colleges in greater noida',
         isSaved: true,
         id: 1,
         image: '',
-        rating: 3.4,
         views: 2345,
-        slug: '',
-        boardSections: {
-            Information: '',
-            ['registration form']: 'registration-form',
-            syllabus: 'syllabus',
-            ['time table']: 'time-table',
-            ['admit card']: 'admit-card',
-            result: 'result',
-        },
-        initialSection: {
-            title: 'it is title',
-            content: `# It is heading
-            and it is paragraph
-            **it is list**
-            - l1
-            - l2
-            - l3`
-        }
+        slug: 'xyz',
+        intro: 'string',
+        commentCount: 123,
+        content: 'jfvpui',
+        category: 'news',
+        publishedOn: '23-12-2020',
+        author: 'dev trehan',
     });
     const [slugs, setSlugs] = useState<string[]>([]);
     let currentPageUrl = `${LastBreadcrumbs[LastBreadcrumbs?.length - 1].endPoint}/${slugs[0]}`;
     const [breadCrumbs, setBreadCrumbs] = useState<UrlObject[]>([]);
     const { navHeight } = useContext(NavbarContext);
-    const { id, name, boardSections, initialSection } = boardDetails;
-    let sectionList = Object.keys(boardSections);
-    const [currentSection, setCurrentSection] = useState<string>(boardSections[sectionList[0]]);
+    const { id, title } = newsDetails;
+
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -70,8 +56,8 @@ function BoardDetailsPage(props: Props) {
     const router = useRouter();
 
     useEffect(() => {
-        if (router.query.boardSlug?.length) {
-            let slugList = router.query.boardSlug as string[];
+        if (router.query.newslug?.length) {
+            let slugList = router.query.newslug as string[];
             console.log('slug list', slugList);
 
             setSlugs(slugList);
@@ -79,45 +65,22 @@ function BoardDetailsPage(props: Props) {
             if (!breadCrumbs?.length) {
 
                 setBreadCrumbs((prev: UrlObject[]) => {
-                    return [...LastBreadcrumbs, { name: boardDetails ? boardDetails.name : slugList[0], endPoint: `${currentPageUrl}` }];
+                    return [...LastBreadcrumbs, { name: newsDetails ? newsDetails.title : slugList[0], endPoint: `${currentPageUrl}` }];
                 });
             }
 
             currentPageUrl = `${LastBreadcrumbs[LastBreadcrumbs?.length - 1].endPoint}/${slugList[0]}`
         }
-    }, [router.query?.boardSlug])
+    }, [router.query?.newslug])
 
-    useEffect(() => {
-        console.log('slugs', slugs);
-        console.log('slugs', slugs[1]);
-        if (slugs && (slugs[1] !== currentSection)) {
-            setCurrentSection(slugs[1]);
-        }
-    }, [slugs])
 
-    const showpageSection = (section: string) => {
-        setBreadCrumbs((prev: UrlObject[]) => {
-            if (prev.length > 2) {
-                prev.length = 2;
-            }
-            console.log('breadCrumbs', prev)
-            let route = prev[prev.length - 1].endPoint;
-            console.log('breadCrumbs', [...prev, { endPoint: `${route}/${boardSections[section]}`, name: section }])
-            return [...prev, { endPoint: `${route}/${boardSections[section]}`, name: section }];
-        })
-        router.push({
-            pathname: currentPageUrl + `/${boardSections[section]}`,
-        }, undefined, { shallow: true })
-    }
 
 
     return (
         <div>
             <CustomBreadCrumb breadcrumbs={breadCrumbs} />
 
-            <InnerPageHead {...boardDetails} />
 
-            <PageNavigation pageSections={boardSections} currentSection={currentSection} onLinkClick={(section: string) => showpageSection(section)} />
 
 
             <div className='container'>
@@ -125,7 +88,7 @@ function BoardDetailsPage(props: Props) {
                     <Grid container >
                         <Grid item xs={12} md={9} >
                             {
-                                <RenderPageSection {...initialSection} />
+                                // <RenderPageSection {...initialSection} />
                             }
                         </Grid>
                     </Grid>
@@ -136,7 +99,7 @@ function BoardDetailsPage(props: Props) {
     );
 }
 
-export default BoardDetailsPage;
+export default newsDetailsPage;
 
 
 
@@ -170,13 +133,13 @@ const RenderPageSection = (props: PageSectionProps) => {
     }
 
     useEffect(() => {
-        const { query: { boardSlug } } = router;
-        console.log('boardSlug', boardSlug)
-        if (boardSlug?.length) {
-            let sectionSlug = boardSlug[1];
+        const { query: { newslug } } = router;
+        console.log('newslug', newslug)
+        if (newslug?.length) {
+            let sectionSlug = newslug[1];
             sectionSlug && FetchData(sectionSlug);
         }
-    }, [router.query?.boardSlug])
+    }, [router.query?.newslug])
 
     return (
         <div className={styles.container}>

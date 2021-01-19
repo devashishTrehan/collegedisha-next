@@ -1,5 +1,5 @@
 
-import { Grid, Hidden, MenuItem, Select, Typography, useMediaQuery } from '@material-ui/core';
+import { Grid, Hidden, IconButton, MenuItem, Select, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import { Routes, Theme } from '@/Services/App.service';
@@ -8,12 +8,16 @@ import { PageHead } from '@/Components/PageHead.component';
 import { ViewportTracker } from '@/Components/ViewportTracker.component';
 import { Footer } from '@/Components/Footer.component';
 import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
-import { Filter } from '@material-ui/icons';
+import { CheckCircle, Filter, KeyboardArrowLeft, KeyboardArrowRight } from '@material-ui/icons';
 import { Filters } from '@/Components/Filter.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { boardTypes, BoardListTypes, BoardListItemTypes } from '@/Services/GraphQlDataTypes/Boards';
 import { useRouter } from 'next/router';
 import SelectField from '@/Components/SelectField.component/SelectField.component';
+import { AnimatedSection } from '@/Components/AnimatedView.component';
+import { ContentCardStyles } from '@/styles/Home.style';
+import Carousel from 'react-material-ui-carousel';
+import { NewsListItemTypes } from '@/Services/GraphQlDataTypes/News';
 
 
 const useStyles = makeStyles({
@@ -296,12 +300,7 @@ function BoardList(props: any) {
   const styles = useStyles();
 
 
-  const boards: BoardListItemTypes[] = [
-    { id: 1, name: 'open board', image: '', slug: 'xyz-test', boards: [{ name: 'cbse', classes: ['8th', '9th'] }, { name: 'rbse', classes: ['8th', '9th', '10th',] }, { name: 'icse', classes: ['8th', '9th', '10th', '11th',] }] },
-    { id: 1, name: 'Up board', image: '', slug: 'xyz-test', boards: [{ name: 'cbse', classes: ['8th', '9th', '10th', '11th', '12th'] }, { name: 'rbse', classes: ['8th', '9th', '10th', '11th', '12th'] }, { name: 'icse', classes: ['8th', '9th', '10th', '11th', '12th'] }] },
-    { id: 1, name: 'national board', image: '', slug: 'xyz-test', boards: [{ name: 'cbse', classes: ['8th', '9th', '10th', '11th', '12th'] }, { name: 'rbse', classes: ['8th', '9th', '10th', '11th', '12th'] }, { name: 'icse', classes: ['8th', '9th', '10th', '11th', '12th'] }] },
-    { id: 1, name: 'state board', image: '', slug: 'xyz-test', boards: [{ name: 'cbse', classes: ['8th', '9th', '10th', '11th', '12th'] }, { name: 'rbse', classes: ['8th', '9th', '10th', '11th', '12th'] }, { name: 'icse', classes: ['8th', '9th', '10th', '11th', '12th'] }] },
-  ]
+  const newsList: NewsListItemTypes[] = []
 
   const ViewDetails = (slug: string) => {
     router.push({
@@ -323,14 +322,10 @@ function BoardList(props: any) {
       <CustomBreadCrumb breadcrumbs={breadcrumbs} />
 
 
-      <PageHead  >
-        <div className={classNames(styles.pageHead, { [styles.pageHead_M]: isMobile })}>
-          <Typography className='pageHeading1' variant='h1'>
-            <span >Explore the national</span>
-            <span className='pageHeading2'>And state boards in India</span>
-          </Typography>
-        </div>
-      </PageHead>
+
+      <div>
+        <NewsPageHeader />
+      </div>
 
       <div className='container'>
         <div className={'wrapper'} style={{ padding: '20px 5%' }}>
@@ -345,10 +340,10 @@ function BoardList(props: any) {
           <Grid container spacing={isMobile ? 3 : 5}>
 
             {
-              boards?.map((board) => {
+              newsList?.map((board) => {
                 return (
                   <Grid item xs={12} sm={6} md={4}>
-                    <RenderBoardCard {...board} />
+
                   </Grid>
 
                 )
@@ -366,3 +361,219 @@ function BoardList(props: any) {
 
 
 export default BoardList;
+
+
+const NewsPageHeaderStyles = makeStyles({
+  carouselActionButton: {
+    position: 'absolute',
+    top: 'calc(50% - 15px)',
+    backgroundColor: Theme.primary + '22',
+    padding: 2,
+    margin: '0 10px',
+    '& svg': {
+      color: Theme.primary,
+      fontSize: 30
+    },
+    '&.left': {
+      left: -15,
+    },
+    '&.right': {
+      right: -15,
+
+    },
+  }
+})
+
+export const NewsPageHeader = () => {
+
+  const [carouselIndex, setCarouselIndex] = React.useState(0);
+  let StepsCarouselIntervalRef: any = null;
+  const StepsCarouselInterval = 10;   // time in seconds
+  const isMobile = useMediaQuery('(max-width:600px)');
+  const isTablet = useMediaQuery('(max-width:992px)');
+
+  const cutomStyles = NewsPageHeaderStyles();
+
+  const newsItems: NewsListItemTypes[] = [
+    {
+      id: 1,
+      title: 'title',
+      views: 123,
+      commentCount: 12,
+      slug: 'xyz',
+      image: '',
+      author: 'dev trehan',
+      publishedOn: '23-12-2020',
+      isSaved: false,
+      category: 'news',
+    },
+    {
+      id: 1,
+      title: 'title',
+      views: 123,
+      commentCount: 12,
+      slug: 'xyz',
+      image: '',
+      author: 'dev trehan',
+      publishedOn: '23-12-2020',
+      isSaved: false,
+      category: 'news',
+    },
+    {
+      id: 1,
+      title: 'title',
+      views: 123,
+      commentCount: 12,
+      slug: 'xyz',
+      image: '',
+      author: 'dev trehan',
+      publishedOn: '23-12-2020',
+      isSaved: false,
+      category: 'news',
+    },
+    {
+      id: 1,
+      title: 'title',
+      views: 123,
+      commentCount: 12,
+      slug: 'xyz',
+      image: '',
+      author: 'dev trehan',
+      publishedOn: '23-12-2020',
+      isSaved: false,
+      category: 'news',
+    },
+  ]
+
+
+  const styles = ContentCardStyles();
+
+  let CarouselRef = React.useRef();
+
+  const slideCaousel = (direction: 'next' | 'prev') => {
+    console.log('playing...');
+    switch (direction) {
+      case 'next': setCarouselIndex((prev: number) => {
+        if (prev < newsItems.length - 1) {
+          let next = ++prev;
+          return next;
+        } else {
+          return 0;
+        }
+      })
+        return;
+      case 'prev': setCarouselIndex((prev: number) => {
+        if (prev < 1) {
+          return newsItems?.length - 1;
+        } else {
+          return --prev;
+        }
+      })
+        return;
+    }
+
+
+  }
+
+  const SlideCarouselTo = (index: number) => {
+    setCarouselIndex(index);
+    return 0;
+  }
+
+
+  const renderStep = (item: NewsListItemTypes, index: number) => {
+    return (
+      <React.Fragment key={item.id}>
+
+      </React.Fragment>
+
+    )
+  }
+
+  const renderCarouselItem = (item: NewsListItemTypes, index: number) => {
+    const { title, image, commentCount, views, } = item;
+    return (
+      <div key={index} className='carouselCard'>
+        <div className='imageWrap' style={{ animation: 'none' }}>
+          <img src={`/assets/images/stepPoint${1}.png`} alt='' />
+        </div>
+        <div className='infoWrap' >
+          <h5>{title}</h5>
+        </div>
+      </div>
+    )
+  }
+
+  const PlayCarouselSlide = () => {
+    console.log('entered');
+    StepsCarouselIntervalRef = setInterval(() => {
+      slideCaousel('next');
+    }, StepsCarouselInterval * 1000)
+  }
+
+  const PauseCarouselSlide = () => {
+    console.log('exited');
+    clearInterval(StepsCarouselIntervalRef);
+  }
+
+  return (
+    <div style={{ padding: `${isMobile ? 20 : 30}px 0px` }} >
+
+
+      <ViewportTracker id='contentPage' onEnter={() => PlayCarouselSlide()} onLeave={() => PauseCarouselSlide()} >
+        <div className={styles.cardContainer} style={{ backgroundImage: 'none' }} >
+          <div className='container'>
+            <div className={styles.pageContent}>
+
+              <Grid container spacing={isTablet ? 3 : 9} >
+
+                <Grid item xs={12} md={8}>
+
+                  <div className={styles.CarouselContainer} style={{ position: 'relative' }}>
+                    <Carousel
+                      autoPlay={false}
+                      index={carouselIndex}
+                      navButtonsAlwaysInvisible
+                      indicators={false}
+                      animation='slide'
+                      timeout={500} >
+                      {
+                        newsItems.map((item: NewsListItemTypes, index: number) => {
+                          return renderCarouselItem(item, index);
+                        })
+                      }
+                    </Carousel>
+
+                    <IconButton className={classNames(cutomStyles.carouselActionButton, 'left')} onClick={() => slideCaousel('prev')}>
+                      <KeyboardArrowLeft />
+                    </IconButton>
+
+                    <IconButton className={classNames(cutomStyles.carouselActionButton, 'right')} onClick={() => slideCaousel('next')}>
+                      <KeyboardArrowRight />
+                    </IconButton>
+                  </div>
+                </Grid>
+
+                <Hidden smDown>
+
+                  <Grid item xs={12} md={4} style={{ position: 'relative' }}>
+                    not hidden
+                  <div className={classNames(styles.StepsContainer, { [styles.StepsContainer_T]: isTablet, [styles.StepsContainer_M]: isMobile })}>
+                      {
+                        newsItems.map((item: NewsListItemTypes, index: number) => {
+                          return renderStep(item, index);
+                        })
+                      }
+                    </div>
+                  </Grid>
+                </Hidden>
+
+              </Grid>
+
+            </div>
+          </div>
+        </div>
+      </ViewportTracker >
+    </div >
+  )
+}

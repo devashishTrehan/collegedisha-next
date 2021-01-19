@@ -119,7 +119,8 @@ code {
 }
 
 .containerHead h4,
-.containerHead h2 {
+.containerHead h2,
+.containerHead h1 {
     color: var(--TPrimary);
     font-family: 'gorditaMedium';
     text-transform: capitalize;
@@ -195,7 +196,7 @@ code {
 }
 
 .sectionHead .bodyText {
-    text-align: justify;
+    text-align: center;
     font-size: 14px;
 }
 

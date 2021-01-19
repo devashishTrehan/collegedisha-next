@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 
 const useStyles = makeStyles({
     container: {
-        margin: '15px 0',
+        margin: '20px 0',
         padding: '0 5%',
         transition: 'ease-in-out .3s',
         alignItems: 'center',

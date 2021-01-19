@@ -1,4 +1,4 @@
-import { Routes, Theme } from '@/Services/App.service';
+import { AppSectionHeights, Routes, Theme } from '@/Services/App.service';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import CustomBreadCrumb, { UrlObject } from '@/Components/CustomBreadCrumb.component';
@@ -241,7 +241,7 @@ function CoachingDetailsPage(props: Props) {
         setCurrentSection(hash)
         let targetElement = document.getElementById(hash);
         if (targetElement) {
-            window.scrollTo(0, targetElement.offsetTop - (navHeight + 73 + 30));
+            window.scrollTo(0, targetElement.offsetTop - (navHeight + AppSectionHeights.pageNavigation + 30));
         }
     }
 

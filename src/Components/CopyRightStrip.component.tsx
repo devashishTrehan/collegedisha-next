@@ -35,10 +35,8 @@ const sectionStyles = makeStyles({
         },
         '&:hover': {
             opacity: .8,
-            padding: '5px 6px 10px',
-            '& svg': {
-                transform: 'translate(0,-5px)',
-            }
+            transform: 'translate(0,-5px)',
+
         }
     },
 });
@@ -62,7 +60,7 @@ export const CopyRightStrip = (props: any) => {
 
         window.onscroll = (event: any) => {
 
-            if (window.pageYOffset > 100) {
+            if (window.pageYOffset > 200) {
                 setIsOnTop(false);
             } else {
                 setIsOnTop(true);

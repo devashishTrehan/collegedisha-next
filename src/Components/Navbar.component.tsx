@@ -1,16 +1,17 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Routes, Theme, } from '../Services/App.service';
+import { Routes, Theme, } from '@/Services/App.service';
 import Link from 'next/link';
 import { useRouter, withRouter } from 'next/router';
 import { AppBar, Drawer, IconButton, Slide, Toolbar, Tooltip, useMediaQuery, useScrollTrigger, } from '@material-ui/core';
 import classNames from 'classnames';
 import { Domain, Menu as MenuIcon } from '@material-ui/icons';
-import DrawerComponent from './Drawer.component';
-import { MenuContext } from '../Context/Menu.context';
-import { MenuListInterface } from '../Services/Interfaces.interface';
-import { MultiLevelList } from './MultiLevelList2.component';
-import { LoginRegisterButton } from './LoginRegisterButton.component';
+import DrawerComponent from '@/Components/Drawer.component';
+import { MenuContext } from '@/Context/Menu.context';
+import { MenuListInterface } from '@/Services/Interfaces.interface';
+import { MultiLevelList } from '@/Components/MultiLevelList2.component';
+import { LoginRegisterButton } from '@/Components/LoginRegisterButton.component';
+import { SearchPage } from '@/Components/SearchPage.component';
 
 const useStyles = makeStyles({
 
@@ -227,67 +228,67 @@ function NavBar(props: any) {
   return (
     <>
       {/* <HideOnScroll {...props}> */}
-        <AppBar className={styles.navBar}>
-          <div className={styles.navLinkSectionsWrap}>
-            <Toolbar>
-              <div onClick={() => router.replace(Routes.Home)} className={classNames(styles.LogoWrap, { [styles.LogoWrap_M]: isMobile })}>
-                <img src={'/assets/images/BLogo.png'} alt='College Disha' />
-              </div>
-            </Toolbar>
+      <AppBar className={styles.navBar}>
+        <div className={styles.navLinkSectionsWrap}>
+          <Toolbar>
+            <div onClick={() => router.replace(Routes.Home)} className={classNames(styles.LogoWrap, { [styles.LogoWrap_M]: isMobile })}>
+              <img src={'/assets/images/BLogo.png'} alt='College Disha' />
+            </div>
+          </Toolbar>
+          {
+            !isTablet && (
+              <Toolbar className={classNames(styles.LinkWrap, { [styles.LinkWrap_T]: __window?.innerWidth < 1200 })}>
+                {
+                  MenuList?.map((item: MenuListInterface, index: number) => {
+                    return (
+                      <div key={index} className={'menuItem'} >
+
+                        <span className='link' >
+                          <Link href={Routes.Home} ><a>{item.label}</a></Link>
+                        </span>
+
+                        {/* <div className='menu' > */}
+                        <MultiLevelList list={item?.list} parentIndex={'navMenu'} />
+                        {/* </div> */}
+                      </div>
+                    )
+                  })
+                }
+
+              </Toolbar>)
+          }
+          <Toolbar style={{ paddingLeft: 5 }} >
+            <SearchPage style={{ padding: 10, marginRight: 5 }} />
             {
-              !isTablet && (
-                <Toolbar className={classNames(styles.LinkWrap, { [styles.LinkWrap_T]: __window?.innerWidth < 1200 })}>
+              user?.id ?
+                <div className={styles.profileImageButtonWrap}>
+                  <Tooltip title={'User Profile'}>
+                    <IconButton className={styles.profileImageButton} aria-controls="simple-menu" aria-haspopup="true" onClick={() => router.push(`${Routes.Profile}/${'user?.slug'}`)}>
+                      <img src={false ? Domain + 'user.profilePicture' : '/assets/images/user.png'} alt='Profile Picture' />
+                    </IconButton>
+                  </Tooltip>
                   {
-                    MenuList?.map((item: MenuListInterface, index: number) => {
-                      return (
-                        <div key={index} className={'menuItem'} >
-
-                          <span className='link' >
-                            <Link href={Routes.Home} ><a>{item.label}</a></Link>
-                          </span>
-
-                          {/* <div className='menu' > */}
-                          <MultiLevelList list={item?.list} parentIndex={'navMenu'} />
-                          {/* </div> */}
-                        </div>
-                      )
-                    })
+                    true ?
+                      <Tooltip title={'Email not verified'}>
+                        <span className={styles.UnverifiedEmailIndicator}></span>
+                      </Tooltip>
+                      : null
                   }
+                </div>
 
-                </Toolbar>)
+                : <LoginRegisterButton onLoginClick={() => true} onRegisterClick={() => true} />
+
             }
-            <Toolbar >
-
-              {
-                user?.id ?
-                  <div className={styles.profileImageButtonWrap}>
-                    <Tooltip title={'User Profile'}>
-                      <IconButton className={styles.profileImageButton} aria-controls="simple-menu" aria-haspopup="true" onClick={() => router.push(`${Routes.Profile}/${'user?.slug'}`)}>
-                        <img src={false ? Domain + 'user.profilePicture' : '/assets/images/user.png'} alt='Profile Picture' />
-                      </IconButton>
-                    </Tooltip>
-                    {
-                      true ?
-                        <Tooltip title={'Email not verified'}>
-                          <span className={styles.UnverifiedEmailIndicator}></span>
-                        </Tooltip>
-                        : null
-                    }
-                  </div>
-
-                  : <LoginRegisterButton onLoginClick={() => true} onRegisterClick={() => true} />
-
-              }
-              {
-                isTablet && (
-                  <IconButton onClick={toggleDrawer(true)} >
-                    <MenuIcon />
-                  </IconButton>
-                )
-              }
-            </Toolbar>
-          </div>
-        </AppBar>
+            {
+              isTablet && (
+                <IconButton onClick={toggleDrawer(true)} >
+                  <MenuIcon />
+                </IconButton>
+              )
+            }
+          </Toolbar>
+        </div>
+      </AppBar>
       {/* </HideOnScroll> */}
 
       <Drawer anchor={'left'} open={DrawerOpen} onClose={toggleDrawer(false)} >

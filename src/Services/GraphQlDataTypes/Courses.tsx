@@ -16,9 +16,9 @@ export interface CourseListItem {
     feesBreakdown: CourseFees[]
 }
 
-export interface ExamList {
+export interface CourseList {
     exams: CourseListItem[]
 }
 
-export interface detailedExam extends CourseListItem {
+export interface detailedCourse extends CourseListItem {
 }

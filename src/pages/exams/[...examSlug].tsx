@@ -6,8 +6,8 @@ import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { PageNavigation } from '@/Components/PageNavigation.component';
 import { InnerPageHead } from '@/Components/InnerPageHead.component';
-import { detailedBoard } from '@/Services/GraphQlDataTypes/Boards';
 import MarkdownParser from '@/Components/MarkdownParser.component';
+import { detailedExam } from '@/Services/GraphQlDataTypes/Exams';
 
 
 
@@ -22,27 +22,25 @@ interface Props {
 }
 
 
-const LastBreadcrumbs = [{ name: 'boards', endPoint: `${Routes.Boards}` }];
+const LastBreadcrumbs = [{ name: 'exams', endPoint: `${Routes.Exams}` }];
 
 const defaultImage = '/assets/images/defaults/institute.jpg';
 
 
-function BoardDetailsPage(props: Props) {
+function examDetailsPage(props: Props) {
 
-    const [boardDetails, setBoardDetails] = useState<detailedBoard | null>({
+    const [examDetails, setExamDetails] = useState<detailedExam | null>({
         name: 'abc Board',
-        isApplied: true,
-        isSaved: true,
         id: 1,
-        image: '',
-        rating: 3.4,
         views: 2345,
         slug: '',
-        boardSections: {
+        examSections: {
             Information: '',
-            ['registration form']: 'registration-form',
+            ['application form']: 'application-form',
+            dates: 'dates',
+            pattern: 'pattern',
             syllabus: 'syllabus',
-            ['time table']: 'time-table',
+            ['answer key']: 'answer-key',
             ['admit card']: 'admit-card',
             result: 'result',
         },
@@ -60,9 +58,9 @@ function BoardDetailsPage(props: Props) {
     let currentPageUrl = `${LastBreadcrumbs[LastBreadcrumbs?.length - 1].endPoint}/${slugs[0]}`;
     const [breadCrumbs, setBreadCrumbs] = useState<UrlObject[]>([]);
     const { navHeight } = useContext(NavbarContext);
-    const { id, name, boardSections, initialSection } = boardDetails;
-    let sectionList = Object.keys(boardSections);
-    const [currentSection, setCurrentSection] = useState<string>(boardSections[sectionList[0]]);
+    const { id, name, examSections, initialSection } = examDetails;
+    let sectionList = Object.keys(examSections);
+    const [currentSection, setCurrentSection] = useState<string>(examSections[sectionList[0]]);
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -70,8 +68,8 @@ function BoardDetailsPage(props: Props) {
     const router = useRouter();
 
     useEffect(() => {
-        if (router.query.boardSlug?.length) {
-            let slugList = router.query.boardSlug as string[];
+        if (router.query.examSlug?.length) {
+            let slugList = router.query.examSlug as string[];
             console.log('slug list', slugList);
 
             setSlugs(slugList);
@@ -79,13 +77,13 @@ function BoardDetailsPage(props: Props) {
             if (!breadCrumbs?.length) {
 
                 setBreadCrumbs((prev: UrlObject[]) => {
-                    return [...LastBreadcrumbs, { name: boardDetails ? boardDetails.name : slugList[0], endPoint: `${currentPageUrl}` }];
+                    return [...LastBreadcrumbs, { name: examDetails ? examDetails.name : slugList[0], endPoint: `${currentPageUrl}` }];
                 });
             }
 
             currentPageUrl = `${LastBreadcrumbs[LastBreadcrumbs?.length - 1].endPoint}/${slugList[0]}`
         }
-    }, [router.query?.boardSlug])
+    }, [router.query?.examSlug])
 
     useEffect(() => {
         console.log('slugs', slugs);
@@ -102,11 +100,11 @@ function BoardDetailsPage(props: Props) {
             }
             console.log('breadCrumbs', prev)
             let route = prev[prev.length - 1].endPoint;
-            console.log('breadCrumbs', [...prev, { endPoint: `${route}/${boardSections[section]}`, name: section }])
-            return [...prev, { endPoint: `${route}/${boardSections[section]}`, name: section }];
+            console.log('breadCrumbs', [...prev, { endPoint: `${route}/${examSections[section]}`, name: section }])
+            return [...prev, { endPoint: `${route}/${examSections[section]}`, name: section }];
         })
         router.push({
-            pathname: currentPageUrl + `/${boardSections[section]}`,
+            pathname: currentPageUrl + `/${examSections[section]}`,
         }, undefined, { shallow: true })
     }
 
@@ -115,9 +113,8 @@ function BoardDetailsPage(props: Props) {
         <div>
             <CustomBreadCrumb breadcrumbs={breadCrumbs} />
 
-            <InnerPageHead {...boardDetails} />
 
-            <PageNavigation pageSections={boardSections} currentSection={currentSection} onLinkClick={(section: string) => showpageSection(section)} />
+            <PageNavigation pageSections={examSections} currentSection={currentSection} onLinkClick={(section: string) => showpageSection(section)} />
 
 
             <div className='container'>
@@ -136,7 +133,7 @@ function BoardDetailsPage(props: Props) {
     );
 }
 
-export default BoardDetailsPage;
+export default examDetailsPage;
 
 
 
@@ -170,13 +167,13 @@ const RenderPageSection = (props: PageSectionProps) => {
     }
 
     useEffect(() => {
-        const { query: { boardSlug } } = router;
-        console.log('boardSlug', boardSlug)
-        if (boardSlug?.length) {
-            let sectionSlug = boardSlug[1];
+        const { query: { examSlug } } = router;
+        console.log('examSlug', examSlug)
+        if (examSlug?.length) {
+            let sectionSlug = examSlug[1];
             sectionSlug && FetchData(sectionSlug);
         }
-    }, [router.query?.boardSlug])
+    }, [router.query?.examSlug])
 
     return (
         <div className={styles.container}>

@@ -17,6 +17,14 @@ export interface ExamList {
     exams: ExamListItem[]
 }
 
-export interface detailedExam extends ExamListItem {
-
+export interface detailedExam {
+    id: number,
+    name: string,
+    slug: string,
+    views?: number,
+    examSections: { [key: string]: string },
+    initialSection: {
+        title: string,
+        content: string
+    }
 }

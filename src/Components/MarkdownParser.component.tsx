@@ -1,4 +1,4 @@
-import { Theme } from '@/Services/App.service';
+import { AppSectionHeights, Theme } from '@/Services/App.service';
 import { useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { useContext, useEffect, useState } from 'react';
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
                 '& thead': {
                     '& th': {
                         position: 'sticky',
-                        top: props.navHeight + 73,
+                        top: props.navHeight + AppSectionHeights.pageNavigation,
                         zIndex: 5,
                         // '&:first-child': {
                         //     left: 0,

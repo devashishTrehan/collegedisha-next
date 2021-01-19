@@ -4,16 +4,16 @@ import { Theme } from '@/Services/App.service';
 
 
 export const HeaderStyles = makeStyles({
-  container: {
+  container: (navHeight) => ({
     backgroundImage: `url('/assets/images/headerBg.png')`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
     backgroundPosition: 'bottom',
-    minHeight: 'calc(100vh - 65px)',
+    minHeight: `calc(100vh - ${navHeight}px)`,
     display: 'flex',
     alignItems: 'center',
     position: 'relative',
-  },
+  }),
   particleSystem: {
     position: 'absolute',
     width: '100%',
@@ -22,9 +22,6 @@ export const HeaderStyles = makeStyles({
   },
   containerTablet: {
     minHeight: 800,
-  },
-  containerMobile: {
-    minHeight: 'calc(100vh - 65px)',
   },
   HeadWrapper: {
     padding: '0 5%',

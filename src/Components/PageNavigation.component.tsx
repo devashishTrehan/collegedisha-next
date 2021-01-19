@@ -7,7 +7,7 @@ import { NavbarContext } from '@/Context/Navbar.context';
 
 const useStyles = makeStyles({
     sectionListContainer: {
-        background: '#fafafa',
+        background: '#f8f8f8',
         width: '100%',
         padding: '20px 15px 10px',
         position: 'sticky',
@@ -22,13 +22,16 @@ const useStyles = makeStyles({
             },
             '& .sectionListItemAnchor': {
                 display: 'inline-block',
-                borderRadius: Theme.radius1,
+                borderRadius: Theme.radius2,
                 color: Theme.primary,
+                fontSize: 14,
                 textDecoration: 'none',
-                margin: '0 10px 10px',
+                margin: '0 5px 8px',
                 textTransform: 'capitalize',
                 '& .sectionListItem': {
-                    padding: '5px 15px',
+                    borderRadius: Theme.radius2,
+                    padding: '13px 20px',
+                    fontFamily: 'gorditaMedium',
                 },
                 '&.active': {
                     background: Theme.backgroundColor,
@@ -41,7 +44,7 @@ const useStyles = makeStyles({
     sectionListContainer_M: {
         '& .sectionList': {
             '& .sectionListItemAnchor': {
-                fontSize: 14,
+                fontSize: 12,
             }
         }
     }
@@ -67,6 +70,7 @@ export const PageNavigation = (props: Props) => {
     useEffect(() => {
         if (props.currentSection !== _currentSection) {
             setCurrentSection(props.currentSection)
+            console.log('current section ', props.currentSection);
         }
     }, [props.currentSection])
 
@@ -75,7 +79,7 @@ export const PageNavigation = (props: Props) => {
             <div className={'sectionList'}>
                 {
                     Object.keys(pageSections).map((section: string, index: number) => {
-                        return (<a key={index} className={classNames('sectionListItemAnchor', { 'active': _currentSection === pageSections[section] })}>
+                        return (<a key={index} className={classNames('sectionListItemAnchor', { 'active': (_currentSection === pageSections[section]) || (!index && !_currentSection) })}>
                             <ListItem button onClick={() => onLinkClick && onLinkClick(section)} className={'sectionListItem'} >
                                 {section}
                             </ListItem>

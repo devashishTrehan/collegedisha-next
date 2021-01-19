@@ -79,6 +79,7 @@ export const Routes = {
     Coachings: '/coaching',
     Exams: '/exams',
     Boards: '/boards',
+    News: '/boards',
     Universities: '/universities',
     ProfileEdit: '/profile-edit/',
     Profile: '/profile/',
@@ -89,6 +90,10 @@ export const Routes = {
     Mobileverification: '/mobileverification',
     PasswordChange: '/change-password',
     ResetPassword: '/reset-password',
+}
+
+export const AppSectionHeights = {
+    pageNavigation: 84,
 }
 
 export const ContactInfo = {

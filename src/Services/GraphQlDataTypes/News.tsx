@@ -18,8 +18,10 @@ export interface NewsListItemTypes {
     category: string
 }
 
-export interface BoardListTypes {
-    newsList: NewsListItemTypes[]
+export interface NewsListTypes {
+    newsList: NewsListItemTypes[],
+    featuredNews: NewsListItemTypes[],
+    newsCategories: { [key: string]: string },
 }
 
 

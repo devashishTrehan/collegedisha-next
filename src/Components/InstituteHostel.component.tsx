@@ -69,9 +69,9 @@ const RenderFacilities = (facilities: InstituteHostelFacility[]) => {
 
         <Grid container justify={'flex-start'} spacing={5}>
             {
-                facilities?.map((facility: InstituteHostelFacility) => {
+                facilities?.map((facility: InstituteHostelFacility,index:number) => {
                     let facilityName = facility.replace('_', ' ');
-                    return (<Grid item xs={6} sm={3} md={2} >
+                    return (<Grid key={index} item xs={6} sm={3} md={2} >
                         <div>
                             <div style={{ width: 40, height: 40, margin: 'auto', marginBottom: 5, }} >
                                 <img style={{ width: '100%' }} src={`/assets/images/hostelFacilities/${facility}.png`} alt='' />
@@ -100,8 +100,8 @@ const RenderFees = (fees: InstituteHostelFees[]) => {
                 <tbody>
 
                     {
-                        fees?.map((fees: InstituteHostelFees) => {
-                            return (<tr>
+                        fees?.map((fees: InstituteHostelFees,index:number) => {
+                            return (<tr key={index}>
                                 <td>{fees.room}</td>
                                 <td>{fees.AC}</td>
                                 <td>{fees.Non_AC}</td>
@@ -170,9 +170,9 @@ export function RenderHostel() {
         <>
             {
 
-                hostels?.map((hostelType: string) => {
+                hostels?.map((hostelType: string,index:number) => {
                     return (
-                        <>
+                        <React.Fragment key={index}>
                             <div className={styles.hostelFeesContainer}>
                                 <div className={styles.container} >
                                     <div className={'containerHead'}>
@@ -205,7 +205,7 @@ export function RenderHostel() {
                                     </div>
                                 </div>
                             </div>
-                        </>
+                        </React.Fragment>
                     )
                 })
             }

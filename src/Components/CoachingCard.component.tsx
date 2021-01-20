@@ -247,7 +247,7 @@ function CoachingCard(props: Props) {
 
     const ViewDetails = (slug: string) => {
         router.push({
-            pathname: `${router.pathname}/${slug}`
+            pathname: `${router.asPath}/${slug}`
         })
     }
 
@@ -299,7 +299,7 @@ function CoachingCard(props: Props) {
                     {
                         categories?.map((category: string) => {
                             return (
-                                <Chip label={category} className='chip' variant='outlined' />
+                                <Chip key={category} label={category} className='chip' variant='outlined' />
                             )
                         })
                     }
@@ -317,7 +317,7 @@ function CoachingCard(props: Props) {
                         {
                             categories?.map((tag: string) => {
                                 return (
-                                    <Chip label={tag} className='chip' />
+                                    <Chip key={tag} label={tag} className='chip' />
                                 )
                             })
                         }

@@ -96,7 +96,7 @@ const useStyles = makeStyles({
 
         '& .footerTitleWrap': {
             display: 'flex',
-            color: '#888',
+            color: Theme.fontLight,
             alignItems: 'center',
             '& svg': {
                 fontSize: 16,
@@ -208,7 +208,7 @@ const ExamCard = memo(function (props: Props) {
                     {
                         links.map((link: ExamListItemLink, index: number) => {
                             return (
-                                <p>
+                                <p key={index}>
                                     <a
                                         href={link.url}
                                         style={

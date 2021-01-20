@@ -4,6 +4,7 @@ import { KeyboardArrowDown, KeyboardArrowRight } from '@material-ui/icons';
 import { MenuListInterface } from '../Services/Interfaces.interface';
 import classNames from 'classnames';
 import { Theme } from '../Services/App.service';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles({
     list: {
@@ -65,14 +66,17 @@ const useStyles = makeStyles({
     }
 })
 
-const ListItemClickHandler = (event: MouseEvent, id: string) => {
-    event.stopPropagation();
-    console.log(id);
-}
 
 export const MultiLevelList = ({ list, parentIndex }: any) => {
     const [CollapsedItem, setCollapsedItem] = React.useState('');
     const styles = useStyles();
+    const router = useRouter();
+
+    const ListItemClickHandler = (event: MouseEvent, target: string) => {
+        event.stopPropagation();
+        router.push(target)
+        console.log(target);
+    }
 
     const ToggleCollapse = (itemId: string = '', isLast: boolean = false) => {
         console.log(itemId);
@@ -113,7 +117,7 @@ export const MultiLevelList = ({ list, parentIndex }: any) => {
                                 <React.Fragment key={index} >
 
                                     <ListItem
-                                        onClick={(event: any) => ListItemClickHandler(event, id)}
+                                        onClick={(event: any) => ListItemClickHandler(event, item.link)}
                                         onMouseEnter={() => ToggleCollapse(id, isLast)}
                                         onMouseLeave={() => ToggleCollapse('', isLast)}
                                         className={classNames(styles.listItem, 'menuItem')}

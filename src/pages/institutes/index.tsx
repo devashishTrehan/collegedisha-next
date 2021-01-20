@@ -5,7 +5,7 @@ import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import { Routes, Theme } from '@/Services/App.service';
+import { Routes, setLastNavigation, Theme } from '@/Services/App.service';
 import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
 import { Button, Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
@@ -107,11 +107,12 @@ function Institutes(props: Props) {
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const [pageType, setPageType] = useState<'university' | 'college'>('university');
-    const breadCrumbs = [{ name: 'Institutes', endPoint: `${Routes.Institutes}` }];
+    const breadcrumbs = [{ name: 'Institutes', endPoint: `${Routes.Institutes}` }];
 
     const styles = useStyles();
 
     useEffect(() => {
+        setLastNavigation(breadcrumbs);
         document.body.style.backgroundColor = Theme.secondary + '11';
         return (() => {
             document.body.style.backgroundColor = Theme.backgroundColor;
@@ -184,7 +185,7 @@ function Institutes(props: Props) {
                 <title>Institutes</title>
             </Head>
 
-            <CustomBreadCrumb breadcrumbs={breadCrumbs} />
+            <CustomBreadCrumb breadcrumbs={breadcrumbs} />
 
             <div className='container'>
                 <div className='wrapper' style={{ paddingTop: 0 }}>

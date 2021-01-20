@@ -1,3 +1,4 @@
+import { Routes } from '@/Services/App.service';
 import * as React from 'react';
 import { MenuListInterface } from '../Services/Interfaces.interface';
 
@@ -56,15 +57,14 @@ function MenuContextProvider(props: any) {
         {
             label: 'Study Material',
             list: [
-                { label: 'Article', list: [] },
-                { label: 'Universities', list: [] },
-                { label: 'Top Courses', list: [] },
-                { label: 'Blogs', list: [] },
-                { label: 'Colleges', list: [] },
-                { label: 'News', list: [] },
-                { label: 'Exams', list: [] },
-                { label: 'Coaching', list: [] },
-                { label: 'Career Options', list: [] },
+                { label: 'Article', link: Routes.Articles, list: [] },
+                { label: 'Universities', link: Routes.Universities, list: [] },
+                { label: 'Top Courses', link: Routes.Courses, list: [] },
+                { label: 'Colleges', link: Routes.Colleges, list: [] },
+                { label: 'News', link: Routes.News, list: [] },
+                { label: 'Exams', link: Routes.Exams, list: [] },
+                { label: 'Coaching', link: Routes.Coachings, list: [] },
+                { label: 'Career Options', link: '', list: [] },
             ]
         },
     ])

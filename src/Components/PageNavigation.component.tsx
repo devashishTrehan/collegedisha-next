@@ -78,14 +78,16 @@ export const PageNavigation = (props: Props) => {
         <div className={classNames(styles.sectionListContainer, { [styles.sectionListContainer_M]: isMobile })} style={{ top: navHeight }} >
             <div className={'sectionList'}>
                 {
-                    Object.keys(pageSections).map((section: string, index: number) => {
-                        return (<a key={index} className={classNames('sectionListItemAnchor', { 'active': (_currentSection === pageSections[section]) || (!index && !_currentSection) })}>
-                            <ListItem button onClick={() => onLinkClick && onLinkClick(section)} className={'sectionListItem'} >
-                                {section}
-                            </ListItem>
-                        </a>
-                        )
-                    })
+                    pageSections ?
+                        Object.keys(pageSections).map((section: string, index: number) => {
+                            return (<a key={index} className={classNames('sectionListItemAnchor', { 'active': (_currentSection === pageSections[section]) || (!index && !_currentSection) })}>
+                                <ListItem button onClick={() => onLinkClick && onLinkClick(section)} className={'sectionListItem'} >
+                                    {section}
+                                </ListItem>
+                            </a>
+                            )
+                        })
+                        : null
                 }
             </div>
         </div>

@@ -76,7 +76,7 @@ const useStyles = makeStyles({
       '& .designation': {
         margin: 5,
         fontSize: 14,
-        color: '#888',
+        color: Theme.fontLight,
         textTransform: 'capitalize'
       }
     },

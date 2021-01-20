@@ -109,9 +109,8 @@ const DummyCards = (props: Props) => {
                 {
 
                     cards.map(_ => {
-                        console.log('returning', _);
                         return (
-                            <Grid item>
+                            <Grid item key={_}>
                                 <div className={classNames(styles.container, { [styles.container_T]: isTablet })}>
 
                                 </div>
@@ -134,7 +133,7 @@ const DummyCards = (props: Props) => {
 
                     cards.map(_ => {
                         return (
-                            <div className={classNames(styles.container, { [styles.container_T]: isTablet })}>
+                            <div key={_} className={classNames(styles.container, { [styles.container_T]: isTablet })}>
 
                             </div>
                         )

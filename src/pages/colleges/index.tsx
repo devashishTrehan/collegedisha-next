@@ -5,7 +5,7 @@ import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import { Routes } from '@/Services/App.service';
+import { Routes, setLastNavigation } from '@/Services/App.service';
 import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
 import { Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
@@ -43,6 +43,11 @@ function Colleges(props: Props) {
     const breadcrumbs = [{ name: 'colleges', endPoint: `/${Routes.Colleges}` }];
 
     const styles = useStyles();
+
+
+    useEffect(() => {
+        setLastNavigation(breadcrumbs);
+    }, [])
 
 
     return (

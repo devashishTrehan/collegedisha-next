@@ -231,7 +231,7 @@ const InstituteCard = memo(function (props: Props) {
 
     const ViewDetails = (slug: string) => {
         router.push({
-            pathname: `${router.pathname}/${slug}`
+            pathname: `${router.asPath}/${slug}`
         })
     }
 

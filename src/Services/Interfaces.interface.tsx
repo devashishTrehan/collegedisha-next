@@ -1,6 +1,7 @@
 export interface MenuListInterface {
     label: string,
     list: MenuListInterface[],
+    link?: string
 }
 
 export interface ApiResponse {
@@ -9,5 +10,5 @@ export interface ApiResponse {
     message: string[],
     result: object | object[],
     additional_info: object,
-    
+
 }

@@ -3,9 +3,9 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { Theme } from '../Services/App.service';
 import Link from 'next/link';
-import { Breadcrumbs, useMediaQuery } from '@material-ui/core';
+// import { Breadcrumbs, useMediaQuery } from '@material-ui/core';
 import { useRouter } from 'next/router';
-
+import { Breadcrumbs } from 'nextjs-breadcrumbs';
 
 const useStyles = makeStyles({
     container: {
@@ -13,23 +13,36 @@ const useStyles = makeStyles({
         padding: '0 5%',
         transition: 'ease-in-out .3s',
         alignItems: 'center',
-        '& li': {
-            color: Theme.TFontHeadColor,
-        }
+        '& ol': {
+            listStyle: 'none',
+            '& li': {
+                display: 'inline-block',
+                textAlign: 'left',
+                '&::after': {
+                    content: '"/"',
+                    padding: '0 6px'
+                },
+                '& a': {
+                    color: Theme.TFontHeadColor,
+                    textDecoration: 'none',
+                    transition: 'ease-in-out .3s',
+                    fontSize: 12,
+                    textTransform: 'capitalize !important',
+                    '&:hover': {
+                        color: Theme.secondary,
+                    }
+                },
+                '&:last-child': {
+                    '& a': {
+                        fontWeight: 600,
+                    },
+                    '&::after': {
+                        content: '""',
+                    },
+                }
+            }
+        },
     },
-    link: {
-        color: Theme.TFontHeadColor,
-        textDecoration: 'none',
-        transition: 'ease-in-out .3s',
-        fontSize: 12,
-        textTransform: 'capitalize',
-        '&:hover': {
-            color: Theme.secondary,
-        }
-    },
-    activeLink: {
-        fontWeight: 600,
-    }
 
 })
 
@@ -38,56 +51,40 @@ export interface UrlObject {
     name: string,
 }
 
-interface Props {
-    breadcrumbs: UrlObject[]
-}
 
-function CustomBreadCrumb(props: Props) {
+function CustomBreadCrumb() {
 
     // const { breadcrumbs } = props;
 
-    const isMobile = useMediaQuery('(max-width:769px)');
-    const isTablet = useMediaQuery('(max-width:992px)');
+    // const isMobile = useMediaQuery('(max-width:769px)');
+    // const isTablet = useMediaQuery('(max-width:992px)');
 
     const makeCrumbList = (crumbs: UrlObject[]) => {
         return [{ name: 'home', endPoint: '/' }, ...crumbs]
     }
 
-    const [breadcrumbs, setBreadCrumbs] = React.useState<UrlObject[]>(makeCrumbList(props.breadcrumbs));
+    // const [breadcrumbs, setBreadCrumbs] = React.useState<UrlObject[]>(makeCrumbList(props.breadcrumbs));
 
     const styles = useStyles();
 
-    React.useEffect(() => {
-        setBreadCrumbs(makeCrumbList(props.breadcrumbs));
-    }, [props.breadcrumbs])
+    const crumbs = Breadcrumbs();
+
+    // return crumbs;
 
 
-    console.log('breadcrumbs', breadcrumbs);
+    return (
+        // <div style={{ backgroundColor: '#888' }}>
 
-    if (breadcrumbs.length > 1) {
-        return (
-            // <div style={{ backgroundColor: '#888' }}>
-
-            <div className={'container'}>
-                <div className={styles.container}>
-                    <Breadcrumbs maxItems={4}  >
-                        {breadcrumbs.map((breadcrumb: UrlObject, index: number) => {
-                            return (
-                                <Link key={index} href={breadcrumb.endPoint} >
-                                    <a className={classNames(styles.link, { [styles.activeLink]: index === breadcrumbs?.length - 1 })} >
-                                        <span >{breadcrumb.name}</span>
-                                    </a>
-                                </Link>
-                            )
-                        })}
-                    </Breadcrumbs>
-                </div>
+        <div className={'container'}>
+            <div className={styles.container}>
+                <Breadcrumbs maxItems={4}  >
+                    {crumbs}
+                </Breadcrumbs>
             </div>
-            // </div>
-        )
-    } else {
-        return null;
-    }
+        </div>
+        // </div>
+    )
+
 
 }
 

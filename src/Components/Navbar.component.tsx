@@ -48,19 +48,11 @@ const useStyles = makeStyles({
       display: 'inline-block',
       lineHeight: '64px',
       margin: '0 20px',
-      // '&::after': {
-      //   display: 'block',
-      //   content: '""',
-      //   borderBottom: `solid 3px ${Theme.TFontHeadColor}`,
-      //   transform: 'scaleX(0)',
-      //   transition: 'transform 250ms ease-in-out',
-      //   width: '100%',
-      //   bottom: -3,
-      // }
     },
     '& a': {
       textDecoration: 'none',
-      color: '#666',
+      // color: '#666',
+      color: '#4a5568',
       fontWeight: 500,
       padding: '0 10px',
       fontSize: '15px',

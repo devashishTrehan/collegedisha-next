@@ -6,6 +6,7 @@ import '../styles/globals.css'
 import { useRouter } from 'next/router';
 import GraphClientContextProvider from '@/Context/GraphClient.context';
 import NavbarContextProvider, { NavbarContext } from '@/Context/Navbar.context';
+import CustomBreadCrumb, { UrlObject } from '@/Components/CustomBreadCrumb.component';
 // import './fonts/gordita/Gordita';
 
 const theme = createMuiTheme({
@@ -29,6 +30,7 @@ function MyAppMainComponent({ Component, pageProps }) {
 
   return (
     <div style={{ paddingTop: navHeight, flexGrow: 1, }}>
+      <CustomBreadCrumb />
       <Component {...pageProps} />
     </div>
   )

@@ -57,12 +57,12 @@ const useStyles = makeStyles({
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    color: "#888",
+                    color: Theme.fontLight,
                     '& *': {
                         fontSize: 12,
                     },
                     '& svg': {
-                        color: "#888",
+                        color: Theme.fontLight,
                         fontSize: 14,
                         verticalAlign: 'middle',
                         marginLeft: -4
@@ -133,7 +133,7 @@ const InstituteListCard = memo(function (props: Props) {
 
     const ViewDetails = (slug: string) => {
         router.push({
-            pathname: `${router.pathname}/${slug}`
+            pathname: `${router.asPath}/${slug}`
         })
     }
 

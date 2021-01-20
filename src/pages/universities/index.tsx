@@ -5,7 +5,7 @@ import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import { Routes } from '@/Services/App.service';
+import { Routes, setLastNavigation } from '@/Services/App.service';
 import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
 import { Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
@@ -39,16 +39,19 @@ function Universities(props: Props) {
 
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
-    const breadCrumbs = [{ name: 'universities', endPoint: `${Routes.Universities}` }];
+    const breadcrumbs = [{ name: 'universities', endPoint: `${Routes.Universities}` }];
 
     const styles = useStyles();
 
+    useEffect(() => {
+        setLastNavigation(breadcrumbs);
+    }, [])
 
 
     return (
         <>
 
-            <CustomBreadCrumb breadcrumbs={breadCrumbs} />
+            <CustomBreadCrumb breadcrumbs={breadcrumbs} />
 
 
             <div className='container'>

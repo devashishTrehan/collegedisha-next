@@ -1,3 +1,5 @@
+import { UrlObject } from "@/Components/CustomBreadCrumb.component";
+
 export const Theme = {
     // primary: '#44b4d6',
     primary: '#213858',
@@ -6,6 +8,7 @@ export const Theme = {
     tertiary: '#385a64',
     secondaryFontColor: '#5c6b8a',
     fontColor: '#444',
+    fontLight: '#888',
     TFontHeadColor: '#1d2746',
     fontColorSecondary: '#374957',
     error: '#ff4444',
@@ -79,7 +82,9 @@ export const Routes = {
     Coachings: '/coaching',
     Exams: '/exams',
     Boards: '/boards',
-    News: '/boards',
+    Articles: '/articles',
+    Courses: '/courses',
+    News: '/news',
     Universities: '/universities',
     ProfileEdit: '/profile-edit/',
     Profile: '/profile/',
@@ -118,7 +123,8 @@ export const ValidateFields = (conditions: any, refs: any) => {
 
 export const Storages = {
     Token: 'token',
-    User: 'user'
+    User: 'user',
+    Navigation: 'navigation'
 }
 
 export const getUser = async () => {
@@ -176,6 +182,34 @@ export const RequestStatusList = {
     Warning: 'warning',
     Info: 'info'
 }
+
+//---------- The function to set last navigation state -------\\
+
+export const setLastNavigation = async (navigation: UrlObject[]) => {
+    let item = JSON.stringify(navigation);
+    try {
+        localStorage.setItem(Storages.Navigation, item);
+    } catch (error) {
+        console.log('storage navigation setting error', error);
+        return false;
+    }
+    return true;
+}
+
+
+//---------- The function to get last navigation state -------\\
+
+export const getLastNavigation = () => {
+
+    let navigation = localStorage.getItem(Storages.Navigation);
+    if (navigation) {
+        return JSON.parse(navigation);
+    } else {
+        return false;
+    }
+}
+
+
 
 //---------- The function changes formats to Indian Number system-------\\
 

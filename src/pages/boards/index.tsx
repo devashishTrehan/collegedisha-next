@@ -95,7 +95,7 @@ const useStyles = makeStyles({
       padding: 0,
       textAlign: 'left',
       '& .label': {
-        color: '#888',
+        color: Theme.fontLight,
         fontSize: 14,
         marginRight: 5,
       },
@@ -183,7 +183,7 @@ const RenderBoardCard = (props: BoardListItemTypes) => {
 
   const ViewDetails = (slug: string) => {
     router.push({
-      pathname: `${router.pathname}/${slug}`
+      pathname: `${router.asPath}/${slug}`
     })
   }
 
@@ -305,7 +305,7 @@ function BoardList(props: any) {
 
   const ViewDetails = (slug: string) => {
     router.push({
-      pathname: `${router.pathname}/${slug}`
+      pathname: `${router.asPath}/${slug}`
     })
   }
 

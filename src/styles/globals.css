@@ -200,6 +200,10 @@ code {
     font-size: 14px;
 }
 
+p {
+    padding-top: 4px;
+}
+
 .flexContainer {
     display: flex;
     flex-direction: row;

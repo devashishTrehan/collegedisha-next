@@ -114,18 +114,15 @@ export const ExamCategories = (props: Props) => {
                 {
                     ExamTypes.map((exam: ExamCategoryType, index: number) => {
                         return (
-                            <>
-                                <li key={index} style={{ margin: '0 5px', }}>
-                                    <div className={classNames('activeHelper')}></div>
-                                    <div className='contentWrap'>
-                                        <div className='imageWrap'>
-                                            <img src={exam.image ? exam.image : defaultImage} alt='' />
-                                        </div>
-                                        <Typography noWrap>{exam.label}</Typography>
+                            <li key={index} style={{ margin: '0 5px', }}>
+                                <div className={classNames('activeHelper')}></div>
+                                <div className='contentWrap'>
+                                    <div className='imageWrap'>
+                                        <img src={exam.image ? exam.image : defaultImage} alt='' />
                                     </div>
-                                </li>
-
-                            </>
+                                    <Typography noWrap>{exam.label}</Typography>
+                                </div>
+                            </li>
                         )
                     })
                 }

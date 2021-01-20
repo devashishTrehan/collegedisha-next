@@ -120,8 +120,8 @@ export function RenderFaculty() {
             </div>
             <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
                 {
-                    faculties?.map((faculty: InstituteFaculty) => {
-                        return <Grid item xs={12} sm={6}>
+                    faculties?.map((faculty: InstituteFaculty,index:number) => {
+                        return <Grid item key={index} xs={12} sm={6}>
                             <FacultyCard faculty={faculty} />
                         </Grid>
                     })

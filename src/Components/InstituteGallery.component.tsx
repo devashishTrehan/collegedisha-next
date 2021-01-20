@@ -101,8 +101,8 @@ export function RenderGallery() {
                 </div>
                 <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
                     {
-                        Images?.map((image: string) => {
-                            return <Grid item>
+                        Images?.map((image: string,index:number) => {
+                            return <Grid item key={index}>
                                 <RenderImage image={image} />
                             </Grid>
                         })
@@ -121,8 +121,8 @@ export function RenderGallery() {
                     </div>
                     <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
                         {
-                            videos?.map((video: string) => {
-                                return <Grid item>
+                            videos?.map((video: string,index:number) => {
+                                return <Grid item key={index}>
                                     <RenderVideo videoId={video} />
                                 </Grid>
                             })

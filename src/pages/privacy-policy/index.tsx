@@ -222,9 +222,6 @@ function PrivacyPolicy(props: any) {
 
     <>
 
-      <CustomBreadCrumb breadcrumbs={[{ name: 'privacy-policy', endPoint: `${Routes.PrivacyPolicy}` }]} />
-
-
       <PageHead PageName='Privacy Policy' />
 
       <div className='container'>

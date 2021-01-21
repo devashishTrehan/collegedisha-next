@@ -262,7 +262,6 @@ function CoachingDetailsPage(props: Props) {
 
     return (
         <div>
-            <CustomBreadCrumb breadcrumbs={breadcrumbs} />
 
             <InnerPageHead {...coachingDetails} />
 

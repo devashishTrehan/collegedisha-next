@@ -320,9 +320,6 @@ function BoardList(props: any) {
 
     <>
 
-      <CustomBreadCrumb breadcrumbs={breadcrumbs} />
-
-
       <PageHead  >
         <div className={classNames(styles.pageHead, { [styles.pageHead_M]: isMobile })}>
           <Typography className='pageHeading1' variant='h1'>

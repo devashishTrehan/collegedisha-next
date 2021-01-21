@@ -25,11 +25,8 @@ const theme = createMuiTheme({
 
 function MyAppMainComponent({ Component, pageProps }) {
 
-  const { navHeight } = useContext(NavbarContext);
-  console.log('NavbarContext', navHeight);
-
   return (
-    <div style={{ paddingTop: navHeight, flexGrow: 1, }}>
+    <div >
       <CustomBreadCrumb />
       <Component {...pageProps} />
     </div>
@@ -45,9 +42,6 @@ function MyApp(props) {
   return <>
     <ThemeProvider theme={theme}>
       <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-
-
-
 
         <GraphClientContextProvider>
           <NavbarContextProvider>

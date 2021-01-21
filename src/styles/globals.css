@@ -2,6 +2,27 @@
 
 /* @import url('http://fonts.cdnfonts.com/css/gordita'); */
 
+
+/* @font-face {
+    font-family: 'gorditaThin';
+    src: local('Gordita'), url('@/fonts/gordita/Gordita-Light.otf') format('otf');
+}
+
+@font-face {
+    font-family: 'gordita';
+    src: local('Gordita'), url('@/fonts/gordita/Gordita-Regular.otf') format('otf');
+}
+
+@font-face {
+    font-family: 'gorditaBold';
+    src: local('Gordita'), url('@/fonts/gordita/Gordita-Bold.otf') format('otf');
+}
+
+@font-face {
+    font-family: 'gorditaMedium';
+    src: local('Gordita'), url('@/fonts/gordita/Gordita-Medium.otf') format('otf');
+} */
+
 @font-face {
     font-family: 'gorditaThin';
     src: local('Gordita'), url('@/fonts/gordita/Gordita Thin.woff') format('woff');

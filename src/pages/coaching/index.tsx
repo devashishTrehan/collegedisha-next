@@ -50,8 +50,6 @@ function CoachingsPage(props: Props) {
     return (
         <>
 
-            <CustomBreadCrumb breadcrumbs={breadCrumbs} />
-
             <div className='container'>
                 <div className='wrapper' style={{ padding: '20px 5% 0' }}>
                     <Typography variant='h1' className='pageHeading'>List of Top coachings</Typography>

@@ -19,8 +19,8 @@ const useStyles = makeStyles({
     container: {
         boxShadow: Theme.boxShadow,
         borderRadius: Theme.radius1,
-        padding: '30px 20px',
-        margin: '30px 0',
+        padding: 20,
+        margin: '0px 0 30px',
 
     },
     Intro: {
@@ -97,11 +97,9 @@ function newsDetailsPage(props: Props) {
 
     return (
         <div>
-            <CustomBreadCrumb breadcrumbs={breadcrumbs} />
-
 
             <div className='container'>
-                <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '50px 5%' }}>
+                <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '30px 5%' }}>
                     <Grid container >
                         <Grid item xs={12} md={9} >
                             <div className={styles.container}>

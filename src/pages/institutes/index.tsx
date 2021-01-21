@@ -185,8 +185,6 @@ function Institutes(props: Props) {
                 <title>Institutes</title>
             </Head>
 
-            <CustomBreadCrumb breadcrumbs={breadcrumbs} />
-
             <div className='container'>
                 <div className='wrapper' style={{ paddingTop: 0 }}>
 

@@ -193,8 +193,6 @@ function RegisterPage(props: any) {
 
     <>
 
-      <CustomBreadCrumb breadcrumbs={[{ name: 'register', endPoint: `${Routes.Register}` }]} />
-
 
       <div className={styles.sectionBackground}>
         <div className='container'>

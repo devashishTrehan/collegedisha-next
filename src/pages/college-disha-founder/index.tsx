@@ -232,8 +232,6 @@ function FounderPage(props: any) {
   return (
 
     <>
-      <CustomBreadCrumb breadcrumbs={[{ name: 'founders', endPoint: `${Routes.Founder}` }]} />
-
       <PageHead PageName='Founders' />
 
       <div className={styles.SectionBackground}>

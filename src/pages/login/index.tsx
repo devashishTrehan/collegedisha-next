@@ -174,8 +174,6 @@ function LoginPage(props: any) {
 
     <>
 
-      <CustomBreadCrumb breadcrumbs={[{ name: 'login', endPoint: `${Routes.Login}` }]} />
-
 
       <div className={styles.sectionBackground}>
         <div className='container'>

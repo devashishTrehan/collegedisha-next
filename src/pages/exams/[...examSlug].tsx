@@ -55,8 +55,7 @@ function examDetailsPage(props: Props) {
         }
     });
     const [slugs, setSlugs] = useState<string[]>([]);
-    let currentPageUrl = `${LastBreadcrumbs[LastBreadcrumbs?.length - 1].endPoint}/${slugs[0]}`;
-    const [breadCrumbs, setBreadCrumbs] = useState<UrlObject[]>([]);
+    const [currentPageUrl, setCurrentPageUrl] = useState('');
     const { navHeight } = useContext(NavbarContext);
     const { id, name, examSections, initialSection } = examDetails;
     let sectionList = Object.keys(examSections);
@@ -70,39 +69,31 @@ function examDetailsPage(props: Props) {
     useEffect(() => {
         if (router.query.examSlug?.length) {
             let slugList = router.query.examSlug as string[];
-            console.log('slug list', slugList);
-
             setSlugs(slugList);
-
-            if (!breadCrumbs?.length) {
-
-                setBreadCrumbs((prev: UrlObject[]) => {
-                    return [...LastBreadcrumbs, { name: examDetails ? examDetails.name : slugList[0], endPoint: `${currentPageUrl}` }];
-                });
-            }
-
-            currentPageUrl = `${LastBreadcrumbs[LastBreadcrumbs?.length - 1].endPoint}/${slugList[0]}`
         }
     }, [router.query?.examSlug])
 
     useEffect(() => {
-        console.log('slugs', slugs);
-        console.log('slugs', slugs[1]);
+        let currentPath = router.asPath;
+        let pages = currentPath.split('/');
+        if (pages?.length > 3) {
+            pages.length = 3;
+            let newUrl = pages.join('/');
+            console.log('currentPages 2', newUrl)
+            setCurrentPageUrl(newUrl);
+        } else {
+            setCurrentPageUrl(currentPath);
+        }
+        console.log('currentPageUrl 2', router)
+    }, [router.query])
+
+    useEffect(() => {
         if (slugs && (slugs[1] !== currentSection)) {
             setCurrentSection(slugs[1]);
         }
     }, [slugs])
 
     const showpageSection = (section: string) => {
-        setBreadCrumbs((prev: UrlObject[]) => {
-            if (prev.length > 2) {
-                prev.length = 2;
-            }
-            console.log('breadCrumbs', prev)
-            let route = prev[prev.length - 1].endPoint;
-            console.log('breadCrumbs', [...prev, { endPoint: `${route}/${examSections[section]}`, name: section }])
-            return [...prev, { endPoint: `${route}/${examSections[section]}`, name: section }];
-        })
         router.push({
             pathname: currentPageUrl + `/${examSections[section]}`,
         }, undefined, { shallow: true })
@@ -111,7 +102,6 @@ function examDetailsPage(props: Props) {
 
     return (
         <div>
-            <CustomBreadCrumb breadcrumbs={breadCrumbs} />
 
 
             <PageNavigation pageSections={examSections} currentSection={currentSection} onLinkClick={(section: string) => showpageSection(section)} />

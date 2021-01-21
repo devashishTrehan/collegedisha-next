@@ -145,8 +145,6 @@ function Universities(props: Props) {
     return (
         <>
 
-            <CustomBreadCrumb breadcrumbs={[{ name: 'exams', endPoint: `${Routes.Exams}` }]} />
-
 
             <div className='container'>
                 <div style={{ padding: '20px 5% 0' }}>

@@ -261,8 +261,6 @@ function TermsConditions(props: any) {
 
     <>
 
-      <CustomBreadCrumb breadcrumbs={[{ name: 'website-usage-policy', endPoint: `${Routes.TermsConditions}` }]} />
-
       <PageHead PageName='Terms & conditions' />
 
       <div className='container'>

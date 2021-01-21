@@ -12,11 +12,11 @@ import { MenuListInterface } from '@/Services/Interfaces.interface';
 import { MultiLevelList } from '@/Components/MultiLevelList2.component';
 import { LoginRegisterButton } from '@/Components/LoginRegisterButton.component';
 import { SearchPage } from '@/Components/SearchPage.component';
+import { NavbarContext } from '@/Context/Navbar.context';
 
 const useStyles = makeStyles({
 
   navBar: {
-    padding: '0 calc(5% - 10px)',
     // boxShadow: `0px 2px 10px 0px #ccc`,
     backgroundColor: '#fff !important',
     color: Theme.primary,
@@ -36,9 +36,10 @@ const useStyles = makeStyles({
     width: 120,
     // width: 100,
   },
-
+  
   navLinkSectionsWrap: {
     display: 'flex',
+    padding: '0 calc(5% - 10px)',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -80,6 +81,7 @@ const useStyles = makeStyles({
 
   },
   LinkWrap_T: {
+    padding: '0px 20px ',
     '& .link': {
       margin: '0 10px',
       '& a': {
@@ -163,7 +165,7 @@ function NavBar(props: any) {
   const [DrawerOpen, setDrawerOpen] = React.useState(false);
   const { MenuList } = React.useContext(MenuContext);
   const { user } = { user: { id: 0 } };
-
+  const { scrollPercent } = React.useContext(NavbarContext);
   const [__window, setWindow] = React.useState<null | Window>(null);
 
   React.useEffect(() => {
@@ -279,6 +281,9 @@ function NavBar(props: any) {
               )
             }
           </Toolbar>
+        </div>
+        <div style={{ height: 3, width: '100%' }}>
+          <div style={{ height: '100%', width: `${scrollPercent}%`, background: Theme.primary }}></div>
         </div>
       </AppBar>
       {/* </HideOnScroll> */}

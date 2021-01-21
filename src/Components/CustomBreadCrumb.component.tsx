@@ -2,9 +2,6 @@ import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import classNames from 'classnames';
 import { Theme } from '../Services/App.service';
-import Link from 'next/link';
-// import { Breadcrumbs, useMediaQuery } from '@material-ui/core';
-import { useRouter } from 'next/router';
 import { Breadcrumbs } from 'nextjs-breadcrumbs';
 
 const useStyles = makeStyles({
@@ -15,11 +12,13 @@ const useStyles = makeStyles({
         alignItems: 'center',
         '& ol': {
             listStyle: 'none',
+            display: 'flex',
             '& li': {
                 display: 'inline-block',
                 textAlign: 'left',
                 '&::after': {
                     content: '"/"',
+                    color: Theme.TFontHeadColor,
                     padding: '0 6px'
                 },
                 '& a': {
@@ -54,35 +53,24 @@ export interface UrlObject {
 
 function CustomBreadCrumb() {
 
-    // const { breadcrumbs } = props;
-
-    // const isMobile = useMediaQuery('(max-width:769px)');
-    // const isTablet = useMediaQuery('(max-width:992px)');
 
     const makeCrumbList = (crumbs: UrlObject[]) => {
         return [{ name: 'home', endPoint: '/' }, ...crumbs]
     }
 
-    // const [breadcrumbs, setBreadCrumbs] = React.useState<UrlObject[]>(makeCrumbList(props.breadcrumbs));
 
     const styles = useStyles();
 
     const crumbs = Breadcrumbs();
 
-    // return crumbs;
-
+    console.log('crumbs', crumbs);
 
     return (
-        // <div style={{ backgroundColor: '#888' }}>
-
         <div className={'container'}>
             <div className={styles.container}>
-                <Breadcrumbs maxItems={4}  >
-                    {crumbs}
-                </Breadcrumbs>
+                {crumbs}
             </div>
         </div>
-        // </div>
     )
 
 

@@ -4,11 +4,9 @@ import React from 'react';
 
 function InstituteDetails(props) {
 
-    const breadCrumbs = [{ name: 'Institutes', endPoint: `${Routes.Institutes}` }];
-
 
     return (
-        <InstituteDetailComponent breadcrumbs={breadCrumbs} />
+        <InstituteDetailComponent />
     );
 }
 

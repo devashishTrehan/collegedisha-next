@@ -74,7 +74,6 @@ function DisclaimerPage(props: any) {
 
     <>
 
-<CustomBreadCrumb breadcrumbs={[{ name: 'disclaimer', endPoint: `${Routes.Disclaimer}` }]} />
 
 
       <PageHead PageName='Disclaimer' />

@@ -24,7 +24,6 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    breadcrumbs: UrlObject[]
 }
 
 const pageSections = {
@@ -56,8 +55,7 @@ function InstituteDetailComponent(props: Props) {
     });
     const [slugs, setSlugs] = useState<string[]>([]);
     const [currentSection, setCurrentSection] = useState<string>(pageSections.Information);
-    let currentPageUrl = `${props.breadcrumbs[props.breadcrumbs?.length - 1].endPoint}/${slugs[0]}`;
-    const [breadCrumbs, setBreadCrumbs] = useState<UrlObject[]>([]);
+    const [currentPageUrl, setCurrentPageUrl] = useState<string>('');
     const { navHeight } = useContext(NavbarContext);
 
     const isMobile = useMediaQuery('(max-width:769px)');
@@ -65,21 +63,19 @@ function InstituteDetailComponent(props: Props) {
     const styles = useStyles();
     const router = useRouter();
 
+
+
+    useEffect(() => {
+        setCurrentPageUrl(router.asPath);
+        console.log('currentPageUrl', currentPageUrl);
+    }, [])
+
     useEffect(() => {
         if (router.query.instituteSlug?.length) {
             let slugList = router.query.instituteSlug as string[];
             console.log('slug list', slugList);
 
             setSlugs(slugList);
-
-            if (!breadCrumbs?.length) {
-
-                setBreadCrumbs((prev: UrlObject[]) => {
-                    return [...props.breadcrumbs, { name: instituteDetails ? instituteDetails.name : slugList[0], endPoint: `${currentPageUrl}` }];
-                });
-            }
-
-            currentPageUrl = `${props.breadcrumbs[props.breadcrumbs?.length - 1].endPoint}/${slugList[0]}`
         }
     }, [router.query?.instituteSlug])
 
@@ -92,23 +88,15 @@ function InstituteDetailComponent(props: Props) {
     }, [slugs])
 
     const showpageSection = (section: string) => {
-        setBreadCrumbs((prev: UrlObject[]) => {
-            if (prev.length > 2) {
-                prev.length = 2;
-            }
-            let route = prev[prev.length - 1].endPoint;
-            return [...prev, { endPoint: `${route}/${pageSections[section]}`, name: section }];
-        })
         router.push({
             pathname: currentPageUrl + `/${pageSections[section]}`,
         }, undefined, { shallow: true })
     }
 
-    const { id, name} = instituteDetails;
+    const { id, name } = instituteDetails;
 
     return (
         <div>
-            <CustomBreadCrumb breadcrumbs={breadCrumbs} />
 
             <InnerPageHead {...instituteDetails} />
 

@@ -200,7 +200,6 @@ function About(props: any) {
   return (
 
     <>
-      <CustomBreadCrumb breadcrumbs={[{ name: 'about', endPoint: `${Routes.About}` }]} />
       <PageHead PageName={'About Us'} />
 
       <div className='container'>

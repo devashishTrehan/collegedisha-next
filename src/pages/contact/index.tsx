@@ -133,7 +133,6 @@ function Contact(props: any) {
   return (
 
     <>
-      <CustomBreadCrumb breadcrumbs={[{ name: 'contact', endPoint: `${Routes.Contact}` }]} />
 
 
       <PageHead PageName='Contact Us' />

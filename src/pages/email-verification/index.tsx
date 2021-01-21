@@ -150,9 +150,6 @@ function EmailVerificationPage(props: any) {
 
     <>
 
-<CustomBreadCrumb breadcrumbs={[{ name: 'email-verification', endPoint: `${Routes.EmailVerification}` }]} />
-    
-
       <div className={styles.sectionBackground}>
         <div className='container'>
 

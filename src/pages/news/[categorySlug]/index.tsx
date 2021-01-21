@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import { getLastNavigation, Routes, setLastNavigation, Theme } from '@/Services/App.service';
 import classNames from 'classnames';
-import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 import { useRouter } from 'next/router';
 import { NewsListItemTypes, NewsListTypes } from '@/Services/GraphQlDataTypes/News';
 import NewsListCard from '@/Components/NewsListCard.component';
@@ -27,7 +26,6 @@ function NewsList(props: any) {
   const isMobile = useMediaQuery('(max-width:600px)');
   const isTablet = useMediaQuery('(max-width:992px)');
   const router = useRouter();
-  const [breadcrumbs, setBreadcrumbs] = React.useState([]);
   const [data, setData] = React.useState<NewsListTypes | null>({
     featuredNews: [
       {
@@ -160,14 +158,6 @@ function NewsList(props: any) {
 
     if (categorySlug) {
       setCurrentCategory(categorySlug);
-      let category = categorySlug.toString().replace(/-/g, ' ');
-      let lastNavigation = getLastNavigation();
-      if (lastNavigation?.length) {
-        let newCrumbs = [lastNavigation[0], { name: category, endPoint: `${lastNavigation[0].endPoint}/${categorySlug}` }];
-        setLastNavigation(newCrumbs);
-        setBreadcrumbs(newCrumbs)
-      }
-      // sectionSlug && FetchData(sectionSlug);
     }
   }, [router.query?.categorySlug])
 
@@ -175,10 +165,6 @@ function NewsList(props: any) {
   return (
 
     <>
-
-      <CustomBreadCrumb breadcrumbs={breadcrumbs} />
-
-
 
       <div>
         <NewsPageHeader featuredNews={data?.featuredNews} />

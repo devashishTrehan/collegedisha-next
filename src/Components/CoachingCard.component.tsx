@@ -2,7 +2,6 @@ import { Theme } from '@/Services/App.service';
 import { detailedInstitute } from '@/Services/GraphQlDataTypes/Institutes';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
-import CustomBreadCrumb, { UrlObject } from '@/Components/CustomBreadCrumb.component';
 import { Chip, Grid, ListItem, makeStyles, Tooltip, Typography, useMediaQuery } from '@material-ui/core';
 import { LocationOnOutlined, Visibility } from '@material-ui/icons';
 import { Rating } from '@material-ui/lab';
@@ -234,8 +233,6 @@ function CoachingCard(props: Props) {
 
     const { name, location, image, rating, isSaved, onDownload, onSave, description, onShare, slug, categories, tags } = props;
 
-    // let currentPageUrl = `${props.breadcrumbs[props.breadcrumbs?.length - 1].endPoint}/${slugs[0]}`;
-    const [breadCrumbs, setBreadCrumbs] = useState<UrlObject[]>([]);
     const { navHeight } = useContext(NavbarContext);
 
     const isMobile = useMediaQuery('(max-width:769px)');

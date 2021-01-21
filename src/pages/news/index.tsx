@@ -2,7 +2,7 @@
 import { Grid, Hidden, IconButton, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
-import { Routes, setLastNavigation, Theme } from '@/Services/App.service';
+import { Routes, Theme } from '@/Services/App.service';
 import classNames from 'classnames';
 import { ViewportTracker } from '@/Components/ViewportTracker.component';
 import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
@@ -22,8 +22,6 @@ const useStyles = makeStyles({
   },
 
 })
-
-const breadcrumbs = [{ name: 'news', endPoint: `${Routes.News}` }];
 
 
 const defaultImage = '/assets/images/defaults/news.jpg'
@@ -61,18 +59,6 @@ function NewsList(props: any) {
       },
       {
         id: 1,
-        title: 'IIM-A OPPOSITION TO LAID DOWN Ph-D CRITERIA BY GOVERNMENT - CollegeDisha',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1604662290Rajasthan-Scholarship-Registration-thumbnail.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'education',
-      },
-      {
-        id: 1,
         title: 'The Vice President Showed Concern On The Need Of Reservation For Poor Students In Private Institution',
         views: 123,
         commentCount: 12,
@@ -81,7 +67,7 @@ function NewsList(props: any) {
         author: 'dev trehan',
         publishedOn: '23-12-2020',
         isSaved: false,
-        category: 'plitics',
+        category: 'politics',
       },
     ],
     newsList: [
@@ -155,25 +141,11 @@ function NewsList(props: any) {
     router.push(`${Routes.News}/${data?.newsCategories[category]}`, undefined, { shallow: true });
   }
 
-  const ViewDetails = (slug: string, category: string) => {
-    router.push({
-      pathname: `${router.asPath}/${category}/${slug}`
-    })
-  }
-
-
-  React.useEffect(() => {
-    setLastNavigation(breadcrumbs);
-  }, [])
 
 
   return (
 
     <>
-
-      <CustomBreadCrumb breadcrumbs={breadcrumbs} />
-
-
 
       <div>
         <NewsPageHeader featuredNews={data?.featuredNews} />
@@ -191,7 +163,7 @@ function NewsList(props: any) {
               data?.newsList?.map((newsItem: NewsListItemTypes) => {
                 return (
                   <Grid item xs={12} sm={6}>
-                    <NewsListCard onViewDetails={(slug: string) => ViewDetails(slug, newsItem.category)} {...newsItem} />
+                    <NewsListCard {...newsItem} />
                   </Grid>
 
                 )
@@ -216,16 +188,29 @@ const NewsPageHeaderStyles = makeStyles({
     animation: 'none !important',
     margin: '0px 0 20px !important',
     borderRadius: Theme.radius2,
-    maxHeight: 'unset'
+    maxHeight: 'unset !important',
+    position: 'relative',
+    '& .category': {
+      display: 'inline',
+      position: 'absolute',
+      padding: '5px 15px 3px',
+      background: Theme.primary,
+      fontFamily: 'gorditaMedium',
+      fontSize: 14,
+      left: 0,
+      bottom: 40,
+      lineHeight: '14px',
+      color: '#fff',
+    },
   },
   carouselActionButton: {
     position: 'absolute',
-    top: 'calc(50% - 15px)',
+    top: 'calc((50% - 60px) - 15px)',
     backgroundColor: Theme.primary + '22',
     padding: 4,
     '& svg': {
       color: Theme.primary,
-      fontSize: 30
+      fontSize: 24
     },
     '&.left': {
       left: -19,
@@ -266,9 +251,7 @@ const NewsPageHeaderStyles = makeStyles({
     },
   },
   sideNewsWrap: {
-    position: 'absolute',
     margin: '-20px 0',
-    width: '100%',
   }
 })
 
@@ -276,12 +259,12 @@ export const NewsPageHeader = (props: { featuredNews: NewsListItemTypes[] }) => 
 
   const [carouselIndex, setCarouselIndex] = React.useState(0);
   let StepsCarouselIntervalRef: any = null;
-  const StepsCarouselInterval = 10;   // time in seconds
+  const StepsCarouselInterval = 4;   // time in seconds
   const isMobile = useMediaQuery('(max-width:600px)');
   const isTablet = useMediaQuery('(max-width:992px)');
 
   const customStyles = NewsPageHeaderStyles();
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState(props.featuredNews);
 
   React.useEffect(() => {
     setData(props.featuredNews);
@@ -325,11 +308,12 @@ export const NewsPageHeader = (props: { featuredNews: NewsListItemTypes[] }) => 
 
 
   const renderCarouselItem = (item: NewsListItemTypes, index: number) => {
-    const { title, image, commentCount, views, publishedOn } = item;
+    const { title, image, commentCount, views, category, publishedOn } = item;
     return (
       <div key={index} className='carouselCard' style={{ marginTop: 0, }}>
         <div className={classNames('imageWrap', customStyles.imageWrap)} >
           <img src={image ? image : defaultImage} alt='' />
+          <Typography className={'category'} >{category}</Typography>
         </div>
         <div className={classNames('infoWrap', customStyles.InfoWrap)}  >
           <div className='title'>
@@ -346,7 +330,7 @@ export const NewsPageHeader = (props: { featuredNews: NewsListItemTypes[] }) => 
             </div>
             <div className='commentCount'>
               <CommentOutlined />
-              <Typography>{commentCount}</Typography>
+              <Typography>{commentCount} comments</Typography>
             </div>
           </div>
         </div>
@@ -357,6 +341,7 @@ export const NewsPageHeader = (props: { featuredNews: NewsListItemTypes[] }) => 
   const PlayCarouselSlide = () => {
     console.log('entered');
     StepsCarouselIntervalRef = setInterval(() => {
+      console.log('started');
       slideCaousel('next');
     }, StepsCarouselInterval * 1000)
   }
@@ -371,59 +356,58 @@ export const NewsPageHeader = (props: { featuredNews: NewsListItemTypes[] }) => 
 
 
       {/* <ViewportTracker id='contentPage' onEnter={() => PlayCarouselSlide()} onLeave={() => PauseCarouselSlide()} > */}
-      <div className={styles.cardContainer} style={{ backgroundImage: 'none' }} >
-        <div className='container'>
-          <div className={styles.pageContent}>
+        <div className={styles.cardContainer} style={{ backgroundImage: 'none' }} >
+          <div className='container'>
+            <div className={styles.pageContent}>
 
-            <Grid container spacing={isTablet ? 3 : 9} >
+              <Grid container spacing={isTablet ? 3 : 5} >
 
-              <Grid item xs={12} md={7}>
+                <Grid item xs={12} md={7}>
 
-                <div className={styles.CarouselContainer} style={{ position: 'relative' }}>
-                  <Carousel
-                    autoPlay={false}
-                    index={carouselIndex}
-                    navButtonsAlwaysInvisible
-                    indicators={false}
-                    animation='slide'
-                    timeout={500} >
-                    {
-                      data?.map((item: NewsListItemTypes, index: number) => {
-                        return renderCarouselItem(item, index);
-                      })
-                    }
-                  </Carousel>
-
-                  <IconButton className={classNames(customStyles.carouselActionButton, 'left')} onClick={() => slideCaousel('prev')}>
-                    <KeyboardArrowLeft />
-                  </IconButton>
-
-                  <IconButton className={classNames(customStyles.carouselActionButton, 'right')} onClick={() => slideCaousel('next')}>
-                    <KeyboardArrowRight />
-                  </IconButton>
-                </div>
-              </Grid>
-
-              <Hidden smDown>
-
-                <Grid item xs={12} md={5}>
-                  <div className={classNames(styles.StepsContainer)} style={{ position: 'relative', overflow: 'auto', height: '100%' }}>
-                    <div className={classNames(customStyles.sideNewsWrap)}>
+                  <div className={styles.CarouselContainer} style={{ position: 'relative' }} >
+                    <Carousel
+                      autoPlay={false}
+                      index={carouselIndex}
+                      navButtonsAlwaysInvisible
+                      indicators={false}
+                      animation='slide'
+                      timeout={500} >
                       {
                         data?.map((item: NewsListItemTypes, index: number) => {
-                          return <NewsListCard {...item} />
+                          return renderCarouselItem(item, index);
                         })
                       }
-                    </div>
+                    </Carousel>
+                    <IconButton className={classNames(customStyles.carouselActionButton, 'left')} onClick={() => slideCaousel('prev')}>
+                      <KeyboardArrowLeft />
+                    </IconButton>
+
+                    <IconButton className={classNames(customStyles.carouselActionButton, 'right')} onClick={() => slideCaousel('next')}>
+                      <KeyboardArrowRight />
+                    </IconButton>
                   </div>
                 </Grid>
-              </Hidden>
 
-            </Grid>
+                <Hidden smDown>
 
+                  <Grid item xs={12} md={5}>
+                    <div className={classNames(styles.StepsContainer)} style={{ width: '100%', maxWidth: 'unset' }}>
+                      <div className={classNames(customStyles.sideNewsWrap)}>
+                        {
+                          data?.map((item: NewsListItemTypes, index: number) => {
+                            return <NewsListCard {...item} />
+                          })
+                        }
+                      </div>
+                    </div>
+                  </Grid>
+                </Hidden>
+
+              </Grid>
+
+            </div>
           </div>
         </div>
-      </div>
       {/* </ViewportTracker > */}
     </div >
   )

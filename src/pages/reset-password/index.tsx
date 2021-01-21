@@ -125,9 +125,6 @@ function ResetPasswordPage(props: any) {
 
     <>
 
-      <CustomBreadCrumb breadcrumbs={[{ name: 'reset-password', endPoint: `${Routes.ResetPassword}` }]} />
-
-
       <div className={styles.sectionBackground}>
         <div className='container'>
 

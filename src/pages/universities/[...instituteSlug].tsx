@@ -6,11 +6,10 @@ import React from 'react';
 
 function InstituteDetails(props) {
 
-    const breadcrumbs = [{ name: 'universities', endPoint: `${Routes.Universities}` }];
 
     return (
         <>
-            <InstituteDetailComponent  breadcrumbs={breadcrumbs} />
+            <InstituteDetailComponent  />
         </>
     );
 }

@@ -1,4 +1,4 @@
-import { Theme, } from '@/Services/App.service';
+import { Routes, Theme, } from '@/Services/App.service';
 import { Button, Typography, IconButton, useMediaQuery } from '@material-ui/core';
 import { Bookmark, BookmarkBorder, CalendarToday, GetAppRounded, LocationOnOutlined, Share, StarRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
@@ -76,6 +76,7 @@ const useStyles = makeStyles({
                 },
                 '& .date': {
                     fontSize: 10,
+                    padding: 0,
                 },
 
             }
@@ -86,14 +87,13 @@ const useStyles = makeStyles({
 interface Props extends NewsListItemTypes {
     onSave?: Function,
     onShare?: Function,
-    onViewDetails?: Function
 }
 
 const defaultImage = '/assets/images/defaults/news.jpg'
 
 const NewsListCard = memo(function (props: Props) {
 
-    const { title, image, onViewDetails, onSave, onShare, slug, publishedOn, category } = props;
+    const { title, image, onSave, onShare, slug, publishedOn, category } = props;
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -104,7 +104,7 @@ const NewsListCard = memo(function (props: Props) {
 
     const ViewDetails = (slug: string) => {
         router.push({
-            pathname: `${router.asPath}/${slug}`
+            pathname: `${Routes.News}/${category}/${slug}`
         })
     }
 
@@ -118,13 +118,7 @@ const NewsListCard = memo(function (props: Props) {
                 </div>
             </div>
 
-            <div onClick={() => {
-                if (onViewDetails) {
-                    onViewDetails(slug);
-                } else {
-                    ViewDetails(slug);
-                }
-            }} className={classNames(styles.InfoSetion)}>
+            <div onClick={() => { ViewDetails(slug) }} className={classNames(styles.InfoSetion)}>
                 <div className={'topSection'}>
                     <div className={'categoryContainer'}>
                         <Typography className={'category'} >{category}</Typography>

@@ -113,7 +113,6 @@ function BoardDetailsPage(props: Props) {
 
     return (
         <div>
-            <CustomBreadCrumb breadcrumbs={breadCrumbs} />
 
             <InnerPageHead {...boardDetails} />
 

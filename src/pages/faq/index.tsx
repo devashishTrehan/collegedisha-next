@@ -224,8 +224,6 @@ function FAQPage(props: any) {
 
     <>
 
-      <CustomBreadCrumb breadcrumbs={[{ name: 'faq', endPoint: `${Routes.FAQ}` }]} />
-
 
       <PageHead PageName='FAQ' />
 

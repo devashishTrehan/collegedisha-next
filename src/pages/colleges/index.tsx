@@ -52,7 +52,6 @@ function Colleges(props: Props) {
 
     return (
         <>
-            <CustomBreadCrumb breadcrumbs={breadcrumbs} />
 
             <div className='container'>
                 <div style={{ padding: '20px 5% 0' }}>

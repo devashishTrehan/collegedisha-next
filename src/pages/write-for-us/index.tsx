@@ -580,8 +580,6 @@ function Advertisement(props: any) {
 
     <>
 
-      <CustomBreadCrumb breadcrumbs={[{ name: 'write-for-us', endPoint: `${Routes.Advertisement}` }]} />
-
       <div className={classNames('container', styles.headBG)}>
 
         <Hidden smDown>

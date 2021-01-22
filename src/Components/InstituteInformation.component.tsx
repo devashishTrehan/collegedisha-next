@@ -8,11 +8,7 @@ import { InstituteInformation } from '@/Services/GraphQlDataTypes/Institutes';
 
 // ----- information section start ----- \\
 const InfoStyles = makeStyles({
-    container: {
-        boxShadow: Theme.boxShadow,
-        borderRadius: Theme.radius1,
-        padding: '20px 20px'
-    },
+
     addressDetailsContainer: {
         marginTop: 50,
     },
@@ -211,7 +207,7 @@ export function RenderInformation() {
     return (
         <div>
 
-            <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+            <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
 
                 <div>
                     <MarkdownParser content={data.about} />
@@ -219,7 +215,7 @@ export function RenderInformation() {
             </div>
 
             <div className={styles.addressDetailsContainer}>
-                <div className={styles.container}>
+                <div className={'pageSectionContainer'}>
                     <AddressDetailComponent {...data.address_detail} />
                 </div>
             </div>

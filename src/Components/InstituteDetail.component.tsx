@@ -66,18 +66,25 @@ function InstituteDetailComponent(props: Props) {
 
 
     useEffect(() => {
-        setCurrentPageUrl(router.asPath);
-        console.log('currentPageUrl', currentPageUrl);
-    }, [])
-
-    useEffect(() => {
         if (router.query.instituteSlug?.length) {
             let slugList = router.query.instituteSlug as string[];
-            console.log('slug list', slugList);
-
             setSlugs(slugList);
         }
     }, [router.query?.instituteSlug])
+
+    useEffect(() => {
+        let currentPath = router.asPath;
+        let pages = currentPath.split('/');
+        if (pages?.length > 3) {
+            pages.length = 3;
+            let newUrl = pages.join('/');
+            console.log('currentPages 2', newUrl)
+            setCurrentPageUrl(newUrl);
+        } else {
+            setCurrentPageUrl(currentPath);
+        }
+        console.log('currentPageUrl 2', router)
+    }, [router.query])
 
     useEffect(() => {
         console.log('slugs', slugs);

@@ -10,11 +10,6 @@ import classNames from 'classnames';
 
 // ----- gallery section start ----- \\
 const GalleryStyles = makeStyles({
-    container: {
-        boxShadow: Theme.boxShadow,
-        borderRadius: Theme.radius1,
-        padding: '20px 20px',
-    },
 
     imageWrap: {
         width: 240,
@@ -95,7 +90,7 @@ export function RenderGallery() {
 
     return (
         <>
-            <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+            <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
                 <div className={'containerHead'}>
                     <Typography variant='h4'>Our gallery</Typography>
                 </div>
@@ -115,7 +110,7 @@ export function RenderGallery() {
             </div>
 
             <div className={styles.videosContainer} >
-                <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+                <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
                     <div className={'containerHead'}>
                         <Typography variant='h4'>Our Videos</Typography>
                     </div>

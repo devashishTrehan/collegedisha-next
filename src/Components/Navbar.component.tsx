@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     width: 120,
     // width: 100,
   },
-  
+
   navLinkSectionsWrap: {
     display: 'flex',
     padding: '0 calc(5% - 10px)',
@@ -165,7 +165,7 @@ function NavBar(props: any) {
   const [DrawerOpen, setDrawerOpen] = React.useState(false);
   const { MenuList } = React.useContext(MenuContext);
   const { user } = { user: { id: 0 } };
-  const { scrollPercent } = React.useContext(NavbarContext);
+  const [scrolled, setScrolled] = React.useState(0);
   const [__window, setWindow] = React.useState<null | Window>(null);
 
   React.useEffect(() => {
@@ -187,6 +187,21 @@ function NavBar(props: any) {
   const router = useRouter();
 
 
+  React.useEffect(() => {
+
+    window.addEventListener('scroll', (event) => {
+      let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      let scrolled = (winScroll / height) * 100;
+      setScrolled(scrolled);
+    })
+
+    return (() => {
+      window.removeEventListener('scroll', () => {
+        console.log('event removed');
+      })
+    })
+  }, [router.asPath])
 
   function HideOnScroll(props: any) {
     const { children, window } = props;
@@ -283,7 +298,7 @@ function NavBar(props: any) {
           </Toolbar>
         </div>
         <div style={{ height: 3, width: '100%' }}>
-          <div style={{ height: '100%', width: `${scrollPercent}%`, background: Theme.primary }}></div>
+          <div style={{ height: '100%', width: `${scrolled}%`, background: Theme.primary }}></div>
         </div>
       </AppBar>
       {/* </HideOnScroll> */}

@@ -2,12 +2,10 @@ import { Theme } from '@/Services/App.service';
 import React, { useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { ReviewRatingItems } from '@/Services/GraphQlDataTypes/Review';
+import classNames from 'classnames';
 
 const useStyles = makeStyles({
     container: {
-        boxShadow: Theme.boxShadow,
-        borderRadius: Theme.radius1,
-        padding: '20px 20px',
         '& .containerHead': {
             '& h4': {
                 display: 'inline-block',
@@ -86,7 +84,7 @@ export function RenderReview(props: Props) {
     }, [])
 
     return (
-        <div className={styles.container}>
+        <div className={classNames('pageSectionContainer', styles.container)}>
             <div className={'containerHead'}>
                 <Typography variant='h4' >{name} rating</Typography>
                 <Typography variant='h4' style={{ float: 'right', fontFamily: 'gordita', fontSize: 14 }}>Overall rating {overallRating}/{totalRatePoints}</Typography>

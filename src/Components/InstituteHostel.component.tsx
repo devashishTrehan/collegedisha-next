@@ -9,11 +9,6 @@ import { render } from 'react-dom';
 
 
 const useStyles = makeStyles({
-    container: {
-        boxShadow: Theme.boxShadow,
-        borderRadius: Theme.radius1,
-        padding: '20px 20px'
-    },
 
     hostelFacilityContent: {
         marginBottom: 50,
@@ -174,7 +169,7 @@ export function RenderHostel() {
                     return (
                         <React.Fragment key={index}>
                             <div className={styles.hostelFeesContainer}>
-                                <div className={styles.container} >
+                                <div className={'pageSectionContainer'} >
                                     <div className={'containerHead'}>
                                         <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel fees</Typography>
                                     </div>
@@ -185,7 +180,7 @@ export function RenderHostel() {
                             </div>
 
                             <div className={styles.hostelFacilityContainer}>
-                                <div className={styles.container} >
+                                <div className={'pageSectionContainer'} >
                                     <div className={'containerHead'}>
                                         <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel facilities</Typography>
                                     </div>
@@ -196,7 +191,7 @@ export function RenderHostel() {
                             </div>
 
                             <div className={styles.hostelFacilityContent}>
-                                <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+                                <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
                                     <div className={'containerHead'}>
                                         <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel details</Typography>
                                     </div>

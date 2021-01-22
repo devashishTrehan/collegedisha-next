@@ -1,5 +1,5 @@
 
-import { Grid, Hidden, IconButton, Typography, useMediaQuery } from '@material-ui/core';
+import { Container, Grid, Hidden, IconButton, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import { Routes, Theme } from '../../Services/App.service';
@@ -11,6 +11,7 @@ import { ContentCardStyles } from '@/styles/Home.style';
 import { AccessTimeOutlined, CalendarToday, CommentOutlined, KeyboardArrowLeft, KeyboardArrowRight, ShareOutlined, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
 import Carousel from 'react-material-ui-carousel';
 import ArticleListCard from '@/Components/ArticleListCard.component';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles({
 
@@ -23,7 +24,6 @@ function Article(props: any) {
   const isMobile = useMediaQuery('(max-width:600px)');
   const isTablet = useMediaQuery('(max-width:992px)');
   const isDesktop = useMediaQuery('(min-width:992px)');
-  const [__window, setWindow] = React.useState<null | Window>(null);
 
   const [data, setData] = React.useState<ArticleListTypes | null>({
     featuredArticles: {
@@ -50,6 +50,19 @@ function Article(props: any) {
           readTime: '3 min',
           slug: 'xyz',
           image: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
+          author: 'dev trehan',
+          publishedOn: '23-12-2020',
+          isSaved: false,
+        },
+        {
+          id: 1,
+          title: 'Rajasthan Scholarship Registration Form 2021 - Online Apply Rajasthan Scholarship Application Form',
+          views: 123,
+          commentCount: 12,
+          voteCount: 123,
+          slug: 'xyz',
+          image: '',
+          readTime: '3 min',
           author: 'dev trehan',
           publishedOn: '23-12-2020',
           isSaved: false,
@@ -95,19 +108,7 @@ function Article(props: any) {
           publishedOn: '23-12-2020',
           isSaved: false,
         },
-        {
-          id: 1,
-          title: 'Rajasthan Scholarship Registration Form 2021 - Online Apply Rajasthan Scholarship Application Form',
-          views: 123,
-          commentCount: 12,
-          voteCount: 123,
-          slug: 'xyz',
-          image: '',
-          readTime: '3 min',
-          author: 'dev trehan',
-          publishedOn: '23-12-2020',
-          isSaved: false,
-        },
+
         {
           id: 1,
           title: 'IIM-A OPPOSITION TO LAID DOWN Ph-D CRITERIA BY GOVERNMENT - CollegeDisha',
@@ -233,9 +234,6 @@ function Article(props: any) {
     ]
   })
 
-  React.useEffect(() => {
-    setWindow(window);
-  }, [])
 
   const styles = useStyles();
 
@@ -341,7 +339,7 @@ const ArticlePageHeaderStyles = makeStyles({
     margin: '0px !important',
     borderRadius: Theme.radius2,
     maxHeight: 'unset !important',
-    minHeight: 300,
+    minHeight: 260,
     position: 'relative',
   },
   imageWrap_M: {
@@ -369,6 +367,7 @@ const ArticlePageHeaderStyles = makeStyles({
     color: '#fff',
     '& .title': {
       marginBottom: 10,
+      cursor:'pointer',
       '& h5': {
         color: '#fff',
         fontSize: 24,
@@ -449,6 +448,7 @@ export const ArticlePageHeader = (props: { featuredArticles: FeaturedArticlesTyp
   const StepsCarouselInterval = 4;   // time in seconds
   const isMobile = useMediaQuery('(max-width:600px)');
   const isTablet = useMediaQuery('(max-width:992px)');
+  const router = useRouter();
 
   const customStyles = ArticlePageHeaderStyles();
   const [data, setData] = React.useState<ArticleListItemTypes[]>(null);
@@ -490,21 +490,22 @@ export const ArticlePageHeader = (props: { featuredArticles: FeaturedArticlesTyp
 
   }
 
-  const SlideCarouselTo = (index: number) => {
-    setCarouselIndex(index);
-    return 0;
+  const ViewDetails = (slug: string) => {
+    router.push({
+      pathname: `${router.asPath}/${slug}`
+    })
   }
 
 
   const renderCarouselItem = (item: ArticleListItemTypes, index: number) => {
-    const { title, image, commentCount, views, publishedOn, readTime, voteCount } = item;
+    const { title, image, commentCount, views, publishedOn, readTime, voteCount, slug } = item;
     return (
       <div key={index} className={classNames('carouselCard', customStyles.CarouselCard)}>
         <div className={classNames('imageWrap', customStyles.imageWrap, { [customStyles.imageWrap_M]: isMobile })} >
           <img src={image ? image : defaultImage} alt='' />
         </div>
         <div className={classNames(customStyles.InfoWrap, { [customStyles.InfoWrap_M]: isMobile })}  >
-          <div className='title'>
+          <div className='title' onClick={() => ViewDetails(slug)}>
             <h5 style={{ textAlign: 'left' }}>{title}</h5>
           </div>
 
@@ -574,58 +575,56 @@ export const ArticlePageHeader = (props: { featuredArticles: FeaturedArticlesTyp
 
             <div>
 
-              <Grid container spacing={isTablet ? 3 : 5} >
 
+              <Grid container spacing={isTablet ? 3 : 5}>
                 <Grid item xs={12} md={8}>
-
-                  <div className={styles.CarouselContainer} style={{ position: 'relative' }} >
-                    <Carousel
-                      autoPlay={false}
-                      index={carouselIndex}
-                      navButtonsAlwaysInvisible
-                      indicators={false}
-                      animation='slide'
-                      timeout={500} >
-                      {
-                        data?.map((item: ArticleListItemTypes, index: number) => {
-                          return renderCarouselItem(item, index);
-                        })
-                      }
-                    </Carousel>
-                  </div>
-                </Grid>
-
-                <Grid item xs={12} md={4}>
-                  <div className={classNames(styles.StepsContainer)} style={{ width: '100%', maxWidth: 'unset' }}>
-                    <div className={classNames(customStyles.sideNewsWrap)}>
-
+                  <Grid container spacing={isMobile ? 3 : 4}>
+                    <Grid item xs={12}>
+                      <div className={styles.CarouselContainer} style={{ position: 'relative' }} >
+                        <Carousel
+                          autoPlay={false}
+                          index={carouselIndex}
+                          navButtonsAlwaysInvisible
+                          indicators={false}
+                          animation='slide'
+                          timeout={500} >
+                          {
+                            data?.map((item: ArticleListItemTypes, index: number) => {
+                              return renderCarouselItem(item, index);
+                            })
+                          }
+                        </Carousel>
+                      </div>
+                    </Grid>
+                    <Grid item xs={12}>
                       <Grid container spacing={isMobile ? 3 : 4}>
                         {
-                          featuredArticles?.side?.map((article: ArticleListItemTypes, index: number) => {
+                          featuredArticles?.bottom?.map((article: ArticleListItemTypes) => {
                             return (
-
-                              <Grid item key={article.id} xs={12} sm={6} md={12} >
+                              <Grid item key={article.id} xs={12} sm={6} >
                                 <ArticleListCard {...article} />
                               </Grid>
                             )
                           })
                         }
                       </Grid>
-                    </div>
-                  </div>
+                    </Grid>
+                  </Grid>
                 </Grid>
+                <Grid item xs={12} md={4}>
+                  <Grid container spacing={isMobile ? 3 : 4}>
+                    {
+                      featuredArticles?.side?.map((article: ArticleListItemTypes, index: number) => {
+                        return (
 
-              </Grid>
-              <Grid container spacing={isMobile ? 3 : 4}>
-                {
-                  featuredArticles?.bottom?.map((article: ArticleListItemTypes) => {
-                    return (
-                      <Grid item key={article.id} xs={12} sm={6} md={4} >
-                        <ArticleListCard {...article} />
-                      </Grid>
-                    )
-                  })
-                }
+                          <Grid item key={article.id} xs={12} sm={6} md={12} >
+                            <ArticleListCard {...article} />
+                          </Grid>
+                        )
+                      })
+                    }
+                  </Grid>
+                </Grid>
               </Grid>
             </div>
           </div>

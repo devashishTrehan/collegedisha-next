@@ -11,11 +11,7 @@ import DummyCards from './DummyCard.component';
 
 
 const useStyles = makeStyles({
-    container: {
-        boxShadow: Theme.boxShadow,
-        borderRadius: Theme.radius1,
-        padding: '20px 20px',
-    },
+
 
 })
 
@@ -114,7 +110,7 @@ export function RenderFaculty() {
     const styles = useStyles();
 
     return (
-        <div className={styles.container} >
+        <div className={'pageSectionContainer'} >
             <div className={'containerHead'}>
                 <Typography variant='h4'>Our Faculties</Typography>
             </div>

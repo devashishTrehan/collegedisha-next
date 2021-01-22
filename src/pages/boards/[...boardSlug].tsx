@@ -57,8 +57,7 @@ function BoardDetailsPage(props: Props) {
         }
     });
     const [slugs, setSlugs] = useState<string[]>([]);
-    let currentPageUrl = `${LastBreadcrumbs[LastBreadcrumbs?.length - 1].endPoint}/${slugs[0]}`;
-    const [breadCrumbs, setBreadCrumbs] = useState<UrlObject[]>([]);
+    const [currentPageUrl, setCurrentPageUrl] = useState('');
     const { navHeight } = useContext(NavbarContext);
     const { id, name, boardSections, initialSection } = boardDetails;
     let sectionList = Object.keys(boardSections);
@@ -72,20 +71,23 @@ function BoardDetailsPage(props: Props) {
     useEffect(() => {
         if (router.query.boardSlug?.length) {
             let slugList = router.query.boardSlug as string[];
-            console.log('slug list', slugList);
-
             setSlugs(slugList);
-
-            if (!breadCrumbs?.length) {
-
-                setBreadCrumbs((prev: UrlObject[]) => {
-                    return [...LastBreadcrumbs, { name: boardDetails ? boardDetails.name : slugList[0], endPoint: `${currentPageUrl}` }];
-                });
-            }
-
-            currentPageUrl = `${LastBreadcrumbs[LastBreadcrumbs?.length - 1].endPoint}/${slugList[0]}`
         }
     }, [router.query?.boardSlug])
+
+    useEffect(() => {
+        let currentPath = router.asPath;
+        let pages = currentPath.split('/');
+        if (pages?.length > 3) {
+            pages.length = 3;
+            let newUrl = pages.join('/');
+            console.log('currentPages 2', newUrl)
+            setCurrentPageUrl(newUrl);
+        } else {
+            setCurrentPageUrl(currentPath);
+        }
+        console.log('currentPageUrl 2', router)
+    }, [router.query])
 
     useEffect(() => {
         console.log('slugs', slugs);
@@ -96,15 +98,7 @@ function BoardDetailsPage(props: Props) {
     }, [slugs])
 
     const showpageSection = (section: string) => {
-        setBreadCrumbs((prev: UrlObject[]) => {
-            if (prev.length > 2) {
-                prev.length = 2;
-            }
-            console.log('breadCrumbs', prev)
-            let route = prev[prev.length - 1].endPoint;
-            console.log('breadCrumbs', [...prev, { endPoint: `${route}/${boardSections[section]}`, name: section }])
-            return [...prev, { endPoint: `${route}/${boardSections[section]}`, name: section }];
-        })
+
         router.push({
             pathname: currentPageUrl + `/${boardSections[section]}`,
         }, undefined, { shallow: true })

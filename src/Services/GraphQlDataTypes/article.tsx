@@ -32,8 +32,8 @@ export interface ArticleListTypes {
 }
 
 
-export interface detailedNews extends ArticleListItemTypes {
-    intro: string,
-    content: string
+export interface detailedArticle extends ArticleListItemTypes {
+    content: string,
+    banner: string
 }
 

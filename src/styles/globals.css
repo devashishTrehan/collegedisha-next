@@ -163,7 +163,6 @@ code {
 .imageWrap {
     display: flex;
     align-items: center;
-    overflow: hidden;
 }
 
 .FormLogoWrap>img {
@@ -219,6 +218,12 @@ code {
 .sectionHead .bodyText {
     text-align: center;
     font-size: 14px;
+}
+
+.pageSectionContainer {
+    box-shadow: var(--TBoxShadow);
+    border-radius: 5;
+    padding: 20px 20px;
 }
 
 p {

@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
 import { NewsListItemTypes } from '@/Services/GraphQlDataTypes/News';
 import { ArticleListItemTypes, ArticleListTypes } from '@/Services/GraphQlDataTypes/article';
+import { route } from 'next/dist/next-server/server/router';
 
 
 
@@ -42,7 +43,6 @@ const useStyles = makeStyles({
 
     ImageSectionCard: {
         width: '100%',
-
     },
     InfoSetion: {
         padding: '0 8px 8px 15px',
@@ -54,6 +54,7 @@ const useStyles = makeStyles({
             display: 'flex',
             flexDirection: 'column',
             flexGrow: 1,
+            cursor: 'pointer',
             '& .dateContainer': {
                 display: 'flex',
                 color: Theme.fontLight,
@@ -110,6 +111,7 @@ const useStyles = makeStyles({
     },
     InfoSetionCard: {
         padding: '15px',
+        width: 'calc(100%)',
     }
 })
 
@@ -142,7 +144,7 @@ const ArticleListCard = memo(function (props: Props) {
 
     const ViewDetails = (slug: string) => {
         router.push({
-            pathname: ''
+            pathname: `${router.asPath}/${slug}`
         })
     }
 
@@ -157,7 +159,7 @@ const ArticleListCard = memo(function (props: Props) {
             </div>
 
             <div onClick={() => { ViewDetails(slug) }} className={classNames(styles.InfoSetion, { [styles.InfoSetionCard]: type === 'card' })}>
-                <div className={'topSection'}>
+                <div className={'topSection'} onClick={() => ViewDetails(slug)}>
                     <div className={'dateContainer'}>
                         <CalendarToday style={{ marginRight: 3, }} />
                         <Typography className='date'>{publishedOn}</Typography>

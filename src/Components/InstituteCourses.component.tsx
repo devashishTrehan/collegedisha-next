@@ -8,11 +8,7 @@ import CourseCard from './CourseCard.component';
 
 // ----- courses section start ----- \\
 const CourseStyles = makeStyles({
-    container: {
-        boxShadow: Theme.boxShadow,
-        borderRadius: Theme.radius1,
-        padding: '20px 20px'
-    },
+
     courseInfoContainer: {
         marginTop: 50,
     }
@@ -90,7 +86,7 @@ export function RenderCoursesFees() {
 
     return (
         <>
-            <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+            <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
 
                 <Grid container spacing={5}>
                     {
@@ -106,7 +102,7 @@ export function RenderCoursesFees() {
             </div>
 
             <div className={styles.courseInfoContainer}>
-                <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+                <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
 
                     <MarkdownParser content={markdown} />
                 </div>

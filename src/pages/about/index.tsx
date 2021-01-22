@@ -262,9 +262,10 @@ function About(props: any) {
               ServiceList1?.map((card: Card) => {
                 return (
                   <Grid item
-                    xs={__window?.innerWidth / 2 >= 305 ? 6 : 12}
-                    sm={__window?.innerWidth / 3 >= 305 ? 4 : 6}
-                    md={__window?.innerWidth / 4 >= 305 ? 3 : 4} >
+                    // xs={__window?.innerWidth / 2 >= 305 ? 6 : 12}
+                    // sm={__window?.innerWidth / 3 >= 305 ? 4 : 6}
+                    // md={__window?.innerWidth / 4 >= 305 ? 3 : 4} 
+                    >
                     <InfoCard card={card} />
                   </Grid>
                 )

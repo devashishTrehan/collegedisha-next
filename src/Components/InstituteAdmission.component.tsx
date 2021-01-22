@@ -8,11 +8,7 @@ import CourseCard from './CourseCard.component';
 
 // ----- Admission section start ----- \\
 const AdmissionStyles = makeStyles({
-    container: {
-        boxShadow: Theme.boxShadow,
-        borderRadius: Theme.radius1,
-        padding: '20px 20px'
-    },
+
 })
 
 
@@ -70,7 +66,7 @@ export function RenderAdmission() {
 
     return (
 
-        <div className={styles.container} style={isMobile ? { padding: '20px' } : null}>
+        <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
             <MarkdownParser content={markdown} />
         </div>
     );

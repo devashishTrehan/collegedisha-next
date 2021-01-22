@@ -9,11 +9,7 @@ import InputField from './TextField.component/TextField.component';
 
 
 const useStyles = makeStyles({
-    container: {
-        boxShadow: Theme.boxShadow,
-        borderRadius: Theme.radius1,
-        padding: '20px 20px',
-    },
+
 
     reviewFormContainer: {
         marginTop: 50,
@@ -78,7 +74,7 @@ export function RenderPlacement() {
 
     return (
         <>
-            <div className={styles.container} >
+            <div className={'pageSectionContainer'} >
                 <div className={'containerHead'}>
                     <Typography variant='h4'>Our Faculties</Typography>
                 </div>
@@ -90,7 +86,7 @@ export function RenderPlacement() {
             </div>
 
             <div className={styles.reviewFormContainer}>
-                <div className={styles.container} >
+                <div className={'pageSectionContainer'} >
                     <div className={'containerHead'}>
                         <Typography variant='h4'>Write Review for college placement</Typography>
                     </div>

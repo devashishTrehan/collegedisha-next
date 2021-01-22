@@ -11,6 +11,7 @@ interface PropsTypes {
     children?: Element | HTMLElement | JSX.Element,
     className?: string,
     style?: React.CSSProperties,
+    
 }
 
 export const ViewportTracker = (props: PropsTypes) => {
@@ -37,7 +38,7 @@ export const ViewportTracker = (props: PropsTypes) => {
         }
     }
 
-    const IsElementInViewPort = (element: any) => {
+    const IsElementInViewPort = (element: any,) => {
         var position = element?.getBoundingClientRect();
 
         if (position?.top < window?.innerHeight && position?.bottom >= 0) {

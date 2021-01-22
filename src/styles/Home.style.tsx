@@ -128,13 +128,13 @@ export const ContentCardStyles = makeStyles({
     backgroundPosition: 'left top,right bottom',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'unset, 120px 120px',
-    // animation: 'MoveBackground2 4s linear infinite',
+    animation: 'MoveBackground2 4s linear infinite',
     '& .shape2': {
       position: 'absolute',
       right: '0px',
       bottom: '10px',
       zIndex: -1,
-      // animation: 'Wander 10s infinite',
+      animation: 'Wander 10s infinite',
     },
 
   },
@@ -272,7 +272,7 @@ export const ContentCardStyles = makeStyles({
         maxHeight: 300,
         overflow: 'hidden',
         margin: '10px auto',
-        // animation: 'translateY 4s linear infinite',
+        animation: 'translateY 4s linear infinite',
         '& img': {
           width: '100%',
           height: '100%'
@@ -316,7 +316,7 @@ export const CounsellingStyles = makeStyles({
     backgroundRepeat: 'no-repeat',
     // backgroundPosition: 'bottom, left ,right',
     backgroundSize: 'contain,',
-    // animation: 'MoveBackgroundUpDown 3s linear infinite',
+    animation: 'MoveBackgroundUpDown 3s linear infinite',
     '& .leftSec': {
       maxWidth: 500,
       margin: 'auto',
@@ -332,7 +332,7 @@ export const CounsellingStyles = makeStyles({
       justifyContent: 'flex-start',
       marginBottom: 30,
       position: 'relative',
-      // animation: 'translateY 4s linear infinite',
+      animation: 'translateY 4s linear infinite',
       '& img': {
         width: '100%',
         transition: 'ease-in-out .5s',
@@ -397,7 +397,7 @@ export const FeatureSectionStyles = makeStyles({
     backgroundImage: `url(/assets/images/DotsShape1.png),url(/assets/images/FeaturesShape2.png),url(/assets/images/FeaturesShape3.png)`,
     backgroundPosition: 'left top,right center,left bottom',
     backgroundRepeat: 'no-repeat',
-    // animation: 'MoveBackground 8s linear infinite',
+    animation: 'MoveBackground 8s linear infinite',
   },
 
   FeaturesContainer: {

@@ -10,8 +10,8 @@ import { CheckCircle, KeyboardArrowDown, KeyboardArrowLeft, KeyboardArrowRight, 
 import Carousel from 'react-material-ui-carousel';
 import { CounsellingForm } from '@/Components/Forms/CounsellingForm.page';
 import { CounsellingFormParent } from '@/Components/Forms/CounsellingFormParent.page';
-import Particles from 'react-particles-js';
-import ParticlesConfig from '../particlesjs-config';
+// import Particles from 'react-particles-js';
+// import ParticlesConfig from '../particlesjs-config';
 import { ViewportTracker } from '@/Components/ViewportTracker.component';
 import { FormHead } from '@/Components/FormHead.component';
 import { NavbarContext } from '@/Context/Navbar.context';
@@ -38,7 +38,7 @@ export const Header = () => {
 
             <div className={classNames(styles.container, { [styles.containerTablet]: isTablet })}>
 
-                <Particles className={styles.particleSystem} params={ParticlesConfig} />
+                {/* <Particles className={styles.particleSystem} params={ParticlesConfig} /> */}
 
                 <Grid container className={styles.HeadWrapper} spacing={6} >
                     <Grid item className={styles.headLeftContainer} xs={12} md={7}>

@@ -1,13 +1,8 @@
-import { faCaretDown, faChevronDown, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Button from '@material-ui/core/Button';
-import Chip from '@material-ui/core/Chip';
-import Checkbox from '@material-ui/core/Checkbox';
+
 import * as React from 'react';
 import { Theme } from '@/Services/App.service';
-import { Divider, List, ListItem, Popover, Typography, useMediaQuery } from '@material-ui/core';
+import {  Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { FilterList } from '@material-ui/icons';
 import classNames from 'classnames';
 
 const listItemHeight = 34;

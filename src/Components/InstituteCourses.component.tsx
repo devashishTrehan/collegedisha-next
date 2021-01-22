@@ -1,4 +1,4 @@
-import { Theme } from '@/Services/App.service';
+
 import React, { useState } from 'react';
 import { Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import MarkdownParser from './MarkdownParser.component';

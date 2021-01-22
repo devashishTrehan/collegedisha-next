@@ -5,7 +5,6 @@ import * as React from 'react';
 import { Routes, Theme, ValidateFields } from '@/Services/App.service';
 import InputField from '@/Components/TextField.component/TextField.component';
 import { useRouter } from 'next/router';
-import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 
 
 const useStyles = makeStyles({
@@ -170,7 +169,7 @@ function EmailVerificationPage(props: any) {
                   <Divider />
 
                   <div className='imageWrap'>
-                    <img src='assets/images/emailVerify.jpg' alt='' />
+                    <img src='/assets/images/emailVerify.webp' alt='' />
                   </div>
 
                   <div><Typography variant={'h1'} className={'heading'}>Confirm Your Email</Typography></div>

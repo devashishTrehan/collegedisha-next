@@ -1,4 +1,4 @@
-import { ListItem, Typography, useMediaQuery } from '@material-ui/core';
+import { ListItem, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';

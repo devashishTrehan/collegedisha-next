@@ -1,11 +1,9 @@
 import { Theme } from '@/Services/App.service';
 import React, { useState } from 'react';
 import { Grid, IconButton, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
-import MarkdownParser from './MarkdownParser.component';
-import { CourseListItem } from '@/Services/GraphQlDataTypes/Courses';
 import classNames from 'classnames';
 import { InstituteFaculty } from '@/Services/GraphQlDataTypes/Institutes';
-import { Email, EmailOutlined, Phone, PhoneOutlined } from '@material-ui/icons';
+import {  EmailOutlined,  PhoneOutlined } from '@material-ui/icons';
 import DummyCards from './DummyCard.component';
 
 

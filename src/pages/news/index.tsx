@@ -5,7 +5,6 @@ import * as React from 'react';
 import { Routes, Theme } from '@/Services/App.service';
 import classNames from 'classnames';
 import { ViewportTracker } from '@/Components/ViewportTracker.component';
-import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 import { CalendarToday, Category, CommentOutlined, KeyboardArrowLeft, KeyboardArrowRight, VisibilityOutlined } from '@material-ui/icons';
 
 import { useRouter } from 'next/router';

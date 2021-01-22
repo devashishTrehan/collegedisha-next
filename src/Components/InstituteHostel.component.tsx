@@ -1,11 +1,8 @@
 import { Theme } from '@/Services/App.service';
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import MarkdownParser from './MarkdownParser.component';
-import { CourseListItem } from '@/Services/GraphQlDataTypes/Courses';
-import CourseCard from './CourseCard.component';
 import { InstituteHostel, InstituteHostelFacility, InstituteHostelFees } from '@/Services/GraphQlDataTypes/Institutes';
-import { render } from 'react-dom';
 
 
 const useStyles = makeStyles({

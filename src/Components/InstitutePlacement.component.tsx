@@ -1,5 +1,5 @@
 import { Theme } from '@/Services/App.service';
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
 import { InstituteFaculty } from '@/Services/GraphQlDataTypes/Institutes';

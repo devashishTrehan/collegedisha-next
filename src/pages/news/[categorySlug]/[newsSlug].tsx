@@ -1,15 +1,11 @@
-import { getLastNavigation, Routes, setLastNavigation, Theme } from '@/Services/App.service';
+import {  Routes, Theme } from '@/Services/App.service';
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect, useState } from 'react';
-import CustomBreadCrumb, { UrlObject } from '@/Components/CustomBreadCrumb.component';
+import React, { useContext,  useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { NavbarContext } from '@/Context/Navbar.context';
-import { PageNavigation } from '@/Components/PageNavigation.component';
-import { InnerPageHead } from '@/Components/InnerPageHead.component';
-import { detailedNews, NewsListItemTypes } from '@/Services/GraphQlDataTypes/News';
+import { detailedNews,  } from '@/Services/GraphQlDataTypes/News';
 import MarkdownParser from '@/Components/MarkdownParser.component';
 import classNames from 'classnames';
-import { ContentCardStyles } from '@/styles/Home.style';
 import { CalendarToday, CommentOutlined, VisibilityOutlined } from '@material-ui/icons';
 
 
@@ -39,7 +35,6 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    breadcrumbs: UrlObject[]
 }
 
 
@@ -66,7 +61,6 @@ function newsDetailsPage(props: Props) {
     });
     const [slugs, setSlugs] = useState<string[]>([]);
     // let currentPageUrl = `${LastBreadcrumbs[LastBreadcrumbs?.length - 1].endPoint}/${slugs[0]}`;
-    const [breadcrumbs, setBreadcrumbs] = useState<UrlObject[]>([]);
     const { navHeight } = useContext(NavbarContext);
     const { id, title } = newsDetails;
 

@@ -1,6 +1,6 @@
-import { ListItem, Typography, useMediaQuery } from '@material-ui/core';
+import {  Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, } from 'react';
 import classNames from 'classnames';
 import { Theme } from '../Services/App.service';
 import { NavbarContext } from '@/Context/Navbar.context';

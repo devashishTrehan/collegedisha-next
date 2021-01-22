@@ -1,14 +1,13 @@
 
-import { Container, Grid, Hidden, IconButton, Typography, useMediaQuery } from '@material-ui/core';
+import {  Grid,  IconButton, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
-import { Routes, Theme } from '../../Services/App.service';
+import {  Theme } from '../../Services/App.service';
 import classNames from 'classnames';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 import { ArticleListItemTypes, ArticleListTypes, FeaturedArticlesTypes } from '@/Services/GraphQlDataTypes/article';
 import { ContentCardStyles } from '@/styles/Home.style';
-import { AccessTimeOutlined, CalendarToday, CommentOutlined, KeyboardArrowLeft, KeyboardArrowRight, ShareOutlined, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
+import { AccessTimeOutlined,  CommentOutlined, KeyboardArrowLeft, KeyboardArrowRight, ShareOutlined, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
 import Carousel from 'react-material-ui-carousel';
 import ArticleListCard from '@/Components/ArticleListCard.component';
 import { useRouter } from 'next/router';

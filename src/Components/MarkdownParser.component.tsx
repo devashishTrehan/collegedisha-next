@@ -1,7 +1,7 @@
 import { AppSectionHeights, Theme } from '@/Services/App.service';
 import { useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import ReactMarkdown from 'react-markdown';
 import classNames from 'classnames';
 import remarkGfm from 'remark-gfm';

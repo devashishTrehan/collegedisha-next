@@ -1,8 +1,7 @@
-import { Theme } from '@/Services/App.service';
+
 import { detailedInstitute } from '@/Services/GraphQlDataTypes/Institutes';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
-import CustomBreadCrumb, { UrlObject } from '@/Components/CustomBreadCrumb.component';
 import { Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import { RenderInformation } from './InstituteInformation.component';
 import { RenderAdmission } from './InstituteAdmission.component';

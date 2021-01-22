@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 
 
 const useStyles = makeStyles({

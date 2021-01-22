@@ -477,7 +477,7 @@ export const FeaturesSection = () => {
                                         borderRadius: Theme.radius2,
                                         backgroundColor: 'gray'
                                     }}
-                                    image={`/assets/images/feature${index + 1}.png`} />
+                                    image={`/assets/images/feature${index + 1}.webp`} />
                             </div>
                             <CardContent className='infoWrap'>
                                 <Typography className='title' variant={'h6'}>{title}</Typography>

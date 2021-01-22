@@ -1,17 +1,10 @@
-import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
-import InstitituteCard from '@/Components/InstituteCard.component';
-import InstitituteListCard from '@/Components/InstituteListCard.component';
 import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
 import { Routes } from '@/Services/App.service';
-import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
-import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
-import InstituteCard from '@/Components/InstituteCard.component';
-import InstituteListCard from '@/Components/InstituteListCard.component';
+import React, {  useState } from 'react';
 import { CoachingListItem } from '@/Services/GraphQlDataTypes/Coachings';
 import CoachingCard from '@/Components/CoachingCard.component';
 

@@ -10,7 +10,7 @@ const SubscribeSectionStyles = makeStyles({
     container: {
         minHeight: 200,
         padding: `20px 5%`,
-        backgroundImage: `url('/assets/images/subscribeBg.jpg')`,
+        backgroundImage: `url('/assets/images/subscribeBg.webp')`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
 

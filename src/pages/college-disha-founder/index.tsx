@@ -2,13 +2,11 @@
 import { Grid, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
-import { Routes, Theme } from '@/Services/App.service';
-import classNames from 'classnames';
+import {  Theme } from '@/Services/App.service';
 import { PageHead } from '@/Components/PageHead.component';
 import { Footer } from '@/Components/Footer.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 
 
 const useStyles = makeStyles({

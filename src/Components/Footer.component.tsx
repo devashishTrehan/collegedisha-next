@@ -1,7 +1,7 @@
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Email, FiberManualRecord, LocationOn, Phone, Smartphone } from '@material-ui/icons';
-import { CSSProperties, getThemeProps, makeStyles } from '@material-ui/styles';
+import { CSSProperties, makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

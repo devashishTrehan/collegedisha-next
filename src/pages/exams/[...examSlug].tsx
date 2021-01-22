@@ -1,11 +1,9 @@
 import { Routes, Theme } from '@/Services/App.service';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
-import CustomBreadCrumb, { UrlObject } from '@/Components/CustomBreadCrumb.component';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { PageNavigation } from '@/Components/PageNavigation.component';
-import { InnerPageHead } from '@/Components/InnerPageHead.component';
 import MarkdownParser from '@/Components/MarkdownParser.component';
 import { detailedExam } from '@/Services/GraphQlDataTypes/Exams';
 
@@ -18,7 +16,6 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    breadcrumbs: UrlObject[]
 }
 
 

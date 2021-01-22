@@ -1,6 +1,4 @@
-import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
-import InstitituteCard from '@/Components/InstituteCard.component';
-import InstitituteListCard from '@/Components/InstituteListCard.component';
+import InstituteListCard from '@/Components/InstituteListCard.component';
 import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
@@ -8,7 +6,6 @@ import { SubscribeSection } from '@/Components/Subscribe.component';
 import { Routes, setLastNavigation } from '@/Services/App.service';
 import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
 import { Grid, makeStyles, useMediaQuery } from '@material-ui/core';
-import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import InstituteCard from '@/Components/InstituteCard.component';
 
@@ -68,7 +65,7 @@ function Colleges(props: Props) {
 
                                     return (
                                         <Grid item key={index} xs={12}>
-                                            <InstitituteListCard {...college} />
+                                            <InstituteListCard {...college} />
                                         </Grid>
                                     )
                                 } else {

@@ -2,7 +2,7 @@
 import { Grid, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
-import { getLastNavigation, Routes, setLastNavigation, Theme } from '@/Services/App.service';
+import {  Routes,  Theme } from '@/Services/App.service';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { NewsListItemTypes, NewsListTypes } from '@/Services/GraphQlDataTypes/News';

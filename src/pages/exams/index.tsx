@@ -1,12 +1,9 @@
-import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
-import CustomCard from '@/Components/InstituteCard.component';
 import DummyCards from '@/Components/DummyCard.component';
 import ExamCard from '@/Components/ExamCard.component';
 import { ExamCategories } from '@/Components/ExamCategories.component';
-import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import { Routes, Theme } from '@/Services/App.service';
+import {  Theme } from '@/Services/App.service';
 import { ExamListItem } from '@/Services/GraphQlDataTypes/Exams';
 import { Divider, Grid, Hidden, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';

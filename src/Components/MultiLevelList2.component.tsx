@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Collapse, List, ListItem, ListItemIcon, ListItemText, makeStyles, } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, ListItemText, makeStyles, } from '@material-ui/core';
 import { KeyboardArrowDown, KeyboardArrowRight } from '@material-ui/icons';
 import { MenuListInterface } from '../Services/Interfaces.interface';
 import classNames from 'classnames';

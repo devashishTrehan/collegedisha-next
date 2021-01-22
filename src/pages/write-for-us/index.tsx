@@ -3,10 +3,9 @@ import { Grid, Hidden, Table, TableBody, TableCell, TableContainer, TableHead, T
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import { Footer } from '@/Components/Footer.component';
-import { Routes, Theme } from '@/Services/App.service';
+import { Theme } from '@/Services/App.service';
 import classNames from 'classnames';
 import { AnimatedSection } from '@/Components/AnimatedView.component';
-import CustomBreadCrumb from '@/Components/CustomBreadCrumb.component';
 
 const useStyles = makeStyles({
   headBG: {

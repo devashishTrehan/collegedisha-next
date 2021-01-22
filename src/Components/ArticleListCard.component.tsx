@@ -1,16 +1,11 @@
-import { Routes, Theme, } from '@/Services/App.service';
-import { Button, Typography, IconButton, useMediaQuery, Divider } from '@material-ui/core';
-import { AccessTimeOutlined, Bookmark, BookmarkBorder, CalendarToday, GetAppRounded, LocationOnOutlined, Share, StarRounded, ThumbUpOutlined } from '@material-ui/icons';
+import { Theme, } from '@/Services/App.service';
+import { Typography, IconButton, useMediaQuery, } from '@material-ui/core';
+import { AccessTimeOutlined, Bookmark, BookmarkBorder, CalendarToday, Share, ThumbUpOutlined } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import React, { memo, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
-import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
-import { NewsListItemTypes } from '@/Services/GraphQlDataTypes/News';
-import { ArticleListItemTypes, ArticleListTypes } from '@/Services/GraphQlDataTypes/article';
-import { route } from 'next/dist/next-server/server/router';
+import { ArticleListItemTypes } from '@/Services/GraphQlDataTypes/article';
 
 
 

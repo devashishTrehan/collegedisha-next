@@ -12,7 +12,6 @@ import { MenuListInterface } from '@/Services/Interfaces.interface';
 import { MultiLevelList } from '@/Components/MultiLevelList2.component';
 import { LoginRegisterButton } from '@/Components/LoginRegisterButton.component';
 import { SearchPage } from '@/Components/SearchPage.component';
-import { NavbarContext } from '@/Context/Navbar.context';
 
 const useStyles = makeStyles({
 

@@ -164,7 +164,6 @@ function NavBar(props: any) {
   const [DrawerOpen, setDrawerOpen] = React.useState(false);
   const { MenuList } = React.useContext(MenuContext);
   const { user } = { user: { id: 0 } };
-  const [scrolled, setScrolled] = React.useState(0);
   const [__window, setWindow] = React.useState<null | Window>(null);
 
   React.useEffect(() => {
@@ -186,21 +185,6 @@ function NavBar(props: any) {
   const router = useRouter();
 
 
-  React.useEffect(() => {
-
-    window.addEventListener('scroll', (event) => {
-      let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      let scrolled = (winScroll / height) * 100;
-      setScrolled(scrolled);
-    })
-
-    return (() => {
-      window.removeEventListener('scroll', () => {
-        console.log('event removed');
-      })
-    })
-  }, [router.asPath])
 
   function HideOnScroll(props: any) {
     const { children, window } = props;
@@ -296,9 +280,7 @@ function NavBar(props: any) {
             }
           </Toolbar>
         </div>
-        <div style={{ height: 3, width: '100%' }}>
-          <div style={{ height: '100%', width: `${scrolled}%`, background: Theme.primary }}></div>
-        </div>
+        <ScrollIndicator />
       </AppBar>
       {/* </HideOnScroll> */}
 
@@ -311,3 +293,30 @@ function NavBar(props: any) {
 
 export default withRouter(NavBar)
 
+
+const ScrollIndicator = () => {
+
+  const [scrolled, setScrolled] = React.useState(0);
+  const router = useRouter();
+
+  React.useEffect(() => {
+    window.addEventListener('scroll', (event) => {
+      let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      let scrolled = (winScroll / height) * 100;
+      setScrolled(scrolled);
+    })
+
+    return (() => {
+      window.removeEventListener('scroll', () => {
+        console.log('event removed');
+      })
+    })
+  }, [router.asPath])
+
+  return (
+    <div style={{ height: 3, width: '100%' }}>
+      <div style={{ height: '100%', width: `${scrolled}%`, background: Theme.primary }}></div>
+    </div>
+  )
+}

@@ -41,7 +41,7 @@ const useStyles = makeStyles({
     // '&::before': {
     //   zIndex: -1,
     //   content: '""',
-    //   backgroundImage: `url(/assets/images/DotsShape1.png),url(/assets/images/counsellingShape2.png)`,
+    //   backgroundImage: `url(/assets/images/DotsShape1.png),url(/assets/images/counsellingShape2.webp)`,
     //   backgroundPosition: 'left top,right bottom',
     //   backgroundSize: '50px auto,50px auto',
     //   backgroundRepeat: 'no-repeat',
@@ -95,7 +95,7 @@ const useStyles = makeStyles({
     }
   },
   midSecWrap: {
-    backgroundImage: `url('/assets/images/AboutQuoteBg.png')`,
+    backgroundImage: `url('/assets/images/AboutQuoteBg.webp')`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
@@ -233,7 +233,7 @@ function About(props: any) {
               <Grid item xs={12} md={6}>
                 <div>
                   <div className='RightImageWrap'>
-                    <img src={'/assets/images/aboutUs.png'} alt='' />
+                    <img src={'/assets/images/aboutUs.webp'} alt='' />
                   </div>
 
                 </div>
@@ -277,11 +277,11 @@ function About(props: any) {
         {
           !isTablet && (
             <>
-              <div className='decoItem' style={{ top: 60, left: 250 }}><img src='/assets/images/innerShape4.png' alt='' /></div>
-              <div className='decoItem' style={{ bottom: 10, left: 10 }}><img src='/assets/images/innerShape1.png' alt='' /></div>
-              <div className='decoItem' style={{ top: 0, right: 30 }}><img src='/assets/images/innerShape3.png' alt='' /></div>
-              <div className='decoItem' style={{ bottom: 50, right: 80 }}><img src='/assets/images/innerShape1.png' alt='' /></div>
-              <div className='decoItem' style={{ top: 45, left: 75 }}><img src='/assets/images/innerShape2.png' alt='' /></div>
+              <div className='decoItem' style={{ top: 60, left: 250 }}><img src='/assets/images/innerShape4.webp' alt='' /></div>
+              <div className='decoItem' style={{ bottom: 10, left: 10 }}><img src='/assets/images/innerShape1.webp' alt='' /></div>
+              <div className='decoItem' style={{ top: 0, right: 30 }}><img src='/assets/images/innerShape3.webp' alt='' /></div>
+              <div className='decoItem' style={{ bottom: 50, right: 80 }}><img src='/assets/images/innerShape1.webp' alt='' /></div>
+              <div className='decoItem' style={{ top: 45, left: 75 }}><img src='/assets/images/innerShape2.webp' alt='' /></div>
             </>
           )
         }

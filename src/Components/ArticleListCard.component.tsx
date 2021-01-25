@@ -40,7 +40,7 @@ const useStyles = makeStyles({
         width: '100%',
     },
     InfoSetion: {
-        padding: '0 8px 8px 15px',
+        padding: '8px 8px 8px 15px',
         textAlign: 'left',
         width: 'calc(75%)',
         cursor: 'pointer',
@@ -88,7 +88,7 @@ const useStyles = makeStyles({
                 alignItems: 'center',
                 marginLeft: -10,
                 '& .actionButton': {
-                    padding: 5,
+                    padding: '0px 5px',
                     marginRight: -5,
                     marginLeft: 5,
                     display: 'flex',
@@ -177,6 +177,7 @@ const ArticleListCard = memo(function (props: Props) {
                         </div>
                         <IconButton className={'actionButton'} onClick={() => onSave && onSave()}>
                             {
+
                                 isSaved ?
                                     <Bookmark />
                                     : <BookmarkBorder />

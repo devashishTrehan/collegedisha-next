@@ -61,7 +61,7 @@ export const Header = () => {
                         <AnimatedSection animationClass='shiftLeft' id='card' className={styles.CounsellingCard} style={{ margin: isTablet ? 'auto' : 'unset' }} >
                             <>
                                 <div className="imgWrap">
-                                    <img src='/assets/images/counsellingCard.png' alt='' />
+                                    <img src='/assets/images/counsellingCard.webp' alt='' />
                                 </div>
 
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -178,7 +178,7 @@ export const ContentCards = () => {
                 <AnimatedSection id={'stepCard'} animationClass='shiftUp'>
                     <div className='stepCard' onClick={() => SlideCarouselTo(index)} >
                         <div className='imageWrap' >
-                            <img src={`/assets/images/stepCard${index + 1}.png`} alt='' style={index === carouselIndex ? {
+                            <img src={`/assets/images/stepCard${index + 1}.webp`} alt='' style={index === carouselIndex ? {
                                 transform: 'scale(1.05)',
                                 border: `1px solid ${Theme.secondary}aa`,
                             } : {}} />
@@ -215,7 +215,7 @@ export const ContentCards = () => {
         return (
             <div key={index} className='carouselCard'>
                 <div className='imageWrap'>
-                    <img src={`/assets/images/stepPoint${1}.png`} alt='' />
+                    <img src={`/assets/images/stepPoint${1}.webp`} alt='' />
                 </div>
                 <div className='infoWrap' >
                     <h5>{title}</h5>
@@ -264,7 +264,7 @@ export const ContentCards = () => {
                                         {
                                             !isTablet && (
                                                 <div className='shape2'>
-                                                    <img src={'/assets/images/counsellingShape2.png'} alt='' />
+                                                    <img src={'/assets/images/counsellingShape2.webp'} alt='' />
                                                 </div>
                                             )
                                         }
@@ -366,8 +366,8 @@ export const CounsellingFormSection = () => {
                                 <div className='leftSec'>
 
                                     <div className={'imageWrap'}>
-                                        <img className={classNames({ 'active': formType === 'student' })} src='/assets/images/for-student.png' alt='' />
-                                        <img className={classNames({ 'active': formType === 'parent' })} src='/assets/images/for-parent.png' alt='' />
+                                        <img className={classNames({ 'active': formType === 'student' })} src='/assets/images/for-student.webp' alt='' />
+                                        <img className={classNames({ 'active': formType === 'parent' })} src='/assets/images/for-parent.webp' alt='' />
                                     </div>
 
                                     <div style={{ textAlign: 'left' }}>

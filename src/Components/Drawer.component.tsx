@@ -116,7 +116,7 @@ function DrawerComponent(props: any) {
       <div className={styles.container}>
         <div className={styles.logoContainer}>
           <div className={styles.LogoWrap}>
-            <img src={'/assets/images/BLogo.png'} alt='' />
+            <img src={'/assets/images/BLogo.webp'} alt='' />
           </div>
           <span><IconButton style={{ padding: 10 }} onClick={() => props.onClose && props.onClose()}><Close /></IconButton></span>
         </div>

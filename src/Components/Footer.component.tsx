@@ -16,7 +16,7 @@ const useStyles = makeStyles({
         width: '100%',
         padding: '0 5%',
         backgroundColor: Theme.footerBackground,
-        backgroundImage: `url('/assets/images/footerBg.jpg')`,
+        backgroundImage: `url('/assets/images/footerBg.webp')`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'bottom',
     },

@@ -11,7 +11,7 @@ import { faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-sv
 
 const useStyles = makeStyles({
   SectionBackground: {
-    // backgroundImage: `url(/assets/images/founderBg1.png),url(/assets/images/founderBg2.png)`,
+    // backgroundImage: `url(/assets/images/founderBg1.webp),url(/assets/images/founderBg2.webp)`,
     // backgroundPosition: 'left center , right center',
     // backgroundRepeat: 'no-repeat',
 
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
       transition: '.5s',
       zIndex: -1,
       content: '""',
-      backgroundImage: `url(/assets/images/founderCardBg1.png),url(/assets/images/DotsShape1.png)`,
+      backgroundImage: `url(/assets/images/founderCardBg1.webp),url(/assets/images/DotsShape1.webp)`,
       backgroundPosition: '0% 100%,100% 0%',
       backgroundSize: '70%,60px',
       backgroundRepeat: 'no-repeat',
@@ -147,7 +147,7 @@ function FounderPage(props: any) {
     {
       name: 'Dileep Jaiswal',
       designation: 'director',
-      image: 'founder1.jpg',
+      image: 'founder1.webp',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi hic cumque voluptates obcaecati distinctio',
       socialLinks: {
         facebook: '',
@@ -158,7 +158,7 @@ function FounderPage(props: any) {
     {
       name: 'Jainendra kumar',
       designation: 'director',
-      image: 'founder2.jpg',
+      image: 'founder2.webp',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi hic cumque voluptates obcaecati distinctio',
       socialLinks: {
         facebook: '',
@@ -182,7 +182,7 @@ function FounderPage(props: any) {
 
           <div className={styles.CardWrap}>
             <div className='background' style={index % 2 !== 0 ? {
-              backgroundImage: `url(/assets/images/founderCardBg2.png),url(/assets/images/DotsShape1.png)`,
+              backgroundImage: `url(/assets/images/founderCardBg2.webp),url(/assets/images/DotsShape1.webp)`,
               backgroundPosition: '100% 100%,0% 0%',
             } : {}}></div>
 

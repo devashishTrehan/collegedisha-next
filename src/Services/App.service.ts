@@ -183,6 +183,17 @@ export const RequestStatusList = {
     Info: 'info'
 }
 
+//---------- The function to clip test string -------\\
+
+export const ClipText = (text: string, limit: number = 60) => {
+    return text;
+    // let newText = text.slice(0, limit - 1) + '...';
+    // return newText;
+
+}
+
+
+
 //---------- The function to set last navigation state -------\\
 
 export const setLastNavigation = async (navigation: UrlObject[]) => {

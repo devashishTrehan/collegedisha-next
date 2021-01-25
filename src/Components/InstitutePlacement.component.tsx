@@ -55,7 +55,7 @@ const RenderCompanyCards = (companyCount: number) => {
         companies.push(
             <Grid item key={i} >
                 <div className={classNames(styles.container, { [styles.container_M]: isMobile })} >
-                    <img src={`/assets/images/placementCompanies/${i + 1}.jpg`} alt='' />
+                    <img src={`/assets/images/placementCompanies/${i + 1}.webp`} alt='' />
                 </div>
             </Grid>
         )

@@ -45,9 +45,9 @@ function MyApp(props) {
 
         <GraphClientContextProvider>
           <NavbarContextProvider>
-            <>
+            <div id='App'>
               <MyAppMainComponent {...props} />
-            </>
+            </div>
           </NavbarContextProvider>
         </GraphClientContextProvider>
 

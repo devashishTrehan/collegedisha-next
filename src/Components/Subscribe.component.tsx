@@ -64,7 +64,7 @@ export const SubscribeSection = () => {
                     <Hidden smDown>
                         <Grid item className={'rightSec'} md={6}>
                             <div className={'imageWrap'}>
-                                <img src='/assets/images/subscribeLeft.png' alt='' />
+                                <img src='/assets/images/subscribeLeft.webp' alt='' />
                             </div>
                         </Grid>
                     </Hidden>

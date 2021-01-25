@@ -149,7 +149,7 @@ function Contact(props: any) {
               <Grid item xs={12} md={6}>
                 <div>
                   <div className='leftImageWrap'>
-                    <img src={'/assets/images/contactUs.png'} alt='' />
+                    <img src={'/assets/images/contactUs.webp'} alt='' />
                   </div>
 
                   <div>

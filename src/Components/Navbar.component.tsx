@@ -224,7 +224,7 @@ function NavBar(props: any) {
         <div className={styles.navLinkSectionsWrap}>
           <Toolbar>
             <div onClick={() => router.replace(Routes.Home)} className={classNames(styles.LogoWrap, { [styles.LogoWrap_M]: isMobile })}>
-              <img src={'/assets/images/BLogo.png'} alt='College Disha' />
+              <img src={'/assets/images/BLogo.webp'} alt='College Disha' />
             </div>
           </Toolbar>
           {
@@ -256,7 +256,7 @@ function NavBar(props: any) {
                 <div className={styles.profileImageButtonWrap}>
                   <Tooltip title={'User Profile'}>
                     <IconButton className={styles.profileImageButton} aria-controls="simple-menu" aria-haspopup="true" onClick={() => router.push(`${Routes.Profile}/${'user?.slug'}`)}>
-                      <img src={false ? Domain + 'user.profilePicture' : '/assets/images/user.png'} alt='Profile Picture' />
+                      <img src={false ? Domain + 'user.profilePicture' : '/assets/images/user.webp'} alt='Profile Picture' />
                     </IconButton>
                   </Tooltip>
                   {

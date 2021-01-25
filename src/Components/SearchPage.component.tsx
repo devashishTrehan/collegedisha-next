@@ -133,6 +133,23 @@ export const SearchPage = (props: any) => {
         })
     }
 
+    // React.useEffect(() => {
+
+    //     window.addEventListener('keyup', (event) => {
+    //         if (event.key === 'Escape') {
+    //             ClosePage();
+    //         }
+    //     })
+
+    //     return () => {
+    //         window.removeEventListener('keyup', () => {
+    //             console.log('keypress listener removed');
+
+    //         })
+    //     }
+
+    // }, [])
+
     const submit = (event: any) => {
         event.preventDefault();
         console.log(Form);
@@ -141,11 +158,18 @@ export const SearchPage = (props: any) => {
 
     const ClosePage = () => {
         setActive(false);
+        let mainPage = document.getElementById('__mainPage');
+        mainPage.style.overflow = 'unset';
+        mainPage.style.height = 'auto';
     }
 
     const OpenPage = () => {
         setActive(true);
+        let mainPage = document.getElementById('__mainPage');
+        mainPage.style.overflow = 'hidden';
+        mainPage.style.height = '100vh';
     }
+
 
     return (
         <div className={classNames(styles.mainContainer, { 'active': isActive })}>

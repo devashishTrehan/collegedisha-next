@@ -35,76 +35,130 @@ function Article(props: any) {
     publishedOn: '23-12-2020',
     isSaved: false,
     banner: '',
-    content: `  
-    The University is one of the top engineering college of India. It is a private
-    university established in 2011 by the chairman Suneel Galgotia. The college is
-    affiliated by Uttar Pradesh Government.  
-    Galgotia University has two Campus. It offers 100s of Undergraduate and
-    postgraduate programmes. The university is located in Greater Noida and has an
-    enrollment of almost 15,000 students. They have all the facilities available
-    in the college keeping the students as the priority. 150+ students are taking
-    advantage of this scholarship provided by the institution. The placement of
-    the college is highly praised. Students are placed in Fortune 500 Companies,
-    MNCs & leading corporate. The university also gives 100% scholarship to
-    excellent students. The campus is spread in 52 acres of area. They have 100+
-    faculty and 180+ labs to imbibe the knowledge in every better way possible.
+    content: `
+    Hierank Business School is a private college. MBA program of the college is
+    affiliated to Dr. Abdul Kalam Technical University. It was established in 2006
+    since then it has managed to remain in the list of top engineering colleges of
+    Noida. The Integrated campus Approved by AICTE. The college works under ABR
+    Education Foundation which is a non-profitable foundation. It was established
+    by Rajesh Sahay who is the former director of Amity.\
+    College provides Total 5 UG and PG Programmes. Admission in the college is
+    done on the basis of Entrance Exam.\
+    With the help of experience and cooperative faculty, it becomes easier for
+    students to soar higher. Highly reputed companies visit campus for placement.
+    Till now their highest package is 18 lakhs while their average package is 3.2
+    lakh.
     
-    Almost 1400 students can be accomodated in the hostel. Ac to healthy
-    everything is supervised to provide excellent services to the student. The
-    'student-first' formula helps the university to constantly stay on the top of
-    the list of best colleges.
+    Hierank Business School also provides scholarship which is done on the basis
+    of scores obtained by the candidate in the National Level Entrance Test called
+    as Board Analysis Test (BAT), conducted by CAT 7.
     
-    every year highly reputed MNCs and companies visit here to get the best for
-    their company. Faculty of the college is very cooperative and encourage
-    students to explore their limits.  
-      
+    #### Courses and Fees
+    
+    - Master of Business Administration (MBA)
+    - Bachelor of Business Administration (BBA)
+    - Bachelor of Computer Application (BCA)
+    - Bachelor of Education (B.Ed.)
+    - Post Graduate Programme in Hospital Administration (PGPHA)
+    
+    #### Eligibility Criteria
+    
     <table>  
     <tr>  
-    <td>
-    
-    #### **Galgotias College Fees Structure (Official)**
-    
-    </td> </tr>  
-    <tr>  
-    <td>
-    
-    </td> </tr> </table>
-    
-    #### **Courses Details:**
-    
-    **The college offers 5 courses to students:**
-    
-      * Undergraduate Programmes
-      * Postgraduate Programmes
-      * Diploma Programmes
-      * Integrated Programmes
-      * Doctoral Programmes
-    
-    ### School of Electrical, Electronics & Communication Engineering
-    
-      * B.Tech in Electronics and Communication Engineering with specialization in the Internet of Things (IOT)
-    
-    #### Eligibility
-    
-      1. Minimum 60% in PCM (10+2)
-      2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
-    
-    #### **Fees Structure**  
-      
-    <table>  
-      <tr>  
-        <td> <b>Duration</b> </td>  
-        <td>  <b> 4 years </b></td>
-      </tr>
-    <tr>
-      <td>Annual Fees</td>  
-      <td rowspan='2'>1,49,000</td> 
+    <td>#### **Name of Courses**</td>  
+    <td>#### **Eligibility**</td>  
+    <td>#### **Selection Criteria**</td>
     </tr>  
-    <tr>
-      <td>Exam Fee </td>  
-    </tr> 
-  </table>
-    `,
+    <tr>  
+    <td>Bachelor of Education (B.Ed.)</td>  
+    <td>10+2 with at least 50% marks in aggregate</td>  
+    <td>Scored obtained in the Entrance Exam conducted by UP Govt. followed by GD & PI
+    held at the Institute</td>
+    </tr>  
+    <tr>  
+    <td>Bachelor of Computer Application (BCA)</td>  
+    <td>10+2 with at least 45% marks in aggregate</td>  
+    <td>On basis of candidates performance in GD & PI conducted by the Institute</td>
+    </tr>  
+    <tr>  
+    <td>Bachelor of Business Administration (BBA)</td>
+    </tr>  
+    <tr>  
+    <td>Master of Business Administration (MBA)</td>  
+    <td>Graduation with minimum 50% marks in aggregate</td>  
+    <td>UPSEE/ CMAT/ CAT/ MAT/ ATMA Entrance Exam Score followed by GD & PI held at
+the Institute</td>
+</tr>  
+<tr>  
+<td>Post Graduate Programme in Hospital Administration (PGPHA)</td>
+</tr>
+</table>
+
+#### Fees Structure
+
+#### Master of Business Administration (MBA)
+
+<table>  
+<tr>  
+<td>**1st year**</td>  
+<td>**2nd year**</td>  
+<td>**Grand Total**</td>
+</tr>  
+<tr>  
+<td>180,000</td>  
+<td>130,000</td>  
+<td>310,000</td>
+</tr>
+</table>
+
+#### Bachelor of Education (B.Ed.)
+
+<table>  
+<tr>  
+<td>**1st year**</td>  
+<td>**2nd year**</td>  
+<td>**Grand Total**</td>
+</tr>  
+<tr>  
+<td>58,750</td>  
+<td>30,000</td>  
+<td>88,750</td>
+</tr>
+</table>
+
+#### BACHELOR OF BUSINESS ADMINISTRATION (BBA)
+
+<table>  
+<tr>  
+<td>**1st year**</td>  
+<td>**2nd year**</td>  
+<td>**3rd year**</td>  
+<td>**Grand Total**</td>
+</tr>  
+<tr>  
+<td>80,000</td>  
+<td>75,000</td>  
+<td>75,000</td>  
+<td>230,000</td>
+</tr>
+</table>
+
+#### BACHELOR OF COMPUTER APPLICATION (BCA)
+
+<table>  
+<tr>  
+<td>**1st year**</td>  
+<td>**2nd year**</td>  
+<td>**3rd year**</td>  
+<td>**Grand Total**</td>
+</tr>  
+<tr>  
+<td>80,000</td>  
+<td>75,000</td>  
+<td>75,000</td>  
+<td>230,000</td>
+</tr>
+</table>`,
   })
 
 

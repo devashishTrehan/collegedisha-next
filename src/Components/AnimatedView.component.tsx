@@ -38,11 +38,35 @@ export const AnimatedSection = (props: PropsTypes) => {
     React.useEffect(() => {
 
         let element = document.getElementById(`animated-${props?.id}`);
-        scrollHandler(element);
+        if (window.IntersectionObserver) {
 
-        window.addEventListener('scroll', () => {
+            let observer = new IntersectionObserver((enteries, observer) => {
+                enteries.forEach(entry => {
+                    if (entry.intersectionRatio > 0) {
+                        setToAnimate(true);
+                        observer.unobserve(element);
+                    }
+                });
+            })
+
+
+            observer.observe(element)
+
+
+        } else {
+
             scrollHandler(element);
-        })
+
+            window.addEventListener('scroll', () => {
+                scrollHandler(element);
+            })
+
+            return () => {
+                window.removeEventListener('scroll', () => {
+                    console.log('scroll event removed')
+                })
+            }
+        }
     }, [])
 
     return (

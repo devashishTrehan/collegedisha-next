@@ -5,7 +5,7 @@ import { Theme } from '@/Services/App.service';
 
 export const HeaderStyles = makeStyles({
   container: (navHeight) => ({
-    backgroundImage: `url('/assets/images/headerBg.png')`,
+    backgroundImage: `url('/assets/images/headerBg.webp')`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
     backgroundPosition: 'bottom',
@@ -124,7 +124,7 @@ export const ContentCardStyles = makeStyles({
     padding: '0 5%'
   },
   cardContainer: {
-    backgroundImage: `url(/assets/images/counsellingShape1.png),url(/assets/images/DotsShape1.png)`,
+    backgroundImage: `url(/assets/images/counsellingShape1.webp),url(/assets/images/DotsShape1.webp)`,
     backgroundPosition: 'left top,right bottom',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'unset, 120px 120px',
@@ -312,7 +312,7 @@ export const ContentCardStyles = makeStyles({
 export const CounsellingStyles = makeStyles({
   mainContainer: {
     padding: '30px 5%',
-    backgroundImage: `url('/assets/images/wave.png'),url('/assets/images/counselling-left-shape.png'),url('/assets/images/counselling-right-shape.png')`,
+    backgroundImage: `url('/assets/images/wave.webp'),url('/assets/images/counselling-left-shape.webp'),url('/assets/images/counselling-right-shape.webp')`,
     backgroundRepeat: 'no-repeat',
     // backgroundPosition: 'bottom, left ,right',
     backgroundSize: 'contain,',
@@ -394,7 +394,7 @@ export const CounsellingStyles = makeStyles({
 
 export const FeatureSectionStyles = makeStyles({
   FeaturesBackground: {
-    backgroundImage: `url(/assets/images/DotsShape1.png),url(/assets/images/FeaturesShape2.png),url(/assets/images/FeaturesShape3.png)`,
+    backgroundImage: `url(/assets/images/DotsShape1.webp),url(/assets/images/FeaturesShape2.webp),url(/assets/images/FeaturesShape3.webp)`,
     backgroundPosition: 'left top,right center,left bottom',
     backgroundRepeat: 'no-repeat',
     animation: 'MoveBackground 8s linear infinite',
@@ -426,7 +426,7 @@ export const FeatureSectionStyles = makeStyles({
       transition: '.5s',
       zIndex: -1,
       content: '""',
-      backgroundImage: `url(/assets/images/DotsShape1.png),url(/assets/images/counsellingShape2.png)`,
+      backgroundImage: `url(/assets/images/DotsShape1.webp),url(/assets/images/counsellingShape2.webp)`,
       backgroundPosition: 'left top,right bottom',
       backgroundSize: '50px auto,50px auto',
       backgroundRepeat: 'no-repeat',

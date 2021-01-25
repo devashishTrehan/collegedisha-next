@@ -58,14 +58,13 @@ export const CopyRightStrip = (props: any) => {
 
         setYear();
 
-        window.onscroll = (event: any) => {
-
+        window.addEventListener('scroll', () => {
             if (window.pageYOffset > 200) {
                 setIsOnTop(false);
             } else {
                 setIsOnTop(true);
             }
-        }
+        }, { passive: true })
     }, [])
 
     const scrollToTop = () => {

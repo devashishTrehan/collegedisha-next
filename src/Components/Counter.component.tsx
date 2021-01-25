@@ -62,7 +62,7 @@ export function Counter(props: Props) {
             // console.log(`scrolling - ${props.id}`)
             let counter = document.getElementById(`counter-${props?.id}`);
             scrollHandler(counter);
-        })
+        }, { passive: true })
     }, [])
 
     React.useEffect(() => {

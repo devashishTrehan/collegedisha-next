@@ -64,7 +64,7 @@ const DummyCards = (props: Props) => {
                 UpdateParentWidth();
             }, 500)
 
-        })
+        }, { passive: true })
         UpdateParentWidth();
 
         return window.removeEventListener('resize', () => {

@@ -11,7 +11,7 @@ interface PropsTypes {
     children?: Element | HTMLElement | JSX.Element,
     className?: string,
     style?: React.CSSProperties,
-    
+
 }
 
 export const ViewportTracker = (props: PropsTypes) => {
@@ -55,7 +55,7 @@ export const ViewportTracker = (props: PropsTypes) => {
 
         window.addEventListener('scroll', () => {
             scrollHandler(element);
-        })
+        }, { passive: true })
     }
 
     React.useEffect(() => {

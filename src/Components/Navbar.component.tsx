@@ -305,7 +305,7 @@ const ScrollIndicator = () => {
       let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       let scrolled = (winScroll / height) * 100;
       setScrolled(scrolled);
-    })
+    }, { passive: true })
 
     return (() => {
       window.removeEventListener('scroll', () => {

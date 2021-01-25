@@ -59,7 +59,7 @@ export const AnimatedSection = (props: PropsTypes) => {
 
             window.addEventListener('scroll', () => {
                 scrollHandler(element);
-            })
+            }, { passive: true })
 
             return () => {
                 window.removeEventListener('scroll', () => {

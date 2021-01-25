@@ -270,6 +270,9 @@ p {
         padding-left: 0px;
         padding-right: 0px;
     }
+    .pageSectionContainer {
+        padding: 15px 15px;
+    }
 }
 
 

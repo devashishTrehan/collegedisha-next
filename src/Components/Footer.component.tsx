@@ -265,7 +265,7 @@ export const Footer = (props: any) => {
                     <Grid container spacing={4}>
 
                         <Grid item md={4} sm={6} xs={12} className={classNames(styles.fAbout, { [styles.fAbout_M]: isMobile })}>
-                            <img src={'assets/images/FLogo.png'} alt='' />
+                            <img src={'assets/images/FLogo.webp'} alt='' />
 
                             <p>College Disha is the best informative education portal which is the ultimate destination for providing you substantial career options. Students can check top level colleges, courses, coaching, counsellors, trending articles and latest educational updates here to yield a significant aid to their career graph.
                                 college disha footer cntnt for about us</p>

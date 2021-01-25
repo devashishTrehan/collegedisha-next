@@ -80,6 +80,7 @@ export const Routes = {
     Institutes: '/institutes',
     Colleges: '/colleges',
     Coachings: '/coaching',
+    CareerOptions: '/career-options',
     Exams: '/exams',
     Boards: '/boards',
     Articles: '/articles',
@@ -185,10 +186,21 @@ export const RequestStatusList = {
 
 //---------- The function to clip test string -------\\
 
-export const ClipText = (text: string, limit: number = 60) => {
-    return text;
-    // let newText = text.slice(0, limit - 1) + '...';
-    // return newText;
+export const MemoizedClipText = () => {
+    let cache = {};
+
+    return (text: string, limit: number = 60) => {
+        if (text in cache) {
+            console.log('returning from cache');
+            return cache[text];
+        } else {
+            console.log('Calculating result');
+            let newText = text.slice(0, limit - 1) + '...';
+            cache[text] = newText;
+            return newText;
+        }
+    }
+
 
 }
 

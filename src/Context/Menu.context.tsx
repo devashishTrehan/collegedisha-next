@@ -61,10 +61,11 @@ function MenuContextProvider(props: any) {
                 { label: 'Universities', link: Routes.Universities, list: [] },
                 { label: 'Top Courses', link: Routes.Courses, list: [] },
                 { label: 'Colleges', link: Routes.Colleges, list: [] },
+                { label: 'Boards', link: Routes.Boards, list: [] },
                 { label: 'News', link: Routes.News, list: [] },
                 { label: 'Exams', link: Routes.Exams, list: [] },
                 { label: 'Coaching', link: Routes.Coachings, list: [] },
-                { label: 'Career Options', link: '', list: [] },
+                { label: 'Career Options', link: Routes.CareerOptions, list: [] },
             ]
         },
     ])

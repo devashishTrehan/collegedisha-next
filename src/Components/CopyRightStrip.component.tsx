@@ -57,7 +57,6 @@ export const CopyRightStrip = (props: any) => {
     React.useEffect(() => {
 
         setYear();
-
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 200) {
                 setIsOnTop(false);

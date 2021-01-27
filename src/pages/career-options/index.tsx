@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 
 const defaultImage = '/assets/images/defaults/news.jpg'
 
-function NewsList(props: any) {
+function CareerList(props: any) {
 
   const isMobile = useMediaQuery('(max-width:600px)');
   const isTablet = useMediaQuery('(max-width:992px)');
@@ -83,19 +83,21 @@ function NewsList(props: any) {
 
           <Typography className='pageHeading' variant='h1'>A complete List of Education and career options</Typography>
 
-          <Grid container spacing={isMobile ? 3 : 5} justify='center'>
-            {
-              data?.map((career: CareerListItem) => {
-                return (
-                  <Grid item  >
-                    <CareerCard {...career} />
-                  </Grid>
 
-                )
-              })
-            }
+          <div style={{ marginTop: '50px' }}>
+            <Grid container spacing={isMobile ? 3 : 5} justify='flex-start'>
+              {
+                data?.map((career: CareerListItem) => {
+                  return (
+                    <Grid item xs={12} sm={6} md={4} >
+                      <CareerCard {...career} />
+                    </Grid>
 
-          </Grid>
+                  )
+                })
+              }
+            </Grid>
+          </div>
 
         </div>
       </div>
@@ -105,5 +107,5 @@ function NewsList(props: any) {
 }
 
 
-export default NewsList;
+export default CareerList;
 

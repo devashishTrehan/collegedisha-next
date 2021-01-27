@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Routes, Theme, } from '@/Services/App.service';
 import Link from 'next/link';
 import { useRouter, withRouter } from 'next/router';
-import { AppBar, Drawer, IconButton, Slide, Toolbar, Tooltip, useMediaQuery, useScrollTrigger, } from '@material-ui/core';
+import { AppBar, Drawer, IconButton, Slide, Toolbar, Tooltip, useMediaQuery, useScrollTrigger, Theme as MuiTheme } from '@material-ui/core';
 import classNames from 'classnames';
 import { Domain, Menu as MenuIcon } from '@material-ui/icons';
 import DrawerComponent from '@/Components/Drawer.component';
@@ -13,7 +13,7 @@ import { MultiLevelList } from '@/Components/MultiLevelList2.component';
 import { LoginRegisterButton } from '@/Components/LoginRegisterButton.component';
 import { SearchPage } from '@/Components/SearchPage.component';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: MuiTheme) => ({
 
   navBar: {
     // boxShadow: `0px 2px 10px 0px #ccc`,
@@ -22,18 +22,16 @@ const useStyles = makeStyles({
     boxShadow: Theme.boxShadowLight,
   },
   LogoWrap: {
-    width: 190,
-    // width: 135,
+    width: 120,
     marginTop: 7,
+    [theme.breakpoints.up('sm')]: {
+      width: 190,
+    },
     cursor: 'pointer',
     '& img': {
       width: '100%',
       height: '100%'
     }
-  },
-  LogoWrap_M: {
-    width: 120,
-    // width: 100,
   },
 
   navLinkSectionsWrap: {
@@ -156,7 +154,7 @@ const useStyles = makeStyles({
     flexDirection: 'row'
   },
 
-})
+}))
 
 
 function NavBar(props: any) {
@@ -223,7 +221,7 @@ function NavBar(props: any) {
       <AppBar className={styles.navBar}>
         <div className={styles.navLinkSectionsWrap}>
           <Toolbar>
-            <div onClick={() => router.replace(Routes.Home)} className={classNames(styles.LogoWrap, { [styles.LogoWrap_M]: isMobile })}>
+            <div onClick={() => router.replace(Routes.Home)} className={classNames(styles.LogoWrap)}>
               <img src={'/assets/images/BLogo.webp'} alt='College Disha' />
             </div>
           </Toolbar>

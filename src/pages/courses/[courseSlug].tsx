@@ -172,15 +172,16 @@ the Institute</td>
   return (
 
     <>
-      <ThisPageHeader {...data} />
 
       <div className='container' >
         <div className={'wrapper'} style={{ padding: '30px 5%' }}>
 
           <Grid container>
             <Grid item xs={12} md={9} >
-
               <div className={'pageSectionContainer'}>
+
+                <ThisPageHeader {...data} />
+
                 <MarkdownParser content={data.content} />
               </div>
             </Grid>
@@ -201,13 +202,16 @@ const ThisPageHeaderStyles = makeStyles((theme: MuiTheme) => ({
   container: {
   },
   imageWrap: {
-    margin: '0px !important',
-    minHeight: '200px !important',
+    minHeight: '140px !important',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     height: '100%',
     overflow: 'hidden',
+    margin: '10px 0 30px 0',
+    [theme.breakpoints.up('sm')]: {
+      margin: '30px 0 50px 0',
+    },
     '& img': {
       width: '100%',
       borderRadius: Theme.radius2,
@@ -217,7 +221,7 @@ const ThisPageHeaderStyles = makeStyles((theme: MuiTheme) => ({
     backgroundColor: Theme.primary + '22',
     padding: 4,
     '& svg': {
-      color: '#fff',
+      color: Theme.fontLight,
       fontSize: 24
     },
     '&.left': {
@@ -229,6 +233,7 @@ const ThisPageHeaderStyles = makeStyles((theme: MuiTheme) => ({
   },
   infoContainer: {
     padding: '20px 10px 0px',
+    color: Theme.fontLight,
     [theme.breakpoints.up('sm')]: {
       margin: '0px -10px',
     },
@@ -237,14 +242,14 @@ const ThisPageHeaderStyles = makeStyles((theme: MuiTheme) => ({
       alignItems: 'center',
     },
     '& p': {
-      fontSize: '12px !important',
+      fontSize: '10px !important',
       margin: '0px !important',
       [theme.breakpoints.up('sm')]: {
         fontSize: '14px !important',
       },
     },
     '& svg': {
-      fontSize: 16,
+      fontSize: 14,
       marginRight: 3,
       [theme.breakpoints.up('sm')]: {
         fontSize: 20,
@@ -258,18 +263,16 @@ const ThisPageHeaderStyles = makeStyles((theme: MuiTheme) => ({
     flexDirection: 'column',
     height: '100%',
     justifyContent: 'center',
-    // background: 'radial-gradient(#0006,transparent )',
-    color: '#fff',
     '& .title': {
       marginBottom: 10,
       '& h5': {
-        color: '#fff',
-        fontSize: 14,
+        color: Theme.primary,
+        fontSize: 16,
         [theme.breakpoints.up('sm')]: {
           fontSize: 24
         },
         [theme.breakpoints.up('md')]: {
-          fontSize: 28
+          fontSize: 26
         }
       }
     },
@@ -286,7 +289,7 @@ const ThisPageHeaderStyles = makeStyles((theme: MuiTheme) => ({
         padding: '8px',
         '& svg': {
           fontSize: 20,
-          color: '#fff',
+          color: Theme.fontColor
 
         }
       },
@@ -312,68 +315,52 @@ const ThisPageHeader = (props: detailedArticle) => {
 
 
   return (
+    <div className={customStyles.container}>
 
-    <div className='container' style={{
-      backgroundImage: `url(${banner ? banner : defaultBanner})`,
-
-    }}>
-      <div className={'wrapper'} style={{ padding: '30px 5%' }}>
-
-        <div className={customStyles.container}>
-
-          <Grid container spacing={isTablet ? 3 : 5} >
-            <Grid item xs={12} md={6} >
-              <div className={classNames(customStyles.InfoWrap)}  >
-                <div className='title'>
-                  <h5 style={{ textAlign: 'left' }}>{title}</h5>
-                </div>
+      <div className={classNames(customStyles.InfoWrap)}  >
+        <div className='title'>
+          <h5 style={{ textAlign: 'left' }}>{title}</h5>
+        </div>
 
 
 
-                <div className={customStyles.infoContainer}>
+        <div className={customStyles.infoContainer}>
 
-                  <div className='publishedDate'>
-                    <CalendarToday />
-                    <Typography >{publishedOn}</Typography>
-                  </div>
+          <div className='publishedDate'>
+            <CalendarToday />
+            <Typography >{publishedOn}</Typography>
+          </div>
 
-                  <div className={'detailWrap'}>
-                    <div className='views'>
-                      <VisibilityOutlined />
-                      <Typography>{views}</Typography>
-                    </div>
-                    <div className='readTime'>
-                      <AccessTimeOutlined />
-                      <Typography>{readTime} read</Typography>
-                    </div>
-                    <div className='upVote'>
-                      <ThumbUpOutlined />
-                      <Typography>{voteCount}</Typography>
-                    </div>
-                    <div className='commentCount'>
-                      <CommentOutlined />
-                      <Typography>{commentCount} {!isMobile && 'comments'}</Typography>
-                    </div>
-                    <IconButton className='shareButton'>
-                      <ShareOutlined />
-                    </IconButton>
-                  </div>
+          <div className={'detailWrap'}>
+            <div className='views'>
+              <VisibilityOutlined />
+              <Typography>{views}</Typography>
+            </div>
+            <div className='readTime'>
+              <AccessTimeOutlined />
+              <Typography>{readTime} read</Typography>
+            </div>
+            <div className='upVote'>
+              <ThumbUpOutlined />
+              <Typography>{voteCount}</Typography>
+            </div>
+            <div className='commentCount'>
+              <CommentOutlined />
+              <Typography>{commentCount} {!isMobile && 'comments'}</Typography>
+            </div>
+            <IconButton className='shareButton'>
+              <ShareOutlined />
+            </IconButton>
+          </div>
 
-                </div>
-              </div>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <div className={classNames(customStyles.imageWrap)} >
-                <img src={image ? image : defaultImage} alt='' />
-              </div>
-            </Grid>
-          </Grid>
-
-
-        </div >
-
+        </div>
       </div>
+
+      <div className={classNames(customStyles.imageWrap)} >
+        <img src={image ? image : defaultImage} alt='' />
+      </div>
+
+
     </div >
   )
 }

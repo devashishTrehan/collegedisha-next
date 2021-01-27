@@ -222,7 +222,7 @@ code {
 
 .pageSectionContainer {
     box-shadow: var(--TBoxShadow);
-    border-radius: 5;
+    border-radius: 5px;
     padding: 20px 20px;
 }
 
@@ -269,6 +269,11 @@ p {
     .container {
         padding-left: 0px;
         padding-right: 0px;
+    }
+    .containerHead h4,
+    .containerHead h2,
+    .containerHead h1 {
+        font-size: 18px;
     }
     .pageSectionContainer {
         padding: 15px 15px;

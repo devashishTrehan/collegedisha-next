@@ -1,21 +1,24 @@
 import { AppSectionHeights, Theme } from '@/Services/App.service';
-import { useMediaQuery } from '@material-ui/core';
+import { useMediaQuery, Theme as MuiTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import classNames from 'classnames';
 import remarkGfm from 'remark-gfm';
 import { NavbarContext } from '@/Context/Navbar.context';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: MuiTheme) => ({
     markdownContainer: (props: { navHeight: number }) => {
         return {
             fontFamily: 'gordita',
             textAlign: 'left',
             color: Theme.fontColorSecondary,
-            // overflow: 'scroll',
             '& *': {
                 clear: 'both',
+            },
+            '& .tableWrapper': {
+                maxWidth: '100%',
+                overflow: 'auto',
             },
             '& table': {
                 borderCollapse: 'collapse',
@@ -29,26 +32,46 @@ const useStyles = makeStyles({
                         // '&:first-child': {
                         //     left: 0,
                         // },
+
                     }
                 },
                 '& th': {
-                    paddingTop: 12,
-                    paddingBottom: 12,
                     backgroundColor: Theme.fontColorSecondary,
                     color: '#fff',
-                    fontSize: 15,
+                    [theme.breakpoints.up('xs')]: {
+                        paddingTop: 10,
+                        paddingBottom: 10,
+                        fontSize: 13,
+                    },
+                    [theme.breakpoints.up('sm')]: {
+                        fontSize: 14,
+                    },
+                    [theme.breakpoints.up('md')]: {
+                        paddingTop: 12,
+                        paddingBottom: 12,
+                        fontSize: 15,
+                    }
                 },
                 '& td,th': {
                     border: '1px solid #eee',
-                    padding: Theme.spacingLess,
+                    [theme.breakpoints.up('xs')]: {
+                        padding: 8,
+                    },
+                    [theme.breakpoints.up('md')]: {
+                        padding: Theme.spacingLess,
+                    }
                 },
                 '& tr': {
                     transition: '.2s',
-                    fontSize: 14,
-                    // '& td:first-child': {
-                    //     position: 'sticky',
-                    //     left: 0,
-                    // },
+                    [theme.breakpoints.up('xs')]: {
+                        fontSize: 12,
+                    },
+                    [theme.breakpoints.up('sm')]: {
+                        fontSize: 13,
+                    },
+                    [theme.breakpoints.up('md')]: {
+                        fontSize: 14,
+                    },
                     '&:nth-child(even)': {
                         backgroundColor: '#f6f6f6',
                     },
@@ -56,98 +79,105 @@ const useStyles = makeStyles({
             },
             '& h4,h3,h2': {
                 padding: '10px 0',
+                marginTop: 10,
                 color: Theme.primary,
-                fontSize: 18,
+                [theme.breakpoints.up('xs')]: {
+                    fontSize: 16,
+                },
+                [theme.breakpoints.up('sm')]: {
+                    fontSize: 17,
+                },
+                [theme.breakpoints.up('md')]: {
+                    fontSize: 18,
+                },
             },
             '& h6,h5': {
+                marginTop: 8,
                 padding: '10px 0',
                 color: Theme.primary,
-                fontSize: 16,
+                [theme.breakpoints.up('xs')]: {
+                    fontSize: 15,
+                },
+                [theme.breakpoints.up('md')]: {
+                    fontSize: 16,
+                },
             },
             '& hr': {
                 height: '1px',
                 backgroundColor: '#ccc',
                 border: 'none',
-                margin: '20px 0',
+                [theme.breakpoints.up('xs')]: {
+                    margin: '10px 0',
+                },
+                [theme.breakpoints.up('md')]: {
+                    margin: '20px 0',
+                },
             },
             '& p': {
-                lineHeight: '28px',
                 marginTop: 10,
-                fontSize: 15,
+                [theme.breakpoints.up('xs')]: {
+                    lineHeight: '24px',
+                    fontSize: 12,
+                },
+                [theme.breakpoints.up('sm')]: {
+                    lineHeight: '26px',
+                    fontSize: 13,
+                },
+                [theme.breakpoints.up('md')]: {
+                    lineHeight: '28px',
+                    fontSize: 14,
+                }
             },
-            '& ul': {
+            '& ul,ol': {
                 paddingLeft: 20,
                 marginTop: 10,
                 marginBottom: 20,
                 '& li': {
-                    '&::marker': {
-                        fontSize: 18,
+                    [theme.breakpoints.up('xs')]: {
+                        '&::marker': {
+                            fontSize: 16,
+                        },
+                        lineHeight: '26px',
+                        fontSize: 12,
                     },
-                    lineHeight: '28px',
-                    fontSize: 14,
+                    [theme.breakpoints.up('sm')]: {
+                        '&::marker': {
+                            fontSize: 17,
+                        },
+                        lineHeight: '26px',
+                        fontSize: 13,
+                    },
+                    [theme.breakpoints.up('md')]: {
+                        '&::marker': {
+                            fontSize: 18,
+                        },
+                        lineHeight: '28px',
+                        fontSize: 14,
+                    },
                 }
             },
             '& ol': {
-                paddingLeft: 20,
-                marginTop: 10,
-                marginBottom: 20,
                 '& li': {
-                    '&::marker': {
-                        fontSize: 14,
+                    [theme.breakpoints.up('xs')]: {
+                        '&::marker': {
+                            fontSize: 12,
+                        },
                     },
-                    lineHeight: '28px',
-                    fontSize: 14,
+                    [theme.breakpoints.up('sm')]: {
+                        '&::marker': {
+                            fontSize: 13,
+                        },
+                    },
+                    [theme.breakpoints.up('md')]: {
+                        '&::marker': {
+                            fontSize: 14,
+                        },
+                    },
                 }
-            }
+            },
         }
     },
-    markdownContainer_M: {
-        '& table': {
-            '& th': {
-                paddingTop: 10,
-                paddingBottom: 10,
-                fontSize: 14,
-            },
-            '& td,th': {
-                padding: 8,
-            },
-            '& tr': {
-                fontSize: 12,
-            }
-        },
-        '& h4,h3,h2': {
-            fontSize: 18,
-        },
-        '& h6,h5': {
-            fontSize: 16,
-        },
-        '& hr': {
-            margin: '10px 0',
-        },
-        '& p': {
-            lineHeight: '24px',
-            fontSize: 16,
-        },
-        '& ul': {
-            '& li': {
-                '&::marker': {
-                    fontSize: 16,
-                },
-                lineHeight: '24px',
-                fontSize: 12,
-            }
-        },
-        '& ol': {
-            '& li': {
-                '&::marker': {
-                    fontSize: 16,
-                },
-                lineHeight: '24px',
-                fontSize: 12,
-            }
-        }
-    }
-})
+}))
 
 const stripIndent = (content: string) => {
     try {
@@ -178,13 +208,18 @@ function MarkdownParser(props: Props) {
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
-    // useEffect(() => {
-    //     setContent(stripIndent(props.children));
-    // }, [])
+
+
+    useEffect(() => {
+        let tables = document.getElementById('_MarkDownContainer_').querySelectorAll('table');
+        for (let i = 0; i < tables?.length; i++) {
+            tables[i]?.parentElement?.classList?.add('tableWrapper');
+        }
+    }, [])
 
 
     return (
-        <div className={classNames(styles.markdownContainer, { [styles.markdownContainer_M]: isMobile })}>
+        <div id='_MarkDownContainer_' className={classNames(styles.markdownContainer)}>
 
             <ReactMarkdown plugins={[remarkGfm]} children={stripIndent(props.content)} escapeHtml={false} />
 

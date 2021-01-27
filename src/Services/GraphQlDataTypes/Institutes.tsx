@@ -4,7 +4,7 @@ import { CourseListItem } from './Courses';
 export interface InstituteListItem {
     id: number,
     name: string,
-    image: string,
+    thumbnail: string,
     rating: number,
     location: string,
     isApplied: boolean,

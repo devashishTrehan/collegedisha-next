@@ -10,6 +10,9 @@ import classNames from 'classnames';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import InstituteCard from '@/Components/InstituteCard.component';
+import { ApolloClient, ApolloQueryResult, useLazyQuery, useQuery } from '@apollo/client';
+import { getColleges } from '@/Services/GraphQl.service';
+import { AppClient } from '@/Context/GraphClient.context';
 
 interface Props {
 
@@ -72,41 +75,23 @@ const useStyles = makeStyles({
     }
 })
 
-function Institutes(props: Props) {
+function InstitutesList(props) {
 
-    const [universities, setUniversities] = useState<InstituteListItem[]>([
-        { id: 1, slug: 'xyz-slug', name: 'Galgotias University', isApplied: true, isSaved: false, image: '', location: 'noida, india', rating: 4.5, },
-        { id: 2, slug: 'xyz-slug', name: 'Amity School Of Engineering And Technology', isApplied: false, isSaved: true, image: '', location: 'agra, india', rating: 4.4, },
-        { id: 3, slug: 'xyz-slug', name: 'GLA University [GLA]', isApplied: true, isSaved: false, image: '', location: 'noida, india', rating: 3.5, },
-        { id: 4, slug: 'xyz-slug', name: 'Sharda University', isApplied: false, isSaved: true, image: '', location: 'vishakha patnam, india', rating: 4.5, },
-        { id: 5, slug: 'xyz-slug', name: 'Noida International University - [NIU]', isApplied: true, isSaved: false, image: '', location: 'chennai, india', rating: 2.5, },
-        { id: 6, slug: 'xyz-slug', name: 'Maharishi University of Information Technology ', isApplied: false, isSaved: true, image: '', location: 'durg, india', rating: 4.8, },
-        { id: 7, slug: 'xyz-slug', name: 'Babasaheb Bhimrao Ambedka University', isApplied: true, isSaved: false, image: '', location: 'shimla, india', rating: 2.5, },
-        { id: 8, slug: 'xyz-slug', name: 'Kanpur Institute Of Technology', isApplied: false, isSaved: true, image: '', location: 'gaziabad, india', rating: 4.5, },
-        { id: 9, slug: 'xyz-slug', name: 'Harcourt Butler Technical University', isApplied: true, isSaved: false, image: '', location: 'delhi, india', rating: 4.5, },
-        // { id: 10, slug: 'xyz-slug', name: 'Motilal Nehru National Institute of Technology', isApplied: false, isSaved: true, image: '', location: 'nanital, india', rating: 3.5, },
-        // { id: 11, slug: 'xyz-slug', name: 'Babu Banarsi Das Institute of Technology', isApplied: true, isSaved: false, image: '', location: 'noida, india', rating: 2.5, },
-    ])
+    const [institutes, setInstitutes] = useState<InstituteListItem[] | null>(props?.data?.allColleges);
 
-    const [Colleges, setColleges] = useState<InstituteListItem[]>([
-        { id: 1, slug: 'xyz-slug', name: 'Bennett University', isApplied: true, isSaved: false, image: '', location: 'noida, india', rating: 4.5, },
-        { id: 2, slug: 'xyz-slug', name: 'Integral University', isApplied: false, isSaved: true, image: '', location: 'agra, india', rating: 4.4, },
-        { id: 3, slug: 'xyz-slug', name: 'Shri Ramswaroop Memorial University', isApplied: true, isSaved: false, image: '', location: 'noida, india', rating: 3.5, },
-        { id: 4, slug: 'xyz-slug', name: 'Sanskriti University', isApplied: true, isSaved: false, image: '', location: 'vishakha patnam, india', rating: 4.5, },
-        { id: 5, slug: 'xyz-slug', name: 'Amity University', isApplied: true, isSaved: false, image: '', location: 'chennai, india', rating: 2.5, },
-        { id: 6, slug: 'xyz-slug', name: 'Era University', isApplied: false, isSaved: true, image: '', location: 'durg, india', rating: 4.8, },
-        { id: 7, slug: 'xyz-slug', name: 'Vaugh Institute of Agricultural Engineering and Technology', isApplied: true, isSaved: false, image: '', location: 'shimla, india', rating: 2.5, },
-        { id: 8, slug: 'xyz-slug', name: 'Naraina Group Of Institutions', isApplied: false, isSaved: true, image: '', location: 'gaziabad, india', rating: 4.5, },
-        { id: 9, slug: 'xyz-slug', name: 'IIMT University', isApplied: true, isSaved: false, image: '', location: 'delhi, india', rating: 4.5, },
-        { id: 10, slug: 'xyz-slug', name: 'Swami Vivekanand Subharti University', isApplied: false, isSaved: true, image: '', location: 'nanital, india', rating: 3.5, },
-        { id: 11, slug: 'xyz-slug', name: 'Rama University', isApplied: true, isSaved: false, image: '', location: 'noida, india', rating: 2.5, },
-    ]);
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const [pageType, setPageType] = useState<'university' | 'college'>('university');
+    const [getData, { loading, fetchMore, data, error }] = useLazyQuery(getColleges, { variables: { category: pageType } })
     const breadcrumbs = [{ name: 'Institutes', endPoint: `${Routes.Institutes}` }];
 
+    console.log('g-loading', loading);
+    console.log('g-data', data);
+    console.log('g-error', error);
+
     const styles = useStyles();
+
+
 
     useEffect(() => {
         setLastNavigation(breadcrumbs);
@@ -116,64 +101,26 @@ function Institutes(props: Props) {
         })
     }, [])
 
-    const renderUniverities = () => {
-        return (
-            <Grid container spacing={5} justify='space-evenly'>
-                {
-                    universities?.map((university: InstituteListItem, index: number) => {
-                        if (isMobile) {
-
-                            return (<Grid item key={index} xs={12}>
-                                <InstituteListCard {...university} />
-                            </Grid>)
-                        } else {
-                            return (<Grid item key={index}>
-                                <InstituteCard {...university} />
-                            </Grid>)
-                        }
-                    })
-                }
-                {
-                    !isMobile ?
-                        <DummyCards cardCount={universities.length} withGrid={true} />
-                        : null
-                }
-
-            </Grid>
-        )
-    }
-
-    const renderColleges = () => {
-        return (
-            <Grid container spacing={5} justify='space-evenly'>
-                {
-                    Colleges?.map((college: InstituteListItem, index: number) => {
-                        if (isMobile) {
-
-                            return (<Grid item key={index} xs={12}>
-                                <InstituteListCard {...college} />
-                            </Grid>)
-                        } else {
-                            return (<Grid item key={index}>
-                                <InstituteCard {...college} />
-                            </Grid>)
-                        }
-                    })
-                }
-                {
-                    !isMobile ?
-                        <DummyCards cardCount={Colleges.length} withGrid={true} />
-                        : null
-                }
-
-            </Grid>
-        )
-    }
 
     const changePageType = (type: 'university' | 'college') => {
         if (pageType !== type) {
             setPageType(type);
+            console.log('fetching');
+            getData({ variables: { category: type } })
         }
+    }
+
+    if (loading) {
+        return (<p>Loading</p>)
+    }
+
+    if (error) {
+        return (
+            <>
+                <p>{error.name}</p>
+                <p>{error.extraInfo}</p>
+            </>
+        )
     }
 
     return (
@@ -181,7 +128,7 @@ function Institutes(props: Props) {
             <Head>
                 <title>Institutes</title>
             </Head>
-
+            <Button onClick={() => getData()}>get data</Button>
             <div className='container'>
                 <div className='wrapper' style={{ paddingTop: 0 }}>
 
@@ -213,11 +160,28 @@ function Institutes(props: Props) {
                         </div>
                         <div className='clearfix'></div>
                         <div>
-                            {
-                                pageType === 'college' ?
-                                    renderColleges()
-                                    : renderUniverities()
-                            }
+                            <Grid container spacing={5} justify='space-evenly'>
+                                {
+                                    institutes?.map((institute: InstituteListItem, index: number) => {
+                                        if (isMobile) {
+
+                                            return (<Grid item key={index} xs={12}>
+                                                <InstituteListCard {...institute} />
+                                            </Grid>)
+                                        } else {
+                                            return (<Grid item key={index}>
+                                                <InstituteCard {...institute} />
+                                            </Grid>)
+                                        }
+                                    })
+                                }
+                                {
+                                    !isMobile ?
+                                        <DummyCards cardCount={institutes?.length} withGrid={true} />
+                                        : null
+                                }
+
+                            </Grid>
                         </div>
                     </div>
 
@@ -229,7 +193,21 @@ function Institutes(props: Props) {
     );
 }
 
-export default Institutes;
+export default InstitutesList;
 
 
+export async function getServerSideProps(context) {
+
+    let response = await AppClient.query({
+        query: getColleges,
+        variables: { category: "university" }
+    }).then(response => response).catch(error => {
+        console.log('g-error--', error);
+        return { data: {} }
+    })
+    console.log('g-server-data', response)
+    return {
+        props: { data: response?.data },
+    }
+}
 

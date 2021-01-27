@@ -122,7 +122,7 @@ const defaultImage = '/assets/images/defaults/institute.jpg'
 
 const InstituteListCard = memo(function (props: Props) {
 
-    const { name, location, image, rating, isApplied, isSaved, onDownload, onApply, onSave, onShare, slug } = props;
+    const { name, location, thumbnail, rating, isApplied, isSaved, onDownload, onApply, onSave, onShare, slug } = props;
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -143,7 +143,7 @@ const InstituteListCard = memo(function (props: Props) {
 
             <div className={classNames(styles.ImageSection)}>
                 <div className={'imageWrap'}>
-                    <img src={image ? image : defaultImage} alt={name} />
+                    <img src={thumbnail ? thumbnail : defaultImage} alt={name} />
                 </div>
             </div>
 

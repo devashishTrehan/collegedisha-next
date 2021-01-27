@@ -1,5 +1,7 @@
 import { } from '@apollo/client';
 
+
+// ----- Institute course types from here ----- \\
 export interface CourseFees {
     currency: string,
     frequency: string,
@@ -20,5 +22,27 @@ export interface CourseList {
     exams: CourseListItem[]
 }
 
+
 export interface detailedCourse extends CourseListItem {
 }
+// ----- Institute course types to here ----- \\
+
+
+
+// ----- App level course types from here ----- \\
+export interface G_CourseItemType {
+    id: number,
+    label: string,
+    slug: string,
+}
+
+export interface G_CourseCategory {
+    id: number,
+    title: string,
+    image?: string,
+    courseList: G_CourseItemType[]
+}
+
+export interface CourseDetailType extends G_CourseItemType {
+}
+// ----- Institute course types to here ----- \\

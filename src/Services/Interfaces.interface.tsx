@@ -10,5 +10,4 @@ export interface ApiResponse {
     message: string[],
     result: object | object[],
     additional_info: object,
-
 }

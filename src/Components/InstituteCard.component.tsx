@@ -12,7 +12,7 @@ import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
 const useStyles = makeStyles({
     container: {
         width: 250,
-        minHeight: 320,
+        minHeight: 260,
         margin: 'auto',
         display: 'flex',
         height: '100%',
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     },
     HeadSection: {
         width: '100%',
-        height: 150,
+        minHeight: 100,
         position: 'relative',
         overflow: 'hidden',
         '& *': {
@@ -169,10 +169,9 @@ const useStyles = makeStyles({
 
     container_T: {
         width: 200,
-        minHeight: 260,
+        minHeight: 200,
     },
     HeadSection_T: {
-        height: 120,
         '& .actionButtonWrap': {
             '& .actionButton': {
                 color: Theme.primary,
@@ -220,7 +219,7 @@ const defaultImage = '/assets/images/defaults/institute.jpg'
 
 const InstituteCard = memo(function (props: Props) {
 
-    const { name, location, image, rating, isApplied, isSaved, onDownload, onApply, onSave, onShare, slug } = props;
+    const { name, location, thumbnail, rating, isSaved, isApplied, onDownload, onApply, onSave, onShare, slug } = props;
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -239,7 +238,7 @@ const InstituteCard = memo(function (props: Props) {
         <div className={classNames(styles.container, { [styles.container_T]: isTablet })}>
             <div className={classNames(styles.HeadSection, { [styles.HeadSection_T]: isTablet })}>
                 <div className={'imageWrap'}>
-                    <img src={image ? image : defaultImage} alt={name} />
+                    <img src={thumbnail ? thumbnail : defaultImage} alt={name} />
                 </div>
 
                 <div className={'actionButtonWrap'}>

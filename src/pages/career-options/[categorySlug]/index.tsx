@@ -4,11 +4,12 @@ import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { detailedCareer } from '@/Services/GraphQlDataTypes/CareerOptions';
+import { CareerListItem, detailedCareer } from '@/Services/GraphQlDataTypes/CareerOptions';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { AppSectionHeights } from '@/Services/App.service';
 import { PageNavigation } from '@/Components/PageNavigation.component';
 import MarkdownParser from '@/Components/MarkdownParser.component';
+import CareerCard from '@/Components/CareerCard.component';
 
 
 const useStyles = makeStyles({
@@ -57,30 +58,61 @@ function CareerDetails(props: any) {
       'salary': { title: 'salary', content: 'salary content' },
     }
   })
+  const [relatedCourses, setRelatedCourses] = React.useState<CareerListItem[]>([
+    {
+      id: 1,
+      name: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
+      slug: 'xyz',
+      image: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
+      courses: [
+        { name: 'xyz', slug: 'xyz' },
+        { name: 'xyz', slug: 'xyuyz' },
+        { name: 'xyzq', slug: 'yuyz' },
+        { name: 'xyzq', slug: 'yuyz' },
+        { name: 'xyzq', slug: 'yuyz' },
+        { name: 'xyzq', slug: 'yuyz' },
+        { name: 'xyzq', slug: 'yuyz' },
+        { name: 'xyzq', slug: 'yuyz' },
+        { name: 'xyzq', slug: 'yuyz' },
+        { name: 'xyzq', slug: 'yuyz' },
+        { name: 'xyzq', slug: 'yuyz' },
+        { name: 'xyzq', slug: 'yuyz' },
+      ]
+    }, {
+      id: 1,
+      name: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
+      slug: 'xyz',
+      image: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
+      courses: []
+    }, {
+      id: 1,
+      name: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
+      slug: 'xyz',
+      image: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
+      courses: [
+        { name: 'xyz', slug: 'xyz' },
+      ]
+    }, {
+      id: 1,
+      name: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
+      slug: 'xyz',
+      image: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
+      courses: [
+        { name: 'xyz', slug: 'xyz' },
+      ]
+    }])
   const { id, name, careerSections, sectionContent, courses } = data;
   const [currentSection, setCurrentSection] = React.useState<string>(careerSections['about']);
   const { navHeight } = React.useContext(NavbarContext);
 
-  const HashChangeHandler = (event: HashChangeEvent) => {
-    event.preventDefault();
-    let hash = event.newURL.split('#')[1];
-    setCurrentSection(hash)
-    let targetElement = document.getElementById(hash);
+
+
+
+  const showpageSection = (section: string) => {
+    let targetElement = document.getElementById(section);
     if (targetElement) {
       window.scrollTo(0, targetElement.offsetTop - (navHeight + AppSectionHeights.pageNavigation + 30));
     }
-  }
-
-  React.useEffect(() => {
-    window.addEventListener('hashchange', HashChangeHandler)
-
-    return () => {
-      window.removeEventListener('hashchange', HashChangeHandler)
-    };
-  }, [])
-
-  const showpageSection = (section: string) => {
-    window.location.hash = data?.careerSections[section];
   }
 
   let sections = Object.keys(sectionContent);
@@ -107,7 +139,28 @@ function CareerDetails(props: any) {
                 })
               }
 
+              <div className={classNames('pageSectionContainer', styles.container)}>
+
+                <div className='containerHead'>
+                  <Typography variant='h2'>Related Courses</Typography>
+                </div>
+
+                <Grid container spacing={isMobile ? 3 : 5} justify='flex-start'>
+                  {
+                    relatedCourses?.map((career: CareerListItem) => {
+                      return (
+                        <Grid item xs={12} sm={6} md={4} >
+                          <CareerCard {...career} />
+                        </Grid>
+
+                      )
+                    })
+                  }
+                </Grid>
+              </div>
             </Grid>
+
+
           </Grid>
         </div>
       </div>

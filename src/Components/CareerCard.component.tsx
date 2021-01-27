@@ -1,6 +1,5 @@
 import { Theme, NFormatter, MemoizedClipText, Routes } from '@/Services/App.service';
-import { Button, Typography, IconButton, useMediaQuery } from '@material-ui/core';
-import { Bookmark, BookmarkBorder, GetAppRounded, LocationOnOutlined, Share, StarRateRounded, StarRounded, Visibility } from '@material-ui/icons';
+import { Button, Typography, IconButton, useMediaQuery, Theme as MuiTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { memo, useState } from 'react';
 import classNames from 'classnames';
@@ -11,9 +10,9 @@ import { CareerListItem } from '@/Services/GraphQlDataTypes/CareerOptions';
 
 
 
-const useStyles = makeStyles({
-    container: {
-        width: 250,
+const useStyles = makeStyles((theme: MuiTheme) => ({
+    container: (props: { width: number }) => ({
+        width: props.width ? props.width : 350,
         minHeight: 260,
         margin: 'auto',
         display: 'flex',
@@ -38,11 +37,11 @@ const useStyles = makeStyles({
                 }
             }
         }
-    },
+    }),
     HeadSection: {
         width: '100%',
         minHeight: 100,
-        maxHeight: 150,
+        maxHeight: 190,
         position: 'relative',
         overflow: 'hidden',
         '& *': {
@@ -114,6 +113,9 @@ const useStyles = makeStyles({
             color: Theme.fontColorSecondary,
             fontFamily: 'gorditaMedium',
             fontSize: 15,
+            [theme.breakpoints.down('sm')]: {
+                fontSize: 13,
+            }
         },
     },
     footerSection: {
@@ -143,40 +145,10 @@ const useStyles = makeStyles({
             },
         }
     },
-
-    container_T: {
-        width: 200,
-        minHeight: 260,
-    },
-    HeadSection_T: {
-        height: 120,
-        '& .actionButtonWrap': {
-            '& .actionButton': {
-                color: Theme.primary,
-                width: 30,
-                height: 30,
-                '& svg': {
-                    fontSize: 18,
-                }
-            }
-        }
-    },
-    InfoSetion_T: {
-        padding: Theme.spacingLess,
-        '& .productName': {
-            fontSize: 13,
-        },
-    },
-    footerSection_T: {
-        padding: `0px ${Theme.spacingLess}px ${Theme.spacingLess}px`,
-        '& .applyButton': {
-            fontSize: 10,
-        },
-    }
-})
+}))
 
 interface Props extends CareerListItem {
-
+    width?: number
 }
 
 const ClipText = MemoizedClipText();
@@ -193,7 +165,7 @@ const CareerCard = memo(function (props: Props) {
     const router = useRouter();
 
 
-    const styles = useStyles();
+    const styles = useStyles({ width: props?.width });
 
     const ViewDetails = (slug: string) => {
         router.push({
@@ -202,8 +174,8 @@ const CareerCard = memo(function (props: Props) {
     }
 
     return (
-        <div className={classNames(styles.container, { [styles.container_T]: isTablet })}>
-            <div className={classNames(styles.HeadSection, { [styles.HeadSection_T]: isTablet })}>
+        <div className={classNames(styles.container)}>
+            <div className={classNames(styles.HeadSection)}>
                 <div className={'imageWrap'}>
                     <img src={image ? image : defaultImage} alt={name} />
                 </div>
@@ -222,11 +194,11 @@ const CareerCard = memo(function (props: Props) {
                     </ul>
                 </div>
             </div>
-            <div onClick={() => ViewDetails(slug)} className={classNames(styles.InfoSetion, { [styles.InfoSetion_T]: isTablet })}>
+            <div onClick={() => ViewDetails(slug)} className={classNames(styles.InfoSetion)}>
                 <Typography className={'productName'} >{ClipText(name)}</Typography>
 
             </div>
-            <div className={classNames(styles.footerSection, { [styles.footerSection_T]: isTablet })}>
+            <div className={classNames(styles.footerSection)}>
 
                 <Typography className='coursesNo'>{courses?.length ? courses.length : 'No'} course{courses?.length > 1 ? 's' : ''}</Typography>
 

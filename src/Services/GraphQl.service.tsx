@@ -1,9 +1,10 @@
 import { gql } from "@apollo/client";
 import { BASE_URL } from "./Api.service";
 import { ApiResponse } from "./Interfaces.interface";
+import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
 
 
-export const Api_Url = BASE_URL + 'fetch-query';
+export const Api_Url = BASE_URL + 'fetch-query/';
 
 
 // ----- Method to handle api response ----- \\
@@ -22,6 +23,10 @@ const ApiResponseTypes = {
     dataNotFound: '__data_not_found__',
     RequestSuccess: '__request_success__',
 }
+
+// type InstituteType implements InstituteListItem{
+
+// }
 
 export const ResponseHandler = (response: ApiResponse | undefined) => {
 
@@ -53,3 +58,16 @@ export const GetCollegeInformation = gql`
  }
 }
 `
+
+export const getColleges = gql`
+    query allColleges ($category:String,$offset:Int,$length:Int){
+    allColleges  (category:$category,offset:$offset,length:$length){
+        id
+        name
+        thumbnail
+        location
+        rating
+        slug
+    }
+    }
+  `

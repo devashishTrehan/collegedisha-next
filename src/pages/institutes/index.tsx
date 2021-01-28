@@ -3,20 +3,20 @@ import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import { Routes, setLastNavigation, Theme } from '@/Services/App.service';
+import { AppPageValues, Routes, setLastNavigation, Theme } from '@/Services/App.service';
 import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
 import { Button, Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import InstituteCard from '@/Components/InstituteCard.component';
-import { ApolloClient, ApolloQueryResult, useLazyQuery, useQuery } from '@apollo/client';
-import { getColleges } from '@/Services/GraphQl.service';
+import { useLazyQuery } from '@apollo/client';
+import { getColleges, PageInfo, ResponseHandler } from '@/Services/GraphQl.service';
 import { AppClient } from '@/Context/GraphClient.context';
+import PageEndIndicator from '@/Components/PageEndIndicator.component';
+import { ApiResponse } from '@/Services/Interfaces.interface';
+import NoResult from '@/Components/NoResult.component';
 
-interface Props {
-
-}
 
 const useStyles = makeStyles({
     buttonsContainer: {
@@ -75,21 +75,59 @@ const useStyles = makeStyles({
     }
 })
 
-function InstitutesList(props) {
+interface propData extends ApiResponse {
+    allColleges: {
+        pageInfo: PageInfo,
+        edges: { node: InstituteListItem }[]
+    }
+}
 
-    const [institutes, setInstitutes] = useState<InstituteListItem[] | null>(props?.data?.allColleges);
+interface Props {
+    data: propData
+}
+
+function InstitutesList(props: Props) {
+
+    const [institutes, setInstitutes] = useState<InstituteListItem[] | null>(null);
 
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const [pageType, setPageType] = useState<'university' | 'college'>('university');
-    const [getData, { loading, fetchMore, data, error }] = useLazyQuery(getColleges, { variables: { category: pageType } })
+    const [pageOptions, setPageOptions] = useState<{ first: number, after: string, hasNextPage: boolean }>({
+        first: AppPageValues.itemsPerPage,
+        after: '',
+        hasNextPage: true,
+    });
+    const [getData, { loading, fetchMore, data, error }] = useLazyQuery(getColleges, { variables: { category: pageType }, onCompleted: () => { } })
     const breadcrumbs = [{ name: 'Institutes', endPoint: `${Routes.Institutes}` }];
 
-    console.log('g-loading', loading);
-    console.log('g-data', data);
-    console.log('g-error', error);
+
 
     const styles = useStyles();
+
+    const handleResponseData = (data: propData) => {
+        let { pageInfo, edges } = data.allColleges;
+        // setInstitutes(prev => {
+        //     if (prev) {
+        //         return [...prev, ...edges];
+        //     } else {
+        //         return [...edges]
+        //     }
+        // });
+        setPageOptions((prev) => {
+            return {
+                ...prev,
+                after: pageInfo.endCursor,
+                hasNextPage: pageInfo.hasNextPage
+            }
+        })
+    }
+
+    useEffect(() => {
+        let response = ResponseHandler(props.data);
+        console.log('handeled data', props.data)
+        console.log('handeled prop response', response)
+    }, [props.data])
 
 
 
@@ -110,25 +148,25 @@ function InstitutesList(props) {
         }
     }
 
-    if (loading) {
-        return (<p>Loading</p>)
-    }
+    // if (loading) {
+    //     return (<p>Loading</p>)
+    // }
 
-    if (error) {
-        return (
-            <>
-                <p>{error.name}</p>
-                <p>{error.extraInfo}</p>
-            </>
-        )
-    }
+    // if (error) {
+    //     return (
+    //         <>
+    //             <p>{error.name}</p>
+    //             <p>{error.extraInfo}</p>
+    //         </>
+    //     )
+    // }
 
     return (
         <>
             <Head>
                 <title>Institutes</title>
             </Head>
-            <Button onClick={() => getData()}>get data</Button>
+            <NoResult />
             <div className='container'>
                 <div className='wrapper' style={{ paddingTop: 0 }}>
 
@@ -136,17 +174,12 @@ function InstitutesList(props) {
 
                         <div className='buttonWrap'>
 
-                            {/* <div className={classNames('arrowDown', { 'active': pageType === 'university' })}></div> */}
-                            {/* <div className='underlay'></div> */}
-
                             <div className={classNames('activeHelper', { 'active': pageType === 'university' })}></div>
                             <Button color='primary' onClick={() => changePageType('university')}>Universities</Button>
                         </div>
 
                         <div className='buttonWrap' >
 
-                            {/* <div className={classNames('arrowDown', { 'active': pageType === 'college' })}></div> */}
-                            {/* <div className='underlay'></div> */}
 
                             <div className={classNames('activeHelper', { 'active': pageType === 'college' })}></div>
                             <Button color='primary' onClick={() => changePageType('college')}>Colleges</Button>
@@ -162,14 +195,14 @@ function InstitutesList(props) {
                         <div>
                             <Grid container spacing={5} justify='space-evenly'>
                                 {
-                                    institutes?.map((institute: InstituteListItem, index: number) => {
+                                    institutes?.map((institute: InstituteListItem) => {
                                         if (isMobile) {
 
-                                            return (<Grid item key={index} xs={12}>
+                                            return (<Grid item key={institute.id} xs={12}>
                                                 <InstituteListCard {...institute} />
                                             </Grid>)
                                         } else {
-                                            return (<Grid item key={index}>
+                                            return (<Grid item key={institute.id}>
                                                 <InstituteCard {...institute} />
                                             </Grid>)
                                         }
@@ -187,6 +220,7 @@ function InstitutesList(props) {
 
                 </div>
             </div>
+            <PageEndIndicator loading={loading} onIntersection={() => getData()} />
             <SubscribeSection />
             <Footer />
         </>
@@ -203,7 +237,7 @@ export async function getServerSideProps(context) {
         variables: { category: "university" }
     }).then(response => response).catch(error => {
         console.log('g-error--', error);
-        return { data: {} }
+        return { data: null }
     })
     console.log('g-server-data', response)
     return {

@@ -202,10 +202,10 @@ function RegisterPage(props: any) {
             <div className={styles.formContainer}>
 
               <div className='decImageWrap' style={{ left: -250 }}>
-                <img src='assets/images/LoginLeft.png' alt='' />
+                <img src='assets/images/LoginLeft.webp' alt='' />
               </div>
               <div className='decImageWrap' style={{ right: -250 }}>
-                <img src='assets/images/LoginRight.png' alt='' />
+                <img src='assets/images/LoginRight.webp' alt='' />
               </div>
 
               <div className={styles.form} style={isMobile ? { padding: 0 } : {}}>

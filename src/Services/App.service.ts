@@ -29,23 +29,13 @@ export const Theme = {
     spacingMore: 30,
     SecSpacingMob: 40,
     SecSpacingDesk: 80,
-    ContentMid: {
-        display: 'flex',
-        alignItems: 'center'
-    },
-    ContentRight: {
-        display: 'flex',
-        justifyContent: 'flex-end'
-    },
-    ContentLeft: {
-        display: 'flex',
-        justifyContent: 'flex-start'
-    }
 }
 
+
+
 export const RecaptchaKeys = {
-    site_key: '6Lc20vUZAAAAAA6oANXZ7CObtino2s5w-Ujps1Yx',
-    secret_key: '6Lc20vUZAAAAAJhGL6PNzI4IgBN9ILuvrYz7KJRT'
+    site_key: '',
+    secret_key: ''
 }
 
 export const Months: any = {
@@ -100,6 +90,10 @@ export const Routes = {
 
 export const AppSectionHeights = {
     pageNavigation: 84,
+}
+
+export const AppPageValues = {
+    itemsPerPage: 12
 }
 
 export const ContactInfo = {
@@ -162,15 +156,6 @@ export const StoreUser = async (data: Object) => {
 }
 
 
-export const ApplicationStatusList = {
-    NotAvailable: 'NA',
-    Viewed: 'Viewed',
-    Applied: 'Applied',
-    Saved: 'Saved',
-    Reviewed: 'Reviewed',
-    Shortlisted: 'Shortlisted',
-    Rejected: 'Rejected',
-}
 
 export const ErrorTypes = {
     UNVERIFIED_EMAIL: 'UNVERIFIED_EMAIL',
@@ -265,21 +250,3 @@ export function NFormatter(num, digits) {
     }
     return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
 }
-
-export const CurrencySymbols = {
-    'USD': '$', // US Dollar
-    'EUR': '€', // Euro
-    'CRC': '₡', // Costa Rican Colón
-    'GBP': '£', // British Pound Sterling
-    'ILS': '₪', // Israeli New Sheqel
-    'INR': '₹', // Indian Rupee
-    'JPY': '¥', // Japanese Yen
-    'KRW': '₩', // South Korean Won
-    'NGN': '₦', // Nigerian Naira
-    'PHP': '₱', // Philippine Peso
-    'PLN': 'zł', // Polish Zloty
-    'PYG': '₲', // Paraguayan Guarani
-    'THB': '฿', // Thai Baht
-    'UAH': '₴', // Ukrainian Hryvnia
-    'VND': '₫', // Vietnamese Dong
-};

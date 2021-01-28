@@ -15,6 +15,8 @@ import { CounsellingFormParent } from '@/Components/Forms/CounsellingFormParent.
 import { ViewportTracker } from '@/Components/ViewportTracker.component';
 import { FormHead } from '@/Components/FormHead.component';
 import { NavbarContext } from '@/Context/Navbar.context';
+import Particles from 'react-particles-js';
+import ParticlesConfig from 'particlesjs-config';
 
 let pageContentRef: any = React.createRef();
 let CounsellingSectionRef: any = React.createRef();

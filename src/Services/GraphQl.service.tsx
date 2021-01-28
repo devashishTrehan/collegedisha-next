@@ -24,6 +24,8 @@ const ApiResponseTypes = {
     RequestSuccess: '__request_success__',
 }
 
+export type PageInfo = { endCursor: string, hasNextPage: boolean }
+
 // type InstituteType implements InstituteListItem{
 
 // }
@@ -31,7 +33,7 @@ const ApiResponseTypes = {
 export const ResponseHandler = (response: ApiResponse | undefined) => {
 
     if (response) {
-        if (response.is_authenticated) {
+        if (response.isAuthenticated) {
             if (response.status) {
                 if (response.result) {
                     return ApiResponseTypes.RequestSuccess
@@ -59,15 +61,35 @@ export const GetCollegeInformation = gql`
 }
 `
 
+const ResponseFragment = gql`
+    fragment Response on Query{
+        status
+        messages
+        additionalInfo
+        isAuthenticated
+    }
+`
+
+
+
 export const getColleges = gql`
-    query allColleges ($category:String,$offset:Int,$length:Int){
-    allColleges  (category:$category,offset:$offset,length:$length){
-        id
-        name
-        thumbnail
-        location
-        rating
-        slug
+   query collegeList ($category:String,$length:Int,$lastCursor:String){
+        ... Response,
+        collegeList(category:$category,after:$lastCursor,first:$length) {
+            pageInfo{
+                hasNextPage
+                endCursor
+            }
+            edges{
+                id
+                name
+                thumbnail
+                location
+                rating
+                slug            
+            
+            }
+        }
     }
-    }
+    ${ResponseFragment}
   `

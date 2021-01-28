@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 function Universities(props: Props) {
 
     const [universities, setUniversities] = useState<InstituteListItem[]>([])
-
+    
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const breadcrumbs = [{ name: 'universities', endPoint: `${Routes.Universities}` }];

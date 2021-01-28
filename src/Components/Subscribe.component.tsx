@@ -1,12 +1,12 @@
 import { Theme } from "@/Services/App.service";
 import { makeStyles } from "@material-ui/styles";
-import { Grid, Hidden, Typography, useMediaQuery } from '@material-ui/core';
+import { Grid, Hidden, Typography, useMediaQuery, Theme as MuiTheme } from '@material-ui/core';
 import * as React from 'react';
 import classNames from 'classnames';
 import { SearchForm } from '@/Components/Search.component';
 
 
-const SubscribeSectionStyles = makeStyles({
+const SubscribeSectionStyles = makeStyles((theme: MuiTheme) => ({
     container: {
         minHeight: 200,
         padding: `20px 5%`,
@@ -14,60 +14,102 @@ const SubscribeSectionStyles = makeStyles({
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
 
-        '& .rightSec': {
-            ...Theme.ContentRight
-        },
-        '& .formWrap': {
+
+        '& .textWrap': {
             display: 'flex',
             height: '100%',
             flexDirection: 'column',
             justifyContent: 'center',
-        },
-        '& .imageWrap': {
-            height: 310,
-            overflow: 'hidden',
-            padding: `0 ${Theme.spacingMid}px`,
-            backgroundSize: 'cover',
-            animation: 'translateY 4s linear infinite',
-            '& img': {
-                height: '100%'
+            '& .text': {
+                color: '#fff',
+                textTransform: 'uppercase',
+                fontSize: 24,
+                [theme.breakpoints.down('sm')]: {
+                    fontSize: 20
+                },
+                [theme.breakpoints.down('xs')]: {
+                    fontSize: 18
+                }
+
             }
         },
+        '& .rightSec': {
+            display: 'flex',
+            alignItems: 'center',
+            '& form': {
+                height: 40,
+                display: 'flex',
+                width: 310,
+                maxWidth: '100% !important',
+                borderRadius: Theme.radius2,
+                overflow: 'hidden',
+                boxShadow: Theme.boxShadow,
+                // flexWrap: 'wrap',
+                '& input': {
+                    height: "100%",
+                    flexGrow: 1,
+                    border: 'none',
+                    width: 'calc(100% - 77px)',
+                    padding: '5px 10px',
+                },
+                '& button': {
+                    padding: '5px 10px',
+                    background: Theme.primary,
+                    color: '#fff',
+                    border: 'none',
+                }
+            }
+        }
     },
+    wrapper: {
+        padding: `20px`,
+        width: 780,
+        minHeight: 160,
+        display: 'flex',
+        alignItems: 'center',
+        maxWidth: '100% !important',
+        borderRadius: Theme.radius2,
+        backgroundImage: `url('/assets/images/subscribeLeft.webp')`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+    }
 
-})
+}))
 
 export const SubscribeSection = () => {
 
     const styles = SubscribeSectionStyles();
     const isMobile = useMediaQuery('(max-width:600px)');
 
+    const subscribe = (event: React.FormEvent) => {
+        event.preventDefault();
+    }
+
 
     return (
         <div className={styles.container}>
-            <div className={classNames('container')}>
 
-                <Grid container className={''} spacing={4} >
-                    <Grid item className={'leftSec'} xs={12} md={6} >
+            <div className={classNames('container', styles.wrapper)} >
 
-                        <div className={'formWrap'}>
-                            <Typography style={{ color: Theme.primary, margin: `${Theme.spacingMid}px 0`, textTransform: 'uppercase' }} variant={isMobile ? 'h5' : 'h4'} align='left' >
+                <Grid container spacing={2}>
+                    <Grid item className={'leftSec'} xs={12} sm={6} >
+
+                        <div className={'textWrap'}>
+                            <Typography className='text' variant={'h6'} align='left' >
                                 <span>Subscribe to our</span>
                                 <br />
                                 <span style={{ fontFamily: 'gorditaBold' }}>education portal</span>
                             </Typography>
-                            <SearchForm inputProps={{ placeholder: 'Enter Email address' }} buttonText='Go' buttonIcon={'Go'} />
                         </div>
 
                     </Grid>
 
-                    <Hidden smDown>
-                        <Grid item className={'rightSec'} md={6}>
-                            <div className={'imageWrap'}>
-                                <img src='/assets/images/subscribeLeft.webp' alt='' />
-                            </div>
-                        </Grid>
-                    </Hidden>
+                    <Grid item className={'rightSec'} xs={12} sm={6}>
+                        <form className='form' onSubmit={subscribe}>
+                            <input placeholder='Enter Email Address' />
+                            <button type='submit' >subscribe</button>
+                        </form>
+                    </Grid>
 
                 </Grid>
 

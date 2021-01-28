@@ -157,6 +157,9 @@ export const SearchPage = (props: any) => {
     }
 
     const ClosePage = () => {
+
+        // let mainContainer = document.getElementById('_searchpage_');
+
         setActive(false);
         let mainPage = document.getElementById('__mainPage');
         mainPage.style.overflow = 'unset';
@@ -172,7 +175,7 @@ export const SearchPage = (props: any) => {
 
 
     return (
-        <div className={classNames(styles.mainContainer, { 'active': isActive })}>
+        <div id='_searchpage_' className={classNames(styles.mainContainer, { 'active': isActive })}>
             {
                 isActive ?
                     <>

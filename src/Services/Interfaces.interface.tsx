@@ -5,9 +5,9 @@ export interface MenuListInterface {
 }
 
 export interface ApiResponse {
-    is_authenticated: boolean,
+    isAuthenticated: boolean,
     status: boolean,
-    message: string[],
+    messages: string[],
     result: object | object[],
-    additional_info: object,
+    additionalInfo: object,
 }

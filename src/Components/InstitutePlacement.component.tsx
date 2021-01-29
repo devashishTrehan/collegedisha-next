@@ -2,7 +2,7 @@ import { Theme } from '@/Services/App.service';
 import React from 'react';
 import { Button, Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
-import { InstituteFaculty } from '@/Services/GraphQlDataTypes/Institutes';
+import { InstituteFaculty } from '@/Services/DataTypes/Institutes';
 import InputArea from './TextArea.component/TextArea.component';
 import InputField from './TextField.component/TextField.component';
 

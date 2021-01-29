@@ -1,5 +1,5 @@
 import { Theme } from '@/Services/App.service';
-import { detailedInstitute } from '@/Services/GraphQlDataTypes/Institutes';
+import { detailedInstitute } from '@/Services/DataTypes/Institutes';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import { Chip, Grid, ListItem, makeStyles, Tooltip, Typography, useMediaQuery } from '@material-ui/core';
@@ -7,7 +7,7 @@ import { LocationOnOutlined, Visibility } from '@material-ui/icons';
 import { Rating } from '@material-ui/lab';
 import classNames from 'classnames';
 import { NavbarContext } from '@/Context/Navbar.context';
-import { CoachingListItem } from '@/Services/GraphQlDataTypes/Coachings';
+import { CoachingListItem } from '@/Services/DataTypes/Coachings';
 
 
 

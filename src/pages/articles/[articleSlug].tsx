@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import { Theme } from '../../Services/App.service';
 import classNames from 'classnames';
-import { detailedArticle, } from '@/Services/GraphQlDataTypes/article';
+import { detailedArticle, } from '@/Services/DataTypes/article';
 import { AccessTimeOutlined, CalendarToday, CommentOutlined, ShareOutlined, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
 import MarkdownParser from '@/Components/MarkdownParser.component';
 

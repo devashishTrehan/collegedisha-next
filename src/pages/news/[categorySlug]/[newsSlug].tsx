@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useContext,  useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { NavbarContext } from '@/Context/Navbar.context';
-import { detailedNews,  } from '@/Services/GraphQlDataTypes/News';
+import { detailedNews,  } from '@/Services/DataTypes/News';
 import MarkdownParser from '@/Components/MarkdownParser.component';
 import classNames from 'classnames';
 import { CalendarToday, CommentOutlined, VisibilityOutlined } from '@material-ui/icons';

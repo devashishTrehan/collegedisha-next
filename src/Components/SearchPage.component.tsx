@@ -19,7 +19,6 @@ export const SearchPage = (props: any) => {
     const [largestSide, setLargestSide] = React.useState(0);
     const router = useRouter();
     const isMobile = useMediaQuery('(max-width:767px');
-    console.log('isMobile', isMobile);
 
     React.useEffect(() => {
         let { innerHeight, innerWidth } = window;

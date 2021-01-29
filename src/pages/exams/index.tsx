@@ -4,7 +4,7 @@ import { ExamCategories } from '@/Components/ExamCategories.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
 import {  Theme } from '@/Services/App.service';
-import { ExamListItem } from '@/Services/GraphQlDataTypes/Exams';
+import { ExamListItem } from '@/Services/DataTypes/Exams';
 import { Divider, Grid, Hidden, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';

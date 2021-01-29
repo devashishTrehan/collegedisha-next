@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import React, { memo, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { ArticleListItemTypes } from '@/Services/GraphQlDataTypes/article';
+import { ArticleListItemTypes } from '@/Services/DataTypes/article';
 
 
 

@@ -11,3 +11,11 @@ export interface ApiResponse {
     result: object | object[],
     additionalInfo: object,
 }
+
+export interface ApiListResponse extends ApiResponse {
+    result: object[],
+}
+
+export interface ApiObjectResponse extends ApiResponse {
+    result: object,
+}

@@ -2,7 +2,7 @@ import { Theme } from '@/Services/App.service';
 import React from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import MarkdownParser from './MarkdownParser.component';
-import { InstituteHostel, InstituteHostelFacility, InstituteHostelFees } from '@/Services/GraphQlDataTypes/Institutes';
+import { InstituteHostel, InstituteHostelFacility, InstituteHostelFees } from '@/Services/DataTypes/Institutes';
 
 
 const useStyles = makeStyles({

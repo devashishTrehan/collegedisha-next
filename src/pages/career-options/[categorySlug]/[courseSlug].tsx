@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { CareerListItem, detailedCareer } from '@/Services/GraphQlDataTypes/CareerOptions';
+import { CareerListItem, detailedCareer } from '@/Services/DataTypes/CareerOptions';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { AppSectionHeights } from '@/Services/App.service';
 import { PageNavigation } from '@/Components/PageNavigation.component';

@@ -5,7 +5,7 @@ import { SubscribeSection } from '@/Components/Subscribe.component';
 import { Routes } from '@/Services/App.service';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import React, {  useState } from 'react';
-import { CoachingListItem } from '@/Services/GraphQlDataTypes/Coachings';
+import { CoachingListItem } from '@/Services/DataTypes/Coachings';
 import CoachingCard from '@/Components/CoachingCard.component';
 
 interface Props {

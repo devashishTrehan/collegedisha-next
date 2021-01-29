@@ -3,19 +3,17 @@ import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import { AppPageValues, Routes, setLastNavigation, Theme } from '@/Services/App.service';
-import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
+import { GetCookie, Routes, setLastNavigation, Storages, Theme } from '@/Services/App.service';
+import { InstituteListItem } from '@/Services/DataTypes/Institutes';
 import { Button, Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import InstituteCard from '@/Components/InstituteCard.component';
-import { useLazyQuery } from '@apollo/client';
-import { getColleges, PageInfo, ResponseHandler } from '@/Services/GraphQl.service';
-import { AppClient } from '@/Context/GraphClient.context';
 import PageEndIndicator from '@/Components/PageEndIndicator.component';
 import { ApiResponse } from '@/Services/Interfaces.interface';
-import NoResult from '@/Components/NoResult.component';
+import { ApiResponseHandler, GetInstituteList } from '@/Services/Api.service';
+import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
 
 
 const useStyles = makeStyles({
@@ -76,14 +74,17 @@ const useStyles = makeStyles({
 })
 
 interface propData extends ApiResponse {
-    allColleges: {
-        pageInfo: PageInfo,
-        edges: { node: InstituteListItem }[]
-    }
+
 }
 
 interface Props {
-    data: propData
+    data: any
+}
+
+
+const getData = async (params) => {
+
+    return await GetInstituteList(params);
 }
 
 function InstitutesList(props: Props) {
@@ -93,40 +94,43 @@ function InstitutesList(props: Props) {
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const [pageType, setPageType] = useState<'university' | 'college'>('university');
-    const [pageOptions, setPageOptions] = useState<{ first: number, after: string, hasNextPage: boolean }>({
-        first: AppPageValues.itemsPerPage,
-        after: '',
+    const [pageState, setPageState] = useState<pageStateType>(null);
+    const [loading, setLoading] = useState(false);
+    const [pageOptions, setPageOptions] = useState<{ pageNo: number, hasNextPage: boolean }>({
+        pageNo: 1,
         hasNextPage: true,
     });
-    const [getData, { loading, fetchMore, data, error }] = useLazyQuery(getColleges, { variables: { category: pageType }, onCompleted: () => { } })
     const breadcrumbs = [{ name: 'Institutes', endPoint: `${Routes.Institutes}` }];
 
 
 
     const styles = useStyles();
 
-    const handleResponseData = (data: propData) => {
-        let { pageInfo, edges } = data.allColleges;
-        // setInstitutes(prev => {
-        //     if (prev) {
-        //         return [...prev, ...edges];
-        //     } else {
-        //         return [...edges]
-        //     }
-        // });
+    const OnPageResponseHandler = (data, toAppend: boolean = false) => {
+        let response = ApiResponseHandler(data, {
+            onError: () => { },
+            onFailed: () => { },
+            onUnAuthenticated: () => { },
+            onNoData: () => { setInstitutes(null) },
+            onSuccess: () => {
+                setInstitutes((prev => {
+                    if (toAppend) {
+                        return [...prev, ...data?.result]
+                    } else {
+                        return data?.result;
+                    }
+                }))
+            },
+        });
+
         setPageOptions((prev) => {
-            return {
-                ...prev,
-                after: pageInfo.endCursor,
-                hasNextPage: pageInfo.hasNextPage
-            }
+            return { pageNo: ++prev.pageNo, hasNextPage: data?.additionalData?.hasMore }
         })
+        setPageState(response);
     }
 
     useEffect(() => {
-        let response = ResponseHandler(props.data);
-        console.log('handeled data', props.data)
-        console.log('handeled prop response', response)
+        OnPageResponseHandler(props?.data);
     }, [props.data])
 
 
@@ -142,36 +146,38 @@ function InstitutesList(props: Props) {
 
     const changePageType = (type: 'university' | 'college') => {
         if (pageType !== type) {
+            console.log('pageType----', type)
             setPageType(type);
             console.log('fetching');
-            getData({ variables: { category: type } })
+            requestData(type, 1);
         }
     }
 
-    // if (loading) {
-    //     return (<p>Loading</p>)
-    // }
+    const requestData = async (_pageType = pageType, _pageNo: number, toAppend: boolean = false) => {
+        let userId = parseInt(GetCookie(Storages.UserId));
+        let token = GetCookie(Storages.AccessToken);
+        let response = await getData({ token: token, userId: userId, pageNo: _pageNo, category: _pageType });
+        OnPageResponseHandler(response ? response.data : null, toAppend);
+    }
 
-    // if (error) {
-    //     return (
-    //         <>
-    //             <p>{error.name}</p>
-    //             <p>{error.extraInfo}</p>
-    //         </>
-    //     )
-    // }
+    const RequestDataOnIntersection = (_pageType: 'university' | 'college') => {
+        console.log('pageType', _pageType);
+        if (pageOptions?.hasNextPage) {
+            console.log('page options', pageOptions)
+            requestData(_pageType, pageOptions?.pageNo, true)
+        }
+    }
 
     return (
         <>
             <Head>
                 <title>Institutes</title>
             </Head>
-            <NoResult />
             <div className='container'>
                 <div className='wrapper' style={{ paddingTop: 0 }}>
 
                     <div className={styles.buttonsContainer} >
-
+                        <p style={{ background: 'gray', padding: 10, position: 'fixed', left: 0, top: 100, zIndex: 99 }}>length -- {institutes?.length}</p>
                         <div className='buttonWrap'>
 
                             <div className={classNames('activeHelper', { 'active': pageType === 'university' })}></div>
@@ -192,37 +198,43 @@ function InstitutesList(props: Props) {
                             <Filters />
                         </div>
                         <div className='clearfix'></div>
-                        <div>
-                            <Grid container spacing={5} justify='space-evenly'>
-                                {
-                                    institutes?.map((institute: InstituteListItem) => {
-                                        if (isMobile) {
 
-                                            return (<Grid item key={institute.id} xs={12}>
-                                                <InstituteListCard {...institute} />
-                                            </Grid>)
-                                        } else {
-                                            return (<Grid item key={institute.id}>
-                                                <InstituteCard {...institute} />
-                                            </Grid>)
-                                        }
-                                    })
-                                }
-                                {
-                                    !isMobile ?
-                                        <DummyCards cardCount={institutes?.length} withGrid={true} />
-                                        : null
-                                }
+                        <DataPageWrapper loading={loading} pageState={pageState} >
+                            <div>
+                                <Grid container spacing={5} justify='space-evenly'>
+                                    {
+                                        institutes?.map((institute: InstituteListItem) => {
+                                            if (isMobile) {
 
-                            </Grid>
-                        </div>
+                                                return (<Grid item key={institute.id} xs={12}>
+                                                    <InstituteListCard {...institute} />
+                                                </Grid>)
+                                            } else {
+                                                return (<Grid item key={institute.id}>
+                                                    <InstituteCard {...institute} />
+                                                </Grid>)
+                                            }
+                                        })
+                                    }
+                                    {
+                                        !isMobile ?
+                                            <DummyCards cardCount={institutes?.length} withGrid={true} />
+                                            : null
+                                    }
+                                    {
+                                        console.log('page type in render', pageType)
+                                    }
+                                    <PageEndIndicator loading={loading} onIntersection={() => RequestDataOnIntersection(pageType)} />
+                                </Grid>
+                            </div>
+                        </DataPageWrapper>
+
                     </div>
 
                 </div>
             </div>
-            <PageEndIndicator loading={loading} onIntersection={() => getData()} />
             <SubscribeSection />
-            <Footer />
+            {/* <Footer /> */}
         </>
     );
 }
@@ -232,16 +244,16 @@ export default InstitutesList;
 
 export async function getServerSideProps(context) {
 
-    let response = await AppClient.query({
-        query: getColleges,
-        variables: { category: "university" }
-    }).then(response => response).catch(error => {
-        console.log('g-error--', error);
-        return { data: null }
-    })
-    console.log('g-server-data', response)
-    return {
-        props: { data: response?.data },
+    let cookies = context.req.cookies;
+    let token = cookies[Storages.AccessToken]
+    let userId = parseInt(cookies[Storages.UserId])
+    let returnData = { props: { data: null } }
+
+    let response = await getData({ token: token, userId: userId });
+    if (response) {
+        returnData.props.data = response.data;
     }
+    return returnData;
+
 }
 

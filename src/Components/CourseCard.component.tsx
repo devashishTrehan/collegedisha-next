@@ -4,7 +4,7 @@ import { ArrowRightAlt,  Schedule } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import React, { memo } from 'react';
 import classNames from 'classnames';
-import { CourseFees, CourseListItem } from '@/Services/GraphQlDataTypes/Courses';
+import { CourseFees, CourseListItem } from '@/Services/DataTypes/Courses';
 
 
 

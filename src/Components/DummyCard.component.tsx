@@ -49,7 +49,7 @@ const DummyCards = (props: Props) => {
             let width = _ref.closest('.MuiGrid-container').getBoundingClientRect().width;
             setWidthHelperVisibility(false);
             setParentWidth(width);
-            console.log('parentWidth by ref', width);
+            // console.log('parentWidth by ref', width);
         }
     }
 
@@ -60,7 +60,6 @@ const DummyCards = (props: Props) => {
 
             clearTimeout(timeout);
             setTimeout(() => {
-                console.log('listening');
                 UpdateParentWidth();
             }, 500)
 
@@ -68,7 +67,6 @@ const DummyCards = (props: Props) => {
         UpdateParentWidth();
 
         return window.removeEventListener('resize', () => {
-            console.log('listener removed')
         })
 
     }, []);
@@ -82,20 +80,18 @@ const DummyCards = (props: Props) => {
     let regularCard = props.cardSize?.width ? props.cardSize?.width.regular : cardSize.width.regular;
     let spacing = props.spacing ? props.spacing : 5;
     let _cardSize = (isTablet ? smallCard : regularCard) + (spacing * (4 * 2));
-    console.log('cardWidth', _cardSize);
-    console.log('parentWidth', parentWidth);
+    // console.log('cardWidth', _cardSize);
+    // console.log('parentWidth', parentWidth);
 
     let cardInRow = Math.floor(parentWidth / _cardSize);
-    console.log('cards in row', cardInRow);
+    // console.log('cards in row', cardInRow);
 
     let cardToAdd = ((cardInRow * Math.ceil(props.cardCount / cardInRow)) - props.cardCount)
-    console.log('cards to add', cardToAdd);
+    // console.log('cards to add', cardToAdd);
     let cards = new Array();
     for (let i = 0; i < cardToAdd; i++) {
         cards.push(i);
     }
-
-    console.log('cards', cards);
 
 
     if (props.withGrid) {

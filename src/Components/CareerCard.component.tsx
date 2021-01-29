@@ -5,8 +5,8 @@ import React, { memo, useState } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
-import { CareerListItem } from '@/Services/GraphQlDataTypes/CareerOptions';
+import { InstituteListItem } from '@/Services/DataTypes/Institutes';
+import { CareerListItem } from '@/Services/DataTypes/CareerOptions';
 
 
 

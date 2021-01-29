@@ -1,5 +1,5 @@
 
-import { detailedInstitute } from '@/Services/GraphQlDataTypes/Institutes';
+import { detailedInstitute } from '@/Services/DataTypes/Institutes';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import { Grid, makeStyles, useMediaQuery } from '@material-ui/core';

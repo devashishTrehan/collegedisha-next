@@ -4,7 +4,8 @@ import { Theme } from '@/Services/App.service';
 import { CopyRightStrip } from '@/Components/CopyRightStrip.component';
 import '../styles/globals.css'
 import { useRouter } from 'next/router';
-import GraphClientContextProvider from '@/Context/GraphClient.context';
+import { AppContextProvider } from '@/Context/App.context';
+import { UserContextProvider } from '@/Context/User.context';
 import NavbarContextProvider, { NavbarContext } from '@/Context/Navbar.context';
 import CustomBreadCrumb, { UrlObject } from '@/Components/CustomBreadCrumb.component';
 // import './fonts/gordita/Gordita';
@@ -41,15 +42,17 @@ function MyApp(props) {
 
   return <>
     <ThemeProvider theme={theme}>
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
 
-        <GraphClientContextProvider>
-          <NavbarContextProvider>
-            <div id='App'>
-              <MyAppMainComponent {...props} />
-            </div>
-          </NavbarContextProvider>
-        </GraphClientContextProvider>
+        <AppContextProvider>
+          <UserContextProvider>
+            <NavbarContextProvider>
+              <div id='App'>
+                <MyAppMainComponent {...props} />
+              </div>
+            </NavbarContextProvider>
+          </UserContextProvider>
+        </AppContextProvider>
 
         <CopyRightStrip style={{ backgroundColor: Theme.copyrightStripBackground, color: '#fff' }} />
       </div>

@@ -6,7 +6,7 @@ import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { PageNavigation } from '@/Components/PageNavigation.component';
 import { InnerPageHead } from '@/Components/InnerPageHead.component';
-import { detailedBoard } from '@/Services/GraphQlDataTypes/Boards';
+import { detailedBoard } from '@/Services/DataTypes/Boards';
 import MarkdownParser from '@/Components/MarkdownParser.component';
 
 

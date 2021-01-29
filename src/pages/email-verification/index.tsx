@@ -5,6 +5,7 @@ import * as React from 'react';
 import { Routes, Theme, ValidateFields } from '@/Services/App.service';
 import InputField from '@/Components/TextField.component/TextField.component';
 import { useRouter } from 'next/router';
+import { MailSent } from '@/Components/MailSent.component';
 
 
 const useStyles = makeStyles({
@@ -59,21 +60,6 @@ const useStyles = makeStyles({
     borderRadius: Theme.radius2,
     '& .formHead': {
       textAlign: 'center',
-      '& .imageWrap': {
-        width: 140,
-        margin: '25px auto',
-        '& img': {
-          width: '100%',
-        }
-      },
-      '& .subHeading': {
-        margin: '10px 0',
-        fontSize: 13,
-        marginBottom: 0,
-        '& span': {
-          color: Theme.secondary
-        }
-      },
     },
     '& .inputContainer': {
       padding: '10px 20px',
@@ -168,12 +154,8 @@ function EmailVerificationPage(props: any) {
 
                   <Divider />
 
-                  <div className='imageWrap'>
-                    <img src='/assets/images/emailVerify.webp' alt='' />
-                  </div>
+                  <MailSent email={Email} />
 
-                  <div><Typography variant={'h1'} className={'heading'}>Confirm Your Email</Typography></div>
-                  <div><Typography variant={'body1'} className={'subHeading'}>We have sent mail to <span>{Email}</span> to confirm the validity of your email address. After receiving the email follow the link provided to complete your registration</Typography></div>
                 </div>
 
                 <div className={styles.ORSeparator}>

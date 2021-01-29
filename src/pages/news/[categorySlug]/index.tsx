@@ -5,7 +5,7 @@ import * as React from 'react';
 import {  Routes,  Theme } from '@/Services/App.service';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { NewsListItemTypes, NewsListTypes } from '@/Services/GraphQlDataTypes/News';
+import { NewsListItemTypes, NewsListTypes } from '@/Services/DataTypes/News';
 import NewsListCard from '@/Components/NewsListCard.component';
 import { PageNavigation } from '@/Components/PageNavigation.component';
 import { NewsPageHeader } from '..';

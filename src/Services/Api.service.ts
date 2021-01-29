@@ -1,9 +1,12 @@
+import { pageStateType } from "@/Components/DataPageWrapper.component";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { Http2ServerRequest } from "http2";
 import { Storages } from "./App.service";
+import { ApiResponse } from "./Interfaces.interface";
 
 /////////////////------------ for production -----------\\\\\\\\\\\\\
 
-// export const BASE_URL = 'https://newjobshub.com/web-service/api/';
+// export const BASE_URL = 'https://newjobshub.com/api/';
 // export const Domain = 'https://newjobshub.com';
 
 
@@ -15,7 +18,7 @@ import { Storages } from "./App.service";
 
 /////////////////------------ for testing -----------\\\\\\\\\\\\\
 
-export const BASE_URL = 'http://192.168.1.65:7000/web-service/api/';
+export const BASE_URL = 'http://192.168.1.65:7000/api/';
 export const Domain = 'http://192.168.1.65:7000';
 
 
@@ -24,6 +27,8 @@ const FilterOptionUrl = BASE_URL + 'attribs/';
 const CandidateUrl = UserUrl + 'candidate/';
 const ProfileUrl = CandidateUrl + 'profile/';
 const ProfileUpdateUrl = CandidateUrl + 'profile/update/';
+const InstituteUrl = BASE_URL + 'institutes/';
+
 
 export const GetAccessTokenUrl = UserUrl + 'token/refresh/';
 
@@ -38,16 +43,10 @@ const ApiRoutes = {
     RequestEmailConfirmationUrl: UserUrl + 'get_email_flag/',
     ProfileUrl: ProfileUrl,
     ProfileUpdateUrl: ProfileUrl + 'update/',
-    SkillsUpdateUrl: ProfileUpdateUrl + 'skills/',
-    ProfileSummaryUpdateUrl: ProfileUpdateUrl + 'summary/',
-    ProfileHeadlineUpdateUrl: ProfileUpdateUrl + 'headline/',
     ExperienceUpdateUrl: ProfileUpdateUrl + 'experience/',
     EducationUpdateUrl: ProfileUpdateUrl + 'education/',
-    ProjectsUpdateUrl: ProfileUpdateUrl + 'projects/',
     ProfileImageUpdateUrl: ProfileUpdateUrl + 'image/',
     CoverImageUpdateUrl: ProfileUpdateUrl + 'cover_image/',
-    ResumeUpdateUrl: ProfileUpdateUrl + 'resume/',
-
 }
 
 export const setHeader = (token: string = '') => {
@@ -69,6 +68,51 @@ export const PostRequestObject = (data: object, token: string = ''): AxiosReques
     method: 'POST',
     data: data,
 })
+
+
+export const ApiResponseTypes: { [key: string]: pageStateType } = {
+    RequestFailed: '__request_failed__',
+    NotAuthenticated: '__not_authenticated__',
+    RequestFailedError: '__request_failed_error__',
+    dataNotFound: '__data_not_found__',
+    RequestSuccess: '__request_success__',
+}
+
+interface ApiResponseCallBacks {
+    onFailed: Function,
+    onUnAuthenticated: Function,
+    onError: Function,
+    onNoData: Function,
+    onSuccess: Function,
+}
+
+export const ApiResponseHandler = (response: ApiResponse | undefined, callbacks: ApiResponseCallBacks) => {
+
+    if (response) {
+        if (response.isAuthenticated) {
+            if (response.status) {
+                if (response.result) {
+                    callbacks.onSuccess();
+                    return ApiResponseTypes.RequestSuccess
+                } else {
+                    callbacks.onNoData();
+                    return ApiResponseTypes.dataNotFound;
+                }
+            } else {
+                callbacks.onError();
+                return ApiResponseTypes.RequestFailedError;
+            }
+        } else {
+            callbacks.onUnAuthenticated();
+            return ApiResponseTypes.NotAuthenticated;
+        }
+    } else {
+        callbacks.onFailed();
+        return ApiResponseTypes.RequestFailed;
+    }
+}
+
+
 
 export const Register = async (data: object) => {
 
@@ -148,6 +192,12 @@ export const UpdateProfileImage = async (token: string, userId: number, data: an
 
 export const GetFilterOptions = async () => {
     return await axios(FilterOptionUrl)
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetInstituteList = async ({ token, userId, category = '', pageNo = 1 }: { token: string, userId: number, category?: string, pageNo?: number }) => {
+    return await axios(InstituteUrl + `?id=${userId}&category=${category}&page=${pageNo}`)
         .then(response => response)
         .catch(error => console.log('error', error));
 }

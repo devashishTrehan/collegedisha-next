@@ -16,7 +16,6 @@ export const SearchForm = (props: any) => {
 
     const router = useRouter();
     const isMobile = useMediaQuery('(max-width:767px');
-    console.log('isMobile', isMobile);
 
     React.useEffect(() => {
         const query: any = router.query;

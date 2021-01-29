@@ -119,22 +119,24 @@ export const ValidateFields = (conditions: any, refs: any) => {
 export const Storages = {
     Token: 'token',
     User: 'user',
-    Navigation: 'navigation'
+    Navigation: 'navigation',
+    AccessToken: 'accessToken',
+    UserId: 'userId'
 }
 
-export const getUser = async () => {
-    let user = await localStorage.getItem(Storages.User);
+export const getUser = () => {
+    let user = localStorage.getItem(Storages.User);
     if (user) {
-        user = JSON.parse(user);
-        return user;
+        return JSON.parse(user);
     } else {
-        return false;
+        return null;
     }
 }
 
 export const StoreToken = async (token: any) => {
     localStorage.setItem(Storages.Token, JSON.stringify(token));
 }
+
 
 export const getToken = () => {
     let tokenString = localStorage.getItem(Storages.Token);
@@ -216,6 +218,36 @@ export const getLastNavigation = () => {
         return false;
     }
 }
+
+
+
+//---------- The function to set cookie -------\\
+export function SetCookie(cname, cvalue, exdays = 5) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+
+
+//---------- The function to get cookie -------\\
+export function GetCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 
 
 

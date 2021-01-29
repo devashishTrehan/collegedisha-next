@@ -5,7 +5,7 @@ import * as React from 'react';
 import {  Theme } from '../../Services/App.service';
 import classNames from 'classnames';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import { ArticleListItemTypes, ArticleListTypes, FeaturedArticlesTypes } from '@/Services/GraphQlDataTypes/article';
+import { ArticleListItemTypes, ArticleListTypes, FeaturedArticlesTypes } from '@/Services/DataTypes/article';
 import { ContentCardStyles } from '@/styles/Home.style';
 import { AccessTimeOutlined,  CommentOutlined, KeyboardArrowLeft, KeyboardArrowRight, ShareOutlined, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
 import Carousel from 'react-material-ui-carousel';

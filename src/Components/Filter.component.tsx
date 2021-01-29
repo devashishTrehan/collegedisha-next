@@ -435,7 +435,7 @@ export const Filters = (props: any) => {
                                 </span>
                                 {
                                     (index !== filters?.length - 1)
-                                        ? <Divider style={{ boxShadow: '20px 20px 50px #00d2c6, -30px -30px 60px #00ffff;' }} orientation='vertical' />
+                                        ? <Divider style={{ boxShadow: '20px 20px 50px #00d2c6, -30px -30px 60px #00ffff' }} orientation='vertical' />
                                         : null
                                 }
                             </React.Fragment>

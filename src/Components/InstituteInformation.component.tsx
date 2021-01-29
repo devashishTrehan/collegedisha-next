@@ -2,7 +2,7 @@ import { Theme } from '@/Services/App.service';
 import React from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import MarkdownParser from './MarkdownParser.component';
-import { InstituteInformation } from '@/Services/GraphQlDataTypes/Institutes';
+import { InstituteInformation } from '@/Services/DataTypes/Institutes';
 
 
 

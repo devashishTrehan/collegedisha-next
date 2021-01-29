@@ -28,7 +28,7 @@ function PageEndIndicator(props: Props) {
                     </div>
                     : null
             }
-            <ViewportTracker id='_pageEndIndicator_' thresold={200} onEnter={() => props.onIntersection()} />
+            <ViewportTracker id='_pageEndIndicator_' thresold={100} onEnter={() => props.onIntersection()} />
         </div>
     );
 }

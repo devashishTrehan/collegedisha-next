@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { NavbarContext } from '@/Context/Navbar.context';
-import { detailedCoaching } from '@/Services/GraphQlDataTypes/Coachings';
+import { detailedCoaching } from '@/Services/DataTypes/Coachings';
 import { AddressDetailComponent, AddressDetailProps } from '@/Components/InstituteInformation.component';
 import MarkdownParser from '@/Components/MarkdownParser.component';
 import { PageNavigation } from '@/Components/PageNavigation.component';

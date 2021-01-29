@@ -6,7 +6,7 @@ import { Routes, Theme } from '@/Services/App.service';
 import classNames from 'classnames';
 import { PageHead } from '@/Components/PageHead.component';
 import { Filters } from '@/Components/Filter.component';
-import { boardTypes, BoardListItemTypes } from '@/Services/GraphQlDataTypes/Boards';
+import { boardTypes, BoardListItemTypes } from '@/Services/DataTypes/Boards';
 import { useRouter } from 'next/router';
 import SelectField from '@/Components/SelectField.component/SelectField.component';
 

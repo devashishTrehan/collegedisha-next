@@ -4,7 +4,7 @@ import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
 import { Routes, setLastNavigation } from '@/Services/App.service';
-import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
+import { InstituteListItem } from '@/Services/DataTypes/Institutes';
 import { Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';

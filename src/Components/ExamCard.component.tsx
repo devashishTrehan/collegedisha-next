@@ -4,7 +4,7 @@ import {  Link as LinkIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import React, { memo } from 'react';
 import classNames from 'classnames';
-import { ExamListItem, ExamListItemLink } from '@/Services/GraphQlDataTypes/Exams';
+import { ExamListItem, ExamListItemLink } from '@/Services/DataTypes/Exams';
 
 
 

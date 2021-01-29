@@ -2,7 +2,7 @@ import { Theme } from '@/Services/App.service';
 import React, { useState } from 'react';
 import { Grid, IconButton, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
-import { InstituteFaculty } from '@/Services/GraphQlDataTypes/Institutes';
+import { InstituteFaculty } from '@/Services/DataTypes/Institutes';
 import {  EmailOutlined,  PhoneOutlined } from '@material-ui/icons';
 import DummyCards from './DummyCard.component';
 

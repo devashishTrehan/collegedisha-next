@@ -56,7 +56,7 @@ function WentWrongComponent(props) {
             </div>
 
             <div className={styles.message}>
-                <Typography className='head'>{`No result Found`}</Typography>
+                <Typography className='head'>{`Oops! \n Something went wrong`}</Typography>
                 <Typography className='desc'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus ab iste perspiciatis veniam aliquid repellendus sit itaque.</Typography>
             </div>
         </div>

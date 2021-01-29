@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Routes, Theme } from '../../Services/App.service';
 import classNames from 'classnames';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import { G_CourseCategory, G_CourseItemType } from '@/Services/GraphQlDataTypes/Courses';
+import { G_CourseCategory, G_CourseItemType } from '@/Services/DataTypes/Courses';
 import Link from 'next/link';
 
 const useStyles = makeStyles((theme: MuiTheme) => ({

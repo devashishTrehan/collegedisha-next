@@ -4,8 +4,8 @@ import { ArrowRightAlt, Label, Link as LinkIcon, Schedule } from '@material-ui/i
 import { makeStyles } from '@material-ui/styles';
 import React, { memo } from 'react';
 import classNames from 'classnames';
-import { ExamListItem, ExamListItemLink } from '@/Services/GraphQlDataTypes/Exams';
-import { CourseFees, CourseListItem } from '@/Services/GraphQlDataTypes/Courses';
+import { ExamListItem, ExamListItemLink } from '@/Services/DataTypes/Exams';
+import { CourseFees, CourseListItem } from '@/Services/DataTypes/Courses';
 
 
 

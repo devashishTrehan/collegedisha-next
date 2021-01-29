@@ -1,7 +1,7 @@
 import { Theme } from '@/Services/App.service';
 import React, { useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
-import { ReviewRatingItems } from '@/Services/GraphQlDataTypes/Review';
+import { ReviewRatingItems } from '@/Services/DataTypes/Review';
 import classNames from 'classnames';
 
 const useStyles = makeStyles({

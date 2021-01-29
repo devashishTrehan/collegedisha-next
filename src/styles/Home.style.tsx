@@ -346,7 +346,8 @@ export const CounsellingStyles = makeStyles({
       }
     },
     '& .rightSec': {
-      ...Theme.ContentMid,
+      display: 'flex',
+      alignItems: 'center'
     }
   },
   formToggler: {

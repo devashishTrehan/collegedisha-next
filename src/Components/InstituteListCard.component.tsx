@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
-import { InstituteListItem } from '@/Services/GraphQlDataTypes/Institutes';
+import { InstituteListItem } from '@/Services/DataTypes/Institutes';
 
 
 

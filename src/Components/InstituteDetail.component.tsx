@@ -14,6 +14,9 @@ import { RenderCoursesFees } from './InstituteCourses.component';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { PageNavigation } from './PageNavigation.component';
 import { InnerPageHead } from './InnerPageHead.component';
+import { ApiResponse } from '@/Services/Interfaces.interface';
+import { ApiResponseHandler } from '@/Services/Api.service';
+import { DataPageWrapper, pageStateType } from './DataPageWrapper.component';
 
 
 
@@ -23,10 +26,11 @@ const useStyles = makeStyles({
 })
 
 interface Props {
+    data: ApiResponse
 }
 
 const pageSections = {
-    Information: 'Information',
+    Information: 'information',
     ['courses & fees']: 'courses-fees',
     admission: 'admission',
     ['review & rating']: 'review',
@@ -41,28 +45,22 @@ const defaultImage = '/assets/images/defaults/institute.jpg';
 
 function InstituteDetailComponent(props: Props) {
 
-    const [instituteDetails, setInstituteDetails] = useState<detailedInstitute | null>({
-        name: 'abc institute',
-        isApplied: true,
-        isSaved: true,
-        location: 'agra',
-        id: 1,
-        image: '',
-        rating: 3.4,
-        views: 2345,
-        slug: '',
-    });
+    const [instituteDetails, setInstituteDetails] = useState<detailedInstitute | null>(props?.data?.result);
     const [slugs, setSlugs] = useState<string[]>([]);
     const [currentSection, setCurrentSection] = useState<string>(pageSections.Information);
     const [currentPageUrl, setCurrentPageUrl] = useState<string>('');
     const { navHeight } = useContext(NavbarContext);
-
+    const [loading, setLoading] = useState(false);
+    const [pageState, setPageState] = useState<pageStateType>(null);
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const styles = useStyles();
     const router = useRouter();
 
-
+    useEffect(() => {
+        console.log('page data', props)
+        OnPageResponseHandler(props?.data);
+    }, [props.data])
 
     useEffect(() => {
         if (router.query.instituteSlug?.length) {
@@ -85,6 +83,22 @@ function InstituteDetailComponent(props: Props) {
         console.log('currentPageUrl 2', router)
     }, [router.query])
 
+
+    const OnPageResponseHandler = (data) => {
+        let response = ApiResponseHandler(data, {
+            onError: () => { },
+            onFailed: () => { },
+            onUnAuthenticated: () => { },
+            onNoData: () => { setInstituteDetails(null) },
+            onSuccess: () => {
+                setInstituteDetails(data?.result)
+            },
+        });
+        console.log('detail page data', data);
+        setPageState(response);
+    }
+
+
     useEffect(() => {
         console.log('slugs', slugs);
         console.log('slugs', slugs[1]);
@@ -99,28 +113,27 @@ function InstituteDetailComponent(props: Props) {
         }, undefined, { shallow: true })
     }
 
-    const { id, name } = instituteDetails;
-
     return (
-        <div>
+        <DataPageWrapper loading={loading} pageState={pageState}>
+            <div>
+                <InnerPageHead {...instituteDetails} />
 
-            <InnerPageHead {...instituteDetails} />
+                <PageNavigation pageSections={pageSections} currentSection={currentSection} onLinkClick={(section: string) => showpageSection(section)} />
 
-            <PageNavigation pageSections={pageSections} currentSection={currentSection} onLinkClick={(section: string) => showpageSection(section)} />
-
-            <div className='container'>
-                <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '50px 5%' }}>
-                    <Grid container >
-                        <Grid item xs={12} md={9} >
-                            {
-                                <RenderPageSection institute={{ id: id, name: name }} section={currentSection} />
-                            }
+                <div className='container'>
+                    <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '50px 5%' }}>
+                        <Grid container >
+                            <Grid item xs={12} md={9} >
+                                {
+                                    <RenderPageSection institute={instituteDetails} section={currentSection} />
+                                }
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
+        </DataPageWrapper>
     );
 }
 
@@ -129,33 +142,32 @@ export default InstituteDetailComponent;
 
 interface PageSectionProps {
     section: string,
-    institute: {
-        name: string,
-        id: number
-    }
+    institute: detailedInstitute
 }
 
 const RenderPageSection = (props: PageSectionProps) => {
 
+    const { information, id, name, courses, admission, review, gallery, hostel, faculty } = props?.institute;
+
     switch (props.section) {
         case pageSections.Information:
-            return <RenderInformation />;
+            return <RenderInformation data={information} />;
         case pageSections['courses & fees']:
-            return <RenderCoursesFees />;
+            return <RenderCoursesFees data={courses} />;
         case pageSections.admission:
-            return <RenderAdmission />;
+            return <RenderAdmission data={admission} />;
         case pageSections['review & rating']:
-            return <RenderReview institute={props.institute} />;
+            return <RenderReview institute={{ name: name, id: id }} />;
         case pageSections.gallery:
-            return <RenderGallery />;
+            return <RenderGallery data={gallery} />;
         case pageSections.faculty:
-            return <RenderFaculty />;
+            return <RenderFaculty data={faculty} />;
         case pageSections.hostel:
-            return <RenderHostel />;
+            return <RenderHostel data={hostel} />;
         case pageSections.placement:
             return <RenderPlacement />;
         default:
-            return <RenderInformation />;
+            return <RenderInformation data={information} />;
 
     }
 

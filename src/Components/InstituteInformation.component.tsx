@@ -1,5 +1,5 @@
 import { Theme } from '@/Services/App.service';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import MarkdownParser from './MarkdownParser.component';
 import { InstituteInformation } from '@/Services/DataTypes/Institutes';
@@ -28,6 +28,7 @@ const useAddressStyles = makeStyles({
             '& p': {
                 textAlign: 'left',
                 textTransform: 'capitalize',
+                padding: 0,
                 '&.detailValue': {
                     fontSize: 14,
                     color: Theme.primary,
@@ -49,13 +50,13 @@ const useAddressStyles = makeStyles({
 
 export interface AddressDetailProps {
     timings: string,
-    contact_no?: string,
+    contactNumber?: string,
     address: string,
 }
 
 export const AddressDetailComponent = (props: AddressDetailProps) => {
 
-    const { timings, address, contact_no } = props;
+    const { timings, address, contactNumber } = props;
 
     const styles = useAddressStyles();
 
@@ -86,8 +87,8 @@ export const AddressDetailComponent = (props: AddressDetailProps) => {
                         <div className='detailWrap'>
                             <Typography noWrap className='detailName'>Phone No.</Typography>
                             {
-                                contact_no ?
-                                    < Typography className='detailValue'>{contact_no}</Typography>
+                                contactNumber ?
+                                    < Typography className='detailValue'>{contactNumber}</Typography>
                                     : <Typography className='action'>Get Details</Typography>
                             }
                         </div>
@@ -111,8 +112,11 @@ export const AddressDetailComponent = (props: AddressDetailProps) => {
     )
 }
 
+interface Props {
+    data: InstituteInformation
+}
 
-export function RenderInformation() {
+export function RenderInformation(props: Props) {
 
 
     // const { data, loading, fetchMore, error } = useQuery<InstituteInformation>(GetCollegeInformation);
@@ -120,103 +124,36 @@ export function RenderInformation() {
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const styles = InfoStyles();
+    const [data, setData] = useState<InstituteInformation>(props?.data);
 
-    const data: InstituteInformation = {
+    useEffect(() => {
+        setData(props.data);
+    }, [props?.data])
 
-        address_detail: {
-            timings: '10:00A.M. - 5:00P.M.',
-            address: 'uefgergbtr mgkjrhjyt',
-        },
-        about: `
-        #### **Galgotias College Fees Structure(Official)**
-       
-        ---  
-        <table>
-        <thead>
-        <th>elem 1</th>
-        <th>elem 2<th</th>
-        <th>elem 3<th</th>
-        <th>elem 4<th</th>]
-        </thead>
-        <tbdoy>
-        <tr>
-        <td>elem 1</td>
-        <td>elem 2<th</td>
-        <td>elem 3<th</td>
-        <td>elem 4<th</td>
-        </tr>
-        <tr>
-       
-        </tbody>
-        </table>
-       
-           
-                 ###### **Courses Details:**
-                **The college offers 5 courses to students:**
-                             * Undergraduate Programmes
-                      * Postgraduate Programmes
-                              * Diploma Programmes
-                   * Integrated Programmes
-                     * Doctoral Programmes
-        ### School of Electrical, Electronics & Communication Engineering
-        * B.Tech in Electronics and Communication Engineering with specialization in the Internet of Things(IOT)
-        #### Eligibility
-        1. Minimum 60 % in PCM(10 + 2)
-        2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
-        #### **Fees Structure**
-       **Duration**|**4 years**
-        ---| ---
-        Annual Fees | 1, 49, 000
-        Exam Fee | 10, 000
-        * B.Tech in Electronics and Communication Engineering with specialization in Embedded System
-        #### **Eligibility**
-        1. Minimum 60 % in PCM(10 + 2)
-        2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
-        #### **Fee Structure**
-       **Duration**|**4 years**
-        ---| ---
-        Annual Fees | 1, 49, 000
-        Exam Fee | 10, 000
-        * B.Tech in Electronics and Communication Engineering with specialization in VLSI
-        #### **Eligibility**
-        1. Minimum 60 % in PCM(10 + 2)
-        2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
-        #### **Fee Structure**
-       **Duration**|**4 years**
-        ---| ---
-        Annual Fees | 1, 49, 000
-        Exam Fee | 10, 000
-        * B.Tech in Electronics & Communication Engineering
-        #### **Eligibility**
-        1. Minimum 60 % in PCM(10 + 2)
-        2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
-        #### **Fee Structure**
-       **Duration**|**4 years**
-        ---| ---
-        Annual Fees | 1, 49, 000
-        Exam Fee | 10, 000
-        * B.Tech in Electrical Engineering
-        #### **Eligibility**
-        * Minimum 60 % in PCM(10 + 2)
-        * Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
-        #### **Fee Structure**
-          `
+    const fetchData = async () => {
+        console.log('fetching data');
     }
+
+    useEffect(() => {
+        if (data) {
+            fetchData();
+        }
+    }, [])
 
 
     return (
         <div>
-
+            {console.log('data', data)}
             <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
 
                 <div>
-                    <MarkdownParser content={data.about} />
+                    <MarkdownParser content={data?.about ?? '**No Information Available**'} />
                 </div>
             </div>
 
             <div className={styles.addressDetailsContainer}>
                 <div className={'pageSectionContainer'}>
-                    <AddressDetailComponent {...data.address_detail} />
+                    <AddressDetailComponent {...data?.addressDetails} />
                 </div>
             </div>
 

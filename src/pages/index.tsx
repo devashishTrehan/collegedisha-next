@@ -12,6 +12,8 @@ function Home(props: any) {
 
 
   React.useEffect(() => {
+    SetCookie(Storages.UserId, 5, 5);
+    SetCookie(Storages.AccessToken, 'abcdefghidef7648hvy45t98vn-4vy-n56im0u3cukgjkvwt67yndt', 5);
   }, [])
 
 

@@ -2,7 +2,7 @@ import { Theme, NFormatter } from '@/Services/App.service';
 import { Button, Typography, IconButton, useMediaQuery } from '@material-ui/core';
 import { Bookmark, BookmarkBorder, GetAppRounded, LocationOnOutlined, Share, StarRateRounded, StarRounded, Visibility } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { InstituteListItem } from '@/Services/DataTypes/Institutes';
@@ -233,57 +233,63 @@ const InstituteCard = memo(function (props: Props) {
             pathname: `${router.asPath}/${slug}`
         })
     }
+    console.log('rendering card')
 
-    return (
-        <div className={classNames(styles.container, { [styles.container_T]: isTablet })}>
-            <div className={classNames(styles.HeadSection, { [styles.HeadSection_T]: isTablet })}>
-                <div className={'imageWrap'}>
-                    <img src={thumbnail ? thumbnail : defaultImage} alt={name} />
+    const renderCard = useMemo(() => {
+
+        return (
+            <div className={classNames(styles.container, { [styles.container_T]: isTablet })}>
+                <div className={classNames(styles.HeadSection, { [styles.HeadSection_T]: isTablet })}>
+                    <div className={'imageWrap'}>
+                        <img src={thumbnail ? thumbnail : defaultImage} alt={name} />
+                    </div>
+
+                    <div className={'actionButtonWrap'}>
+                        <IconButton className='actionButton' onClick={() => onDownload && onDownload()}>
+                            <GetAppRounded />
+                        </IconButton>
+
+                        <IconButton className='actionButton' onClick={() => onShare && onShare()}>
+                            <Share />
+                        </IconButton>
+                    </div>
+                </div>
+                <div onClick={() => ViewDetails(slug)} className={classNames(styles.InfoSetion, { [styles.InfoSetion_T]: isTablet })}>
+                    <Typography className={'productName'} >{name}</Typography>
+                    <div className={'locationWrap'}>
+                        <LocationOnOutlined />
+                        <Typography className={'location'}>{location}</Typography>
+                    </div>
+
+                </div>
+                <div className={classNames(styles.footerSection, { [styles.footerSection_T]: isTablet })}>
+                    <Button variant='contained' color={'primary'} className={'applyButton'} disabled={isApplied}
+                        onClick={() => onApply && onApply()}
+                    >{
+                            isApplied ?
+                                'Applied'
+                                : 'Apply'
+                        }</Button>
+                    <div >
+                        <span className={'ratingWrap'}>
+                            <StarRateRounded />
+                            <span>{rating}</span>
+                        </span>
+                        <IconButton className={'saveButtonWrap'} onClick={() => onSave && onSave()}>
+                            {
+                                isSaved ?
+                                    <Bookmark />
+                                    : <BookmarkBorder />
+                            }
+                        </IconButton>
+                    </div>
                 </div>
 
-                <div className={'actionButtonWrap'}>
-                    <IconButton className='actionButton' onClick={() => onDownload && onDownload()}>
-                        <GetAppRounded />
-                    </IconButton>
-
-                    <IconButton className='actionButton' onClick={() => onShare && onShare()}>
-                        <Share />
-                    </IconButton>
-                </div>
             </div>
-            <div onClick={() => ViewDetails(slug)} className={classNames(styles.InfoSetion, { [styles.InfoSetion_T]: isTablet })}>
-                <Typography className={'productName'} >{name}</Typography>
-                <div className={'locationWrap'}>
-                    <LocationOnOutlined />
-                    <Typography className={'location'}>{location}</Typography>
-                </div>
+        );
+    }, [])
 
-            </div>
-            <div className={classNames(styles.footerSection, { [styles.footerSection_T]: isTablet })}>
-                <Button variant='contained' color={'primary'} className={'applyButton'} disabled={isApplied}
-                    onClick={() => onApply && onApply()}
-                >{
-                        isApplied ?
-                            'Applied'
-                            : 'Apply'
-                    }</Button>
-                <div >
-                    <span className={'ratingWrap'}>
-                        <StarRateRounded />
-                        <span>{rating}</span>
-                    </span>
-                    <IconButton className={'saveButtonWrap'} onClick={() => onSave && onSave()}>
-                        {
-                            isSaved ?
-                                <Bookmark />
-                                : <BookmarkBorder />
-                        }
-                    </IconButton>
-                </div>
-            </div>
-
-        </div>
-    );
+    return renderCard;
 })
 
 

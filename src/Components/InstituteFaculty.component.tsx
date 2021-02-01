@@ -1,9 +1,9 @@
 import { Theme } from '@/Services/App.service';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, IconButton, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
 import { InstituteFaculty } from '@/Services/DataTypes/Institutes';
-import {  EmailOutlined,  PhoneOutlined } from '@material-ui/icons';
+import { EmailOutlined, PhoneOutlined } from '@material-ui/icons';
 import DummyCards from './DummyCard.component';
 
 
@@ -71,6 +71,10 @@ interface CardProps {
     faculty: InstituteFaculty,
 }
 
+interface Props {
+    data: InstituteFaculty[],
+}
+
 const defaultImage = '/assets/images/defaults/user.png';
 
 const FacultyCard = ({ faculty }: CardProps) => {
@@ -95,17 +99,26 @@ const FacultyCard = ({ faculty }: CardProps) => {
     )
 }
 
-export function RenderFaculty() {
+export function RenderFaculty(props: Props) {
 
-    const [faculties, setFaculties] = useState<InstituteFaculty[]>([
-        { id: 1, name: 'Mr. Shusheel shinde', designation: 'Assistant professor', image: '', mailId: 'shusheel@mail.com', mobileNo: '6574359867' },
-        { id: 2, name: 'Mr. Shushma kakkar', designation: 'Assistant professor', image: '', mailId: 'shushma@mail.com', mobileNo: '6574359867' },
-        { id: 3, name: 'Mr. meenakshi choudhry', designation: 'Assistant professor', image: '', mailId: 'meenakshi@mail.com', mobileNo: '6574359867' },
-        { id: 4, name: 'Mr. Suneel yadav', designation: 'Assistant professor', image: '', mailId: 'suneel@mail.com', mobileNo: '6574359867' },
-    ])
+    const [data, setData] = useState<InstituteFaculty[]>(props?.data)
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const styles = useStyles();
+
+    useEffect(() => {
+        setData(props.data);
+    }, [props?.data])
+
+    const fetchData = async () => {
+        console.log('fetching data');
+    }
+
+    useEffect(() => {
+        if (data) {
+            fetchData();
+        }
+    }, [])
 
     return (
         <div className={'pageSectionContainer'} >
@@ -114,7 +127,7 @@ export function RenderFaculty() {
             </div>
             <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
                 {
-                    faculties?.map((faculty: InstituteFaculty,index:number) => {
+                    data?.map((faculty: InstituteFaculty, index: number) => {
                         return <Grid item key={index} xs={12} sm={6}>
                             <FacultyCard faculty={faculty} />
                         </Grid>
@@ -122,7 +135,7 @@ export function RenderFaculty() {
                 }
                 {
                     !isMobile &&
-                    <DummyCards cardCount={faculties?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 200, regular: 280 } }} />
+                    <DummyCards cardCount={data?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 200, regular: 280 } }} />
                 }
             </Grid>
         </div>

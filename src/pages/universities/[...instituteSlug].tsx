@@ -6,7 +6,7 @@ function InstituteDetails(props) {
 
     return (
         <>
-            <InstituteDetailComponent  />
+            <InstituteDetailComponent {...props} />
         </>
     );
 }

@@ -1,4 +1,4 @@
-import {  Typography, useMediaQuery } from '@material-ui/core';
+import { Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { useContext, } from 'react';
 import classNames from 'classnames';
@@ -22,8 +22,7 @@ const useStyles = makeStyles({
             alignItems: 'flex-start',
         },
         '& .imageWrap': {
-            width: 180,
-            height: 180,
+            width: '50%',
             borderRadius: Theme.radius2,
             boxShadow: Theme.boxShadow,
             overflow: 'hidden',
@@ -33,6 +32,7 @@ const useStyles = makeStyles({
             margin: '-10px 0 -10px 20px',
             textTransform: 'capitalize',
             color: Theme.primary,
+            width: 'calc(50%)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
             '& .name': {
                 fontFamily: 'gorditaMedium',
                 textTransform: 'uppercase',
-                fontSize: 24,
+                fontSize: 22,
             },
             '& .location': {
                 color: 'gray',
@@ -78,7 +78,8 @@ const useStyles = makeStyles({
                         margin: '0 6px',
                         fontSize: 8,
                         '& p': {
-                            verticalAlign: 'middle'
+                            verticalAlign: 'middle',
+                            padding: 0,
                         }
                     }
                 }
@@ -89,18 +90,20 @@ const useStyles = makeStyles({
         }
     },
     headContainer_M: {
-
+        '& .wrap': {
+            display: 'block'
+        },
         '& .imageWrap': {
-            width: 100,
-            height: 100,
+            width: '100%',
             borderRadius: Theme.radius1,
         },
         '& .detailWrap': {
-            padding: '10px 0',
-            margin: '-5px 0 -5px 10px',
+            padding: '0 0 10px',
+            margin: '10px 0 0',
+            width: 'calc(100%)',
 
             '& .name': {
-                fontSize: 18,
+                fontSize: 16,
             },
             '& .location': {
                 fontSize: 14,
@@ -138,7 +141,7 @@ const useStyles = makeStyles({
 interface Props {
     id: number,
     name: string,
-    image: string,
+    thumbnail: string,
     rating: number,
     location?: string,
     isApplied?: boolean,
@@ -161,7 +164,7 @@ export const InnerPageHead = (props: Props) => {
     const { navHeight } = useContext(NavbarContext);
 
 
-    const { id, name, location, image, rating, isApplied, isSaved, views, defaultImage: d_image } = props;
+    const { id, name, location, thumbnail, rating, isApplied, isSaved, views, defaultImage: d_image } = props;
 
     const defaultImage = d_image ? d_image : '/assets/images/defaults/institute.jpg';
 
@@ -173,7 +176,7 @@ export const InnerPageHead = (props: Props) => {
                 <div className={classNames(styles.headContainer, { [styles.headContainer_M]: isMobile })}>
                     <div className='wrap'>
                         <div className='imageWrap'>
-                            <img src={image ? image : defaultImage} alt='' />
+                            <img src={thumbnail ? thumbnail : defaultImage} alt='' />
                         </div>
                         <div className='detailWrap'>
                             <div className='group'>

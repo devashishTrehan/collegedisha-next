@@ -1,6 +1,6 @@
-import { Theme} from '@/Services/App.service';
+import { Theme } from '@/Services/App.service';
 import { Button, Typography, useMediaQuery, Grid } from '@material-ui/core';
-import { ArrowRightAlt,  Schedule } from '@material-ui/icons';
+import { ArrowRightAlt, Schedule } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import React, { memo } from 'react';
 import classNames from 'classnames';
@@ -51,7 +51,8 @@ const useStyles = makeStyles({
                 margin: '0 3px',
                 fontSize: 8,
                 '& p': {
-                    verticalAlign: 'middle'
+                    verticalAlign: 'middle',
+                    padding: 0,
                 }
             }
         },
@@ -216,7 +217,7 @@ const CourseCard = memo(function (props: Props) {
                         <Grid item xs={6} >
                             <div className='desc_point' >
 
-                                <Typography style={{ textTransform: 'uppercase' }}>{type}</Typography>
+                                <Typography style={{ textTransform: 'capitalize' }}>{type}</Typography>
                             </div>
                         </Grid>
                         <Grid item xs={6} >
@@ -253,7 +254,7 @@ const CourseCard = memo(function (props: Props) {
                                 return (
                                     <div key={index} className='item'>
                                         <Typography className='frequency'>{`${stream.frequency} ${index + 1}`}</Typography>
-                                        <Typography className='amount'>{FormatAmount(stream.amount, stream.currency)}</Typography>
+                                        <Typography className='amount'>{FormatAmount(stream?.amount, stream?.currency)}</Typography>
                                     </div>
                                 )
                             })

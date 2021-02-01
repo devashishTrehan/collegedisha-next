@@ -1,9 +1,10 @@
 import { makeStyles } from '@material-ui/styles';
+import { Theme as MuiTheme } from '@material-ui/core';
 import * as React from 'react';
 import { Theme } from '../Services/App.service';
 import { Breadcrumbs } from 'nextjs-breadcrumbs';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: MuiTheme) => ({
     container: {
         margin: '20px 0',
         padding: '0 5%',
@@ -12,11 +13,13 @@ const useStyles = makeStyles({
         '& ol': {
             listStyle: 'none',
             display: 'flex',
+            flexWrap: 'wrap',
             '& li': {
                 display: 'inline-block',
                 textAlign: 'left',
                 '&::after': {
                     content: '"/"',
+                    fontSize: 10,
                     color: Theme.TFontHeadColor,
                     padding: '0 6px'
                 },
@@ -24,7 +27,7 @@ const useStyles = makeStyles({
                     color: Theme.TFontHeadColor,
                     textDecoration: 'none',
                     transition: 'ease-in-out .3s',
-                    fontSize: 12,
+                    fontSize: 10,
                     textTransform: 'capitalize !important',
                     '&:hover': {
                         color: Theme.secondary,
@@ -42,7 +45,7 @@ const useStyles = makeStyles({
         },
     },
 
-})
+}))
 
 export interface UrlObject {
     endPoint: string,

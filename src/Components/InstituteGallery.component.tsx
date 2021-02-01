@@ -1,8 +1,9 @@
 import { Theme } from '@/Services/App.service';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import DummyCards from './DummyCard.component';
 import classNames from 'classnames';
+import { InstituteGallery } from '@/Services/DataTypes/Institutes';
 
 
 // ----- gallery section start ----- \\
@@ -50,23 +51,30 @@ const GalleryStyles = makeStyles({
 
 })
 
+interface Props {
+    data: InstituteGallery
+}
 
-export function RenderGallery() {
+export function RenderGallery(props: Props) {
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const styles = GalleryStyles();
+    const [data, setData] = useState<InstituteGallery>(props?.data)
 
-    const Images = ['https://www.collegedisha.com/collegedisha/gallery/153614318114.jpg',
-        'https://www.collegedisha.com/collegedisha/gallery/153614318113.jpg',
-        'https://www.collegedisha.com/collegedisha/gallery/153614318112.jpg',
-        'https://www.collegedisha.com/collegedisha/gallery/153614318111.jpg',
-        'https://www.collegedisha.com/collegedisha/gallery/153614318110.jpg',
-        '',
-        'https://www.collegedisha.com/collegedisha/gallery/15361431819.jpg',
-        '',];
-    const videos = ['_dOnnIQc9Qw', 'ildAb70UguI', '0XmUaHf-11A',];
+    useEffect(() => {
+        setData(props.data);
+    }, [props?.data])
 
+    const fetchData = async () => {
+        console.log('fetching data');
+    }
+
+    useEffect(() => {
+        if (data) {
+            fetchData();
+        }
+    }, [])
 
     const RenderImage = ({ image }) => {
         const defaultImage = '/assets/images/defaults/default.jpg';
@@ -93,7 +101,7 @@ export function RenderGallery() {
                 </div>
                 <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
                     {
-                        Images?.map((image: string,index:number) => {
+                        data?.images?.map((image: string, index: number) => {
                             return <Grid item key={index}>
                                 <RenderImage image={image} />
                             </Grid>
@@ -101,7 +109,7 @@ export function RenderGallery() {
                     }
                     {
                         !isMobile &&
-                        <DummyCards cardCount={Images?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 180, regular: 240 } }} />
+                        <DummyCards cardCount={data?.images?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 180, regular: 240 } }} />
                     }
                 </Grid>
             </div>
@@ -113,7 +121,7 @@ export function RenderGallery() {
                     </div>
                     <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
                         {
-                            videos?.map((video: string,index:number) => {
+                            data?.videos?.map((video: string, index: number) => {
                                 return <Grid item key={index}>
                                     <RenderVideo videoId={video} />
                                 </Grid>
@@ -121,7 +129,7 @@ export function RenderGallery() {
                         }
                         {
                             !isMobile &&
-                            <DummyCards cardCount={Images?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 180, regular: 240 } }} />
+                            <DummyCards cardCount={data?.videos?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 180, regular: 240 } }} />
                         }
                     </Grid>
                 </div>

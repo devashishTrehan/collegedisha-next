@@ -137,6 +137,7 @@ const InstituteListCard = memo(function (props: Props) {
         })
     }
 
+    console.log('rendering list card')
 
     return (
         <div className={classNames(styles.container)}>

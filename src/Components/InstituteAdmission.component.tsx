@@ -1,7 +1,8 @@
 
-import React from 'react';
-import {  makeStyles, useMediaQuery } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { makeStyles, useMediaQuery } from '@material-ui/core';
 import MarkdownParser from './MarkdownParser.component';
+import { InstituteAdmission } from '@/Services/DataTypes/Institutes';
 
 
 // ----- Admission section start ----- \\
@@ -9,63 +10,35 @@ const AdmissionStyles = makeStyles({
 
 })
 
+interface Props {
+    data: InstituteAdmission
+}
 
-export function RenderAdmission() {
+export function RenderAdmission(props: Props) {
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const styles = AdmissionStyles();
 
-    const markdown = `
- #### **Galgotias College Fees Structure(Official)**
+    const [data, setData] = useState<InstituteAdmission>(props?.data);
 
- ---  
+    useEffect(() => {
+        setData(props.data);
+    }, [props?.data])
+
+    const fetchData = async () => {
+        console.log('fetching data');
+    }
+
+    useEffect(() => {
+        if (data) {
+            fetchData();
+        }
+    }, [])
     
- ###### **Courses Details:**
- ** The college offers 5 courses to students:**
- * Undergraduate Programmes
- * Postgraduate Programmes
- * Diploma Programmes
- * Integrated Programmes
- * Doctoral Programmes
- ### School of Electrical, Electronics & Communication Engineering
- * B.Tech in Electronics and Communication Engineering with specialization in the Internet of Things(IOT)
- #### Eligibility
- 1. Minimum 60 % in PCM(10 + 2)
- 2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
- #### ** Fees Structure **
- ** Duration ** | ** 4 years **
- ---| ---
- Annual Fees | 1, 49, 000
- Exam Fee | 10, 000
- * B.Tech in Electronics and Communication Engineering with specialization in Embedded System
- #### ** Eligibility **
- 1. Minimum 60 % in PCM(10 + 2)
- 2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
- #### ** Fee Structure **
- ** Duration ** | ** 4 years **
- ---| ---
- Annual Fees | 1, 49, 000
- Exam Fee | 10, 000
- * B.Tech in Electronics and Communication Engineering with specialization in VLSI
- #### ** Eligibility **
- 1. Minimum 60 % in PCM(10 + 2)
- 2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
- #### ** Fee Structure **
- ** Duration ** | ** 4 years **
- ---| ---
- Annual Fees | 1, 49, 000
- Exam Fee | 10, 000
- * B.Tech in Electronics & Communication Engineering
- #### ** Eligibility **
- 1. Minimum 60 % in PCM(10 + 2)
- 2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
-   `
-
-
     return (
 
         <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
-            <MarkdownParser content={markdown} />
+            <MarkdownParser content={data?.content} />
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import { Theme } from '@/Services/App.service';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import MarkdownParser from './MarkdownParser.component';
 import { InstituteHostel, InstituteHostelFacility, InstituteHostelFees } from '@/Services/DataTypes/Institutes';
@@ -57,11 +57,12 @@ const useStyles = makeStyles({
 })
 
 const RenderFacilities = (facilities: InstituteHostelFacility[]) => {
+
     return (
 
         <Grid container justify={'flex-start'} spacing={5}>
             {
-                facilities?.map((facility: InstituteHostelFacility,index:number) => {
+                facilities?.map((facility: InstituteHostelFacility, index: number) => {
                     let facilityName = facility.replace('_', ' ');
                     return (<Grid key={index} item xs={6} sm={3} md={2} >
                         <div>
@@ -92,11 +93,11 @@ const RenderFees = (fees: InstituteHostelFees[]) => {
                 <tbody>
 
                     {
-                        fees?.map((fees: InstituteHostelFees,index:number) => {
+                        fees?.map((fees: InstituteHostelFees, index: number) => {
                             return (<tr key={index}>
                                 <td>{fees.room}</td>
                                 <td>{fees.AC}</td>
-                                <td>{fees.Non_AC}</td>
+                                <td>{fees.NonAC}</td>
                             </tr>)
                         })
                     }
@@ -112,57 +113,40 @@ const hostelTypeEnum = {
 }
 
 // ----- hostel section start ----- \\
-export function RenderHostel() {
 
-    const data: InstituteHostel = {
-        female: {
-            fees: [
-                { room: '1 seater', AC: 'Rs.140000', Non_AC: 'Rs.100000' },
-                { room: '2 seater', AC: 'Rs.140000', Non_AC: 'Rs.100000' },
-                { room: '3 seater', AC: 'Rs.140000', Non_AC: 'Rs.100000' },
-            ],
-            facilities: ['gym', 'auditorium', 'laboratory', 'canteen', 'sports', 'wifi', 'computer_lab'],
-            hostel_content: `    ### School of Electrical, Electronics & Communication Engineering
-            * B.Tech in Electronics and Communication Engineering with specialization in the Internet of Things(IOT)
-            #### Eligibility
-            1. Minimum 60 % in PCM(10 + 2)
-            2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
-            #### **Fees Structure**
-           **Duration**|**4 years**
-            ---| ---
-            Annual Fees | 1, 49, 000
-            Exam Fee | 10, 000`
-        },
-        male: {
-            fees: [
-                { room: '1 seater', AC: 'Rs.140000', Non_AC: 'Rs.100000' },
-                { room: '2 seater', AC: 'Rs.140000', Non_AC: 'Rs.100000' },
-            ],
-            facilities: ['gym', 'medical', 'laboratory', 'canteen', 'sports', 'wifi', 'computer_lab'],
-            hostel_content: `    ### School of Electrical, Electronics & Communication Engineering
-            * B.Tech in Electronics and Communication Engineering with specialization in the Internet of Things(IOT)
-            #### Eligibility
-            1. Minimum 60 % in PCM(10 + 2)
-            2. Merit in the Qualifying exam, IIT JEE, UPSEE etc preferable
-            #### **Fees Structure**
-           **Duration**|**4 years**
-            ---| ---
-            Annual Fees | 1, 49, 000
-            Exam Fee | 10, 000`
-        },
-    }
+interface Props {
+    data: InstituteHostel
+}
+
+export function RenderHostel(props: Props) {
 
     const styles = useStyles();
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
 
-    let hostels = Object.keys(data);
+    const [data, setData] = useState<InstituteHostel>(props?.data);
+
+    useEffect(() => {
+        setData(props.data);
+    }, [props?.data])
+
+    const fetchData = async () => {
+        console.log('fetching data');
+    }
+
+    useEffect(() => {
+        if (data) {
+            fetchData();
+        }
+    }, [])
+
+    let hostels = data ? Object.keys(data) : [];
 
     return (
         <>
             {
 
-                hostels?.map((hostelType: string,index:number) => {
+                hostels?.map((hostelType: string, index: number) => {
                     return (
                         <React.Fragment key={index}>
                             <div className={styles.hostelFeesContainer}>
@@ -193,7 +177,7 @@ export function RenderHostel() {
                                         <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel details</Typography>
                                     </div>
                                     <div>
-                                        <MarkdownParser content={data[hostelType].hostel_content} />
+                                        <MarkdownParser content={data[hostelType].hostelContent} />
                                     </div>
                                 </div>
                             </div>

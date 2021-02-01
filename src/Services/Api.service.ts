@@ -197,7 +197,17 @@ export const GetFilterOptions = async () => {
 }
 
 export const GetInstituteList = async ({ token, userId, category = '', pageNo = 1 }: { token: string, userId: number, category?: string, pageNo?: number }) => {
-    return await axios(InstituteUrl + `?id=${userId}&category=${category}&page=${pageNo}`)
+    return await axios(InstituteUrl + `?id=${userId}&category=${category}&page=${pageNo}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetInstituteDetails = async ({ token, userId, slug = '' }: { token: string, userId: number, slug?: string }) => {
+    return await axios(InstituteUrl + `${slug}/` + `?id=${userId}`, {
+        // headers: setHeader(token)
+    })
         .then(response => response)
         .catch(error => console.log('error', error));
 }

@@ -8,7 +8,7 @@ import { InstituteListItem } from '@/Services/DataTypes/Institutes';
 import { Button, Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import InstituteCard from '@/Components/InstituteCard.component';
 import PageEndIndicator from '@/Components/PageEndIndicator.component';
 import { ApiResponse } from '@/Services/Interfaces.interface';
@@ -73,12 +73,9 @@ const useStyles = makeStyles({
     }
 })
 
-interface propData extends ApiResponse {
-
-}
 
 interface Props {
-    data: any
+    data: ApiResponse
 }
 
 
@@ -94,12 +91,13 @@ function InstitutesList(props: Props) {
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const [pageType, setPageType] = useState<'university' | 'college'>('university');
-    const [pageState, setPageState] = useState<pageStateType>(null);
     const [loading, setLoading] = useState(false);
-    const [pageOptions, setPageOptions] = useState<{ pageNo: number, hasNextPage: boolean }>({
+    const [infiniteLoading, setInfiniteLoading] = useState(false);
+    const [pageState, setPageState] = useState<pageStateType>(null);
+    let pageOptions: { pageNo: number, hasMore: boolean } = {
         pageNo: 1,
-        hasNextPage: true,
-    });
+        hasMore: true,
+    }
     const breadcrumbs = [{ name: 'Institutes', endPoint: `${Routes.Institutes}` }];
 
 
@@ -122,16 +120,18 @@ function InstitutesList(props: Props) {
                 }))
             },
         });
-
-        setPageOptions((prev) => {
-            return { pageNo: ++prev.pageNo, hasNextPage: data?.additionalData?.hasMore }
-        })
+        if (response === '__request_success__') {
+            pageOptions = {
+                pageNo: pageOptions.pageNo + 1,
+                hasMore: data?.additionalData?.hasMore
+            }
+        }
         setPageState(response);
     }
-
+    
     useEffect(() => {
         OnPageResponseHandler(props?.data);
-    }, [props.data])
+    }, [props?.data])
 
 
 
@@ -148,6 +148,7 @@ function InstitutesList(props: Props) {
         if (pageType !== type) {
             console.log('pageType----', type)
             setPageType(type);
+            pageOptions = { pageNo: 1, hasMore: true };
             console.log('fetching');
             requestData(type, 1);
         }
@@ -156,17 +157,23 @@ function InstitutesList(props: Props) {
     const requestData = async (_pageType = pageType, _pageNo: number, toAppend: boolean = false) => {
         let userId = parseInt(GetCookie(Storages.UserId));
         let token = GetCookie(Storages.AccessToken);
+        setInfiniteLoading(true);
         let response = await getData({ token: token, userId: userId, pageNo: _pageNo, category: _pageType });
+        setInfiniteLoading(false);
         OnPageResponseHandler(response ? response.data : null, toAppend);
     }
 
-    const RequestDataOnIntersection = (_pageType: 'university' | 'college') => {
-        console.log('pageType', _pageType);
-        if (pageOptions?.hasNextPage) {
-            console.log('page options', pageOptions)
-            requestData(_pageType, pageOptions?.pageNo, true)
-        }
+
+    function RequestDataOnIntersection() {
+        console.log('page options in intraction', pageType, pageOptions)
+        // if (pageOptions.hasMore) {
+        //     requestData(pageType, pageOptions?.pageNo, true)
+        // } else {
+        //     console.log('No data to fetch');
+        // }
     }
+
+
 
     return (
         <>
@@ -221,10 +228,7 @@ function InstitutesList(props: Props) {
                                             <DummyCards cardCount={institutes?.length} withGrid={true} />
                                             : null
                                     }
-                                    {
-                                        console.log('page type in render', pageType)
-                                    }
-                                    <PageEndIndicator loading={loading} onIntersection={() => RequestDataOnIntersection(pageType)} />
+                                    <PageEndIndicator loading={infiniteLoading} onIntersection={() => RequestDataOnIntersection()} />
                                 </Grid>
                             </div>
                         </DataPageWrapper>
@@ -249,11 +253,10 @@ export async function getServerSideProps(context) {
     let userId = parseInt(cookies[Storages.UserId])
     let returnData = { props: { data: null } }
 
-    let response = await getData({ token: token, userId: userId });
+    let response = await getData({ token: token, userId: userId, category: 'university' });
     if (response) {
         returnData.props.data = response.data;
     }
     return returnData;
 
 }
-

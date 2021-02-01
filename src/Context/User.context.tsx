@@ -228,7 +228,7 @@ export function UserContextProvider(props: any) {
         }}>
             {
                 !loading ?
-                    <div style={{ transition: '.5s', paddingTop: isStripCollapsed ? 0 : '40px', height: '100%' }}>
+                    <div style={{ transition: '.5s', paddingTop: isStripCollapsed ? 0 : '40px', flexGrow: 1 }}>
                         <div className={classNames(styles.unVerifiedMailStrip, { [styles.collapsedStrip]: isStripCollapsed })}>
                             <div className='text' onClick={sendMail}>
                                 <p>We have sent a verification link to your email. If you don't see our email, click here</p>

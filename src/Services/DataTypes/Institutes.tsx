@@ -18,9 +18,9 @@ export interface InstituteList {
 
 export interface InstituteInformation {
     about: string,
-    address_detail: {
+    addressDetails: {
         timings: string,
-        contact_no?: string,
+        contactNumber?: string,
         address: string,
     }
 }
@@ -47,14 +47,14 @@ export interface Institutefaculties {
 export interface InstituteHostelFees {
     room: string,
     AC: string,
-    Non_AC: string,
+    NonAC: string,
 }
 export type InstituteHostelFacility = 'wifi' | 'gym' | 'power_supply' | 'canteen' | 'auditorium' | 'library' | 'laboratory' | 'medical' | 'sports' | 'computer_lab' | null;
 
 export interface InstituteHostelDetails {
     fees: InstituteHostelFees[],
     facilities: InstituteHostelFacility[],
-    hostel_content: string,
+    hostelContent: string,
 }
 
 export interface InstituteHostel {
@@ -64,11 +64,22 @@ export interface InstituteHostel {
 }
 
 export interface InstituteCourses {
-    courseList: CourseListItem,
-    course_content: string
+    courseList: CourseListItem[],
+    courseContent: string
+}
+
+export interface InstituteAdmission {
+    content: string
 }
 
 export interface detailedInstitute extends InstituteListItem {
     views: number,
+    information?: InstituteInformation,
+    courses: InstituteCourses,
+    admission: { content: string },
+    review: any,
+    gallery: InstituteGallery,
+    faculty: InstituteFaculty[],
+    hostel: InstituteHostel
 }
 

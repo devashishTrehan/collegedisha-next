@@ -9,21 +9,21 @@ interface Props {
 
 function PageEndIndicator(props: Props) {
 
-    const [loading, setLoading] = useState(props.loading)
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (!loading) {
-            setLoading(loading);
+        if (props.loading !== loading) {
+            console.log('infinite loading', props.loading)
+            setLoading(props.loading);
         }
     }, [props.loading])
 
 
     return (
-        <div style={{ width: '100%', }}>
+        <div style={{ width: '100%',background:'red' }}>
             {
                 loading ?
                     <div>
-
                         <p>loading...</p>
                     </div>
                     : null

@@ -291,12 +291,7 @@ function BoardList(props: any) {
   const styles = useStyles();
 
 
-  const boards: BoardListItemTypes[] = [
-    { id: 1, name: 'open board', image: '', slug: 'xyz-test', boards: [{ name: 'cbse', classes: ['8th', '9th'] }, { name: 'rbse', classes: ['8th', '9th', '10th',] }, { name: 'icse', classes: ['8th', '9th', '10th', '11th',] }] },
-    { id: 1, name: 'Up board', image: '', slug: 'xyz-test', boards: [{ name: 'cbse', classes: ['8th', '9th', '10th', '11th', '12th'] }, { name: 'rbse', classes: ['8th', '9th', '10th', '11th', '12th'] }, { name: 'icse', classes: ['8th', '9th', '10th', '11th', '12th'] }] },
-    { id: 1, name: 'national board', image: '', slug: 'xyz-test', boards: [{ name: 'cbse', classes: ['8th', '9th', '10th', '11th', '12th'] }, { name: 'rbse', classes: ['8th', '9th', '10th', '11th', '12th'] }, { name: 'icse', classes: ['8th', '9th', '10th', '11th', '12th'] }] },
-    { id: 1, name: 'state board', image: '', slug: 'xyz-test', boards: [{ name: 'cbse', classes: ['8th', '9th', '10th', '11th', '12th'] }, { name: 'rbse', classes: ['8th', '9th', '10th', '11th', '12th'] }, { name: 'icse', classes: ['8th', '9th', '10th', '11th', '12th'] }] },
-  ]
+  const boards: BoardListItemTypes[] = []
 
   const ViewDetails = (slug: string) => {
     router.push({

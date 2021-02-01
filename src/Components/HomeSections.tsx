@@ -142,6 +142,12 @@ export const ContentCards = () => {
 
     let CarouselRef = React.useRef();
 
+    React.useEffect(() => {
+        return () => {
+            clearInterval(StepsCarouselIntervalRef);
+        }
+    }, [])
+
     const slideCaousel = (direction: 'next' | 'prev') => {
         console.log('playing...');
         switch (direction) {

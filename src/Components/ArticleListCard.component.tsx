@@ -1,4 +1,4 @@
-import { Theme, } from '@/Services/App.service';
+import { MemoizedClipText, Theme, } from '@/Services/App.service';
 import { Typography, IconButton, useMediaQuery, } from '@material-ui/core';
 import { AccessTimeOutlined, Bookmark, BookmarkBorder, CalendarToday, Share, ThumbUpOutlined } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
@@ -118,6 +118,8 @@ interface Props extends ArticleListItemTypes {
 
 const defaultImage = '/assets/images/defaults/news.jpg'
 
+const ClipText = MemoizedClipText();
+
 const ArticleListCard = memo(function (props: Props) {
 
     const { title, image, onSave, onShare, slug, publishedOn, isSaved, readTime, voteCount } = props;
@@ -160,7 +162,7 @@ const ArticleListCard = memo(function (props: Props) {
                         <Typography className='date'>{publishedOn}</Typography>
                     </div>
                     <div className={'nameContainer'}>
-                        <Typography className={'productName'} >{title}</Typography>
+                        <Typography className={'productName'} >{ClipText(title)}</Typography>
                     </div>
                 </div>
                 <div className={classNames('footerSection')}>

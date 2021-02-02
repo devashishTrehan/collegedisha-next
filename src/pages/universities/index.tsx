@@ -3,16 +3,17 @@ import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import { GetCookie, Routes, setLastNavigation, Storages } from '@/Services/App.service';
+import { GetCookie, GetPageInitialData, Routes, setLastNavigation, Storages } from '@/Services/App.service';
 import { InstituteListItem } from '@/Services/DataTypes/Institutes';
 import { Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import InstituteCard from '@/Components/InstituteCard.component';
 import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
 import PageEndIndicator from '@/Components/PageEndIndicator.component';
 import { ApiResponseHandler, GetInstituteList } from '@/Services/Api.service';
-import { ApiResponse } from '@/Services/Interfaces.interface';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
+import PageSEO from '@/Components/PageSEO.component';
 
 
 const useStyles = makeStyles({
@@ -30,18 +31,21 @@ interface Props {
 
 function Universities(props: Props) {
 
-    const [universities, setUniversities] = useState<InstituteListItem[]>([])
+    const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
 
+    const [universities, setUniversities] = useState<InstituteListItem[]>(result ?? [])
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const breadcrumbs = [{ name: 'universities', endPoint: `${Routes.Universities}` }];
     const [loading, setLoading] = useState(false);
     const [infiniteLoading, setInfiniteLoading] = useState(false);
-    const [pageState, setPageState] = useState<pageStateType>(null);
-    let pageOptions: { pageNo: number, hasMore: boolean } = {
+    const [pageState, setPageState] = useState<pageStateType>(responseType);
+    const [pageSEO, setPageSEO] = useState<PageSEOProps>(__pageSeo);
+    let pageOptions = useRef({
         pageNo: 1,
         hasMore: true,
-    }
+    })
+
 
     const styles = useStyles();
 
@@ -62,12 +66,15 @@ function Universities(props: Props) {
             },
         });
         if (response === '__request_success__') {
-            pageOptions = {
-                pageNo: pageOptions.pageNo + 1,
+            let newOptions = {
+                pageNo: pageOptions.current.pageNo + 1,
                 hasMore: data?.additionalData?.hasMore
-            }
+            };
+            pageOptions.current = newOptions;
         }
-        setPageState(response);
+        if (!toAppend) {
+            setPageState(response);
+        }
     }
 
     useEffect(() => {
@@ -86,9 +93,9 @@ function Universities(props: Props) {
 
 
     function RequestDataOnIntersection() {
-        console.log('page options in intraction', pageOptions)
-        if (pageOptions.hasMore) {
-            requestData(pageOptions?.pageNo, true)
+        console.log('page options in intraction', pageOptions.current)
+        if (pageOptions.current.hasMore) {
+            requestData(pageOptions?.current?.pageNo, true)
         } else {
             console.log('No data to fetch');
         }
@@ -101,7 +108,7 @@ function Universities(props: Props) {
 
     return (
         <>
-
+            <PageSEO data={pageSEO} />
             <div className='container'>
                 <div style={{ padding: '20px 5% 0' }}>
                     <Filters />

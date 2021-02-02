@@ -231,7 +231,7 @@ const defaultImage = '/assets/images/defaults/institute.jpg';
 
 function CoachingCard(props: Props) {
 
-    const { name, location, image, rating, isSaved, onDownload, onSave, description, onShare, slug, categories, tags } = props;
+    const { name, location, thumbnail, rating, isSaved, onDownload, onSave, description, onShare, slug, categories, tags } = props;
 
     const { navHeight } = useContext(NavbarContext);
 
@@ -271,7 +271,7 @@ function CoachingCard(props: Props) {
             <div onClick={() => ViewDetails(slug)} className={classNames(styles.headContainer, { [styles.headContainer_M]: isMobile })}>
                 <div className='wrap'>
                     <div className='imageWrap'>
-                        <img src={image ? image : defaultImage} alt='' />
+                        <img src={thumbnail ? thumbnail : defaultImage} alt='' />
                     </div>
                     <div className='detailWrap'>
                         <div className='group'>

@@ -1,9 +1,14 @@
-import { Theme } from '@/Services/App.service';
+import { GetCookie, Storages, Theme } from '@/Services/App.service';
 import React, { useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import DummyCards from './DummyCard.component';
 import classNames from 'classnames';
-import { InstituteGallery } from '@/Services/DataTypes/Institutes';
+import { InstituteGallery, InstituteGalleryImage } from '@/Services/DataTypes/Institutes';
+import { useRouter } from 'next/router';
+import { ApiResponseHandler, GetInstituteSectionDetails } from '@/Services/Api.service';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
+import { DataPageWrapper, pageStateType } from './DataPageWrapper.component';
+import PageSEO from './PageSEO.component';
 
 
 // ----- gallery section start ----- \\
@@ -61,26 +66,18 @@ export function RenderGallery(props: Props) {
     const isTablet = useMediaQuery('(max-width:992px)');
     const styles = GalleryStyles();
     const [data, setData] = useState<InstituteGallery>(props?.data)
+    const [loading, setLoading] = useState(false);
+    const [pageState, setPageState] = useState<pageStateType>('__request_success__');
+    const [pageSEO, setPageSEO] = useState<PageSEOProps>(null);
+    const router = useRouter();
 
-    useEffect(() => {
-        setData(props.data);
-    }, [props?.data])
 
-    const fetchData = async () => {
-        console.log('fetching data');
-    }
 
-    useEffect(() => {
-        if (data) {
-            fetchData();
-        }
-    }, [])
-
-    const RenderImage = ({ image }) => {
+    const RenderImage = ({ image: { image, imageName } }) => {
         const defaultImage = '/assets/images/defaults/default.jpg';
         return (
             <div className={classNames(styles.imageWrap, { [styles.imageWrap_T]: isTablet, [styles.imageWrap_M]: isMobile })}>
-                <img src={image ? image : defaultImage} alt='' />
+                <img src={image ? image : defaultImage} alt={imageName} />
             </div>
         )
     }
@@ -93,47 +90,80 @@ export function RenderGallery(props: Props) {
         )
     }
 
+
+    const requestData = async () => {
+        let slug = router?.query?.instituteSlug[0];
+        let userId = parseInt(GetCookie(Storages.UserId));
+        let token = GetCookie(Storages.AccessToken);
+        let response = await GetInstituteSectionDetails({ token: token, userId: userId, slug: slug, section: 'gallery' });
+        OnPageResponseHandler(response ? response.data : null);
+    }
+
+    const OnPageResponseHandler = (data: ApiResponse) => {
+        let response = ApiResponseHandler(data, {
+            onNoData: () => { setData(null) },
+            onSuccess: () => {
+                setData(data.result)
+            },
+        });
+        setPageSEO(data?.additionalData?.pageSEO);
+        setPageState(response);
+    }
+
+
+    useEffect(() => {
+        if (!data) {
+            requestData();
+        }
+    }, [])
+
+
     return (
         <>
-            <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
-                <div className={'containerHead'}>
-                    <Typography variant='h4'>Our gallery</Typography>
-                </div>
-                <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
-                    {
-                        data?.images?.map((image: string, index: number) => {
-                            return <Grid item key={index}>
-                                <RenderImage image={image} />
-                            </Grid>
-                        })
-                    }
-                    {
-                        !isMobile &&
-                        <DummyCards cardCount={data?.images?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 180, regular: 240 } }} />
-                    }
-                </Grid>
-            </div>
-
-            <div className={styles.videosContainer} >
-                <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
-                    <div className={'containerHead'}>
-                        <Typography variant='h4'>Our Videos</Typography>
+            <PageSEO data={pageSEO} />
+            <DataPageWrapper pageState={pageState}>
+                <>
+                    <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
+                        <div className={'containerHead'}>
+                            <Typography variant='h4'>Our gallery</Typography>
+                        </div>
+                        <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
+                            {
+                                data?.images?.map((image: InstituteGalleryImage, index: number) => {
+                                    return <Grid item key={image.id}>
+                                        <RenderImage image={image} />
+                                    </Grid>
+                                })
+                            }
+                            {
+                                !isMobile &&
+                                <DummyCards cardCount={data?.images?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 180, regular: 240 } }} />
+                            }
+                        </Grid>
                     </div>
-                    <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
-                        {
-                            data?.videos?.map((video: string, index: number) => {
-                                return <Grid item key={index}>
-                                    <RenderVideo videoId={video} />
-                                </Grid>
-                            })
-                        }
-                        {
-                            !isMobile &&
-                            <DummyCards cardCount={data?.videos?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 180, regular: 240 } }} />
-                        }
-                    </Grid>
-                </div>
-            </div>
+
+                    <div className={styles.videosContainer} >
+                        <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
+                            <div className={'containerHead'}>
+                                <Typography variant='h4'>Our Videos</Typography>
+                            </div>
+                            <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
+                                {
+                                    data?.videos?.map((video: string, index: number) => {
+                                        return <Grid item key={index}>
+                                            <RenderVideo videoId={video} />
+                                        </Grid>
+                                    })
+                                }
+                                {
+                                    !isMobile &&
+                                    <DummyCards cardCount={data?.videos?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 180, regular: 240 } }} />
+                                }
+                            </Grid>
+                        </div>
+                    </div>
+                </>
+            </DataPageWrapper>
         </>
     );
 }

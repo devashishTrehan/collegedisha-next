@@ -79,11 +79,11 @@ export const ApiResponseTypes: { [key: string]: pageStateType } = {
 }
 
 interface ApiResponseCallBacks {
-    onFailed: Function,
-    onUnAuthenticated: Function,
-    onError: Function,
-    onNoData: Function,
-    onSuccess: Function,
+    onFailed?: Function,
+    onUnAuthenticated?: Function,
+    onError?: Function,
+    onNoData?: Function,
+    onSuccess?: Function,
 }
 
 export const ApiResponseHandler = (response: ApiResponse | undefined, callbacks: ApiResponseCallBacks) => {
@@ -92,22 +92,22 @@ export const ApiResponseHandler = (response: ApiResponse | undefined, callbacks:
         if (response.isAuthenticated) {
             if (response.status) {
                 if (response.result) {
-                    callbacks.onSuccess();
+                    callbacks.onSuccess && callbacks.onSuccess();
                     return ApiResponseTypes.RequestSuccess
                 } else {
-                    callbacks.onNoData();
+                    callbacks.onNoData && callbacks.onNoData();
                     return ApiResponseTypes.dataNotFound;
                 }
             } else {
-                callbacks.onError();
+                callbacks.onError && callbacks.onError();
                 return ApiResponseTypes.RequestFailedError;
             }
         } else {
-            callbacks.onUnAuthenticated();
+            callbacks.onUnAuthenticated && callbacks.onUnAuthenticated();
             return ApiResponseTypes.NotAuthenticated;
         }
     } else {
-        callbacks.onFailed();
+        callbacks.onFailed && callbacks.onFailed();
         return ApiResponseTypes.RequestFailed;
     }
 }
@@ -204,8 +204,16 @@ export const GetInstituteList = async ({ token, userId, category = '', pageNo = 
         .catch(error => console.log('error', error));
 }
 
-export const GetInstituteDetails = async ({ token, userId, slug = '' }: { token: string, userId: number, slug?: string }) => {
-    return await axios(InstituteUrl + `${slug}/` + `?id=${userId}`, {
+export const GetInstituteDetails = async ({ token, userId, slug = '', section = 'information' }: { token: string, userId: number, slug?: string, section: string }) => {
+    return await axios(InstituteUrl + `${slug}/` + `?id=${userId}&section=${section}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetInstituteSectionDetails = async ({ token, userId, slug = '', section }: { token: string, userId: number, slug?: string, section: string }) => {
+    return await axios(InstituteUrl + `${slug}/${section}` + `?id=${userId}`, {
         // headers: setHeader(token)
     })
         .then(response => response)

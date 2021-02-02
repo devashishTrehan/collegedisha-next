@@ -1,4 +1,7 @@
 import { UrlObject } from "@/Components/CustomBreadCrumb.component";
+import { pageStateType } from "@/Components/DataPageWrapper.component";
+import { ApiResponseHandler } from "./Api.service";
+import { ApiResponse, PageSEOProps } from "./Interfaces.interface";
 
 export const Theme = {
     // primary: '#44b4d6',
@@ -247,6 +250,28 @@ export function GetCookie(cname) {
     }
     return "";
 }
+
+
+
+//---------- The function to get data for initial page render -------\\
+export function GetPageInitialData(responseData: ApiResponse): { result: any, responseType: pageStateType, pageSeo: PageSEOProps } {
+
+    let responseType = ApiResponseHandler(responseData, {});
+    if (responseData) {
+        return {
+            result: responseData?.result,
+            responseType: responseType,
+            pageSeo: responseData?.additionalData?.pageSEO
+        }
+    } else {
+        return {
+            result: null,
+            responseType: responseType,
+            pageSeo: null
+        }
+    }
+}
+
 
 
 

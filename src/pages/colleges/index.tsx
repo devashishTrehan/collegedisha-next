@@ -3,15 +3,16 @@ import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import { GetCookie, Routes, setLastNavigation, Storages } from '@/Services/App.service';
+import { GetCookie, GetPageInitialData, Routes, setLastNavigation, Storages } from '@/Services/App.service';
 import { InstituteListItem } from '@/Services/DataTypes/Institutes';
 import { Grid, makeStyles, useMediaQuery } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import InstituteCard from '@/Components/InstituteCard.component';
 import { ApiResponseHandler, GetInstituteList } from '@/Services/Api.service';
-import { ApiResponse } from '@/Services/Interfaces.interface';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
 import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
 import PageEndIndicator from '@/Components/PageEndIndicator.component';
+import PageSEO from '@/Components/PageSEO.component';
 
 
 const useStyles = makeStyles({
@@ -20,7 +21,7 @@ const useStyles = makeStyles({
 
 
 interface Props {
-    data: ApiResponse
+    data: ApiResponse,
 }
 
 const getData = async (params) => {
@@ -30,24 +31,25 @@ const getData = async (params) => {
 
 function Colleges(props: Props) {
 
+    const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
 
-
-    const [Colleges, setColleges] = useState<InstituteListItem[] | null>([]);
+    const [Colleges, setColleges] = useState<InstituteListItem[] | null>(result ?? []);
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const breadcrumbs = [{ name: 'colleges', endPoint: `/${Routes.Colleges}` }];
     const [loading, setLoading] = useState(false);
     const [infiniteLoading, setInfiniteLoading] = useState(false);
-    const [pageState, setPageState] = useState<pageStateType>(null);
+    const [pageState, setPageState] = useState<pageStateType>(responseType);
+    const [pageSeo, setPageSeo] = useState(__pageSeo);
 
-    let pageOptions: { pageNo: number, hasMore: boolean } = {
+    let pageOptions = useRef({
         pageNo: 1,
         hasMore: true,
-    }
+    })
 
     const styles = useStyles();
 
-    const OnPageResponseHandler = (data, toAppend: boolean = false) => {
+    const OnPageResponseHandler = (data: ApiResponse, toAppend: boolean = false) => {
         let response = ApiResponseHandler(data, {
             onError: () => { },
             onFailed: () => { },
@@ -63,14 +65,18 @@ function Colleges(props: Props) {
                 }))
             },
         });
+        setPageSeo(data?.additionalData?.pageSEO);
         if (response === '__request_success__') {
-            pageOptions = {
-                pageNo: pageOptions.pageNo + 1,
+            let newOptions = {
+                pageNo: pageOptions.current.pageNo + 1,
                 hasMore: data?.additionalData?.hasMore
-            }
+            };
+            pageOptions.current = newOptions;
         }
-        console.log('pageOptions after change', pageOptions, data.result[0].id);
-        setPageState(response);
+        console.log('pageOptions after change', pageOptions.current);
+        if (!toAppend) {
+            setPageState(response);
+        }
     }
 
     useEffect(() => {
@@ -92,10 +98,10 @@ function Colleges(props: Props) {
 
 
     function RequestDataOnIntersection() {
-        console.log('page options in intraction', pageOptions);
-        debugger
-        if (pageOptions.hasMore) {
-            requestData(pageOptions?.pageNo, true)
+        console.log('page options in intraction', pageOptions.current);
+
+        if (pageOptions.current.hasMore) {
+            requestData(pageOptions?.current?.pageNo, true)
         } else {
             console.log('No data to fetch');
         }
@@ -108,16 +114,12 @@ function Colleges(props: Props) {
 
     return (
         <>
-
+            <PageSEO data={pageSeo}></PageSEO>
             <div className='container'>
                 <div style={{ padding: '20px 5% 0' }}>
                     <Filters />
                 </div>
             </div>
-
-
-            <p style={{ background: 'gray', padding: 10, position: 'fixed', left: 0, top: 100, zIndex: 99 }}>length -- {Colleges?.length}</p>
-
 
             <DataPageWrapper loading={loading} pageState={pageState}>
 

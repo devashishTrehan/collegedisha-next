@@ -25,8 +25,14 @@ export interface InstituteInformation {
     }
 }
 
+
+export interface InstituteGalleryImage {
+    id: number,
+    image: string,
+    imageName: string
+}
 export interface InstituteGallery {
-    images: string[],
+    images: InstituteGalleryImage[],
     videos: string[],
 }
 
@@ -75,11 +81,11 @@ export interface InstituteAdmission {
 export interface detailedInstitute extends InstituteListItem {
     views: number,
     information?: InstituteInformation,
-    courses: InstituteCourses,
-    admission: { content: string },
-    review: any,
-    gallery: InstituteGallery,
-    faculty: InstituteFaculty[],
-    hostel: InstituteHostel
+    courses?: InstituteCourses,
+    admission?: { content: string },
+    review?: any,
+    gallery?: InstituteGallery,
+    faculty?: InstituteFaculty[],
+    hostel?: InstituteHostel
 }
 

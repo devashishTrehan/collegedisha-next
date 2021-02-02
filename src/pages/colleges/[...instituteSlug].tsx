@@ -28,10 +28,8 @@ export async function getServerSideProps(context) {
     let userId = parseInt(cookies[Storages.UserId])
     let slug = context.params.instituteSlug[0];
     let returnData = { props: { data: null } }
-
-    let response = await getData({ token: token, userId: userId, slug: slug });
-
-
+    let section = context.params.instituteSlug[1];
+    let response = await getData({ token: token, userId: userId, slug: slug, section: section ? section : 'information' });
     if (response) {
         returnData.props.data = response.data;
     }

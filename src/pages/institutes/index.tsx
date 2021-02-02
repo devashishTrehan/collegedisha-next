@@ -3,17 +3,18 @@ import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import { GetCookie, Routes, setLastNavigation, Storages, Theme } from '@/Services/App.service';
+import { GetCookie, GetPageInitialData, Routes, setLastNavigation, Storages, Theme } from '@/Services/App.service';
 import { InstituteListItem } from '@/Services/DataTypes/Institutes';
 import { Button, Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
 import Head from 'next/head';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import InstituteCard from '@/Components/InstituteCard.component';
 import PageEndIndicator from '@/Components/PageEndIndicator.component';
-import { ApiResponse } from '@/Services/Interfaces.interface';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
 import { ApiResponseHandler, GetInstituteList } from '@/Services/Api.service';
 import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
+import PageSEO from '@/Components/PageSEO.component';
 
 
 const useStyles = makeStyles({
@@ -86,18 +87,21 @@ const getData = async (params) => {
 
 function InstitutesList(props: Props) {
 
-    const [institutes, setInstitutes] = useState<InstituteListItem[] | null>(null);
+    const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
 
+    const [institutes, setInstitutes] = useState<InstituteListItem[] | null>(result ?? []);
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const [pageType, setPageType] = useState<'university' | 'college'>('university');
+    const pageTypeRef = useRef(pageType);
     const [loading, setLoading] = useState(false);
     const [infiniteLoading, setInfiniteLoading] = useState(false);
-    const [pageState, setPageState] = useState<pageStateType>(null);
-    let pageOptions: { pageNo: number, hasMore: boolean } = {
+    const [pageState, setPageState] = useState<pageStateType>(responseType);
+    const [pageSEO, setPageSEO] = useState<PageSEOProps>(__pageSeo);
+    let pageOptions = useRef({
         pageNo: 1,
         hasMore: true,
-    }
+    })
     const breadcrumbs = [{ name: 'Institutes', endPoint: `${Routes.Institutes}` }];
 
 
@@ -121,14 +125,17 @@ function InstitutesList(props: Props) {
             },
         });
         if (response === '__request_success__') {
-            pageOptions = {
-                pageNo: pageOptions.pageNo + 1,
+            let newOptions = {
+                pageNo: pageOptions.current.pageNo + 1,
                 hasMore: data?.additionalData?.hasMore
-            }
+            };
+            pageOptions.current = newOptions;
         }
-        setPageState(response);
+        if (!toAppend) {
+            setPageState(response);
+        }
     }
-    
+
     useEffect(() => {
         OnPageResponseHandler(props?.data);
     }, [props?.data])
@@ -148,13 +155,14 @@ function InstitutesList(props: Props) {
         if (pageType !== type) {
             console.log('pageType----', type)
             setPageType(type);
-            pageOptions = { pageNo: 1, hasMore: true };
+            pageTypeRef.current = type;
+            pageOptions.current = { pageNo: 1, hasMore: true };
             console.log('fetching');
             requestData(type, 1);
         }
     }
 
-    const requestData = async (_pageType = pageType, _pageNo: number, toAppend: boolean = false) => {
+    const requestData = async (_pageType = pageTypeRef.current, _pageNo: number, toAppend: boolean = false) => {
         let userId = parseInt(GetCookie(Storages.UserId));
         let token = GetCookie(Storages.AccessToken);
         setInfiniteLoading(true);
@@ -165,26 +173,23 @@ function InstitutesList(props: Props) {
 
 
     function RequestDataOnIntersection() {
-        console.log('page options in intraction', pageType, pageOptions)
-        // if (pageOptions.hasMore) {
-        //     requestData(pageType, pageOptions?.pageNo, true)
-        // } else {
-        //     console.log('No data to fetch');
-        // }
+        console.log('page options in intraction', pageTypeRef.current, pageOptions)
+        if (pageOptions.current?.hasMore) {
+            requestData(pageTypeRef.current, pageOptions?.current?.pageNo, true)
+        } else {
+            console.log('No data to fetch');
+        }
     }
 
 
 
     return (
         <>
-            <Head>
-                <title>Institutes</title>
-            </Head>
+            <PageSEO data={pageSEO} />
             <div className='container'>
                 <div className='wrapper' style={{ paddingTop: 0 }}>
 
                     <div className={styles.buttonsContainer} >
-                        <p style={{ background: 'gray', padding: 10, position: 'fixed', left: 0, top: 100, zIndex: 99 }}>length -- {institutes?.length}</p>
                         <div className='buttonWrap'>
 
                             <div className={classNames('activeHelper', { 'active': pageType === 'university' })}></div>

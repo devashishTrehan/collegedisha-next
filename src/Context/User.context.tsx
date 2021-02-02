@@ -226,23 +226,23 @@ export function UserContextProvider(props: any) {
             loggingOut: loggingOut,
             setToken: (tokens: any) => setTokens(tokens)
         }}>
-            {
-                !loading ?
-                    <div style={{ transition: '.5s', paddingTop: isStripCollapsed ? 0 : '40px', flexGrow: 1 }}>
-                        <div className={classNames(styles.unVerifiedMailStrip, { [styles.collapsedStrip]: isStripCollapsed })}>
+            <div style={{ transition: '.5s', paddingTop: isStripCollapsed ? 0 : '40px', flexGrow: 1 }}>
+                <div className={classNames(styles.unVerifiedMailStrip, { [styles.collapsedStrip]: isStripCollapsed })}>
+                    {
+                        !isStripCollapsed ?
                             <div className='text' onClick={sendMail}>
                                 <p>We have sent a verification link to your email. If you don't see our email, click here</p>
                             </div>
-                            <div className='icon' onClick={() => setIsStripCollapsed(true)}>
-                                <FontAwesomeIcon icon={faTimes} />
-                            </div>
-                        </div>
-                        {
-                            props.children
-                        }
+                            : null
+                    }
+                    <div className='icon' onClick={() => setIsStripCollapsed(true)}>
+                        <FontAwesomeIcon icon={faTimes} />
                     </div>
-                    : <Loader />
-            }
+                </div>
+                {
+                    props.children
+                }
+            </div>
         </UserContext.Provider>
     );
 }

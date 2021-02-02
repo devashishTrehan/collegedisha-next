@@ -1,9 +1,13 @@
-import { Theme } from '@/Services/App.service';
+import { GetCookie, Storages, Theme } from '@/Services/App.service';
 import React, { useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import MarkdownParser from './MarkdownParser.component';
 import { InstituteHostel, InstituteHostelFacility, InstituteHostelFees } from '@/Services/DataTypes/Institutes';
-
+import { DataPageWrapper, pageStateType } from './DataPageWrapper.component';
+import { useRouter } from 'next/router';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
+import PageSEO from './PageSEO.component';
+import { ApiResponseHandler, GetInstituteSectionDetails } from '@/Services/Api.service';
 
 const useStyles = makeStyles({
 
@@ -125,66 +129,91 @@ export function RenderHostel(props: Props) {
     const isTablet = useMediaQuery('(max-width:992px)');
 
     const [data, setData] = useState<InstituteHostel>(props?.data);
+    let hostels = data ? Object.keys(data) : [];
 
-    useEffect(() => {
-        setData(props.data);
-    }, [props?.data])
+    const [loading, setLoading] = useState(false);
+    const [pageState, setPageState] = useState<pageStateType>('__request_success__');
+    const [pageSEO, setPageSEO] = useState<PageSEOProps>(null);
+    const router = useRouter();
 
-    const fetchData = async () => {
-        console.log('fetching data');
+
+    const requestData = async () => {
+        let slug = router?.query?.instituteSlug[0];
+        let userId = parseInt(GetCookie(Storages.UserId));
+        let token = GetCookie(Storages.AccessToken);
+        let response = await GetInstituteSectionDetails({ token: token, userId: userId, slug: slug, section: 'hostel' });
+        console.log('response data', response);
+        OnPageResponseHandler(response ? response.data : null);
     }
 
+    const OnPageResponseHandler = (data: ApiResponse) => {
+        let response = ApiResponseHandler(data, {
+            onNoData: () => { setData(null) },
+            onSuccess: () => {
+                setData(data.result)
+            },
+        });
+        setPageSEO(data?.additionalData?.pageSEO);
+        setPageState(response);
+    }
+
+
     useEffect(() => {
-        if (data) {
-            fetchData();
+        console.log('page data', data);
+        if (!data) {
+            requestData();
         }
     }, [])
 
-    let hostels = data ? Object.keys(data) : [];
 
     return (
         <>
-            {
+            <PageSEO data={pageSEO} />
+            <DataPageWrapper pageState={pageState}>
+                <>
+                    {
 
-                hostels?.map((hostelType: string, index: number) => {
-                    return (
-                        <React.Fragment key={index}>
-                            <div className={styles.hostelFeesContainer}>
-                                <div className={'pageSectionContainer'} >
-                                    <div className={'containerHead'}>
-                                        <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel fees</Typography>
+                        hostels?.map((hostelType: string, index: number) => {
+                            return (
+                                <React.Fragment key={index}>
+                                    <div className={styles.hostelFeesContainer}>
+                                        <div className={'pageSectionContainer'} >
+                                            <div className={'containerHead'}>
+                                                <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel fees</Typography>
+                                            </div>
+                                            {
+                                                RenderFees(data[hostelType].fees)
+                                            }
+                                        </div>
                                     </div>
-                                    {
-                                        RenderFees(data[hostelType].fees)
-                                    }
-                                </div>
-                            </div>
 
-                            <div className={styles.hostelFacilityContainer}>
-                                <div className={'pageSectionContainer'} >
-                                    <div className={'containerHead'}>
-                                        <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel facilities</Typography>
+                                    <div className={styles.hostelFacilityContainer}>
+                                        <div className={'pageSectionContainer'} >
+                                            <div className={'containerHead'}>
+                                                <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel facilities</Typography>
+                                            </div>
+                                            {
+                                                RenderFacilities(data[hostelType].facilities)
+                                            }
+                                        </div>
                                     </div>
-                                    {
-                                        RenderFacilities(data[hostelType].facilities)
-                                    }
-                                </div>
-                            </div>
 
-                            <div className={styles.hostelFacilityContent}>
-                                <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
-                                    <div className={'containerHead'}>
-                                        <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel details</Typography>
+                                    <div className={styles.hostelFacilityContent}>
+                                        <div className={'pageSectionContainer'} style={isMobile ? { padding: '20px' } : null}>
+                                            <div className={'containerHead'}>
+                                                <Typography variant='h4'>{hostelTypeEnum[hostelType]} Hostel details</Typography>
+                                            </div>
+                                            <div>
+                                                <MarkdownParser content={data[hostelType].hostelContent} />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <MarkdownParser content={data[hostelType].hostelContent} />
-                                    </div>
-                                </div>
-                            </div>
-                        </React.Fragment>
-                    )
-                })
-            }
+                                </React.Fragment>
+                            )
+                        })
+                    }
+                </>
+            </DataPageWrapper>
         </>
     );
 }

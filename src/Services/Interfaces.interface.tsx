@@ -1,3 +1,5 @@
+import { pageStateType } from "@/Components/DataPageWrapper.component";
+
 export interface MenuListInterface {
     label: string,
     list: MenuListInterface[],
@@ -9,7 +11,8 @@ export interface ApiResponse {
     status: boolean,
     messages: string[],
     result: any,
-    additionalInfo: object,
+    additionalData: { [key: string]: any, pageSEO: PageSEOProps },
+    requestStatus?: pageStateType
 }
 
 export interface ApiListResponse extends ApiResponse {
@@ -19,3 +22,11 @@ export interface ApiListResponse extends ApiResponse {
 export interface ApiObjectResponse extends ApiResponse {
     result: object,
 }
+
+
+export interface PageSEOProps {
+    metaTitle: string,
+    metaDescription: string,
+    metaKeywords: string
+}
+

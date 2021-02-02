@@ -14,9 +14,11 @@ import { RenderCoursesFees } from './InstituteCourses.component';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { PageNavigation } from './PageNavigation.component';
 import { InnerPageHead } from './InnerPageHead.component';
-import { ApiResponse } from '@/Services/Interfaces.interface';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
 import { ApiResponseHandler } from '@/Services/Api.service';
 import { DataPageWrapper, pageStateType } from './DataPageWrapper.component';
+import { GetPageInitialData } from '@/Services/App.service';
+import PageSEO from './PageSEO.component';
 
 
 
@@ -45,13 +47,16 @@ const defaultImage = '/assets/images/defaults/institute.jpg';
 
 function InstituteDetailComponent(props: Props) {
 
-    const [instituteDetails, setInstituteDetails] = useState<detailedInstitute | null>(props?.data?.result);
+    const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
+
+    const [instituteDetails, setInstituteDetails] = useState<detailedInstitute | null>(result ?? null);
     const [slugs, setSlugs] = useState<string[]>([]);
     const [currentSection, setCurrentSection] = useState<string>(pageSections.Information);
     const [currentPageUrl, setCurrentPageUrl] = useState<string>('');
     const { navHeight } = useContext(NavbarContext);
     const [loading, setLoading] = useState(false);
-    const [pageState, setPageState] = useState<pageStateType>(null);
+    const [pageState, setPageState] = useState<pageStateType>(responseType);
+    const [pageSEO, setPageSEO] = useState<PageSEOProps>(__pageSeo);
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const styles = useStyles();
@@ -114,26 +119,29 @@ function InstituteDetailComponent(props: Props) {
     }
 
     return (
-        <DataPageWrapper loading={loading} pageState={pageState}>
-            <div>
-                <InnerPageHead {...instituteDetails} />
+        <>
+            <PageSEO data={pageSEO} />
+            <DataPageWrapper loading={loading} pageState={pageState}>
+                <div>
+                    <InnerPageHead {...instituteDetails} />
 
-                <PageNavigation pageSections={pageSections} currentSection={currentSection} onLinkClick={(section: string) => showpageSection(section)} />
+                    <PageNavigation pageSections={pageSections} currentSection={currentSection} onLinkClick={(section: string) => showpageSection(section)} />
 
-                <div className='container'>
-                    <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '50px 5%' }}>
-                        <Grid container >
-                            <Grid item xs={12} md={9} >
-                                {
-                                    <RenderPageSection institute={instituteDetails} section={currentSection} />
-                                }
+                    <div className='container'>
+                        <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '50px 5%' }}>
+                            <Grid container >
+                                <Grid item xs={12} md={9} >
+                                    {
+                                        <RenderPageSection institute={instituteDetails} section={currentSection} />
+                                    }
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-        </DataPageWrapper>
+                </div>
+            </DataPageWrapper>
+        </>
     );
 }
 

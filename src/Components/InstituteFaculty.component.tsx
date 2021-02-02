@@ -1,10 +1,15 @@
-import { Theme } from '@/Services/App.service';
+import { GetCookie, Storages, Theme } from '@/Services/App.service';
 import React, { useEffect, useState } from 'react';
 import { Grid, IconButton, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
 import { InstituteFaculty } from '@/Services/DataTypes/Institutes';
 import { EmailOutlined, PhoneOutlined } from '@material-ui/icons';
 import DummyCards from './DummyCard.component';
+import PageSEO from './PageSEO.component';
+import { DataPageWrapper, pageStateType } from './DataPageWrapper.component';
+import { ApiResponseHandler, GetInstituteSectionDetails } from '@/Services/Api.service';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
+import { useRouter } from 'next/router';
 
 
 
@@ -105,39 +110,62 @@ export function RenderFaculty(props: Props) {
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const styles = useStyles();
+    const [loading, setLoading] = useState(false);
+    const [pageState, setPageState] = useState<pageStateType>('__request_success__');
+    const [pageSEO, setPageSEO] = useState<PageSEOProps>(null);
+    const router = useRouter();
 
-    useEffect(() => {
-        setData(props.data);
-    }, [props?.data])
 
-    const fetchData = async () => {
-        console.log('fetching data');
+    const requestData = async () => {
+        let slug = router?.query?.instituteSlug[0];
+        let userId = parseInt(GetCookie(Storages.UserId));
+        let token = GetCookie(Storages.AccessToken);
+        let response = await GetInstituteSectionDetails({ token: token, userId: userId, slug: slug, section: 'college-faculty' });
+        OnPageResponseHandler(response ? response.data : null);
     }
 
+    const OnPageResponseHandler = (data: ApiResponse) => {
+        let response = ApiResponseHandler(data, {
+            onNoData: () => { setData(null) },
+            onSuccess: () => {
+                setData(data.result)
+            },
+        });
+        setPageSEO(data?.additionalData?.pageSEO);
+        setPageState(response);
+    }
+
+
     useEffect(() => {
-        if (data) {
-            fetchData();
+        if (!data) {
+            requestData();
         }
     }, [])
 
+
     return (
-        <div className={'pageSectionContainer'} >
-            <div className={'containerHead'}>
-                <Typography variant='h4'>Our Faculties</Typography>
-            </div>
-            <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
-                {
-                    data?.map((faculty: InstituteFaculty, index: number) => {
-                        return <Grid item key={index} xs={12} sm={6}>
-                            <FacultyCard faculty={faculty} />
-                        </Grid>
-                    })
-                }
-                {
-                    !isMobile &&
-                    <DummyCards cardCount={data?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 200, regular: 280 } }} />
-                }
-            </Grid>
-        </div>
+        <>
+            <PageSEO data={pageSEO} />
+            <DataPageWrapper pageState={pageState}>
+                <div className={'pageSectionContainer'} >
+                    <div className={'containerHead'}>
+                        <Typography variant='h4'>Our Faculties</Typography>
+                    </div>
+                    <Grid container spacing={5} justify={isMobile ? 'center' : 'space-around'}>
+                        {
+                            data?.map((faculty: InstituteFaculty, index: number) => {
+                                return <Grid item key={index} xs={12} sm={6}>
+                                    <FacultyCard faculty={faculty} />
+                                </Grid>
+                            })
+                        }
+                        {
+                            !isMobile &&
+                            <DummyCards cardCount={data?.length} spacing={5} withGrid={true} cardSize={{ width: { small: 200, regular: 280 } }} />
+                        }
+                    </Grid>
+                </div>
+            </DataPageWrapper>
+        </>
     );
 }

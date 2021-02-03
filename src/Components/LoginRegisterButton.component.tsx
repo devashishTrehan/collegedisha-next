@@ -8,15 +8,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 
 interface PropType {
-    onLoginClick: Function,
-    onRegisterClick: Function,
     labelOnSmall?: boolean,
     labelStyle?: CSSProperties
     iconStyle?: CSSProperties
+    icons?: boolean
 }
 
 const useStyles = makeStyles({
     LoginRegisterButton: {
+        textAlign:'left',
         '& .tiltLine': {
             fontSize: 20,
         },
@@ -72,6 +72,8 @@ export const LoginRegisterButton = (props: PropType) => {
         }
     }, [props?.labelOnSmall])
 
+
+    const { icons } = props;
     return (
         <div className={classNames(styles.LoginRegisterButton, { [styles.LoginRegisterButton_T]: isTablet })} >
             <span>
@@ -79,22 +81,30 @@ export const LoginRegisterButton = (props: PropType) => {
                     pathname: Routes.Login,
                 }}>
                     <a>
-                        <FontAwesomeIcon icon={faLock} style={{ ...props.iconStyle }} />
                         {
-                            (!isMobile || showLabelInMobile) && (<span style={{ ...props.labelStyle }}>Login</span>)
+                            icons === false ?
+                                null
+                                : <FontAwesomeIcon icon={faLock} style={{ ...props.iconStyle }} />
+                        }
+                        {
+                            (!isMobile || showLabelInMobile) && (<span className={'text'} style={{ ...props.labelStyle }}>Login</span>)
                         }
                     </a>
                 </Link>
             </span>
-            <i className={'tiltLine'}>/</i>
+            <i className={'tiltLine'} style={{ ...props.labelStyle }}>/</i>
             <span >
                 <Link href={{
                     pathname: Routes.Register,
                 }}>
                     <a>
-                        <FontAwesomeIcon icon={faUser} style={{ ...props.iconStyle }} />
                         {
-                            (!isMobile || showLabelInMobile) && (<span style={{ ...props.labelStyle }}>Register</span>)
+                            icons === false ?
+                                null
+                                : <FontAwesomeIcon icon={faUser} style={{ ...props.iconStyle }} />
+                        }
+                        {
+                            (!isMobile || showLabelInMobile) && (<span className={'text'} style={{ ...props.labelStyle }}>Register</span>)
                         }
                     </a>
                 </Link>

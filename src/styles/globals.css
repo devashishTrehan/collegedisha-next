@@ -341,15 +341,6 @@ p {
     100% {
         background-position: 0% 0%, 100% 50%, 0% 100%;
     }
-    /* 50% {
-        background-position: 0% 0%, 50% 100%, 0% 100%;
-    }
-    75% {
-        background-position: -10% 0%, 75% 75%, 10% 100%;
-    }
-    100% {
-        background-position: 0% 0%, 100% 50%, 0% 100%;
-    } */
 }
 
 @keyframes MoveBackground2 {

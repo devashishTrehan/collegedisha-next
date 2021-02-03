@@ -60,8 +60,8 @@ function CoachingDetailsPage(props: Props) {
         slug: '',
         about: ``,
         admission: ``,
-        course_details: ``,
-        address_details: {
+        courseDetails: ``,
+        addressDetails: {
             timings: '10:00A.M. - 5:00P.M.',
             address: 'uefgergbtr mgkjrhjyt',
         },
@@ -98,7 +98,7 @@ function CoachingDetailsPage(props: Props) {
     }
 
 
-    const { id, name, about, course_details, admission, address_details } = coachingDetails;
+    const { id, name, about, courseDetails, admission, addressDetails } = coachingDetails;
 
     return (
         <div>
@@ -114,9 +114,9 @@ function CoachingDetailsPage(props: Props) {
                             {
                                 RenderPageSection({
                                     about: about,
-                                    address_details: address_details,
+                                    addressDetails: addressDetails,
                                     admission: admission,
-                                    course_details: course_details
+                                    courseDetails: courseDetails
                                 })
                             }
                         </Grid>
@@ -133,9 +133,9 @@ export default CoachingDetailsPage;
 
 interface PageSectionProps {
     about: string,
-    course_details: string,
+    courseDetails: string,
     admission,
-    address_details
+    addressDetails
 }
 
 const RenderPageSection = (props: PageSectionProps) => {
@@ -143,9 +143,9 @@ const RenderPageSection = (props: PageSectionProps) => {
     return (
         <>
             <RenderInformation about={props.about} />
-            <RenderCourseFees course_details={props.course_details} />
+            <RenderCourseFees courseDetails={props.courseDetails} />
             <RenderAdmission admission={props.admission} />
-            <RenderAddress address_details={props.address_details} />
+            <RenderAddress addressDetails={props.addressDetails} />
             <RenderReview />
         </>
     )
@@ -179,7 +179,7 @@ const RenderInformation = (props: { about: string }) => {
 
 //   ------ courses and fees start------   \\
 
-const RenderCourseFees = (props: { course_details: string }) => {
+const RenderCourseFees = (props: { courseDetails: string }) => {
 
     const styles = sectionStyles();
 
@@ -189,7 +189,7 @@ const RenderCourseFees = (props: { course_details: string }) => {
                 <div className={'containerHead'}>
                     <Typography variant='h2' >Coaching center Courses & fees</Typography>
                 </div>
-                <MarkdownParser content={props.course_details} />
+                <MarkdownParser content={props.courseDetails} />
             </div>
         </div>
     )
@@ -227,14 +227,14 @@ const RenderAdmission = (props: { admission: string }) => {
 
 //   ------ Address start------   \\
 
-const RenderAddress = (props: { address_details: AddressDetailProps }) => {
+const RenderAddress = (props: { addressDetails: AddressDetailProps }) => {
 
     const styles = sectionStyles();
 
     return (
         <div className={styles.container}>
             <div id={pageSections['address & details']}>
-                <AddressDetailComponent {...props.address_details} />
+                <AddressDetailComponent {...props.addressDetails} />
             </div>
         </div>
     )

@@ -266,7 +266,7 @@ function NavBar(props: any) {
                   }
                 </div>
 
-                : <LoginRegisterButton onLoginClick={() => true} onRegisterClick={() => true} />
+                : <LoginRegisterButton />
 
             }
             {

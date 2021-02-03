@@ -1,34 +1,35 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Theme, } from '../Services/App.service';
-import { IconButton, useMediaQuery } from '@material-ui/core';
-import { Close, } from '@material-ui/icons';
+import { IconButton, Typography, useMediaQuery } from '@material-ui/core';
+import { Category, Close, PauseCircleFilled, PauseCircleOutline, } from '@material-ui/icons';
 import { MenuContext } from '../Context/Menu.context';
 import { C_MenuList } from './MultiLevelList.component';
 import { LoginRegisterButton } from './LoginRegisterButton.component';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const useStyles = makeStyles({
 
   container: {
-    width: 250,
-    maxWidth: '60vw'
+    width: 270,
+    maxWidth: '100vw',
+
   },
-  logoContainer: {
+  head: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: '5px 10px',
-    "& button": {
-      padding: 10,
-      marginRight: -10
-    }
+    padding: '25px 15px',
+    backgroundColor: Theme.primary,
   },
-  LogoWrap: {
-    width: 100,
+  profileWrap: {
+    width: 40,
+    height: 40,
+    borderRadius: '50%',
+    overflow: 'hidden',
     '& img': {
       width: '100%',
-      height: '100%'
     }
   },
   menuIcon: {
@@ -114,24 +115,32 @@ function DrawerComponent(props: any) {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.logoContainer}>
-          <div className={styles.LogoWrap}>
-            <img src={'/assets/images/BLogo.webp'} alt='' />
+        <div className={styles.head}>
+          <div className={styles.profileWrap}>
+            <img src={'' ? '' : '/assets/images/defaults/user.png'} alt={''} />
           </div>
-          <span><IconButton style={{ padding: 10 }} onClick={() => props.onClose && props.onClose()}><Close /></IconButton></span>
+          <div style={{ paddingLeft: 10, width: 'calc(100% - 40px)' }}>
+            <div style={{ marginLeft: -3 }}>
+              <LoginRegisterButton
+                icons={false}
+                labelOnSmall={true}
+                labelStyle={{
+                  fontSize: 13,
+                  fontFamily: 'gorditaMedium',
+                  color: '#eee'
+                }}
+              />
+            </div>
+            <Typography style={{ fontSize: 12, color: '#eee', textAlign: 'left' }}>For personalized results</Typography>
+          </div>
         </div>
-        <div style={{ padding: '0 10px', margin: '0 -3px' }}>
-          <LoginRegisterButton
-            onRegisterClick={() => { }}
-            onLoginClick={() => { }}
-            labelOnSmall={true}
-            labelStyle={{
-              fontSize: 12,
-              marginTop: 2,
-            }}
-          />
-        </div>
-        <C_MenuList list={MenuList} parentIndex={'list'} />
+
+        {/* <div style={{ display: 'flex', alignItems: 'center', padding: 10, color: Theme.fontColor, backgroundColor: Theme.primary + '11' }}>
+          <PauseCircleOutline style={{ transform: 'rotate(90deg)', marginRight: 5, fontSize: 20 }} />
+          <Typography style={{ fontSize: 13 }}>Browse By Category</Typography>
+        </div> */}
+
+        <C_MenuList onLinkClick={() => { props.onClose() }} list={MenuList} parentIndex={'list'} />
 
       </div>
     </>

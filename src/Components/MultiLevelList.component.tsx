@@ -3,30 +3,52 @@ import { Collapse, Divider, List, ListItem, ListItemIcon, ListItemText, makeStyl
 import { KeyboardArrowDown, KeyboardArrowRight } from '@material-ui/icons';
 import { MenuListInterface } from '../Services/Interfaces.interface';
 import { Theme } from '../Services/App.service';
+import { useRouter } from 'next/router';
 
 
 const useStyles = makeStyles({
+    container: {
+        '& ul': {
+            padding: 0,
+        }
+    },
     listItem: {
-        padding: '5px 10px',
+        padding: '6px 10px',
     },
     listItemText: {
         '& span': {
-            fontSize: 12
+            fontSize: 12,
+            color: Theme.fontColor
         }
     },
     listItemIcon: {
         minWidth: 20,
+
     }
 })
 
-export const C_MenuList = ({ list, parentIndex }: any) => {
+
+// ----- Collapsible MenuList ----- \\
+
+interface Props {
+    list: MenuListInterface[],
+    parentIndex: string,
+    onLinkClick: Function
+}
+
+export const C_MenuList = ({ list, parentIndex, onLinkClick }: Props) => {
 
     const [CollapsedItem, setCollapsedItem] = React.useState('');
-
+    const router = useRouter();
 
     const styles = useStyles();
 
-    const ToggleCollapse = (itemId: string = '', isLast: boolean = false) => {
+    const ToggleCollapse = (itemId: string = '', link: string, isLast: boolean = false) => {
+        console.log('link', link)
+        if (link) {
+            router.push(link);
+            onLinkClick();
+        }
         console.log(itemId);
         if (!isLast) {
             if (CollapsedItem && CollapsedItem === itemId) {
@@ -40,7 +62,7 @@ export const C_MenuList = ({ list, parentIndex }: any) => {
 
     if (list?.length) {
         return (
-            <div>
+            <div className={styles.container}>
                 <List className={parentIndex}>
                     {
                         list.map((item: MenuListInterface, index: number) => {
@@ -53,7 +75,7 @@ export const C_MenuList = ({ list, parentIndex }: any) => {
                                     {
                                         isFirst && (<Divider light={true} />)
                                     }
-                                    <ListItem className={styles.listItem} button onClick={() => ToggleCollapse(id, isLast)}
+                                    <ListItem className={styles.listItem} button onClick={() => ToggleCollapse(id, item?.link, isLast)}
                                         style={{ cursor: 'pointer', }} id={id} >
                                         <ListItemText className={styles.listItemText} >{item.label}</ListItemText>
                                         {
@@ -70,7 +92,7 @@ export const C_MenuList = ({ list, parentIndex }: any) => {
                                         }
                                     </ListItem>
                                     <Collapse in={CollapsedItem === id}>
-                                        <C_MenuList list={item?.list} parentIndex={id} />
+                                        <C_MenuList list={item?.list} parentIndex={id} onLinkClick={onLinkClick} />
                                     </Collapse>
                                 </div>
                             )

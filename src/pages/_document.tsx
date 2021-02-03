@@ -2,6 +2,7 @@ import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/styles'
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
+import { Theme } from '@/Services/App.service'
 
 const theme = responsiveFontSizes(createMuiTheme())
 
@@ -11,7 +12,7 @@ class MyDocument extends Document {
             <Html lang='en'>
                 <Head>
                     <meta charSet="utf-8" />
-                    <meta name="theme-color" content={theme.palette.primary.main} />
+                    <meta name="theme-color" content={Theme.primary} />
                     <link
                         rel="stylesheet"
                         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"

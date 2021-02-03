@@ -40,7 +40,7 @@ function Colleges(props: Props) {
     const [loading, setLoading] = useState(false);
     const [infiniteLoading, setInfiniteLoading] = useState(false);
     const [pageState, setPageState] = useState<pageStateType>(responseType);
-    const [pageSeo, setPageSeo] = useState(__pageSeo);
+    const [pageSeo, setPageSeo] = useState<PageSEOProps>(__pageSeo);
 
     let pageOptions = useRef({
         pageNo: 1,
@@ -80,10 +80,10 @@ function Colleges(props: Props) {
     }
 
     useEffect(() => {
-        if (props?.data?.result !== Colleges) {
-            console.log('props data chnaged')
-            OnPageResponseHandler(props?.data);
-        }
+        // if (props?.data?.result !== Colleges) {
+        //     console.log('props data chnaged')
+        OnPageResponseHandler(props?.data);
+        // }
     }, [props?.data])
 
 

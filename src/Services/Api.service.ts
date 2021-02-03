@@ -28,6 +28,7 @@ const CandidateUrl = UserUrl + 'candidate/';
 const ProfileUrl = CandidateUrl + 'profile/';
 const ProfileUpdateUrl = CandidateUrl + 'profile/update/';
 const InstituteUrl = BASE_URL + 'institutes/';
+const CoachingUrl = BASE_URL + 'coachings/';
 
 
 export const GetAccessTokenUrl = UserUrl + 'token/refresh/';
@@ -220,6 +221,21 @@ export const GetInstituteSectionDetails = async ({ token, userId, slug = '', sec
         .catch(error => console.log('error', error));
 }
 
+export const GetCoachingList = async ({ token, userId, pageNo = 1 }: { token: string, userId: number, pageNo?: number }) => {
+    return await axios(CoachingUrl + `?id=${userId}&page=${pageNo}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetCoachingDetails = async ({ token, userId, slug = '' }: { token: string, userId: number, slug?: string }) => {
+    return await axios(CoachingUrl + `${slug}/` + `?id=${userId}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
 
 
 export default ApiService;

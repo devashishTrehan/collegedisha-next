@@ -122,7 +122,7 @@ const ClipText = MemoizedClipText();
 
 const ArticleListCard = memo(function (props: Props) {
 
-    const { title, image, onSave, onShare, slug, publishedOn, isSaved, readTime, voteCount } = props;
+    const { title, thumbnail, onSave, onShare, slug, publishedOn, isSaved, readTime, voteCount } = props;
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const [type, setType] = useState<'list' | 'card'>('list');
@@ -151,7 +151,7 @@ const ArticleListCard = memo(function (props: Props) {
 
             <div className={classNames(styles.ImageSection, { [styles.ImageSectionCard]: type === 'card' })}>
                 <div className={'imageWrap'}>
-                    <img src={image ? image : defaultImage} alt={''} />
+                    <img src={thumbnail ? thumbnail : defaultImage} alt={''} />
                 </div>
             </div>
 

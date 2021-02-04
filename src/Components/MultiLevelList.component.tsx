@@ -4,6 +4,7 @@ import { KeyboardArrowDown, KeyboardArrowRight } from '@material-ui/icons';
 import { MenuListInterface } from '../Services/Interfaces.interface';
 import { Theme } from '../Services/App.service';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 
 const useStyles = makeStyles({
@@ -14,6 +15,10 @@ const useStyles = makeStyles({
     },
     listItem: {
         padding: '6px 10px',
+        '& a': {
+            width: '100%',
+            textDecoration: 'none'
+        }
     },
     listItemText: {
         '& span': {
@@ -44,9 +49,7 @@ export const C_MenuList = ({ list, parentIndex, onLinkClick }: Props) => {
     const styles = useStyles();
 
     const ToggleCollapse = (itemId: string = '', link: string, isLast: boolean = false) => {
-        console.log('link', link)
         if (link) {
-            router.push(link);
             onLinkClick();
         }
         console.log(itemId);
@@ -77,7 +80,11 @@ export const C_MenuList = ({ list, parentIndex, onLinkClick }: Props) => {
                                     }
                                     <ListItem className={styles.listItem} button onClick={() => ToggleCollapse(id, item?.link, isLast)}
                                         style={{ cursor: 'pointer', }} id={id} >
-                                        <ListItemText className={styles.listItemText} >{item.label}</ListItemText>
+                                        <Link href={item.link || ''}>
+                                            <a>
+                                                <ListItemText className={styles.listItemText} >{item.label}</ListItemText>
+                                            </a>
+                                        </Link>
                                         {
                                             !isLast && (
 

@@ -163,14 +163,30 @@ function Colleges(props: Props) {
 export default Colleges;
 
 
-export async function getServerSideProps(context) {
+// export async function getServerSideProps(context) {
 
-    let cookies = context.req.cookies;
-    let token = cookies[Storages.AccessToken]
-    let userId = parseInt(cookies[Storages.UserId])
-    let returnData = { props: { data: null } }
+//     let cookies = context.req.cookies;
+//     let token = cookies[Storages.AccessToken]
+//     let userId = parseInt(cookies[Storages.UserId])
+//     let returnData = { props: { data: null } }
 
-    let response = await getData({ token: token, userId: userId });
+//     let response = await getData({ token: token, userId: userId });
+//     if (response) {
+//         returnData.props.data = response.data;
+//     }
+//     return returnData;
+
+// }
+
+
+export async function getStaticProps(context) {
+
+    // let cookies = context.req.cookies;
+    // let token = cookies[Storages.AccessToken]
+    // let userId = parseInt(cookies[Storages.UserId])
+    let returnData = { props: { data: null }, revalidate: 1 }
+
+    let response = await getData({ token: '', userId: '' });
     if (response) {
         returnData.props.data = response.data;
     }

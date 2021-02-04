@@ -31,8 +31,8 @@ interface Props {
     data: ApiResponse
 }
 
-const pageSections = {
-    Information: 'information',
+export const pageSections = {
+    information: 'information',
     ['courses & fees']: 'courses-fees',
     admission: 'admission',
     ['review & rating']: 'review',
@@ -51,7 +51,7 @@ function InstituteDetailComponent(props: Props) {
 
     const [instituteDetails, setInstituteDetails] = useState<detailedInstitute | null>(result ?? null);
     const [slugs, setSlugs] = useState<string[]>([]);
-    const [currentSection, setCurrentSection] = useState<string>(pageSections.Information);
+    const [currentSection, setCurrentSection] = useState<string>(pageSections.information);
     const [currentPageUrl, setCurrentPageUrl] = useState<string>('');
     const { navHeight } = useContext(NavbarContext);
     const [loading, setLoading] = useState(false);
@@ -158,7 +158,7 @@ const RenderPageSection = (props: PageSectionProps) => {
     const { information, id, name, courses, admission, review, gallery, hostel, faculty } = props?.institute;
 
     switch (props.section) {
-        case pageSections.Information:
+        case pageSections.information:
             return <RenderInformation data={information} />;
         case pageSections['courses & fees']:
             return <RenderCoursesFees data={courses} />;

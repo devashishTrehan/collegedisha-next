@@ -4,6 +4,8 @@ import { Http2ServerRequest } from "http2";
 import { Storages } from "./App.service";
 import { ApiResponse } from "./Interfaces.interface";
 
+
+
 /////////////////------------ for production -----------\\\\\\\\\\\\\
 
 // export const BASE_URL = 'https://newjobshub.com/api/';
@@ -14,6 +16,7 @@ import { ApiResponse } from "./Interfaces.interface";
 
 // export const BASE_URL = 'http://127.0.0.1:8000/api/';
 // export const Domain = 'http://127.0.0.1:8000';
+
 
 
 /////////////////------------ for testing -----------\\\\\\\\\\\\\
@@ -197,8 +200,9 @@ export const GetFilterOptions = async () => {
         .catch(error => console.log('error', error));
 }
 
-export const GetInstituteList = async ({ token, userId, category = '', pageNo = 1 }: { token: string, userId: number, category?: string, pageNo?: number }) => {
-    return await axios(InstituteUrl + `?id=${userId}&category=${category}&page=${pageNo}`, {
+export const GetInstituteList = async ({ token, userId, category = '', pageNo = 1, size = 12 }: { token: string, userId: number, category?: string, pageNo?: number, size?: number }) => {
+    console.log('page Size', size);
+    return await axios(InstituteUrl + `?id=${userId}&category=${category}&page=${pageNo}&size=${size}`, {
         // headers: setHeader(token)
     })
         .then(response => response)

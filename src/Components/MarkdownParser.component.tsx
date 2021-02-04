@@ -184,7 +184,7 @@ const stripIndent = (content: string) => {
         const lines = content.split("\n")
         const firstContentfulLine = lines[0].trim() ? lines[0] : lines[1]
 
-        const indent = firstContentfulLine.match(/^\s*/)[0].length
+        // const indent = firstContentfulLine.match(/^\s*/)[0].length
 
         const result = lines
             .map((line: string) => line.trim())

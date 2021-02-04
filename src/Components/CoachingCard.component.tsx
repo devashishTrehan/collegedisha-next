@@ -87,7 +87,8 @@ const useStyles = makeStyles({
                     margin: '0 5px',
                     fontSize: 7,
                     '& p': {
-                        verticalAlign: 'middle'
+                        verticalAlign: 'middle',
+                        padding: 0,
                     }
                 }
             }
@@ -312,7 +313,7 @@ function CoachingCard(props: Props) {
                     <Typography>Tags:</Typography>
                     <div className='tagList'>
                         {
-                            categories?.map((tag: string) => {
+                            tags?.map((tag: string) => {
                                 return (
                                     <Chip key={tag} label={tag} className='chip' />
                                 )

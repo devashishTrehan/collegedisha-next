@@ -8,10 +8,11 @@ import { CourseListItem } from './Courses';
 export interface ArticleListItemTypes {
     id: number,
     title: string,
-    image: string,
+    thumbnail: string,
     slug: string,
     author: string,
     isSaved: boolean,
+    banner: string,
     voteCount: number,
     publishedOn: string,
     views: number,
@@ -34,6 +35,5 @@ export interface ArticleListTypes {
 
 export interface detailedArticle extends ArticleListItemTypes {
     content: string,
-    banner: string
 }
 

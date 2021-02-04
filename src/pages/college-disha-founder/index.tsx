@@ -147,7 +147,7 @@ function FounderPage(props: any) {
     {
       name: 'Dileep Jaiswal',
       designation: 'director',
-      image: 'founder1.webp',
+      image: 'founder1.jpg',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi hic cumque voluptates obcaecati distinctio',
       socialLinks: {
         facebook: '',
@@ -158,7 +158,7 @@ function FounderPage(props: any) {
     {
       name: 'Jainendra kumar',
       designation: 'director',
-      image: 'founder2.webp',
+      image: 'founder2.jpg',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi hic cumque voluptates obcaecati distinctio',
       socialLinks: {
         facebook: '',

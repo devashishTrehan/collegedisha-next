@@ -1,13 +1,13 @@
 
-import {  Grid,  IconButton, Typography, useMediaQuery } from '@material-ui/core';
+import { Grid, IconButton, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
-import {  Theme } from '../../Services/App.service';
+import { Theme } from '../../Services/App.service';
 import classNames from 'classnames';
 import { SubscribeSection } from '@/Components/Subscribe.component';
 import { ArticleListItemTypes, ArticleListTypes, FeaturedArticlesTypes } from '@/Services/DataTypes/article';
 import { ContentCardStyles } from '@/styles/Home.style';
-import { AccessTimeOutlined,  CommentOutlined, KeyboardArrowLeft, KeyboardArrowRight, ShareOutlined, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
+import { AccessTimeOutlined, CommentOutlined, KeyboardArrowLeft, KeyboardArrowRight, ShareOutlined, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
 import Carousel from 'react-material-ui-carousel';
 import ArticleListCard from '@/Components/ArticleListCard.component';
 import { useRouter } from 'next/router';
@@ -24,214 +24,7 @@ function Article(props: any) {
   const isTablet = useMediaQuery('(max-width:992px)');
   const isDesktop = useMediaQuery('(min-width:992px)');
 
-  const [data, setData] = React.useState<ArticleListTypes | null>({
-    featuredArticles: {
-      main: {
-        id: 1,
-        title: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
-        views: 123,
-        commentCount: 12,
-        voteCount: 123,
-        slug: 'xyz',
-        readTime: '3 min',
-        image: 'https://www.collegedisha.com/images/blog/1611297450up-police-registration.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-      },
-      side: [
-        {
-          id: 1,
-          title: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
-          views: 123,
-          commentCount: 12,
-          voteCount: 123,
-          readTime: '3 min',
-          slug: 'xyz',
-          image: 'https://www.collegedisha.com/images/blog/1611297450up-police-registration.jpg',
-          author: 'dev trehan',
-          publishedOn: '23-12-2020',
-          isSaved: false,
-        },
-        {
-          id: 1,
-          title: 'Rajasthan Scholarship Registration Form 2021 - Online Apply Rajasthan Scholarship Application Form',
-          views: 123,
-          commentCount: 12,
-          voteCount: 123,
-          slug: 'xyz',
-          image: '',
-          readTime: '3 min',
-          author: 'dev trehan',
-          publishedOn: '23-12-2020',
-          isSaved: false,
-        },
-        {
-          id: 1,
-          title: 'Rajasthan Scholarship Registration Form 2021 - Online Apply Rajasthan Scholarship Application Form',
-          views: 123,
-          commentCount: 12,
-          voteCount: 123,
-          readTime: '3 min',
-          slug: 'xyz',
-          image: '',
-          author: 'dev trehan',
-          publishedOn: '23-12-2020',
-          isSaved: false,
-        },
-        {
-          id: 1,
-          title: 'IIM-A OPPOSITION TO LAID DOWN Ph-D CRITERIA BY GOVERNMENT - CollegeDisha',
-          views: 123,
-          readTime: '3 min',
-          voteCount: 123,
-          commentCount: 12,
-          slug: 'xyz',
-          image: 'https://www.collegedisha.com/images/thumbnail/1604662290Rajasthan-Scholarship-Registration-thumbnail.jpg',
-          author: 'dev trehan',
-          publishedOn: '23-12-2020',
-          isSaved: false,
-        },
-      ],
-      bottom: [
-        {
-          id: 1,
-          title: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
-          views: 123,
-          voteCount: 123,
-          commentCount: 12,
-          slug: 'xyz',
-          readTime: '3 min',
-          image: 'https://www.collegedisha.com/images/blog/1611297450up-police-registration.jpg',
-          author: 'dev trehan',
-          publishedOn: '23-12-2020',
-          isSaved: false,
-        },
-
-        {
-          id: 1,
-          title: 'IIM-A OPPOSITION TO LAID DOWN Ph-D CRITERIA BY GOVERNMENT - CollegeDisha',
-          views: 123,
-          commentCount: 12,
-          voteCount: 123,
-          slug: 'xyz',
-          image: 'https://www.collegedisha.com/images/thumbnail/1604662290Rajasthan-Scholarship-Registration-thumbnail.jpg',
-          author: 'dev trehan',
-          readTime: '3 min',
-          publishedOn: '23-12-2020',
-          isSaved: false,
-        },
-      ],
-    },
-    trendingArticles: [
-      {
-        id: 1,
-        readTime: '3 min',
-        title: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
-        views: 123,
-        commentCount: 12,
-        voteCount: 123,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-      },
-      {
-        id: 1,
-        readTime: '3 min',
-        title: 'Rajasthan Scholarship Registration Form 2021 - Online Apply Rajasthan Scholarship Application Form',
-        views: 123,
-        voteCount: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: '',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-      },
-      {
-        id: 1,
-        title: 'IIM-A OPPOSITION TO LAID DOWN Ph-D CRITERIA BY GOVERNMENT - CollegeDisha',
-        readTime: '3 min',
-        views: 123,
-        voteCount: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1604662290Rajasthan-Scholarship-Registration-thumbnail.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-      },
-      {
-        id: 1,
-        title: 'The Vice President Showed Concern On The Need Of Reservation For Poor Students In Private Institution',
-        views: 123,
-        readTime: '3 min',
-        voteCount: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1542188532News.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-      },
-    ],
-    articleList: [
-      {
-        id: 1,
-        title: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
-        readTime: '3 min',
-        views: 123,
-        commentCount: 12,
-        voteCount: 123,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-      },
-      {
-        id: 1,
-        title: 'Rajasthan Scholarship Registration Form 2021 - Online Apply Rajasthan Scholarship Application Form',
-        views: 123,
-        commentCount: 12,
-        readTime: '3 min',
-        voteCount: 123,
-        slug: 'xyz',
-        image: '',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-      },
-      {
-        id: 1,
-        title: 'IIM-A OPPOSITION TO LAID DOWN Ph-D CRITERIA BY GOVERNMENT - CollegeDisha',
-        views: 123,
-        commentCount: 12,
-        voteCount: 123,
-        slug: 'xyz',
-        readTime: '3 min',
-        image: 'https://www.collegedisha.com/images/thumbnail/1604662290Rajasthan-Scholarship-Registration-thumbnail.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-      },
-      {
-        id: 1,
-        title: 'The Vice President Showed Concern On The Need Of Reservation For Poor Students In Private Institution',
-        views: 123,
-        voteCount: 123,
-        readTime: '3 min',
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1542188532News.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-      },
-    ]
-  })
+  const [data, setData] = React.useState<ArticleListTypes | null>(null)
 
 
   const styles = useStyles();
@@ -366,7 +159,7 @@ const ArticlePageHeaderStyles = makeStyles({
     color: '#fff',
     '& .title': {
       marginBottom: 10,
-      cursor:'pointer',
+      cursor: 'pointer',
       '& h5': {
         color: '#fff',
         fontSize: 24,
@@ -497,11 +290,11 @@ export const ArticlePageHeader = (props: { featuredArticles: FeaturedArticlesTyp
 
 
   const renderCarouselItem = (item: ArticleListItemTypes, index: number) => {
-    const { title, image, commentCount, views, publishedOn, readTime, voteCount, slug } = item;
+    const { title, banner, commentCount, views, publishedOn, readTime, voteCount, slug } = item;
     return (
       <div key={index} className={classNames('carouselCard', customStyles.CarouselCard)}>
         <div className={classNames('imageWrap', customStyles.imageWrap, { [customStyles.imageWrap_M]: isMobile })} >
-          <img src={image ? image : defaultImage} alt='' />
+          <img src={banner ? banner : defaultImage} alt='' />
         </div>
         <div className={classNames(customStyles.InfoWrap, { [customStyles.InfoWrap_M]: isMobile })}  >
           <div className='title' onClick={() => ViewDetails(slug)}>

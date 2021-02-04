@@ -5,6 +5,7 @@ import { MenuListInterface } from '../Services/Interfaces.interface';
 import classNames from 'classnames';
 import { Theme } from '../Services/App.service';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const useStyles = makeStyles({
     list: {
@@ -27,6 +28,9 @@ const useStyles = makeStyles({
             flexDirection: 'row',
             flexWrap: 'wrap',
             maxWidth: 650,
+            '&>li>a': {
+                width: '100%',
+            },
         }
     },
     ArrowTip: {
@@ -41,7 +45,7 @@ const useStyles = makeStyles({
         color: '#666',
         transition: '.3s',
         '&:hover': {
-            '&>.listItemText>span': {
+            '&>a span': {
                 color: Theme.TFontHeadColor,
                 fontWeight: 600,
             },
@@ -53,7 +57,6 @@ const useStyles = makeStyles({
         // animation: 'SwipeRight .5s'
     },
     listItemText: {
-        borderRadius: Theme.radius1,
         '& span': {
             fontSize: 12,
             letterSpacing: '1px',
@@ -72,10 +75,8 @@ export const MultiLevelList = ({ list, parentIndex }: any) => {
     const styles = useStyles();
     const router = useRouter();
 
-    const ListItemClickHandler = (event: MouseEvent, target: string) => {
+    const ListItemClickHandler = (event: MouseEvent) => {
         event.stopPropagation();
-        router.push(target)
-        console.log(target);
     }
 
     const ToggleCollapse = (itemId: string = '', isLast: boolean = false) => {
@@ -117,7 +118,7 @@ export const MultiLevelList = ({ list, parentIndex }: any) => {
                                 <React.Fragment key={index} >
 
                                     <ListItem
-                                        onClick={(event: any) => ListItemClickHandler(event, item.link)}
+                                        onClick={(event: any) => ListItemClickHandler(event)}
                                         onMouseEnter={() => ToggleCollapse(id, isLast)}
                                         onMouseLeave={() => ToggleCollapse('', isLast)}
                                         className={classNames(styles.listItem, 'menuItem')}
@@ -126,7 +127,11 @@ export const MultiLevelList = ({ list, parentIndex }: any) => {
                                             // animationDelay: `${(index * 50) / 1000}s` 
                                         }} id={id}
                                     >
-                                        <ListItemText className={classNames(styles.listItemText, 'listItemText')}>{item.label}</ListItemText>
+                                        <Link href={item.link || ''}>
+                                            <a>
+                                                <ListItemText className={classNames(styles.listItemText, 'listItemText')}>{item.label}</ListItemText>
+                                            </a>
+                                        </Link>
                                         {
                                             !isLast && (
 

@@ -1,4 +1,4 @@
-import { AppSectionHeights, Routes, Theme } from '@/Services/App.service';
+import { AppSectionHeights, GetPageInitialData, Routes, Storages, Theme } from '@/Services/App.service';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
@@ -8,9 +8,15 @@ import { AddressDetailComponent, AddressDetailProps } from '@/Components/Institu
 import MarkdownParser from '@/Components/MarkdownParser.component';
 import { PageNavigation } from '@/Components/PageNavigation.component';
 import { InnerPageHead } from '@/Components/InnerPageHead.component';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
+import { pageStateType } from '@/Components/DataPageWrapper.component';
+import { ApiResponseHandler, GetCoachingDetails } from '@/Services/Api.service';
 
 
+const getData = async (params) => {
 
+    return await GetCoachingDetails(params);
+}
 
 const useStyles = makeStyles({
 
@@ -29,7 +35,7 @@ const sectionStyles = makeStyles({
 })
 
 interface Props {
-
+    data: ApiResponse
 }
 
 const pageSections = {
@@ -46,30 +52,15 @@ const breadcrumbs = [{ name: 'coachings', endPoint: `${Routes.Coachings}` }];
 
 function CoachingDetailsPage(props: Props) {
 
-    const [coachingDetails, setCoachinDetails] = useState<detailedCoaching | null>({
-        name: 'abc Coaching',
-        isSaved: true,
-        location: 'agra',
-        id: 1,
-        thumbnail: '',
-        rating: 3.4,
-        description: '',
-        categories: [],
-        tags: [],
-        views: 2345,
-        slug: '',
-        about: ``,
-        admission: ``,
-        courseDetails: ``,
-        addressDetails: {
-            timings: '10:00A.M. - 5:00P.M.',
-            address: 'uefgergbtr mgkjrhjyt',
-        },
-    });
+    const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
 
+
+    const [coachingDetails, setCoachinDetails] = useState<detailedCoaching | null>(result);
     const [currentSection, setCurrentSection] = useState<string>(pageSections.Information);
     const { navHeight } = useContext(NavbarContext);
-
+    const [loading, setLoading] = useState(false);
+    const [pageState, setPageState] = useState<pageStateType>(responseType);
+    const [pageSEO, setPageSEO] = useState<PageSEOProps>(__pageSeo);
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const styles = useStyles();
@@ -92,6 +83,23 @@ function CoachingDetailsPage(props: Props) {
             window.removeEventListener('hashchange', HashChangeHandler)
         };
     }, [])
+
+    useEffect(() => {
+        console.log('page data', props)
+        OnPageResponseHandler(props?.data);
+    }, [props.data])
+
+
+    const OnPageResponseHandler = (data) => {
+        let response = ApiResponseHandler(data, {
+            onNoData: () => { setCoachinDetails(null) },
+            onSuccess: () => {
+                setCoachinDetails(data?.result)
+            },
+        });
+        console.log('detail page data', data);
+        setPageState(response);
+    }
 
     const showpageSection = (section: string) => {
         window.location.hash = pageSections[section];
@@ -129,6 +137,27 @@ function CoachingDetailsPage(props: Props) {
 }
 
 export default CoachingDetailsPage;
+
+
+export async function getServerSideProps(context) {
+
+    let cookies = context.req.cookies;
+    let token = cookies[Storages.AccessToken]
+    let userId = parseInt(cookies[Storages.UserId])
+    let slug = context.params.instituteSlug[0];
+    let returnData = { props: { data: null } }
+    let section = context.params.instituteSlug[1];
+    let response = await getData({ token: token, userId: userId, slug: slug });
+    if (response) {
+        returnData.props.data = response.data;
+    }
+    return returnData;
+
+}
+
+
+
+
 
 
 interface PageSectionProps {

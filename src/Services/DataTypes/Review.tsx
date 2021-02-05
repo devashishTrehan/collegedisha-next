@@ -1,5 +1,3 @@
-import { } from '@apollo/client';
-
 export interface ReviewRatingItems {
     accommodation: number,
     academic: number,

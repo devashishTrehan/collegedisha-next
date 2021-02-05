@@ -51,9 +51,6 @@ function Colleges(props: Props) {
 
     const OnPageResponseHandler = (data: ApiResponse, toAppend: boolean = false) => {
         let response = ApiResponseHandler(data, {
-            onError: () => { },
-            onFailed: () => { },
-            onUnAuthenticated: () => { },
             onNoData: () => { setColleges(null) },
             onSuccess: () => {
                 setColleges((prev => {

@@ -38,6 +38,8 @@ const ProfileUrl = CandidateUrl + 'profile/';
 const ProfileUpdateUrl = CandidateUrl + 'profile/update/';
 const InstituteUrl = BASE_URL + 'institutes/';
 const CoachingUrl = BASE_URL + 'coachings/';
+const ArticleUrl = BASE_URL + 'articles/';
+const NewsUrl = BASE_URL + 'news/';
 
 
 export const GetAccessTokenUrl = UserUrl + 'token/refresh/';
@@ -97,12 +99,14 @@ interface ApiResponseCallBacks {
 }
 
 export const ApiResponseHandler = (response: ApiResponse | undefined, callbacks: ApiResponseCallBacks) => {
-
+    console.log('response object', response)
     if (response) {
         if (response.isAuthenticated) {
             if (response.status) {
                 const { result } = response;
-                if (result?.id || result?.length) {
+                let keys = Object.keys(result);
+                let isResultPopulated = keys ? keys?.length : result?.length;
+                if (isResultPopulated) {
                     callbacks.onSuccess && callbacks.onSuccess();
                     return ApiResponseTypes.RequestSuccess
                 } else {
@@ -242,6 +246,72 @@ export const GetCoachingList = async ({ token, userId, pageNo = 1 }: { token: st
 
 export const GetCoachingDetails = async ({ token, userId, slug = '' }: { token: string, userId: number, slug?: string }) => {
     return await axios(CoachingUrl + `${slug}/` + `?id=${userId}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetArticleHome = async ({ token, userId }: { token: string, userId: number }) => {
+    console.log(ArticleUrl + `?id=${userId}&page=1`);
+    return await axios(ArticleUrl + `?id=${userId}&page=1`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetArticleList = async ({ token, userId, pageNo = 1 }: { token: string, userId: number, pageNo?: number }) => {
+    return await axios(ArticleUrl + `?id=${userId}&page=${pageNo}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetAllArticles = async ({ token, userId }: { token: string, userId: number }) => {
+    return await axios(ArticleUrl + `?id=${userId}&size=10000`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetArticleDetails = async ({ token, userId, slug = '' }: { token: string, userId: number, slug?: string }) => {
+    return await axios(ArticleUrl + `${slug}/` + `?id=${userId}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetNewsHome = async ({ token, userId }: { token: string, userId: number }) => {
+    console.log(NewsUrl + `?id=${userId}&page=1`);
+    return await axios(NewsUrl + `?id=${userId}&page=1`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetNewsList = async ({ token, userId, pageNo = 1 }: { token: string, userId: number, pageNo?: number }) => {
+    return await axios(NewsUrl + `?id=${userId}&page=${pageNo}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetAllNews = async ({ token, userId }: { token: string, userId: number }) => {
+    return await axios(NewsUrl + `?id=${userId}&size=10000`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetNewsDetails = async ({ token, userId, slug = '' }: { token: string, userId: number, slug?: string }) => {
+    return await axios(NewsUrl + `${slug}/` + `?id=${userId}`, {
         // headers: setHeader(token)
     })
         .then(response => response)

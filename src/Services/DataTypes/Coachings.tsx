@@ -1,4 +1,3 @@
-
 export interface CoachingListItem {
     id: number,
     name: string,

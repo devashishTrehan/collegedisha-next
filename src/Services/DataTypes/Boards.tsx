@@ -1,6 +1,3 @@
-import { } from '@apollo/client';
-import { CourseListItem } from './Courses';
-
 export interface boardTypes {
     name: string,
     classes: string[]

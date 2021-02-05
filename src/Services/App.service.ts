@@ -185,7 +185,7 @@ export const MemoizedClipText = () => {
             return cache[text];
         } else {
             console.log('Calculating result');
-            let newText = text.slice(0, limit - 1) + '...';
+            let newText = text?.slice(0, limit - 1) + '...';
             cache[text] = newText;
             return newText;
         }

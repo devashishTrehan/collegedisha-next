@@ -1,6 +1,3 @@
-import { } from '@apollo/client';
-
-
 // ----- Institute course types from here ----- \\
 export interface CourseFees {
     currency: string,

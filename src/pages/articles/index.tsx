@@ -1,8 +1,8 @@
 
 import { Grid, IconButton, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import * as React from 'react';
-import { Theme } from '../../Services/App.service';
+import React, { useEffect, useRef, useState } from 'react';
+import { GetCookie, GetPageInitialData, Storages, Theme } from '../../Services/App.service';
 import classNames from 'classnames';
 import { SubscribeSection } from '@/Components/Subscribe.component';
 import { ArticleListItemTypes, ArticleListTypes, FeaturedArticlesTypes } from '@/Services/DataTypes/article';
@@ -11,27 +11,98 @@ import { AccessTimeOutlined, CommentOutlined, KeyboardArrowLeft, KeyboardArrowRi
 import Carousel from 'react-material-ui-carousel';
 import ArticleListCard from '@/Components/ArticleListCard.component';
 import { useRouter } from 'next/router';
+import { ApiResponseHandler, GetArticleHome, GetArticleList } from '@/Services/Api.service';
+import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
+import PageEndIndicator from '@/Components/PageEndIndicator.component';
 
 const useStyles = makeStyles({
 
 })
 
+const getData = async (params) => {
+
+  return await GetArticleHome({ ...params });
+}
+
+
 const defaultImage = '/assets/images/defaults/article.jpg';
 
 function Article(props: any) {
+  const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
 
   const isMobile = useMediaQuery('(max-width:600px)');
   const isTablet = useMediaQuery('(max-width:992px)');
   const isDesktop = useMediaQuery('(min-width:992px)');
-
-  const [data, setData] = React.useState<ArticleListTypes | null>(null)
-
+  const [data, setData] = useState<ArticleListTypes | null>(result ?? {})
+  const [articleList, setArticleList] = useState<ArticleListItemTypes[] | null>(result?.articleList ?? [])
+  const [loading, setLoading] = useState(false);
+  const [infiniteLoading, setInfiniteLoading] = useState(false);
+  const [pageState, setPageState] = useState<pageStateType>(responseType);
+  const [pageSeo, setPageSeo] = useState<PageSEOProps>(__pageSeo);
 
   const styles = useStyles();
+  let pageOptions = useRef({
+    pageNo: 2,
+    hasMore: true,
+  })
 
 
-  React.useEffect(() => {
-  }, [])
+  const OnPageResponseHandler = (data: ApiResponse, toAppend: boolean = false) => {
+    let response = ApiResponseHandler(data, {
+      onNoData: () => {
+        setArticleList((prev => {
+          if (toAppend) {
+            return [...prev]
+          } else {
+            return null;
+          }
+        }))
+      },
+      onSuccess: () => {
+        setArticleList((prev => {
+          if (toAppend) {
+            return [...prev, ...data?.result]
+          } else {
+            return data?.result;
+          }
+        }))
+      },
+    });
+    setPageSeo(data?.additionalData?.pageSEO);
+    if (response === '__request_success__') {
+      let newOptions = {
+        pageNo: pageOptions.current.pageNo + 1,
+        hasMore: data?.additionalData?.hasMore
+      };
+      pageOptions.current = newOptions;
+    }
+    console.log('pageOptions after change', pageOptions.current);
+    if (!toAppend) {
+      setPageState(response);
+    }
+  }
+
+
+  const requestData = async (_pageNo: number, toAppend: boolean = false) => {
+    let userId = parseInt(GetCookie(Storages.UserId));
+    let token = GetCookie(Storages.AccessToken);
+    setInfiniteLoading(true);
+    let response = await GetArticleList({ token: token, userId: userId, pageNo: _pageNo });
+    setInfiniteLoading(false);
+    OnPageResponseHandler(response ? response.data : null, toAppend);
+  }
+
+
+  function RequestDataOnIntersection() {
+    console.log('page options in intraction', pageOptions.current);
+
+    if (pageOptions.current.hasMore) {
+      requestData(pageOptions?.current?.pageNo, true)
+    } else {
+      console.log('No data to fetch');
+    }
+  }
 
 
   return (
@@ -39,73 +110,90 @@ function Article(props: any) {
     <>
       <div style={{ margin: `30px 0` }}>
 
-        <ArticlePageHeader featuredArticles={data.featuredArticles} />
+        <DataPageWrapper loading={loading} pageState={pageState}>
+          <>
+            {
+              data?.featuredArticles?.main ?
+                <ArticlePageHeader featuredArticles={data?.featuredArticles} />
+                : null
+            }
 
 
-        <div className='container'>
-          <div className='wrapper' style={{ padding: '30px 5%' }}>
+            {
+              data?.trendingArticles?.length ?
+                <div className='container'>
+                  <div className='wrapper' style={{ padding: '30px 5%' }}>
 
-            <div className='containerHead' style={{ marginBottom: 30, }}>
-              <Typography variant='h2'>Trending Articles on College Disha</Typography>
-            </div>
-
-            <Grid container spacing={isMobile ? 3 : 4}>
-              <Grid item xs={12} sm={6} md={4}>
-                <ArticleListCard {...data?.articleList[0]} type={isTablet ? 'list' : 'card'} />
-              </Grid>
-              {
-                isDesktop ?
-                  <Grid item xs={12} sm={6} md={4} >
-                    <div style={{ margin: '-32px 0' }}>
-                      <div style={{ margin: '32px 0' }}>
-                        <ArticleListCard  {...data?.articleList[1]} />
-
-                      </div>
-                      <div style={{ margin: '32px 0' }}>
-                        <ArticleListCard {...data?.articleList[2]} />
-
-                      </div>
+                    <div className='containerHead' style={{ marginBottom: 30, }}>
+                      <Typography variant='h2'>Trending Articles on College Disha</Typography>
                     </div>
-                  </Grid>
-                  : <>
-                    <Grid item xs={12} sm={6} md={4} >
-                      <ArticleListCard  {...data?.articleList[1]} />
+
+                    <Grid container spacing={isMobile ? 3 : 4}>
+                      <Grid item xs={12} sm={6} md={4}>
+                        <ArticleListCard {...data?.articleList[0]} type={isTablet ? 'list' : 'card'} />
+                      </Grid>
+                      {
+                        isDesktop ?
+                          <Grid item xs={12} sm={6} md={4} >
+                            <div style={{ margin: '-32px 0' }}>
+                              <div style={{ margin: '32px 0' }}>
+                                <ArticleListCard  {...data?.articleList[1]} />
+
+                              </div>
+                              <div style={{ margin: '32px 0' }}>
+                                <ArticleListCard {...data?.articleList[2]} />
+
+                              </div>
+                            </div>
+                          </Grid>
+                          : <>
+                            <Grid item xs={12} sm={6} md={4} >
+                              <ArticleListCard  {...data?.articleList[1]} />
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4} >
+                              <ArticleListCard  {...data?.articleList[2]} />
+                            </Grid>
+                          </>
+                      }
+                      <Grid item xs={12} sm={6} md={4}>
+                        <ArticleListCard {...data?.articleList[3]} type={isTablet ? 'list' : 'card'} />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={4} >
-                      <ArticleListCard  {...data?.articleList[2]} />
+                  </div>
+                </div>
+                : null
+            }
+
+            {
+              data?.articleList?.length ?
+                <div className='container'>
+                  <div className='wrapper' style={{ padding: '30px 5%' }}>
+
+                    <div className='containerHead' style={{ marginBottom: 30, }}>
+                      <Typography variant='h2'>All Articles</Typography>
+                    </div>
+
+                    <Grid container spacing={isMobile ? 3 : 4}>
+
+                      {
+                        articleList?.map((article: ArticleListItemTypes) => {
+                          return (
+                            <Grid item key={article.id} xs={12} sm={6} md={4} >
+                              <ArticleListCard {...article} />
+                            </Grid>
+                          )
+                        })
+                      }
+
                     </Grid>
-                  </>
-              }
-              <Grid item xs={12} sm={6} md={4}>
-                <ArticleListCard {...data?.articleList[3]} type={isTablet ? 'list' : 'card'} />
-              </Grid>
-            </Grid>
-          </div>
-        </div>
 
-        <div className='container'>
-          <div className='wrapper' style={{ padding: '30px 5%' }}>
-
-            <div className='containerHead' style={{ marginBottom: 30, }}>
-              <Typography variant='h2'>All Articles</Typography>
-            </div>
-
-            <Grid container spacing={isMobile ? 3 : 4}>
-
-              {
-                data.articleList?.map((article: ArticleListItemTypes) => {
-                  return (
-                    <Grid item key={article.id} xs={12} sm={6} md={4} >
-                      <ArticleListCard {...article} />
-                    </Grid>
-                  )
-                })
-              }
-
-            </Grid>
-          </div>
-        </div>
-
+                    <PageEndIndicator loading={infiniteLoading} onIntersection={RequestDataOnIntersection} />
+                  </div>
+                </div>
+                : null
+            }
+          </>
+        </DataPageWrapper>
       </div>
 
       <SubscribeSection />
@@ -117,6 +205,16 @@ function Article(props: any) {
 
 export default Article;
 
+
+export async function getStaticProps(context) {
+  let returnData = { props: { data: null }, revalidate: 1 }
+
+  let response = await getData({ token: '', userId: '' });
+  if (response) {
+    returnData.props.data = response.data;
+  }
+  return returnData;
+}
 
 
 
@@ -155,6 +253,7 @@ const ArticlePageHeaderStyles = makeStyles({
     position: 'absolute',
     bottom: 0,
     padding: '40px 20px 25px',
+    width: '100%',
     background: 'linear-gradient(transparent ,#000c )',
     color: '#fff',
     '& .title': {
@@ -225,7 +324,7 @@ const ArticlePageHeaderStyles = makeStyles({
   }
 })
 
-const makeCarouselList = (featuredArticles: FeaturedArticlesTypes) => {
+const makeCarouselList = (featuredArticles: FeaturedArticlesTypes = { main: null, side: [], bottom: [] }) => {
   let list = [];
   const { main, side, bottom } = featuredArticles;
   list = [main, ...side, ...bottom];
@@ -247,8 +346,8 @@ export const ArticlePageHeader = (props: { featuredArticles: FeaturedArticlesTyp
   const [featuredArticles, setFeaturedArticles] = React.useState<FeaturedArticlesTypes>(null);
 
   React.useEffect(() => {
-    setData(makeCarouselList(props.featuredArticles));
-    setFeaturedArticles(props.featuredArticles);
+    setData(makeCarouselList(props?.featuredArticles));
+    setFeaturedArticles(props?.featuredArticles);
   }, [props?.featuredArticles])
 
 
@@ -373,19 +472,23 @@ export const ArticlePageHeader = (props: { featuredArticles: FeaturedArticlesTyp
                   <Grid container spacing={isMobile ? 3 : 4}>
                     <Grid item xs={12}>
                       <div className={styles.CarouselContainer} style={{ position: 'relative' }} >
-                        <Carousel
-                          autoPlay={false}
-                          index={carouselIndex}
-                          navButtonsAlwaysInvisible
-                          indicators={false}
-                          animation='slide'
-                          timeout={500} >
-                          {
-                            data?.map((item: ArticleListItemTypes, index: number) => {
-                              return renderCarouselItem(item, index);
-                            })
-                          }
-                        </Carousel>
+                        {
+                          data?.length ?
+                            <Carousel
+                              autoPlay={false}
+                              index={carouselIndex}
+                              navButtonsAlwaysInvisible
+                              indicators={false}
+                              animation='slide'
+                              timeout={500} >
+                              {
+                                data?.map((item: ArticleListItemTypes, index: number) => {
+                                  return renderCarouselItem(item, index);
+                                })
+                              }
+                            </Carousel>
+                            : null
+                        }
                       </div>
                     </Grid>
                     <Grid item xs={12}>

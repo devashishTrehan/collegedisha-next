@@ -1,6 +1,3 @@
-import { } from '@apollo/client';
-
-
 export interface CareerListItem {
     id: number,
     name: string,

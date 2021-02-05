@@ -1,8 +1,8 @@
 
 import { Grid, Hidden, IconButton, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import * as React from 'react';
-import { Routes, Theme } from '@/Services/App.service';
+import React, { useState, useEffect } from 'react';
+import { GetCookie, GetPageInitialData, Routes, Storages, Theme } from '@/Services/App.service';
 import classNames from 'classnames';
 import { ViewportTracker } from '@/Components/ViewportTracker.component';
 import { CalendarToday, Category, CommentOutlined, KeyboardArrowLeft, KeyboardArrowRight, VisibilityOutlined } from '@material-ui/icons';
@@ -13,6 +13,10 @@ import Carousel from 'react-material-ui-carousel';
 import { NewsListItemTypes, NewsListTypes } from '@/Services/DataTypes/News';
 import NewsListCard from '@/Components/NewsListCard.component';
 import { PageNavigation } from '@/Components/PageNavigation.component';
+import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
+import PageEndIndicator from '@/Components/PageEndIndicator.component';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
+import { ApiResponseHandler, GetNewsList, GetNewsHome } from '@/Services/Api.service';
 
 
 const useStyles = makeStyles({
@@ -22,116 +26,93 @@ const useStyles = makeStyles({
 
 })
 
+const getData = async (params) => {
+
+  return await GetNewsHome({ ...params });
+}
 
 const defaultImage = '/assets/images/defaults/news.jpg'
 
 function NewsList(props: any) {
 
+  const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
+
+
   const isMobile = useMediaQuery('(max-width:600px)');
   const isTablet = useMediaQuery('(max-width:992px)');
   const router = useRouter();
-  const [data, setData] = React.useState<NewsListTypes>({
-    featuredNews: [
-      {
-        id: 1,
-        title: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/blog/1611297450up-police-registration.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'news',
-      },
-      {
-        id: 1,
-        title: 'Rajasthan Scholarship Registration Form 2021 - Online Apply Rajasthan Scholarship Application Form',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: '',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'lifestyle',
-      },
-      {
-        id: 1,
-        title: 'The Vice President Showed Concern On The Need Of Reservation For Poor Students In Private Institution',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/blog/1611297450up-police-registration.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'politics',
-      },
-    ],
-    newsList: [
-      {
-        id: 1,
-        title: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/blog/1611297450up-police-registration.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'sports',
-      },
-      {
-        id: 1,
-        title: 'Rajasthan Scholarship Registration Form 2021 - Online Apply Rajasthan Scholarship Application Form',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: '',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'local',
-      },
-      {
-        id: 1,
-        title: 'IIM-A OPPOSITION TO LAID DOWN Ph-D CRITERIA BY GOVERNMENT - CollegeDisha',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1604662290Rajasthan-Scholarship-Registration-thumbnail.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'internation',
-      },
-      {
-        id: 1,
-        title: 'The Vice President Showed Concern On The Need Of Reservation For Poor Students In Private Institution',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1542188532News.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'bollywood',
-      },
-    ],
-    newsCategories: {
-      'All News': '',
-      'Engineering ': 'engineering',
-      'Education ': 'education',
-      'Management ': 'management',
-      'College Placement ': 'college-placement',
-      'Exam ': 'exam',
-      'Exams Admit Card': 'exams-admit-card',
-      'Exam Results': 'exam-results',
-    }
-  })
-  let sectionList = Object.keys(data?.newsCategories);
+  const [data, setData] = React.useState<NewsListTypes>(result ?? {})
+  let sectionList = Object.keys(data?.newsCategories ?? {});
   const [currentSection, setCurrentSection] = React.useState<string>(sectionList[sectionList[0]]);
+  const [newsList, setNewsList] = useState<NewsListItemTypes[] | null>(result?.newsList ?? [])
+  const [loading, setLoading] = useState(false);
+  const [infiniteLoading, setInfiniteLoading] = useState(false);
+  const [pageState, setPageState] = useState<pageStateType>(responseType);
+  const [pageSeo, setPageSeo] = useState<PageSEOProps>(__pageSeo);
+
+  let pageOptions = React.useRef({
+    pageNo: 2,
+    hasMore: true,
+  })
+
+
+  const OnPageResponseHandler = (data: ApiResponse, toAppend: boolean = false) => {
+    let response = ApiResponseHandler(data, {
+      onNoData: () => {
+        setNewsList((prev => {
+          if (toAppend) {
+            return [...prev]
+          } else {
+            return null;
+          }
+        }))
+      },
+      onSuccess: () => {
+        setNewsList((prev => {
+          if (toAppend) {
+            return [...prev, ...data?.result]
+          } else {
+            return data?.result;
+          }
+        }))
+      },
+    });
+    setPageSeo(data?.additionalData?.pageSEO);
+    if (response === '__request_success__') {
+      let newOptions = {
+        pageNo: pageOptions.current.pageNo + 1,
+        hasMore: data?.additionalData?.hasMore
+      };
+      pageOptions.current = newOptions;
+    }
+    console.log('pageOptions after change', pageOptions.current);
+    if (!toAppend) {
+      setPageState(response);
+    }
+  }
+
+
+  const requestData = async (_pageNo: number, toAppend: boolean = false) => {
+    let userId = parseInt(GetCookie(Storages.UserId));
+    let token = GetCookie(Storages.AccessToken);
+    setInfiniteLoading(true);
+    let response = await GetNewsList({ token: token, userId: userId, pageNo: _pageNo });
+    setInfiniteLoading(false);
+    OnPageResponseHandler(response ? response.data : null, toAppend);
+  }
+
+
+  function RequestDataOnIntersection() {
+    console.log('page options in intraction', pageOptions.current);
+
+    if (pageOptions.current.hasMore) {
+      requestData(pageOptions?.current?.pageNo, true)
+    } else {
+      console.log('No data to fetch');
+    }
+  }
+
+
 
   const styles = useStyles();
 
@@ -143,43 +124,69 @@ function NewsList(props: any) {
 
 
   return (
+    <DataPageWrapper loading={loading} pageState={pageState}>
+      <>
 
-    <>
+        {
+          data?.featuredNews?.length ?
+            <div>
+              <NewsPageHeader featuredNews={data?.featuredNews} />
+            </div>
+            : null
+        }
 
-      <div>
-        <NewsPageHeader featuredNews={data?.featuredNews} />
-      </div>
+        {
+          data?.newsCategories?.length ?
+            <PageNavigation pageSections={data?.newsCategories} currentSection={currentSection} onLinkClick={(section: string) => ShowCategory(section)} />
+            : null
+        }
 
-      <PageNavigation pageSections={data?.newsCategories} currentSection={currentSection} onLinkClick={(section: string) => ShowCategory(section)} />
+        {
+          data?.newsList?.length ?
+            <div className='container'>
+              <div className={'wrapper'}>
+
+                <Grid container spacing={isMobile ? 3 : 5}>
+
+                  {
+                    data?.newsList?.map((newsItem: NewsListItemTypes) => {
+                      return (
+                        <Grid item xs={12} sm={6}>
+                          <NewsListCard {...newsItem} />
+                        </Grid>
 
 
-      <div className='container'>
-        <div className={'wrapper'}>
+                      )
+                    })
+                  }
+                </Grid>
 
-          <Grid container spacing={isMobile ? 3 : 5}>
+                <PageEndIndicator loading={infiniteLoading} onIntersection={RequestDataOnIntersection} />
 
-            {
-              data?.newsList?.map((newsItem: NewsListItemTypes) => {
-                return (
-                  <Grid item xs={12} sm={6}>
-                    <NewsListCard {...newsItem} />
-                  </Grid>
-
-                )
-              })
-            }
-
-          </Grid>
-
-        </div>
-      </div>
-    </>
-
+              </div>
+            </div>
+            : null
+        }
+      </>
+    </DataPageWrapper>
   );
 }
 
-
 export default NewsList;
+
+
+export async function getStaticProps(context) {
+  let returnData = { props: { data: null }, revalidate: 1 }
+
+  let response = await getData({ token: '', userId: '' });
+  if (response) {
+    returnData.props.data = response.data;
+  }
+  return returnData;
+}
+
+
+
 
 
 const NewsPageHeaderStyles = makeStyles({
@@ -355,58 +362,58 @@ export const NewsPageHeader = (props: { featuredNews: NewsListItemTypes[] }) => 
 
 
       {/* <ViewportTracker id='contentPage' onEnter={() => PlayCarouselSlide()} onLeave={() => PauseCarouselSlide()} > */}
-        <div className={styles.cardContainer} style={{ backgroundImage: 'none' }} >
-          <div className='container'>
-            <div className={styles.pageContent}>
+      <div className={styles.cardContainer} style={{ backgroundImage: 'none' }} >
+        <div className='container'>
+          <div className={styles.pageContent}>
 
-              <Grid container spacing={isTablet ? 3 : 5} >
+            <Grid container spacing={isTablet ? 3 : 5} >
 
-                <Grid item xs={12} md={7}>
+              <Grid item xs={12} md={7}>
 
-                  <div className={styles.CarouselContainer} style={{ position: 'relative' }} >
-                    <Carousel
-                      autoPlay={false}
-                      index={carouselIndex}
-                      navButtonsAlwaysInvisible
-                      indicators={false}
-                      animation='slide'
-                      timeout={500} >
-                      {
-                        data?.map((item: NewsListItemTypes, index: number) => {
-                          return renderCarouselItem(item, index);
-                        })
-                      }
-                    </Carousel>
-                    <IconButton className={classNames(customStyles.carouselActionButton, 'left')} onClick={() => slideCaousel('prev')}>
-                      <KeyboardArrowLeft />
-                    </IconButton>
+                <div className={styles.CarouselContainer} style={{ position: 'relative' }} >
+                  <Carousel
+                    autoPlay={false}
+                    index={carouselIndex}
+                    navButtonsAlwaysInvisible
+                    indicators={false}
+                    animation='slide'
+                    timeout={500} >
+                    {
+                      data?.map((item: NewsListItemTypes, index: number) => {
+                        return renderCarouselItem(item, index);
+                      })
+                    }
+                  </Carousel>
+                  <IconButton className={classNames(customStyles.carouselActionButton, 'left')} onClick={() => slideCaousel('prev')}>
+                    <KeyboardArrowLeft />
+                  </IconButton>
 
-                    <IconButton className={classNames(customStyles.carouselActionButton, 'right')} onClick={() => slideCaousel('next')}>
-                      <KeyboardArrowRight />
-                    </IconButton>
-                  </div>
-                </Grid>
-
-                <Hidden smDown>
-
-                  <Grid item xs={12} md={5}>
-                    <div className={classNames(styles.StepsContainer)} style={{ width: '100%', maxWidth: 'unset' }}>
-                      <div className={classNames(customStyles.sideNewsWrap)}>
-                        {
-                          data?.map((item: NewsListItemTypes, index: number) => {
-                            return <NewsListCard {...item} />
-                          })
-                        }
-                      </div>
-                    </div>
-                  </Grid>
-                </Hidden>
-
+                  <IconButton className={classNames(customStyles.carouselActionButton, 'right')} onClick={() => slideCaousel('next')}>
+                    <KeyboardArrowRight />
+                  </IconButton>
+                </div>
               </Grid>
 
-            </div>
+              <Hidden smDown>
+
+                <Grid item xs={12} md={5}>
+                  <div className={classNames(styles.StepsContainer)} style={{ width: '100%', maxWidth: 'unset' }}>
+                    <div className={classNames(customStyles.sideNewsWrap)}>
+                      {
+                        data?.map((item: NewsListItemTypes, index: number) => {
+                          return <NewsListCard {...item} />
+                        })
+                      }
+                    </div>
+                  </div>
+                </Grid>
+              </Hidden>
+
+            </Grid>
+
           </div>
         </div>
+      </div>
       {/* </ViewportTracker > */}
     </div >
   )

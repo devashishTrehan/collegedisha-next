@@ -1,4 +1,3 @@
-import { } from '@apollo/client';
 import { CourseListItem } from './Courses';
 
 export interface InstituteListItem {

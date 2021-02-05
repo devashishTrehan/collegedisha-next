@@ -1,5 +1,3 @@
-import { } from '@apollo/client';
-
 export interface ExamListItemLink {
     label: string,
     url: string

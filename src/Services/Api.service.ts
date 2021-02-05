@@ -18,11 +18,17 @@ import { ApiResponse } from "./Interfaces.interface";
 // export const Domain = 'http://127.0.0.1:8000';
 
 
+// /////////////////------------ for testing -----------\\\\\\\\\\\\\
+
+// export const BASE_URL = 'http://192.168.1.65:7000/api/';
+// export const Domain = 'http://192.168.1.65:7000';
+
+
 
 /////////////////------------ for testing -----------\\\\\\\\\\\\\
 
-export const BASE_URL = 'http://192.168.1.65:7000/api/';
-export const Domain = 'http://192.168.1.65:7000';
+export const BASE_URL = 'http://192.168.1.52:8000/api/';
+export const Domain = 'http://192.168.1.52:8000';
 
 
 const UserUrl = BASE_URL + 'user/';
@@ -95,7 +101,8 @@ export const ApiResponseHandler = (response: ApiResponse | undefined, callbacks:
     if (response) {
         if (response.isAuthenticated) {
             if (response.status) {
-                if (response.result) {
+                const { result } = response;
+                if (result?.id || result?.length) {
                     callbacks.onSuccess && callbacks.onSuccess();
                     return ApiResponseTypes.RequestSuccess
                 } else {

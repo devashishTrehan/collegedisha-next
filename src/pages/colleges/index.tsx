@@ -146,7 +146,7 @@ function Colleges(props: Props) {
                             }
                             {
                                 !isMobile ?
-                                    <DummyCards cardCount={Colleges.length} withGrid={true} />
+                                    <DummyCards cardCount={Colleges?.length} withGrid={true} />
                                     : null
                             }
                         </Grid>

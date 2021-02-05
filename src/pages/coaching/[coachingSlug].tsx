@@ -55,7 +55,7 @@ function CoachingDetailsPage(props: Props) {
     const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
 
 
-    const [coachingDetails, setCoachinDetails] = useState<detailedCoaching | null>(result);
+    const [coachingDetails, setCoachinDetails] = useState<detailedCoaching | null>(result ?? {});
     const [currentSection, setCurrentSection] = useState<string>(pageSections.Information);
     const { navHeight } = useContext(NavbarContext);
     const [loading, setLoading] = useState(false);
@@ -144,9 +144,8 @@ export async function getServerSideProps(context) {
     let cookies = context.req.cookies;
     let token = cookies[Storages.AccessToken]
     let userId = parseInt(cookies[Storages.UserId])
-    let slug = context.params.instituteSlug[0];
+    let slug = context.params.coachingSlug;
     let returnData = { props: { data: null } }
-    let section = context.params.instituteSlug[1];
     let response = await getData({ token: token, userId: userId, slug: slug });
     if (response) {
         returnData.props.data = response.data;

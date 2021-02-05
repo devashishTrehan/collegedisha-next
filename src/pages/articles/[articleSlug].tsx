@@ -30,11 +30,11 @@ function Article(props: any) {
     voteCount: 123,
     slug: 'xyz',
     readTime: '3 min',
-    image: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
+    thumbnail: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
     author: 'dev trehan',
     publishedOn: '23-12-2020',
     isSaved: false,
-    banner: '',
+    banner: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
     content: `
     Hierank Business School is a private college. MBA program of the college is
     affiliated to Dr. Abdul Kalam Technical University. It was established in 2006
@@ -302,7 +302,7 @@ const ThisPageHeader = (props: detailedArticle) => {
   const isTablet = useMediaQuery('(max-width:992px)');
 
   const [data, setData] = React.useState<detailedArticle>(null);
-  const { title, image, commentCount, views, publishedOn, readTime, voteCount, banner } = data ?? {};
+  const { title, banner, commentCount, views, publishedOn, readTime, voteCount, } = data ?? {};
 
   React.useEffect(() => {
     setData(props);
@@ -365,7 +365,7 @@ const ThisPageHeader = (props: detailedArticle) => {
 
             <Grid item xs={12} md={6}>
               <div className={classNames(customStyles.imageWrap)} >
-                <img src={image ? image : defaultImage} alt='' />
+                <img src={banner ? banner : defaultImage} alt='' />
               </div>
             </Grid>
           </Grid>

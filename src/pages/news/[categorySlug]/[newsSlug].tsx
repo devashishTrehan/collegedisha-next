@@ -1,12 +1,16 @@
-import {  Routes, Theme } from '@/Services/App.service';
+import { GetPageInitialData, Routes, Theme } from '@/Services/App.service';
+import { ApiResponseHandler, GetNewsDetails, GetAllNews } from '@/Services/Api.service';
 import { useRouter } from 'next/router';
-import React, { useContext,  useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { NavbarContext } from '@/Context/Navbar.context';
-import { detailedNews,  } from '@/Services/DataTypes/News';
+import { detailedNews, } from '@/Services/DataTypes/News';
 import MarkdownParser from '@/Components/MarkdownParser.component';
 import classNames from 'classnames';
 import { CalendarToday, CommentOutlined, VisibilityOutlined } from '@material-ui/icons';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
+import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
+import PageSEO from '@/Components/PageSEO.component';
 
 
 
@@ -35,35 +39,32 @@ const useStyles = makeStyles({
 })
 
 interface Props {
+    data: ApiResponse
 }
 
 
 const LastBreadcrumbs = [{ name: 'news', endPoint: `${Routes.News}` }];
+
+const getData = async (params) => {
+
+    return await GetNewsDetails(params);
+}
 
 const defaultImage = '/assets/images/defaults/institute.jpg';
 
 
 function newsDetailsPage(props: Props) {
 
-    const [newsDetails, setnewsDetails] = useState<detailedNews | null>({
-        title: 'Top 10 colleges in greater noida',
-        isSaved: true,
-        id: 1,
-        image: '',
-        views: 2345,
-        slug: 'xyz',
-        intro: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam architecto molestias maiores voluptatibus harum asperiores dolorum blanditiis a deleniti sit reprehenderit provident, inventore molestiae id, modi eaque laborum eius hic?',
-        commentCount: 123,
-        content: 'jfvpui',
-        category: 'news',
-        publishedOn: '23-12-2020',
-        author: 'dev trehan',
-    });
+    const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
+
+    const [newsDetails, setnewsDetails] = useState<detailedNews | null>(result ?? {});
     const [slugs, setSlugs] = useState<string[]>([]);
     // let currentPageUrl = `${LastBreadcrumbs[LastBreadcrumbs?.length - 1].endPoint}/${slugs[0]}`;
     const { navHeight } = useContext(NavbarContext);
     const { id, title } = newsDetails;
-
+    const [loading, setLoading] = useState(false);
+    const [pageState, setPageState] = useState<pageStateType>(responseType);
+    const [pageSEO, setPageSEO] = useState<PageSEOProps>(__pageSeo);
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -71,55 +72,80 @@ function newsDetailsPage(props: Props) {
     const router = useRouter();
 
 
-    // React.useEffect(() => {
-    //     const { query } = router;
-    //     let newsSlug = query.newsSlug as string;
-
-    //     if (newsSlug) {
-    //         let category = newsSlug.toString().replace(/-/g, ' ');
-    //         let lastNavigation = getLastNavigation();
-    //         if (lastNavigation?.length) {
-    //             let newCrumbs = [lastNavigation[0], lastNavigation[1], { name: category, endPoint: `${lastNavigation[1].endPoint}/${category}` }];
-    //             setLastNavigation(newCrumbs);
-    //             setBreadcrumbs(newCrumbs)
-    //         }
-    //         // sectionSlug && FetchData(sectionSlug);
-    //     }
-    // }, [router.query?.newsSlug])
-
 
 
     return (
-        <div>
+        <>
+            <PageSEO data={pageSEO} />
+            <DataPageWrapper loading={loading} pageState={pageState}>
+                <div className='container'>
+                    <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '30px 5%' }}>
+                        <Grid container >
+                            <Grid item xs={12} md={9} >
+                                <div className={styles.container}>
 
-            <div className='container'>
-                <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '30px 5%' }}>
-                    <Grid container >
-                        <Grid item xs={12} md={9} >
-                            <div className={styles.container}>
+                                    <ThisPageHeader {...newsDetails} />
 
-                                <ThisPageHeader {...newsDetails} />
+                                    {
+                                        newsDetails?.intro ?
+                                            <div className={styles.Intro}>
+                                                <MarkdownParser content={newsDetails?.intro} />
+                                            </div>
+                                            : null
+                                    }
 
-                                <div className={styles.Intro}>
-                                    <MarkdownParser content={newsDetails?.intro} />
+                                    <div className={styles.content}>
+                                        <MarkdownParser content={newsDetails?.content} />
+                                    </div>
                                 </div>
-
-                                <div className={styles.content}>
-                                    <MarkdownParser content={newsDetails?.content} />
-                                </div>
-                            </div>
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </div>
                 </div>
-            </div>
 
-        </div>
+            </DataPageWrapper>
+        </>
     );
 }
 
 export default newsDetailsPage;
 
+export async function getServerSideProps(context) {
 
+    let returnData = { props: { data: null } }
+    let response = await getData({ slug: context.params.newsSlug });
+    if (response) {
+        returnData.props.data = response.data;
+    }
+    return returnData;
+
+}
+
+// export async function getStaticPaths() {
+//     const res = await GetAllNews({ userId: null, token: '' })
+//     let news = [];
+//     if (res) {
+//         news = res?.data?.result;
+//     }
+
+//     let paths = news.map((news) => ({
+//         params: { newsSlug: news.slug, categorySlug: news.category },
+//     }))
+
+//     return { paths, fallback: true }
+// }
+
+
+// export async function getStaticProps({ params }) {
+
+//     let returnData = { props: { data: null }, revalidate: 1 }
+//     let response = await getData({ slug: params?.newsSlug });
+//     if (response) {
+//         returnData.props.data = response.data;
+//     }
+//     return returnData;
+
+// }
 
 
 const ThisPageHeaderStyles = makeStyles({

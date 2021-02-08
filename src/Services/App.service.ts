@@ -6,8 +6,8 @@ import { ApiResponse, PageSEOProps } from "./Interfaces.interface";
 export const Theme = {
     // primary: '#44b4d6',
     primary: '#213858',
-    secondary: '#33a0ab',
-    // secondary: '#43acef',
+    // secondary: '#33a0ab',
+    secondary: '#665dfe',
     tertiary: '#385a64',
     secondaryFontColor: '#5c6b8a',
     fontColor: '#444',
@@ -180,18 +180,21 @@ export const MemoizedClipText = () => {
     let cache = {};
 
     return (text: string, limit: number = 60) => {
-        if (text in cache) {
-            console.log('returning from cache');
-            return cache[text];
+        if (text?.length > limit) {
+
+            if (text in cache) {
+                console.log('returning from cache');
+                return cache[text];
+            } else {
+                console.log('Calculating result');
+                let newText = text?.slice(0, limit - 1) + '...';
+                cache[text] = newText;
+                return newText;
+            }
         } else {
-            console.log('Calculating result');
-            let newText = text?.slice(0, limit - 1) + '...';
-            cache[text] = newText;
-            return newText;
+            return text;
         }
     }
-
-
 }
 
 

@@ -1,9 +1,10 @@
 
 import * as React from 'react';
 import { Theme } from '@/Services/App.service';
-import {  Typography, useMediaQuery } from '@material-ui/core';
+import { Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';
+import { ExamCategoryType } from '@/Services/DataTypes/Exams';
 
 const listItemHeight = 34;
 const listHeight = 34 * 12;
@@ -64,14 +65,9 @@ const useStyles = makeStyles({
 })
 
 
-interface ExamCategoryType {
-    label: string,
-    value: string,
-    image?: string
-}
 
 interface Props {
-    exams?: ExamCategoryType[]
+    data: ExamCategoryType[]
 }
 
 const defaultImage = 'assets/images/defaults/examType.png';
@@ -79,22 +75,7 @@ const defaultImage = 'assets/images/defaults/examType.png';
 export const ExamCategories = (props: Props) => {
 
     const styles = useStyles();
-    const [ExamTypes, setExamTypes]: any = React.useState<ExamCategoryType[]>([
-        { label: 'government', value: '' },
-        { label: 'education', value: '' },
-        { label: 'civil', value: '' },
-        { label: 'engineering', value: '' },
-        { label: 'law', value: '' },
-        { label: 'banking', value: '' },
-        { label: 'university', value: '' },
-        { label: 'teaching', value: '' },
-        { label: 'management', value: '' },
-        { label: 'medical', value: '' },
-        { label: 'architecture', value: '' },
-        { label: 'railway', value: '' },
-        { label: 'hotel', value: '' },
-    ]);
-
+    const [ExamTypes, setExamTypes]: any = React.useState<ExamCategoryType[]>(props?.data ?? []);
 
     const isTablet = useMediaQuery('(max-width:992px)');
     const isMobile = useMediaQuery('(max-width:769px)');

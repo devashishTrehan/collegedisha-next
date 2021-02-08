@@ -1,14 +1,18 @@
 
 import { Grid, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import * as React from 'react';
-import {  Routes,  Theme } from '@/Services/App.service';
+import React, { useState, useEffect } from 'react';
+import { GetCookie, GetPageInitialData, Routes, Storages, Theme } from '@/Services/App.service';
+import { ApiResponseHandler, GetNewsList, GetNewsHome } from '@/Services/Api.service';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { NewsListItemTypes, NewsListTypes } from '@/Services/DataTypes/News';
 import NewsListCard from '@/Components/NewsListCard.component';
 import { PageNavigation } from '@/Components/PageNavigation.component';
 import { NewsPageHeader } from '..';
+import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
+import PageEndIndicator from '@/Components/PageEndIndicator.component';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
 
 
 const useStyles = makeStyles({
@@ -18,132 +22,93 @@ const useStyles = makeStyles({
 
 })
 
+const getData = async (params) => {
+
+  return await GetNewsHome({ ...params });
+}
 
 const defaultImage = '/assets/images/defaults/news.jpg'
 
 function NewsList(props: any) {
 
+  const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
+
   const isMobile = useMediaQuery('(max-width:600px)');
   const isTablet = useMediaQuery('(max-width:992px)');
   const router = useRouter();
-  const [data, setData] = React.useState<NewsListTypes | null>({
-    featuredNews: [
-      {
-        id: 1,
-        title: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'news',
-      },
-      {
-        id: 1,
-        title: 'Rajasthan Scholarship Registration Form 2021 - Online Apply Rajasthan Scholarship Application Form',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: '',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'lifestyle',
-      },
-      {
-        id: 1,
-        title: 'IIM-A OPPOSITION TO LAID DOWN Ph-D CRITERIA BY GOVERNMENT - CollegeDisha',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1604662290Rajasthan-Scholarship-Registration-thumbnail.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'education',
-      },
-      {
-        id: 1,
-        title: 'The Vice President Showed Concern On The Need Of Reservation For Poor Students In Private Institution',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1542188532News.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'plitics',
-      },
-    ],
-    newsList: [
-      {
-        id: 1,
-        title: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'sports',
-      },
-      {
-        id: 1,
-        title: 'Rajasthan Scholarship Registration Form 2021 - Online Apply Rajasthan Scholarship Application Form',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: '',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'local',
-      },
-      {
-        id: 1,
-        title: 'IIM-A OPPOSITION TO LAID DOWN Ph-D CRITERIA BY GOVERNMENT - CollegeDisha',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1604662290Rajasthan-Scholarship-Registration-thumbnail.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'internation',
-      },
-      {
-        id: 1,
-        title: 'The Vice President Showed Concern On The Need Of Reservation For Poor Students In Private Institution',
-        views: 123,
-        commentCount: 12,
-        slug: 'xyz',
-        image: 'https://www.collegedisha.com/images/thumbnail/1542188532News.jpg',
-        author: 'dev trehan',
-        publishedOn: '23-12-2020',
-        isSaved: false,
-        category: 'bollywood',
-      },
-    ],
-    newsCategories: {
-      'All News': '',
-      'Engineering ': 'engineering',
-      'Education ': 'education',
-      'Management ': 'management',
-      'College Placement ': 'college-placement',
-      'Exam ': 'exam',
-      'Exams Admit Card': 'exams-admit-card',
-      'Exam Results': 'exam-results',
-    }
-  })
-  const [currentCategory, setCurrentCategory] = React.useState<string>('');
+  const [data, setData] = React.useState<NewsListTypes | null>(result ?? {})
+  const [currentCategory, setCurrentCategory] = React.useState<string>(router?.query?.categorySlug as string);
 
   const styles = useStyles();
+  const [newsList, setNewsList] = useState<NewsListItemTypes[] | null>(result?.newsList ?? [])
+  const [loading, setLoading] = useState(false);
+  const [infiniteLoading, setInfiniteLoading] = useState(false);
+  const [pageState, setPageState] = useState<pageStateType>(responseType);
+  const [pageSeo, setPageSeo] = useState<PageSEOProps>(__pageSeo);
+
+  let pageOptions = React.useRef({
+    pageNo: 2,
+    hasMore: true,
+  })
 
 
-  const newsList: NewsListItemTypes[] = []
+  const OnPageResponseHandler = (data: ApiResponse, toAppend: boolean = false) => {
+    let response = ApiResponseHandler(data, {
+      onNoData: () => {
+        setNewsList((prev => {
+          if (toAppend) {
+            return [...prev]
+          } else {
+            return null;
+          }
+        }))
+      },
+      onSuccess: () => {
+        setNewsList((prev => {
+          if (toAppend) {
+            return [...prev, ...data?.result]
+          } else {
+            return data?.result;
+          }
+        }))
+      },
+    });
+
+
+    setPageSeo(data?.additionalData?.pageSEO);
+    if (response === '__request_success__') {
+      let newOptions = {
+        pageNo: pageOptions.current.pageNo + 1,
+        hasMore: data?.additionalData?.hasMore
+      };
+      pageOptions.current = newOptions;
+    }
+    console.log('pageOptions after change', pageOptions.current);
+    if (!toAppend) {
+      setPageState(response);
+    }
+  }
+
+
+  const requestData = async (_pageNo: number, toAppend: boolean = false, category = currentCategory) => {
+    let userId = parseInt(GetCookie(Storages.UserId));
+    let token = GetCookie(Storages.AccessToken);
+    setInfiniteLoading(true);
+    let response = await GetNewsList({ token: token, userId: userId, pageNo: _pageNo, category: category });
+    setInfiniteLoading(false);
+    OnPageResponseHandler(response ? response.data : null, toAppend);
+  }
+
+
+  function RequestDataOnIntersection() {
+    console.log('page options in intraction', pageOptions.current);
+
+    if (pageOptions.current.hasMore) {
+      requestData(pageOptions?.current?.pageNo, true)
+    } else {
+      console.log('No data to fetch');
+    }
+  }
 
 
   const ShowCategory = (category: string) => {
@@ -156,41 +121,75 @@ function NewsList(props: any) {
     const { query } = router;
     let categorySlug = query.categorySlug as string;
 
-    if (categorySlug) {
+    if (categorySlug !== currentCategory) {
       setCurrentCategory(categorySlug);
+      requestData(1, false, categorySlug);
     }
   }, [router.query?.categorySlug])
 
 
   return (
 
-    <>
+    <DataPageWrapper loading={loading} pageState={pageState}>
+      <>
 
-      <div>
-        <NewsPageHeader featuredNews={data?.featuredNews} />
-      </div>
+        {
+          data?.featuredNews?.length ?
+            <div>
+              <NewsPageHeader featuredNews={data?.featuredNews} />
+            </div>
+            : null
+        }
 
-      <PageNavigation pageSections={data?.newsCategories} currentSection={currentCategory} onLinkClick={(section: string) => ShowCategory(section)} />
+        {
+          data?.newsCategories ?
+            <PageNavigation pageSections={data?.newsCategories} currentSection={currentCategory} onLinkClick={(section: string) => ShowCategory(section)} />
+            : null
+        }
+
+        {
+          newsList?.length ?
+            <div className='container'>
+              <div className={'wrapper'}>
+
+                <Grid container spacing={isMobile ? 3 : 5}>
+
+                  {
+                    newsList?.map((newsItem: NewsListItemTypes) => {
+                      return (
+                        <Grid item xs={12} sm={6}>
+                          <NewsListCard {...newsItem} />
+                        </Grid>
 
 
-      <div className='container'>
-        <div className={'wrapper'}>
+                      )
+                    })
+                  }
+                </Grid>
 
-          <Grid container spacing={isMobile ? 3 : 5}>
-            <RenderPageSection newsList={data?.newsList} />
-          </Grid>
+                <PageEndIndicator loading={infiniteLoading} onIntersection={RequestDataOnIntersection} />
 
-        </div>
-      </div>
-    </>
-
+              </div>
+            </div>
+            : null
+        }
+      </>
+    </DataPageWrapper>
   );
 }
 
-
 export default NewsList;
 
+export async function getServerSideProps(context) {
+  let category = context?.params?.categorySlug;
+  let returnData = { props: { data: null } }
 
+  let response = await getData({ token: '', userId: '', category: category });
+  if (response) {
+    returnData.props.data = response.data;
+  }
+  return returnData;
+}
 
 
 //   ------ section styles start------   \\
@@ -234,7 +233,7 @@ const RenderPageSection = React.memo((props: PageSectionProps) => {
       {
         data?.map((item: NewsListItemTypes, index: number) => {
           return (
-            <Grid item xs={12} sm={6}>
+            <Grid key={item.id} item xs={12} sm={6}>
               <NewsListCard {...item} />
             </Grid>
           )

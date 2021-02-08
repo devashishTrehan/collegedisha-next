@@ -47,7 +47,7 @@ function NavbarContextProvider(props: any) {
             <MenuContextProvider>
                 <NavBar />
             </MenuContextProvider>
-            <div id='__mainPage' style={{ paddingTop: navHeight, flexGrow: 1, }}>
+            <div style={{ paddingTop: navHeight, flexGrow: 1, }}>
                 {
                     props.children
                 }

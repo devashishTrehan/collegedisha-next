@@ -41,7 +41,6 @@ export default InstituteDetails;
 
 
 export async function getStaticPaths() {
-    // Call an external API endpoint to get posts
     const res = await GetInstituteList({ category: 'college', size: 10000, pageNo: 1, userId: null, token: '' })
     let institutes = [];
     if (res) {
@@ -49,7 +48,6 @@ export async function getStaticPaths() {
     }
 
     let sections = Object.keys(pageSections);
-    // Get the paths we want to pre-render based on posts
     let paths = [];
     institutes.map((ins) => {
         sections.map((section) => {
@@ -58,9 +56,6 @@ export async function getStaticPaths() {
             })
         })
     })
-
-    // We'll pre-render only these paths at build time.
-    // { fallback: false } means other routes should 404.
     return { paths, fallback: true }
 }
 

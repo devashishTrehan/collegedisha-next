@@ -115,6 +115,8 @@ const useStyles = makeStyles((theme: MuiTheme) => ({
             },
             '& p': {
                 marginTop: 10,
+                letterSpacing: 1,
+                wordSpacing: 2,
                 [theme.breakpoints.up('xs')]: {
                     lineHeight: '24px',
                     fontSize: 12,

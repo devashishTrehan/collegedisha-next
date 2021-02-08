@@ -1,5 +1,5 @@
 
-import { Grid,  MenuItem, Typography, useMediaQuery } from '@material-ui/core';
+import { Grid, MenuItem, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import { Routes, Theme } from '@/Services/App.service';
@@ -291,7 +291,9 @@ function BoardList(props: any) {
   const styles = useStyles();
 
 
-  const boards: BoardListItemTypes[] = []
+  const boards: BoardListItemTypes[] = [{
+    id: 1, name: 'board', image: '', slug: 'xyz', boards: [{ name: 'abc', classes: ['a', 'b',] },{ name: 'abc', classes: ['a', 'b',] }]
+  }]
 
   const ViewDetails = (slug: string) => {
     router.push({

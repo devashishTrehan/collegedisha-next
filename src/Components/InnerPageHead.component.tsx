@@ -1,4 +1,4 @@
-import { Typography, useMediaQuery } from '@material-ui/core';
+import { Typography, useMediaQuery, Theme as MuiTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { useContext, } from 'react';
 import classNames from 'classnames';
@@ -7,7 +7,7 @@ import { NavbarContext } from '@/Context/Navbar.context';
 import { LocationOnOutlined, Visibility } from '@material-ui/icons';
 import { Rating } from '@material-ui/lab';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: MuiTheme) => ({
     backgroundContainer: {
         backgroundImage: "url('/assets/images/innerPages/instituteBanner.jpg')",
         backgroundSize: '100%',
@@ -20,31 +20,48 @@ const useStyles = makeStyles({
             textAlign: 'left',
             verticalAlign: 'middle',
             alignItems: 'flex-start',
+            [theme.breakpoints.down('xs')]: {
+                display: 'block'
+            }
         },
         '& .imageWrap': {
             width: '50%',
             borderRadius: Theme.radius2,
             boxShadow: Theme.boxShadow,
             overflow: 'hidden',
+            [theme.breakpoints.down('xs')]: {
+                width: '100%'
+            }
         },
         '& .detailWrap': {
             padding: '0 0 20px',
-            margin: '-10px 0 -10px 20px',
+            margin: '0px 0 0px 20px',
             textTransform: 'capitalize',
             color: Theme.primary,
             width: 'calc(50%)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-
+            [theme.breakpoints.down('xs')]: {
+                width: 'calc(100%)',
+                padding: '0 0 10px',
+                margin: '20px 0 0px 0px',
+            },
             '& .name': {
                 fontFamily: 'gorditaMedium',
                 textTransform: 'uppercase',
                 fontSize: 22,
+                [theme.breakpoints.down('xs')]: {
+                    fontSize: 16,
+                },
             },
             '& .location': {
                 color: 'gray',
                 fontSize: 18,
+                [theme.breakpoints.down('xs')]: {
+                    fontSize: 14,
+                    marginRight: 3,
+                },
                 '& svg': {
                     fontSize: 20,
                     verticalAlign: 'middle',
@@ -57,10 +74,18 @@ const useStyles = makeStyles({
                 fontFamily: 'gorditaMedium',
                 marginRight: 5,
                 fontSize: 14,
+                [theme.breakpoints.down('xs')]: {
+                    fontSize: 10,
+                    marginRight: 3,
+                },
+
                 '& svg': {
                     fontSize: 16,
                     marginRight: 5,
                     verticalAlign: 'middle',
+                    [theme.breakpoints.down('xs')]: {
+                        fontSize: 12,
+                    },
                 }
 
             },
@@ -72,11 +97,18 @@ const useStyles = makeStyles({
                     display: 'flex',
                     '& .rating': {
                         fontSize: 18,
+                        [theme.breakpoints.down('xs')]: {
+                            fontSize: 14,
+                        },
                     },
                     '& .total': {
                         fontFamily: 'gorditaMedium',
                         margin: '0 6px',
                         fontSize: 8,
+                        [theme.breakpoints.down('xs')]: {
+                            margin: '0 3px',
+                            fontSize: 6,
+                        },
                         '& p': {
                             verticalAlign: 'middle',
                             padding: 0,
@@ -86,57 +118,33 @@ const useStyles = makeStyles({
             },
             '& .group': {
                 margin: '10px 0',
+                [theme.breakpoints.down('xs')]: {
+                    margin: '8px 0',
+                }
+
             }
         }
     },
-    headContainer_M: {
+    HeadContainerSmallImage: {
         '& .wrap': {
-            display: 'block'
+            display: 'flex',
         },
         '& .imageWrap': {
-            width: '100%',
-            borderRadius: Theme.radius1,
+            width: '150px',
+            [theme.breakpoints.down('xs')]: {
+                width: '120px'
+            }
         },
         '& .detailWrap': {
-            padding: '0 0 10px',
-            margin: '10px 0 0',
-            width: 'calc(100%)',
-
-            '& .name': {
-                fontSize: 16,
+            padding: '0 0 20px',
+            margin: '0px 0 0px 20px',
+            width: 'calc(100% - 150px)',
+            [theme.breakpoints.down('xs')]: {
+                width: 'calc(100% - 120px)'
             },
-            '& .location': {
-                fontSize: 14,
-                marginRight: 3,
-                '& svg': {
-                    fontSize: 16,
-                }
-            },
-            '& .views': {
-                fontSize: 10,
-                marginRight: 3,
-                '& svg': {
-                    fontSize: 12,
-                }
-
-            },
-            '& .ratingWrap': {
-                '& .subWrap': {
-                    '& .rating': {
-                        fontSize: 14,
-                    },
-                    '& .total': {
-                        margin: '0 3px',
-                        fontSize: 6,
-                    }
-                }
-            },
-            '& .group': {
-                margin: '8px 0',
-            }
         }
     },
-})
+}))
 
 interface Props {
     id: number,
@@ -153,6 +161,7 @@ interface Props {
     onDownload?: Function,
     onApply?: Function,
     onShare?: Function,
+    smallImage?: boolean
 }
 
 
@@ -173,7 +182,7 @@ export const InnerPageHead = (props: Props) => {
             <div className='wrapper' style={{ padding: isMobile ? '30px 5%' : '60px 5%' }}>
 
 
-                <div className={classNames(styles.headContainer, { [styles.headContainer_M]: isMobile })}>
+                <div className={classNames(styles.headContainer, { [styles.HeadContainerSmallImage]: props?.smallImage })}>
                     <div className='wrap'>
                         <div className='imageWrap'>
                             <img src={thumbnail ? thumbnail : defaultImage} alt='' />

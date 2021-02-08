@@ -9,7 +9,8 @@ export interface NewsListItemTypes {
     publishedOn: string,
     views: number,
     commentCount: number,
-    category: string
+    category: string,
+    categorySlug: string
 }
 
 export interface NewsListTypes {

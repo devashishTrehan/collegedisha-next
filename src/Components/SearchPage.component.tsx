@@ -1,11 +1,13 @@
 
-import { Button, IconButton, Modal, Typography, useMediaQuery } from '@material-ui/core';
+import { Button, Divider, IconButton, MenuItem, Modal, Select, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import { Routes, Theme } from '../Services/App.service';
 import { Close, Search as SearchIcon } from '@material-ui/icons';
 import classNames from 'classnames';
+import { SearchForm } from './Search.component';
+import SelectField from './SelectField.component/SelectField.component';
 
 // const useStyles = ;
 
@@ -15,6 +17,10 @@ export const SearchPage = (props: any) => {
     const [isActive, setActive] = React.useState(false);
     const [largestSide, setLargestSide] = React.useState(0);
     const isMobile = useMediaQuery('(max-width:767px');
+    const [form, setForm] = React.useState<{ item: string, city: string }>({
+        item: '',
+        city: ''
+    })
 
     React.useEffect(() => {
         let { innerHeight, innerWidth } = window;
@@ -27,7 +33,17 @@ export const SearchPage = (props: any) => {
 
 
     const useStyles = makeStyles({
+        closeButton: {
+            position: 'absolute',
+            right: 20,
+            top: 20,
+            color:'#ddd',
+        },
         mainContainer: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'relative',
             '&.active': {
                 overflow: 'hidden',
                 transition: '.5s',
@@ -36,7 +52,7 @@ export const SearchPage = (props: any) => {
                 top: 0,
                 left: 0,
                 position: 'fixed',
-                backgroundColor: '#0008',
+                backgroundColor: '#000a',
                 height: '100vh',
                 animation: '$OpenPage 1s forwards',
             }
@@ -50,6 +66,50 @@ export const SearchPage = (props: any) => {
             "100%": {
                 clipPath: `circle(${largestSide}px at center)`,
                 backdropFilter: 'blur( 4.5px)',
+            }
+        },
+        searchWrap: {
+            width: 700,
+            maxWidth: '95%',
+            margin: 'auto',
+
+        },
+        ORSeparator: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '30px 0',
+            '& .divider': {
+                width: 50,
+                backgroundColor: '#ddd',
+            },
+            '& .text': {
+                color: '#ddd',
+                fontSize: 14,
+                padding: '0 10px'
+            }
+        },
+        selectWrap: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            '& .select': {
+                minWidth: 100,
+                margin: '0 10px',
+                background: 'transparent',
+                color: '#ddd',
+                fontSize: 16,
+                border: 'none',
+                borderBottom: '1px solid #ddd',
+                paddingBottom: 5,
+                '& option': {
+                    background: Theme.primary,
+                }
+            },
+            '& .text': {
+                color: '#ddd',
+                fontSize: 16,
+                paddingBottom: 5,
             }
         }
     });
@@ -98,8 +158,34 @@ export const SearchPage = (props: any) => {
                 <>
                     <div id='_searchPage_' className={classNames(styles.mainContainer, { 'active': isActive })}>
 
-                        <IconButton onClick={ClosePage}><Close /></IconButton>
-                        <_SearchForm />
+                        <div className={styles.closeButton}><IconButton onClick={ClosePage}><Close /></IconButton></div>
+
+                        <div className={styles.searchWrap}>
+                            <SearchForm height={60} />
+
+                            <div className={styles.ORSeparator}>
+                                <Divider className='divider' />
+                                <Typography className='text'>OR</Typography>
+                                <Divider className='divider' />
+                            </div>
+
+                            <div className={styles.selectWrap}>
+                                <Typography className='text'>Find best</Typography>
+                                <select className='select' >
+                                    <option value='college'>college</option>
+                                    <option value='university'>university</option>
+                                    <option value='coaching'>coaching</option>
+                                </select>
+                                <Typography className='text'>in</Typography>
+                                <select className='select'>
+                                    <option value='agra'>agra</option>
+                                    <option value='noida'>noida</option>
+                                    <option value='gaziabad'>gaziabad</option>
+                                </select>
+                                <Typography className='text'>city</Typography>
+                            </div>
+
+                        </div>
                     </div>
                 </>
             }
@@ -174,79 +260,80 @@ const useFormStyles = makeStyles({
 })
 
 
-const _SearchForm = (props) => {
+// const _SearchForm = (props) => {
 
 
-    const [Form, setForm] = React.useState({
-        keyword: '',
-    });
+//     const [Form, setForm] = React.useState({
+//         keyword: '',
+//     });
 
-    const styles = useFormStyles();
-    const router = useRouter();
-    const isMobile = useMediaQuery('(max-width:767px');
+//     const styles = useFormStyles();
+//     const router = useRouter();
+//     const isMobile = useMediaQuery('(max-width:767px');
 
 
-    React.useEffect(() => {
-        const query: any = router.query;
-        setForm({ keyword: query?.keyword })
-    }, [router.query])
+//     React.useEffect(() => {
+//         const query: any = router.query;
+//         setForm({ keyword: query?.keyword })
+//     }, [router.query])
 
-    const fieldChangeHandler = (event) => {
-        event.stopPropagation();
-        let { name: field, value } = event.target;
-        setForm(prev => {
-            return {
-                ...prev,
-                [field]: value
-            }
-        })
-    }
+//     const fieldChangeHandler = (event) => {
+//         event.stopPropagation();
+//         let { name: field, value } = event.target;
+//         setForm(prev => {
+//             return {
+//                 ...prev,
+//                 [field]: value
+//             }
+//         })
+//     }
 
-    const submit = (event: any) => {
-        event.preventDefault();
-        console.log(Form);
-        props.onSubmit && props.onsubmit()
-    }
+//     const submit = (event: any) => {
+//         event.preventDefault();
+//         console.log(Form);
+//         props.onSubmit && props.onsubmit()
+//     }
 
-    return (
-        <div className={styles.container}>
-            <form className={styles.form} onSubmit={submit} >
+//     return (
+//         <div className={styles.container}>
+//             <form className={styles.form} onSubmit={submit} >
 
-                <div className={styles.inputContainer}>
+//                 <div className={styles.inputContainer}>
 
-                    <input
-                        placeholder='Search Colleges, Courses, Coaching'
-                        value={Form.keyword}
-                        autoComplete={'off'}
-                        name={'keyword'}
-                        {...props?.inputProps}
-                        onChange={fieldChangeHandler}
-                    />
-                </div>
-                <div className="clearfix"></div>
+//                     <input
+//                         placeholder='Search Colleges, Courses, Coaching'
+//                         value={Form.keyword}
+//                         autoComplete={'off'}
+//                         name={'keyword'}
+//                         {...props?.inputProps}
+//                         onChange={fieldChangeHandler}
+//                     />
+//                 </div>
+//                 <div className="clearfix"></div>
 
-                <div className={styles.submitButtonContainer}>
-                    <Button variant='contained' color='primary' type='submit'>
-                        {
-                            isMobile ?
-                                <>
-                                    {
-                                        props.buttonIcon ?
-                                            props.buttonText
-                                            : <SearchIcon />
-                                    }
-                                </>
-                                : <Typography variant='button' style={{ textTransform: 'capitalize', padding: '0 15px', fontSize: 16 }}>
-                                    {
-                                        props.buttonText ?
-                                            props.buttonText
-                                            : 'Search'
-                                    }
-                                </Typography>
-                        }
-                    </Button>
-                </div>
-            </form>
-        </div>
-    )
-}
+//                 <div className={styles.submitButtonContainer}>
+//                     <IconButton color='primary' type='submit'>
+//                         <SearchIcon />
+//                         {/* {
+//                             isMobile ?
+//                                 <>
+//                                     {
+//                                         props.buttonIcon ?
+//                                             props.buttonText
+//                                             : <SearchIcon />
+//                                     }
+//                                 </>
+//                                 : <Typography variant='button' style={{ textTransform: 'capitalize', padding: '0 15px', fontSize: 16 }}>
+//                                     {
+//                                         props.buttonText ?
+//                                             props.buttonText
+//                                             : 'Search'
+//                                     }
+//                                 </Typography>
+//                         } */}
+//                     </IconButton>
+//                 </div>
+//             </form>
+//         </div>
+//     )
+// }

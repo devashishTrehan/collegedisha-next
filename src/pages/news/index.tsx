@@ -36,7 +36,7 @@ const defaultImage = '/assets/images/defaults/news.jpg'
 function NewsList(props: any) {
 
   const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
-
+  console.log('data ---', props.data)
 
   const isMobile = useMediaQuery('(max-width:600px)');
   const isTablet = useMediaQuery('(max-width:992px)');
@@ -96,7 +96,7 @@ function NewsList(props: any) {
     let userId = parseInt(GetCookie(Storages.UserId));
     let token = GetCookie(Storages.AccessToken);
     setInfiniteLoading(true);
-    let response = await GetNewsList({ token: token, userId: userId, pageNo: _pageNo });
+    let response = await GetNewsList({ token: token, userId: userId, pageNo: _pageNo, category: '' });
     setInfiniteLoading(false);
     OnPageResponseHandler(response ? response.data : null, toAppend);
   }
@@ -122,7 +122,6 @@ function NewsList(props: any) {
   }
 
 
-
   return (
     <DataPageWrapper loading={loading} pageState={pageState}>
       <>
@@ -136,7 +135,7 @@ function NewsList(props: any) {
         }
 
         {
-          data?.newsCategories?.length ?
+          data?.newsCategories ?
             <PageNavigation pageSections={data?.newsCategories} currentSection={currentSection} onLinkClick={(section: string) => ShowCategory(section)} />
             : null
         }
@@ -149,7 +148,7 @@ function NewsList(props: any) {
                 <Grid container spacing={isMobile ? 3 : 5}>
 
                   {
-                    data?.newsList?.map((newsItem: NewsListItemTypes) => {
+                    newsList?.map((newsItem: NewsListItemTypes) => {
                       return (
                         <Grid item xs={12} sm={6}>
                           <NewsListCard {...newsItem} />

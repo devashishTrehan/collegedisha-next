@@ -1,11 +1,12 @@
-import { Routes, Theme, } from '@/Services/App.service';
-import {  Typography, useMediaQuery } from '@material-ui/core';
-import { CalendarToday} from '@material-ui/icons';
+import { MemoizedClipText, Routes, Theme, } from '@/Services/App.service';
+import { Typography, useMediaQuery } from '@material-ui/core';
+import { CalendarToday } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import React, { memo } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { NewsListItemTypes } from '@/Services/DataTypes/News';
+import Link from 'next/link';
 
 
 
@@ -36,7 +37,6 @@ const useStyles = makeStyles({
         padding: '0 8px 8px 15px',
         textAlign: 'left',
         width: 'calc(75%)',
-        cursor: 'pointer',
         textTransform: 'capitalize',
         '& .topSection': {
             display: 'flex',
@@ -81,6 +81,8 @@ const useStyles = makeStyles({
     }
 })
 
+const ClipText = MemoizedClipText();
+
 interface Props extends NewsListItemTypes {
     onSave?: Function,
     onShare?: Function,
@@ -90,7 +92,7 @@ const defaultImage = '/assets/images/defaults/news.jpg'
 
 const NewsListCard = memo(function (props: Props) {
 
-    const { title, image, onSave, onShare, slug, publishedOn, category } = props;
+    const { title, image, onSave, onShare, slug, publishedOn, categorySlug, category } = props;
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -99,11 +101,6 @@ const NewsListCard = memo(function (props: Props) {
 
     const styles = useStyles();
 
-    const ViewDetails = (slug: string) => {
-        router.push({
-            pathname: `${Routes.News}/${category}/${slug}`
-        })
-    }
 
 
     return (
@@ -115,14 +112,20 @@ const NewsListCard = memo(function (props: Props) {
                 </div>
             </div>
 
-            <div onClick={() => { ViewDetails(slug) }} className={classNames(styles.InfoSetion)}>
+            <div className={classNames(styles.InfoSetion)}>
                 <div className={'topSection'}>
                     <div className={'categoryContainer'}>
                         <Typography className={'category'} >{category}</Typography>
                     </div>
-                    <div className={'nameContainer'}>
-                        <Typography className={'productName'} >{title}</Typography>
-                    </div>
+
+                    <Link href={`${Routes.News}/${categorySlug}/${slug}`} >
+                        <a style={{ textDecoration: 'none' }}>
+                            <div className={'nameContainer'}>
+                                <Typography className={'productName'} >{ClipText(title,100)}</Typography>
+                            </div>
+                        </a>
+                    </Link>
+
                     <div className={'dateContainer'}>
                         <CalendarToday />
                         <Typography className={'date'} >{publishedOn}</Typography>

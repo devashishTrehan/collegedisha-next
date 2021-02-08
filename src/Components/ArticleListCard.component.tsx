@@ -6,6 +6,7 @@ import React, { memo, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { ArticleListItemTypes } from '@/Services/DataTypes/article';
+import Link from 'next/link';
 
 
 
@@ -43,13 +44,11 @@ const useStyles = makeStyles({
         padding: '8px 8px 8px 15px',
         textAlign: 'left',
         width: 'calc(75%)',
-        cursor: 'pointer',
         textTransform: 'capitalize',
         '& .topSection': {
             display: 'flex',
             flexDirection: 'column',
             flexGrow: 1,
-            cursor: 'pointer',
             '& .dateContainer': {
                 display: 'flex',
                 color: Theme.fontLight,
@@ -155,15 +154,21 @@ const ArticleListCard = memo(function (props: Props) {
                 </div>
             </div>
 
-            <div onClick={() => { ViewDetails(slug) }} className={classNames(styles.InfoSetion, { [styles.InfoSetionCard]: type === 'card' })}>
-                <div className={'topSection'} onClick={() => ViewDetails(slug)}>
+            <div className={classNames(styles.InfoSetion, { [styles.InfoSetionCard]: type === 'card' })}>
+                <div className={'topSection'} >
                     <div className={'dateContainer'}>
                         <CalendarToday style={{ marginRight: 3, }} />
                         <Typography className='date'>{publishedOn}</Typography>
                     </div>
-                    <div className={'nameContainer'}>
-                        <Typography className={'productName'} >{ClipText(title)}</Typography>
-                    </div>
+
+                    <Link href={`${router.asPath}/${slug}`} >
+                        <a style={{ textDecoration: 'none' }}>
+                            <div className={'nameContainer'}>
+                                <Typography className={'productName'} >{ClipText(title)}</Typography>
+                            </div>
+                        </a>
+                    </Link>
+
                 </div>
                 <div className={classNames('footerSection')}>
 

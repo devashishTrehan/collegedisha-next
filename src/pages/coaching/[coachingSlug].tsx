@@ -9,8 +9,9 @@ import MarkdownParser from '@/Components/MarkdownParser.component';
 import { PageNavigation } from '@/Components/PageNavigation.component';
 import { InnerPageHead } from '@/Components/InnerPageHead.component';
 import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
-import { pageStateType } from '@/Components/DataPageWrapper.component';
+import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
 import { ApiResponseHandler, GetCoachingDetails } from '@/Services/Api.service';
+import PageSEO from '@/Components/PageSEO.component';
 
 
 const getData = async (params) => {
@@ -109,30 +110,36 @@ function CoachingDetailsPage(props: Props) {
     const { id, name, about, courseDetails, admission, addressDetails } = coachingDetails;
 
     return (
-        <div>
+        <>
+            <PageSEO data={pageSEO} />
+            <DataPageWrapper pageState={pageState}>
 
-            <InnerPageHead {...coachingDetails} />
+                <div>
 
-            <PageNavigation pageSections={pageSections} currentSection={currentSection} onLinkClick={(section: string) => showpageSection(section)} />
+                    <InnerPageHead {...coachingDetails} smallImage={true} />
 
-            <div className='container'>
-                <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '50px 5%' }}>
-                    <Grid container >
-                        <Grid item xs={12} md={9} >
-                            {
-                                RenderPageSection({
-                                    about: about,
-                                    addressDetails: addressDetails,
-                                    admission: admission,
-                                    courseDetails: courseDetails
-                                })
-                            }
-                        </Grid>
-                    </Grid>
+                    <PageNavigation pageSections={pageSections} currentSection={currentSection} onLinkClick={(section: string) => showpageSection(section)} />
+
+                    <div className='container'>
+                        <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '50px 5%' }}>
+                            <Grid container >
+                                <Grid item xs={12} md={9} >
+                                    {
+                                        RenderPageSection({
+                                            about: about,
+                                            addressDetails: addressDetails,
+                                            admission: admission,
+                                            courseDetails: courseDetails
+                                        })
+                                    }
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-
-        </div>
+            </DataPageWrapper>
+        </>
     );
 }
 

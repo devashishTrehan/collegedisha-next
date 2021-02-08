@@ -42,7 +42,7 @@ function MyApp(props) {
 
   return <>
     <ThemeProvider theme={theme}>
-      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <div id='__mainPage' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
 
         <AppContextProvider>
           <UserContextProvider>

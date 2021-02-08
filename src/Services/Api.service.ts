@@ -20,15 +20,15 @@ import { ApiResponse } from "./Interfaces.interface";
 
 // /////////////////------------ for testing -----------\\\\\\\\\\\\\
 
-// export const BASE_URL = 'http://192.168.1.65:7000/api/';
-// export const Domain = 'http://192.168.1.65:7000';
+export const BASE_URL = 'http://192.168.1.65:7000/api/';
+export const Domain = 'http://192.168.1.65:7000';
 
 
 
-/////////////////------------ for testing -----------\\\\\\\\\\\\\
+// /////////////////------------ for testing -----------\\\\\\\\\\\\\
 
-export const BASE_URL = 'http://192.168.1.52:8000/api/';
-export const Domain = 'http://192.168.1.52:8000';
+// export const BASE_URL = 'http://192.168.1.52:8000/api/';
+// export const Domain = 'http://192.168.1.52:8000';
 
 
 const UserUrl = BASE_URL + 'user/';
@@ -40,6 +40,7 @@ const InstituteUrl = BASE_URL + 'institutes/';
 const CoachingUrl = BASE_URL + 'coachings/';
 const ArticleUrl = BASE_URL + 'articles/';
 const NewsUrl = BASE_URL + 'news/';
+const ExamsUrl = BASE_URL + 'exams/';
 
 
 export const GetAccessTokenUrl = UserUrl + 'token/refresh/';
@@ -285,17 +286,17 @@ export const GetArticleDetails = async ({ token, userId, slug = '' }: { token: s
         .catch(error => console.log('error', error));
 }
 
-export const GetNewsHome = async ({ token, userId }: { token: string, userId: number }) => {
-    console.log(NewsUrl + `?id=${userId}&page=1`);
-    return await axios(NewsUrl + `?id=${userId}&page=1`, {
+export const GetNewsHome = async ({ token, userId, category = '' }: { token: string, userId: number, category: string }) => {
+    console.log(NewsUrl + `?id=${userId}&category=${category}`);
+    return await axios(NewsUrl + `?id=${userId}&category=${category}`, {
         // headers: setHeader(token)
     })
         .then(response => response)
         .catch(error => console.log('error', error));
 }
 
-export const GetNewsList = async ({ token, userId, pageNo = 1 }: { token: string, userId: number, pageNo?: number }) => {
-    return await axios(NewsUrl + `?id=${userId}&page=${pageNo}`, {
+export const GetNewsList = async ({ token, userId, pageNo = 1, category = '' }: { token: string, userId: number, pageNo?: number, category: string }) => {
+    return await axios(NewsUrl + `?id=${userId}&page=${pageNo}&category=${category}`, {
         // headers: setHeader(token)
     })
         .then(response => response)
@@ -310,8 +311,34 @@ export const GetAllNews = async ({ token, userId }: { token: string, userId: num
         .catch(error => console.log('error', error));
 }
 
-export const GetNewsDetails = async ({ token, userId, slug = '' }: { token: string, userId: number, slug?: string }) => {
-    return await axios(NewsUrl + `${slug}/` + `?id=${userId}`, {
+export const GetNewsDetails = async ({ token, userId, slug = '', section = '' }: { token: string, userId: number, slug?: string, section: string }) => {
+    return await axios(NewsUrl + `${slug}/` + `?id=${userId}&section=${section}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+
+export const GetExamsList = async ({ token, userId, category = '', pageNo = 1, size = 12 }: { token: string, userId: number, category?: string, pageNo?: number, size?: number }) => {
+    console.log('page Size', size);
+    return await axios(ExamsUrl + `?id=${userId}&category=${category}&page=${pageNo}&size=${size}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetExamDetails = async ({ token, userId, slug = '', section = 'information' }: { token: string, userId: number, slug?: string, section: string }) => {
+    return await axios(ExamsUrl + `${slug}/` + `?id=${userId}&section=${section}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetExamSectionDetails = async ({ token, userId, slug = '', section }: { token: string, userId: number, slug?: string, section: string }) => {
+    return await axios(ExamsUrl + `${slug}/${section}` + `?id=${userId}`, {
         // headers: setHeader(token)
     })
         .then(response => response)

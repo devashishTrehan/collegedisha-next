@@ -18,17 +18,17 @@ import { ApiResponse } from "./Interfaces.interface";
 // export const Domain = 'http://127.0.0.1:8000';
 
 
-// /////////////////------------ for testing -----------\\\\\\\\\\\\\
+// // /////////////////------------ for testing -----------\\\\\\\\\\\\\
 
-export const BASE_URL = 'http://192.168.1.65:7000/api/';
-export const Domain = 'http://192.168.1.65:7000';
+// export const BASE_URL = 'http://192.168.1.65:7000/api/';
+// export const Domain = 'http://192.168.1.65:7000';
 
 
 
-// /////////////////------------ for testing -----------\\\\\\\\\\\\\
+/////////////////------------ for testing -----------\\\\\\\\\\\\\
 
-// export const BASE_URL = 'http://192.168.1.52:8000/api/';
-// export const Domain = 'http://192.168.1.52:8000';
+export const BASE_URL = 'http://192.168.1.52:8000/api/';
+export const Domain = 'http://192.168.1.52:8000';
 
 
 const UserUrl = BASE_URL + 'user/';
@@ -320,7 +320,16 @@ export const GetNewsDetails = async ({ token, userId, slug = '', section = '' }:
 }
 
 
-export const GetExamsList = async ({ token, userId, category = '', pageNo = 1, size = 12 }: { token: string, userId: number, category?: string, pageNo?: number, size?: number }) => {
+export const GetExamsHome = async ({ token, userId, category = '', size = 12 }: { token: string, userId: number, category?: string, size?: number }) => {
+    console.log('page Size', size);
+    return await axios(ExamsUrl + `?id=${userId}&category=${category}&size=${size}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetExamsList = async ({ token, userId, category = '', pageNo = 2, size = 12 }: { token: string, userId: number, category?: string, pageNo?: number, size?: number }) => {
     console.log('page Size', size);
     return await axios(ExamsUrl + `?id=${userId}&category=${category}&page=${pageNo}&size=${size}`, {
         // headers: setHeader(token)
@@ -329,7 +338,7 @@ export const GetExamsList = async ({ token, userId, category = '', pageNo = 1, s
         .catch(error => console.log('error', error));
 }
 
-export const GetExamDetails = async ({ token, userId, slug = '', section = 'information' }: { token: string, userId: number, slug?: string, section: string }) => {
+export const GetExamDetails = async ({ token, userId, slug = '', section = '' }: { token: string, userId: number, slug?: string, section: string }) => {
     return await axios(ExamsUrl + `${slug}/` + `?id=${userId}&section=${section}`, {
         // headers: setHeader(token)
     })
@@ -337,7 +346,7 @@ export const GetExamDetails = async ({ token, userId, slug = '', section = 'info
         .catch(error => console.log('error', error));
 }
 
-export const GetExamSectionDetails = async ({ token, userId, slug = '', section }: { token: string, userId: number, slug?: string, section: string }) => {
+export const GetExamSectionDetails = async ({ token, userId, slug = '', section = 'information' }: { token: string, userId: number, slug?: string, section: string }) => {
     return await axios(ExamsUrl + `${slug}/${section}` + `?id=${userId}`, {
         // headers: setHeader(token)
     })

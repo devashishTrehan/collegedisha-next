@@ -13,10 +13,11 @@ import { ExamListItem, ExamCategoryType } from '@/Services/DataTypes/Exams';
 import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
 import { Divider, Grid, Hidden, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
 interface Props {
-    data: ApiResponse
+    data: ApiResponse,
 }
 
 const SectionSpacing = 50;
@@ -50,13 +51,17 @@ const getData = async (params) => {
 }
 
 
-function Exams(props: Props) {
+function CategoryExams(props: Props) {
 
     const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
 
     const [exams, setExams] = useState<ExamListItem[]>(result?.examList ?? [])
-    const [categories, setCategories] = useState<ExamCategoryType[]>(result?.examCategories ?? [])
-
+    const [categories, setCategories] = useState<ExamCategoryType[]>(result?.examcategories ?? [])
+    const [currentCategory, setCurrentCategory] = useState({
+        label: '',
+        url: ''
+    });
+    const currentCategoryRef = useRef('');
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const [loading, setLoading] = useState(false);
@@ -64,6 +69,7 @@ function Exams(props: Props) {
     const [pageState, setPageState] = useState<pageStateType>(responseType);
     const [pageSeo, setPageSeo] = useState<PageSEOProps>(__pageSeo);
     const { navHeight } = useContext(NavbarContext);
+    const router = useRouter();
     let pageOptions = useRef({
         pageNo: 1,
         hasMore: true,
@@ -105,19 +111,29 @@ function Exams(props: Props) {
         }
     }
 
-    // useEffect(() => {
-    //     OnPageResponseHandler(props?.data);
-    //     if (props?.data?.result?.examCategories?.length) {
-    //         setCategories(props?.data?.result?.examCategories);
-    //     }
-    // }, [props?.data])
+    useEffect(() => {
+        OnPageResponseHandler(props?.data);
+        if (props?.data?.result?.examCategories?.length) {
+            setCategories(props?.data?.result?.examCategories);
+        }
+    }, [props?.data])
+
+    useEffect(() => {
+        let categorySlug = router?.query?.examCategorySlug as string;
+        console.log('routerSlug', router);
+        if (categorySlug) {
+            let category = categorySlug.split('-')[0];
+            setCurrentCategory({ label: category, url: categorySlug });
+            currentCategoryRef.current = categorySlug;
+        }
+    }, [router?.query])
 
 
     const requestData = async (_pageNo: number, toAppend: boolean = false) => {
         let userId = parseInt(GetCookie(Storages.UserId));
         let token = GetCookie(Storages.AccessToken);
         setInfiniteLoading(true);
-        let response = await GetExamsList({ token: token, userId: userId, pageNo: _pageNo });
+        let response = await GetExamsList({ token: token, userId: userId, pageNo: _pageNo, category: currentCategoryRef.current });
         setInfiniteLoading(false);
         OnPageResponseHandler(response ? response.data : null, toAppend);
     }
@@ -150,7 +166,7 @@ function Exams(props: Props) {
 
             <div className='container'>
                 <div style={{ padding: '20px 5% 0' }}>
-                    <Typography variant='h1' className={'pageHeading'}>List of all popular entrance exams and government exams in India</Typography>
+                    <Typography variant='h1' className={'pageHeading'}>List of all {currentCategory.label} exams in India</Typography>
                 </div>
             </div>
 
@@ -171,7 +187,7 @@ function Exams(props: Props) {
                                             </div>
                                             <Divider light />
                                         </div>
-                                        <ExamCategories data={categories} />
+                                        <ExamCategories active={currentCategory.url} data={categories} />
                                     </div>
                                 </div>
                             </Hidden>
@@ -191,7 +207,7 @@ function Exams(props: Props) {
                                         })
                                     }
 
-                                    <DummyCards spacing={6} cardSize={{ width: { small: 160, regular: 220 }, minHeight: 160 }} cardCount={exams?.length} withGrid={true} />
+                                    <DummyCards spacing={6} cardSize={{ width: { small: 220, regular: 220 }, minHeight: 20 }} cardCount={exams?.length} withGrid={true} />
 
                                 </Grid>
                                 <PageEndIndicator loading={infiniteLoading} onIntersection={RequestDataOnIntersection} />
@@ -207,14 +223,30 @@ function Exams(props: Props) {
     );
 }
 
-export default Exams;
+export default CategoryExams;
 
 
-export async function getStaticProps(context) {
+export async function getStaticPaths() {
 
+    let response = await GetExamsHome({ category: '', userId: 0, token: '' });
+
+    let categories = [];
+    if (response) {
+        categories = response?.data?.result?.examCategories;
+    }
+    let paths = categories?.map((category) => {
+        return { params: { examCategorySlug: category.url } }
+    })
+
+    return { paths, fallback: true }
+
+}
+
+export async function getStaticProps({ params }) {
+
+    let { examCategorySlug } = params;
     let returnData = { props: { data: null }, revalidate: 1 }
-
-    let response = await getData({ token: '', userId: '', category: '' });
+    let response = await getData({ token: '', userId: '', category: examCategorySlug });
     if (response) {
         returnData.props.data = response.data;
     }

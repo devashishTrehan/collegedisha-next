@@ -83,6 +83,10 @@ body {
     /* overflow-x: hidden; */
 }
 
+a {
+    text-decoration: none;
+}
+
 * img {
     width: 100%
 }
@@ -145,6 +149,7 @@ code {
     font-family: 'gorditaMedium';
     text-transform: capitalize;
     font-size: 22px;
+    line-height: 30px;
 }
 
 .wrapper {
@@ -273,6 +278,7 @@ p {
     .containerHead h2,
     .containerHead h1 {
         font-size: 18px;
+        line-height: 24px;
     }
     .pageSectionContainer {
         padding: 15px 15px;

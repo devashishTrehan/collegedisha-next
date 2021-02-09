@@ -81,7 +81,7 @@ export const SearchForm = (props: Props) => {
         keyword: '',
     });
 
-    const [loading, setLoading] = React.useState(true);
+    const [loading, setLoading] = React.useState(false);
     const router = useRouter();
     const isMobile = useMediaQuery('(max-width:767px');
 

@@ -1,14 +1,15 @@
-import { Theme } from '@/Services/App.service';
-import {  Typography,  useMediaQuery } from '@material-ui/core';
-import {  Link as LinkIcon } from '@material-ui/icons';
+import { Routes, Theme } from '@/Services/App.service';
+import { Typography, useMediaQuery, Theme as MuiTheme } from '@material-ui/core';
+import { Link as LinkIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import React, { memo } from 'react';
 import classNames from 'classnames';
 import { ExamListItem, ExamListItemLink } from '@/Services/DataTypes/Exams';
+import Link from 'next/link';
 
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: MuiTheme) => ({
     container: {
         width: 220,
         minHeight: 220,
@@ -22,6 +23,12 @@ const useStyles = makeStyles({
         overflow: 'hidden',
         border: '1px solid #d6d6d6',
         transition: '.3s',
+        [theme.breakpoints.down('sm')]: {
+            minHeight: 160
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: '100%'
+        },
         '&:hover': {
             boxShadow: Theme.boxShadow,
             borderColor: 'transparent',
@@ -37,13 +44,14 @@ const useStyles = makeStyles({
             transition: '.3s',
         },
         '& .imageWrap': {
-            width: 60,
-            height: 60,
-            marginBottom: -30,
-            borderRadius: '50%',
+            width: 50,
+            height: 50,
+            marginBottom: -25,
+            // borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
             overflow: 'hidden',
+            backgroundColor: Theme.backgroundColor,
             justifyContent: 'center',
             '& img': {
                 width: '100%',
@@ -92,7 +100,7 @@ const useStyles = makeStyles({
         }
     },
     footerSection: {
-        padding: `0px ${Theme.spacingMid}px ${Theme.spacingMid}px`,
+        padding: `0px 15px 15px`,
 
         '& .footerTitleWrap': {
             display: 'flex',
@@ -100,12 +108,14 @@ const useStyles = makeStyles({
             alignItems: 'center',
             '& svg': {
                 fontSize: 16,
-
+                color: Theme.primary,
+                marginRight: 5,
             },
             '& p': {
                 color: "#777",
                 fontSize: 10,
-                textTransform: 'capitalize'
+                textTransform: 'capitalize',
+                fontFamily: 'gorditaMedium'
             }
         },
         '& .links': {
@@ -114,20 +124,17 @@ const useStyles = makeStyles({
             '& p': {
                 display: 'inline-block',
                 '& a': {
-                    color: Theme.secondaryFontColor,
+                    color: Theme.primary,
                     textDecoration: 'none',
-                    fontSize: 12,
-                    margin: '2px 10px 2px 0',
-                    padding: '3px 10px 3px 0',
+                    fontSize: 11,
+                    fontFamily: 'gorditaMedium',
+                    margin: '2px 8px 2px 0',
+                    padding: '3px 8px 3px 0',
                 }
             }
         }
     },
 
-    container_T: {
-        width: 180,
-        minHeight: 160,
-    },
     HeadSection_T: {
         marginBottom: 25,
         padding: `15px ${Theme.spacingLess}px 0`,
@@ -166,7 +173,7 @@ const useStyles = makeStyles({
             }
         }
     }
-})
+}))
 
 interface Props extends ExamListItem {
 
@@ -176,7 +183,7 @@ const defaultImage = '/assets/images/defaults/exam.jpg'
 
 const ExamCard = memo(function (props: Props) {
 
-    const { id, title, image, subTitle, links } = props;
+    const { id, title, image, subTitle, links, slug } = props;
 
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -186,19 +193,25 @@ const ExamCard = memo(function (props: Props) {
 
 
     return (
-        <div className={classNames(styles.container, { [styles.container_T]: isTablet })}>
-            <div className={classNames(styles.HeadSection, { [styles.HeadSection_T]: isTablet })}>
-                <div className={'imageWrap'}>
-                    <img src={image ? image : defaultImage} alt={title} />
-                </div>
+        <div className={classNames(styles.container)}>
+            <Link href={`${Routes.Exams}/${slug}`}>
+                <a style={{ textDecoration: 'none' }}>
+                    
+                    <div className={classNames(styles.HeadSection, { [styles.HeadSection_T]: isTablet })}>
+                        <div className={'imageWrap'}>
+                            <img src={image ? image : defaultImage} alt={title} />
+                        </div>
 
-            </div>
-            <div className={classNames(styles.InfoSetion, { [styles.InfoSetion_T]: isTablet })}>
-                <Typography className={'examName'} >{title}</Typography>
-                <div className={'subTitleWrap'}>
-                    <Typography className={'subTitle'}>{subTitle}</Typography>
-                </div>
-            </div>
+                    </div>
+                    <div className={classNames(styles.InfoSetion, { [styles.InfoSetion_T]: isTablet })}>
+                        <Typography className={'examName'} >{title}</Typography>
+                        <div className={'subTitleWrap'}>
+                            <Typography className={'subTitle'}>{subTitle}</Typography>
+                        </div>
+                    </div>
+                </a>
+            </Link>
+
             <div className={classNames(styles.footerSection, { [styles.footerSection_T]: isTablet })}>
                 <span className='footerTitleWrap'>
                     <LinkIcon />
@@ -206,15 +219,16 @@ const ExamCard = memo(function (props: Props) {
                 </span>
                 <div className='links'>
                     {
-                        links.map((link: ExamListItemLink, index: number) => {
+                        links?.map((link: ExamListItemLink, index: number) => {
                             return (
                                 <p key={index}>
-                                    <a
-                                        href={link.url}
-                                        style={
-                                            (links?.length - 1) !== index
-                                                ? { borderRight: '1px solid #ccc' }
-                                                : {}}>{link.label}</a>
+                                    <Link href={link.url} >
+                                        <a
+                                            style={
+                                                (links?.length - 1) !== index
+                                                    ? { borderRight: '1px solid #ccc' }
+                                                    : {}}>{link.label}</a>
+                                    </Link>
                                 </p>
                             )
                         })

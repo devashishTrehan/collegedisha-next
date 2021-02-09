@@ -1,5 +1,5 @@
 
-import { Grid, IconButton, Typography, useMediaQuery } from '@material-ui/core';
+import { Grid, Hidden, IconButton, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { useEffect, useRef, useState } from 'react';
 import { GetCookie, GetPageInitialData, Storages, Theme } from '../../Services/App.service';
@@ -124,9 +124,13 @@ function Article(props: any) {
                 <div className='container'>
                   <div className='wrapper' style={{ padding: '30px 5%' }}>
 
-                    <div className='containerHead' style={{ marginBottom: 30, }}>
-                      <Typography variant='h2'>Trending Articles on College Disha</Typography>
-                    </div>
+                    {
+                      isTablet ?
+                        <div className='containerHead' style={{ marginBottom: 30, }}>
+                          <Typography variant='h2'>Trending Articles on College Disha</Typography>
+                        </div>
+                        : null
+                    }
 
                     <Grid container spacing={isMobile ? 3 : 4}>
                       <Grid item xs={12} sm={6} md={4}>
@@ -135,12 +139,15 @@ function Article(props: any) {
                       {
                         isDesktop ?
                           <Grid item xs={12} sm={6} md={4} >
-                            <div style={{ margin: '-32px 0' }}>
-                              <div style={{ margin: '32px 0' }}>
+                            <div className='containerHead' style={{ marginBottom: 30, }}>
+                              <Typography variant='h2'>Trending Articles on CollegeDisha</Typography>
+                            </div>
+                            <div style={{ display: 'flex', margin: '-16px 0', flexDirection: 'column', justifyContent: 'space-between' }}>
+                              <div style={{ margin: '16px 0' }}>
                                 <ArticleListCard  {...data?.articleList[1]} />
 
                               </div>
-                              <div style={{ margin: '32px 0' }}>
+                              <div style={{ margin: '16px 0' }}>
                                 <ArticleListCard {...data?.articleList[2]} />
 
                               </div>

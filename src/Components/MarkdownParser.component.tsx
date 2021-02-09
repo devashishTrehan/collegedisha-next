@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme: MuiTheme) => ({
                 letterSpacing: 1,
                 wordSpacing: 2,
                 [theme.breakpoints.up('xs')]: {
-                    lineHeight: '24px',
+                    lineHeight: '22px',
                     fontSize: 12,
                 },
                 [theme.breakpoints.up('sm')]: {

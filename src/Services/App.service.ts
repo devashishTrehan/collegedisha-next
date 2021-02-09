@@ -75,6 +75,7 @@ export const Routes = {
     Coachings: '/coaching',
     CareerOptions: '/career-options',
     Exams: '/exams',
+    ExamCategory: '/category',
     Boards: '/boards',
     Articles: '/articles',
     Courses: '/courses',

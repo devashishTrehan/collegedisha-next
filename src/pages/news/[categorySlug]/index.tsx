@@ -1,7 +1,7 @@
 
 import { Grid, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { GetCookie, GetPageInitialData, Routes, Storages, Theme } from '@/Services/App.service';
 import { ApiResponseHandler, GetNewsList, GetNewsHome } from '@/Services/Api.service';
 import classNames from 'classnames';
@@ -46,6 +46,7 @@ function NewsList(props: any) {
   const [pageState, setPageState] = useState<pageStateType>(responseType);
   const [pageSeo, setPageSeo] = useState<PageSEOProps>(__pageSeo);
 
+  const currentCategoryRef = useRef(router?.query?.categorySlug as string);
   let pageOptions = React.useRef({
     pageNo: 2,
     hasMore: true,
@@ -78,7 +79,7 @@ function NewsList(props: any) {
     setPageSeo(data?.additionalData?.pageSEO);
     if (response === '__request_success__') {
       let newOptions = {
-        pageNo: pageOptions.current.pageNo + 1,
+        pageNo: toAppend ? pageOptions.current.pageNo + 1 : 2,
         hasMore: data?.additionalData?.hasMore
       };
       pageOptions.current = newOptions;
@@ -90,7 +91,7 @@ function NewsList(props: any) {
   }
 
 
-  const requestData = async (_pageNo: number, toAppend: boolean = false, category = currentCategory) => {
+  const requestData = async (_pageNo: number, toAppend: boolean = false, category = currentCategoryRef.current) => {
     let userId = parseInt(GetCookie(Storages.UserId));
     let token = GetCookie(Storages.AccessToken);
     setInfiniteLoading(true);
@@ -120,8 +121,9 @@ function NewsList(props: any) {
   React.useEffect(() => {
     const { query } = router;
     let categorySlug = query.categorySlug as string;
-
-    if (categorySlug !== currentCategory) {
+    console.log('currentCategory', categorySlug)
+    if (categorySlug !== currentCategoryRef.current) {
+      currentCategoryRef.current = categorySlug;
       setCurrentCategory(categorySlug);
       requestData(1, false, categorySlug);
     }

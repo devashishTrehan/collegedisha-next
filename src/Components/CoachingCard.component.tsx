@@ -8,6 +8,7 @@ import { Rating } from '@material-ui/lab';
 import classNames from 'classnames';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { CoachingListItem } from '@/Services/DataTypes/Coachings';
+import Link from 'next/link';
 
 
 
@@ -243,11 +244,6 @@ function CoachingCard(props: Props) {
 
     const styles = useStyles();
 
-    const ViewDetails = (slug: string) => {
-        router.push({
-            pathname: `${router.asPath}/${slug}`
-        })
-    }
 
     const renderRating = (rating: number) => {
         return (
@@ -269,22 +265,28 @@ function CoachingCard(props: Props) {
     return (
         <div className={classNames(styles.cardContainer, { [styles.cardContainer_M]: isMobile })}>
 
-            <div onClick={() => ViewDetails(slug)} className={classNames(styles.headContainer, { [styles.headContainer_M]: isMobile })}>
+            <div className={classNames(styles.headContainer, { [styles.headContainer_M]: isMobile })}>
                 <div className='wrap'>
                     <div className='imageWrap'>
                         <img src={thumbnail ? thumbnail : defaultImage} alt='' />
                     </div>
-                    <div className='detailWrap'>
-                        <div className='group'>
-                            <Typography variant='h4' className='name'>{name}</Typography>
-                            <Typography variant='h6' className='location'><LocationOnOutlined />{location}</Typography>
-                        </div>
-                        {
-                            !isMobile ?
-                                renderRating(rating)
-                                : null
-                        }
-                    </div>
+
+                    <Link href={`${router.asPath}/${slug}`} >
+                        <a>
+                            <div className='detailWrap'>
+                                <div className='group'>
+                                    <Typography variant='h4' className='name'>{name}</Typography>
+                                    <Typography variant='h6' className='location'><LocationOnOutlined />{location}</Typography>
+                                </div>
+                                {
+                                    !isMobile ?
+                                        renderRating(rating)
+                                        : null
+                                }
+                            </div>
+                        </a>
+                    </Link>
+
                 </div>
                 {
                     isMobile ?

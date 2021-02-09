@@ -5,7 +5,7 @@ export interface ExamListItemLink {
 
 export interface ExamCategoryType {
     label: string,
-    value: string,
+    url: string,
     image?: string
 }
 
@@ -13,6 +13,7 @@ export interface ExamListItem {
     id: number,
     title: string,
     image: string,
+    slug: string,
     subTitle: string,
     links: ExamListItemLink[]
 }
@@ -24,8 +25,8 @@ export interface ExamList {
 export interface detailedExam {
     id: number,
     name: string,
-    slug: string,
     views?: number,
+    slug: string,
     examSections: { [key: string]: string },
     initialSection: {
         title: string,

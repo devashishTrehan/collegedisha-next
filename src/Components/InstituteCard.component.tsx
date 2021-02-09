@@ -6,6 +6,7 @@ import React, { memo, useMemo } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { InstituteListItem } from '@/Services/DataTypes/Institutes';
+import Link from 'next/link';
 
 
 
@@ -25,6 +26,7 @@ const useStyles = makeStyles({
         '&:hover': {
             '& .imageWrap': {
                 filter: 'blur(6px)',
+                transform: 'scale(1.15)',
             },
             '& .viewsWrap': {
                 right: -120,
@@ -228,11 +230,6 @@ const InstituteCard = memo(function (props: Props) {
 
     const styles = useStyles();
 
-    const ViewDetails = (slug: string) => {
-        router.push({
-            pathname: `${router.asPath}/${slug}`
-        })
-    }
     console.log('rendering card')
 
     const renderCard = useMemo(() => {
@@ -254,12 +251,17 @@ const InstituteCard = memo(function (props: Props) {
                         </IconButton>
                     </div>
                 </div>
-                <div onClick={() => ViewDetails(slug)} className={classNames(styles.InfoSetion, { [styles.InfoSetion_T]: isTablet })}>
-                    <Typography className={'productName'} >{name}</Typography>
-                    <div className={'locationWrap'}>
-                        <LocationOnOutlined />
-                        <Typography className={'location'}>{location}</Typography>
-                    </div>
+                <div className={classNames(styles.InfoSetion, { [styles.InfoSetion_T]: isTablet })}>
+
+                    <Link href={`${router.asPath}/${slug}`}>
+                        <a>
+                            <Typography className={'productName'} >{name}</Typography>
+                            <div className={'locationWrap'}>
+                                <LocationOnOutlined />
+                                <Typography className={'location'}>{location}</Typography>
+                            </div>
+                        </a>
+                    </Link>
 
                 </div>
                 <div className={classNames(styles.footerSection, { [styles.footerSection_T]: isTablet })}>

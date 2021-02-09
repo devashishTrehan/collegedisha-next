@@ -110,6 +110,7 @@ function newsDetailsPage(props: Props) {
 
 export default newsDetailsPage;
 
+
 export async function getServerSideProps(context) {
 
     let returnData = { props: { data: null } }

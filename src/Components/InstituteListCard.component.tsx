@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { InstituteListItem } from '@/Services/DataTypes/Institutes';
+import Link from 'next/link';
 
 
 
@@ -111,7 +112,7 @@ const useStyles = makeStyles({
     },
 })
 
-interface Props extends InstituteListItem{ 
+interface Props extends InstituteListItem {
     onSave?: Function,
     onDownload?: Function,
     onApply?: Function,
@@ -131,12 +132,6 @@ const InstituteListCard = memo(function (props: Props) {
 
     const styles = useStyles();
 
-    const ViewDetails = (slug: string) => {
-        router.push({
-            pathname: `${router.asPath}/${slug}`
-        })
-    }
-
     console.log('rendering list card')
 
     return (
@@ -148,19 +143,26 @@ const InstituteListCard = memo(function (props: Props) {
                 </div>
             </div>
 
-            <div onClick={() => ViewDetails(slug)} className={classNames(styles.InfoSetion)}>
+            <div className={classNames(styles.InfoSetion)}>
                 <div className={'topSection'}>
-                    <div className={'nameContainer'}>
-                        <span className={'ratingWrap'}>
-                            <FontAwesomeIcon icon={faStar} />
-                            <span>{rating}</span>
-                        </span>
-                        <Typography className={'productName'} >{name}</Typography>
-                        <div className={'locationWrap'}>
-                            <LocationOnOutlined />
-                            <Typography className={'location'}>{location}</Typography>
-                        </div>
-                    </div>
+
+                    <Link href={`${router.asPath}/${slug}`}>
+                        <a style={{ display: 'block' }}>
+                            <div className={'nameContainer'}>
+                                <span className={'ratingWrap'}>
+                                    <FontAwesomeIcon icon={faStar} />
+                                    <span>{rating}</span>
+                                </span>
+
+                                <Typography className={'productName'} >{name}</Typography>
+                                <div className={'locationWrap'}>
+                                    <LocationOnOutlined />
+                                    <Typography className={'location'}>{location}</Typography>
+                                </div>
+
+                            </div>
+                        </a>
+                    </Link>
                 </div>
 
                 <div className={classNames('footerSection')}>

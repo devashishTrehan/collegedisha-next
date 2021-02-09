@@ -15,18 +15,19 @@ const useStyles = makeStyles({
         width: '100%',
         minHeight: 80,
         display: 'flex',
+        height: '100%',
         overflow: 'hidden',
         background: Theme.backgroundColor,
         borderRadius: Theme.radius2,
         boxShadow: Theme.boxShadow,
     },
     containerCard: {
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
 
     ImageSection: {
         width: '25%',
-        height: '100%',
+        // height: '100%',
         '& .imageWrap': {
             width: '100%',
             '& img': {
@@ -44,6 +45,9 @@ const useStyles = makeStyles({
         padding: '8px 8px 8px 15px',
         textAlign: 'left',
         width: 'calc(75%)',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
         textTransform: 'capitalize',
         '& .topSection': {
             display: 'flex',

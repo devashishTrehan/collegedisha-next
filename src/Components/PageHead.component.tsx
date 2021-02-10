@@ -34,7 +34,7 @@ export const PageHead = (props: Props) => {
     const styles = useStyles();
 
     return (
-        <div className={styles.background} style={{ backgroundImage: `url(/assets/images/patternUnit.webp)` }}>
+        <div className={styles.background} style={{ backgroundImage: `url(${props.backgroundImageName ?? '/assets/images/patternUnit.webp'})` }}>
             <div className='container'>
                 <div className={styles.wrapper}>
                     {

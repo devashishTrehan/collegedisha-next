@@ -1,13 +1,12 @@
-export interface boardTypes {
+export interface classTypes {
     name: string,
-    classes: string[]
+    slug: string
 }
 export interface BoardListItemTypes {
     id: number,
     name: string,
     image: string,
-    slug: string,
-    boards: boardTypes[],
+    classes: classTypes[],
 }
 
 export interface BoardListTypes {
@@ -18,11 +17,10 @@ export interface BoardListTypes {
 export interface detailedBoard {
     id: number,
     name: string,
-    thumbnail: string,
+    banner: string,
     rating: number,
     isApplied: boolean,
     isSaved: boolean,
-    slug: string,
     views?: number,
     boardSections: { [key: string]: string },
     initialSection: {

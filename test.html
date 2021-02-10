@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style data-next-hide-fouc="true">
+        body {
+            display: none
+        }
+    </style><noscript data-next-hide-fouc="true"><style>body{display:block}</style></noscript>
+    <meta charSet="utf-8" class="jsx-4140540650" />
+    <meta name="theme-color" content="#213858" class="jsx-4140540650" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" class="jsx-4140540650" />
+    <meta name="viewport" content="width=device-width" />
+    <meta charSet="utf-8" />
+    <meta name="next-head-count" content="2" /><noscript data-n-css=""></noscript>
+    <link rel="preload" href="/_next/static/chunks/main.js?ts=1612958572122" as="script" />
+    <link rel="preload" href="/_next/static/chunks/webpack.js?ts=1612958572122" as="script" />
+    <link rel="preload" href="/_next/static/chunks/pages/_app.js?ts=1612958572122" as="script" />
+    <link rel="preload" href="/_next/static/chunks/pages/courses/%5BcourseSlug%5D.js?ts=1612958572122" as="script" /><noscript id="__next_css__DO_NOT_USE__"></noscript>
+    <style id="__jsx-4140540650">
+            html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+        
+        *,
+        *:after,
+        *:before {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'gordita,'sans-serif','Roboto', 'Helvetica', 'Arial', ;                font-size: 1rem;                margin: 0;              };}
+
+            /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2JhbGovRG9jdW1lbnRzL2RldmVsb3BtZW50LXdvcmsvbmV4dGpzLWFwcHMvY29sbGVnZS1kaXNoYS9zcmMvcGFnZXMvX2RvY3VtZW50LnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFvQnlCLEFBSTZCLEFBTVUsQUFPMUIsWUFaZSxVQU1iLENBTEEsc0hBV0QiLCJmaWxlIjoiL2hvbWUvYmFsai9Eb2N1bWVudHMvZGV2ZWxvcG1lbnQtd29yay9uZXh0anMtYXBwcy9jb2xsZWdlLWRpc2hhL3NyYy9wYWdlcy9fZG9jdW1lbnQudHN4Iiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IERvY3VtZW50LCB7IEh0bWwsIEhlYWQsIE1haW4sIE5leHRTY3JpcHQgfSBmcm9tICduZXh0L2RvY3VtZW50J1xuaW1wb3J0IHsgU2VydmVyU3R5bGVTaGVldHMgfSBmcm9tICdAbWF0ZXJpYWwtdWkvc3R5bGVzJ1xuaW1wb3J0IHsgY3JlYXRlTXVpVGhlbWUsIHJlc3BvbnNpdmVGb250U2l6ZXMgfSBmcm9tICdAbWF0ZXJpYWwtdWkvY29yZS9zdHlsZXMnXG5pbXBvcnQgeyBUaGVtZSB9IGZyb20gJ0AvU2VydmljZXMvQXBwLnNlcnZpY2UnXG5cbmNvbnN0IHRoZW1lID0gcmVzcG9uc2l2ZUZvbnRTaXplcyhjcmVhdGVNdWlUaGVtZSgpKVxuXG5jbGFzcyBNeURvY3VtZW50IGV4dGVuZHMgRG9jdW1lbnQge1xuICAgIHJlbmRlcigpIHtcbiAgICAgICAgcmV0dXJuIChcbiAgICAgICAgICAgIDxIdG1sIGxhbmc9J2VuJz5cbiAgICAgICAgICAgICAgICA8SGVhZD5cbiAgICAgICAgICAgICAgICAgICAgPG1ldGEgY2hhclNldD1cInV0Zi04XCIgLz5cbiAgICAgICAgICAgICAgICAgICAgPG1ldGEgbmFtZT1cInRoZW1lLWNvbG9yXCIgY29udGVudD17VGhlbWUucHJpbWFyeX0gLz5cbiAgICAgICAgICAgICAgICAgICAgPGxpbmtcbiAgICAgICAgICAgICAgICAgICAgICAgIHJlbD1cInN0eWxlc2hlZXRcIlxuICAgICAgICAgICAgICAgICAgICAgICAgaHJlZj1cImh0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1Sb2JvdG86MzAwLDQwMCw1MDAsNzAwfFJvYm90bytTbGFiOjQwMCw3MDB8TWF0ZXJpYWwrSWNvbnNcIlxuICAgICAgICAgICAgICAgICAgICAvPlxuICAgICAgICAgICAgICAgICAgICA8c3R5bGUganN4IGdsb2JhbD5cbiAgICAgICAgICAgICAgICAgICAgICAgIHtgXG4gICAgICAgICAgICAgIGh0bWwsXG4gICAgICAgICAgICAgIGJvZHkge1xuICAgICAgICAgICAgICAgIGhlaWdodDogMTAwJTtcbiAgICAgICAgICAgICAgICB3aWR0aDogMTAwJTtcbiAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAqLFxuICAgICAgICAgICAgICAqOmFmdGVyLFxuICAgICAgICAgICAgICAqOmJlZm9yZSB7XG4gICAgICAgICAgICAgICAgYm94LXNpemluZzogYm9yZGVyLWJveDtcbiAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICBib2R5IHtcbiAgICAgICAgICAgICAgICBmb250LWZhbWlseTogJ2dvcmRpdGEsJ3NhbnMtc2VyaWYnLCdSb2JvdG8nLCAnSGVsdmV0aWNhJywgJ0FyaWFsJywgO1xuICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMXJlbTtcbiAgICAgICAgICAgICAgICBtYXJnaW46IDA7XG4gICAgICAgICAgICAgIH1cbiAgICAgICAgICAgIGB9XG4gICAgICAgICAgICAgICAgICAgIDwvc3R5bGU+XG4gICAgICAgICAgICAgICAgPC9IZWFkPlxuICAgICAgICAgICAgICAgIDxib2R5PlxuICAgICAgICAgICAgICAgICAgICA8TWFpbiAvPlxuICAgICAgICAgICAgICAgICAgICA8TmV4dFNjcmlwdCAvPlxuICAgICAgICAgICAgICAgIDwvYm9keT5cbiAgICAgICAgICAgIDwvSHRtbD5cbiAgICAgICAgKVxuICAgIH1cbn1cblxuTXlEb2N1bWVudC5nZXRJbml0aWFsUHJvcHMgPSBhc3luYyBjdHggPT4ge1xuICAgIC8vIFJlbmRlciBhcHAgYW5kIHBhZ2UgYW5kIGdldCB0aGUgY29udGV4dCBvZiB0aGUgcGFnZSB3aXRoIGNvbGxlY3RlZCBzaWRlIGVmZmVjdHMuXG4gICAgY29uc3Qgc2hlZXRzID0gbmV3IFNlcnZlclN0eWxlU2hlZXRzKClcbiAgICBjb25zdCBvcmlnaW5hbFJlbmRlclBhZ2UgPSBjdHgucmVuZGVyUGFnZVxuXG4gICAgY3R4LnJlbmRlclBhZ2UgPSAoKSA9PlxuICAgICAgICBvcmlnaW5hbFJlbmRlclBhZ2Uoe1xuICAgICAgICAgICAgZW5oYW5jZUFwcDogQXBwID0+IHByb3BzID0+IHNoZWV0cy5jb2xsZWN0KDxBcHAgey4uLnByb3BzfSAvPilcbiAgICAgICAgfSlcblxuICAgIGNvbnN0IGluaXRpYWxQcm9wcyA9IGF3YWl0IERvY3VtZW50LmdldEluaXRpYWxQcm9wcyhjdHgpXG5cbiAgICByZXR1cm4ge1xuICAgICAgICAuLi5pbml0aWFsUHJvcHMsXG4gICAgICAgIC8vIFN0eWxlcyBmcmFnbWVudCBpcyByZW5kZXJlZCBhZnRlciB0aGUgYXBwIGFuZCBwYWdlIHJlbmRlcmluZyBmaW5pc2guXG4gICAgICAgIHN0eWxlczogW1xuICAgICAgICAgICAgPFJlYWN0LkZyYWdtZW50IGtleT1cInN0eWxlc1wiPlxuICAgICAgICAgICAgICAgIHtpbml0aWFsUHJvcHMuc3R5bGVzfVxuICAgICAgICAgICAgICAgIHtzaGVldHMuZ2V0U3R5bGVFbGVtZW50KCl9XG4gICAgICAgICAgICA8L1JlYWN0LkZyYWdtZW50PlxuICAgICAgICBdXG4gICAgfVxufVxuXG5leHBvcnQgZGVmYXVsdCBNeURvY3VtZW50Il19 */
+            /*@ sourceURL=/home/balj/Documents/development-work/nextjs-apps/college-disha/src/pages/_document.tsx */
+    </style>
+    <style id="jss-server-side">
+        .MuiSvgIcon-root {
+            fill: currentColor;
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+            font-size: 1.5rem;
+            transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+            flex-shrink: 0;
+            user-select: none;
+        }
+        
+        .MuiSvgIcon-colorPrimary {
+            color: #213858;
+        }
+        
+        .MuiSvgIcon-colorSecondary {
+            color: #665dfe;
+        }
+        
+        .MuiSvgIcon-colorAction {
+            color: rgba(0, 0, 0, 0.54);
+        }
+        
+        .MuiSvgIcon-colorError {
+            color: #f44336;
+        }
+        
+        .MuiSvgIcon-colorDisabled {
+            color: rgba(0, 0, 0, 0.26);
+        }
+        
+        .MuiSvgIcon-fontSizeInherit {
+            font-size: inherit;
+        }
+        
+        .MuiSvgIcon-fontSizeSmall {
+            font-size: 1.25rem;
+        }
+        
+        .MuiSvgIcon-fontSizeLarge {
+            font-size: 2.1875rem;
+        }
+        
+        .MuiPaper-root {
+            color: rgba(0, 0, 0, 0.87);
+            transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+            background-color: #fff;
+        }
+        
+        .MuiPaper-rounded {
+            border-radius: 4px;
+        }
+        
+        .MuiPaper-outlined {
+            border: 1px solid rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation0 {
+            box-shadow: none;
+        }
+        
+        .MuiPaper-elevation1 {
+            box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation2 {
+            box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation3 {
+            box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation4 {
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation5 {
+            box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation6 {
+            box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation7 {
+            box-shadow: 0px 4px 5px -2px rgba(0, 0, 0, 0.2), 0px 7px 10px 1px rgba(0, 0, 0, 0.14), 0px 2px 16px 1px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation8 {
+            box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation9 {
+            box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.2), 0px 9px 12px 1px rgba(0, 0, 0, 0.14), 0px 3px 16px 2px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation10 {
+            box-shadow: 0px 6px 6px -3px rgba(0, 0, 0, 0.2), 0px 10px 14px 1px rgba(0, 0, 0, 0.14), 0px 4px 18px 3px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation11 {
+            box-shadow: 0px 6px 7px -4px rgba(0, 0, 0, 0.2), 0px 11px 15px 1px rgba(0, 0, 0, 0.14), 0px 4px 20px 3px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation12 {
+            box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation13 {
+            box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 13px 19px 2px rgba(0, 0, 0, 0.14), 0px 5px 24px 4px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation14 {
+            box-shadow: 0px 7px 9px -4px rgba(0, 0, 0, 0.2), 0px 14px 21px 2px rgba(0, 0, 0, 0.14), 0px 5px 26px 4px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation15 {
+            box-shadow: 0px 8px 9px -5px rgba(0, 0, 0, 0.2), 0px 15px 22px 2px rgba(0, 0, 0, 0.14), 0px 6px 28px 5px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation16 {
+            box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation17 {
+            box-shadow: 0px 8px 11px -5px rgba(0, 0, 0, 0.2), 0px 17px 26px 2px rgba(0, 0, 0, 0.14), 0px 6px 32px 5px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation18 {
+            box-shadow: 0px 9px 11px -5px rgba(0, 0, 0, 0.2), 0px 18px 28px 2px rgba(0, 0, 0, 0.14), 0px 7px 34px 6px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation19 {
+            box-shadow: 0px 9px 12px -6px rgba(0, 0, 0, 0.2), 0px 19px 29px 2px rgba(0, 0, 0, 0.14), 0px 7px 36px 6px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation20 {
+            box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2), 0px 20px 31px 3px rgba(0, 0, 0, 0.14), 0px 8px 38px 7px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation21 {
+            box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2), 0px 21px 33px 3px rgba(0, 0, 0, 0.14), 0px 8px 40px 7px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation22 {
+            box-shadow: 0px 10px 14px -6px rgba(0, 0, 0, 0.2), 0px 22px 35px 3px rgba(0, 0, 0, 0.14), 0px 8px 42px 7px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation23 {
+            box-shadow: 0px 11px 14px -7px rgba(0, 0, 0, 0.2), 0px 23px 36px 3px rgba(0, 0, 0, 0.14), 0px 9px 44px 8px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiPaper-elevation24 {
+            box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiButtonBase-root {
+            color: inherit;
+            border: 0;
+            cursor: pointer;
+            margin: 0;
+            display: inline-flex;
+            outline: 0;
+            padding: 0;
+            position: relative;
+            align-items: center;
+            user-select: none;
+            border-radius: 0;
+            vertical-align: middle;
+            -moz-appearance: none;
+            justify-content: center;
+            text-decoration: none;
+            background-color: transparent;
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .MuiButtonBase-root::-moz-focus-inner {
+            border-style: none;
+        }
+        
+        .MuiButtonBase-root.Mui-disabled {
+            cursor: default;
+            pointer-events: none;
+        }
+        
+        @media print {
+            .MuiButtonBase-root {
+                color-adjust: exact;
+            }
+        }
+        
+        .MuiIconButton-root {
+            flex: 0 0 auto;
+            color: rgba(0, 0, 0, 0.54);
+            padding: 12px;
+            overflow: visible;
+            font-size: 1.5rem;
+            text-align: center;
+            transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+            border-radius: 50%;
+        }
+        
+        .MuiIconButton-root:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+        
+        .MuiIconButton-root.Mui-disabled {
+            color: rgba(0, 0, 0, 0.26);
+            background-color: transparent;
+        }
+        
+        @media (hover: none) {
+            .MuiIconButton-root:hover {
+                background-color: transparent;
+            }
+        }
+        
+        .MuiIconButton-edgeStart {
+            margin-left: -12px;
+        }
+        
+        .MuiIconButton-sizeSmall.MuiIconButton-edgeStart {
+            margin-left: -3px;
+        }
+        
+        .MuiIconButton-edgeEnd {
+            margin-right: -12px;
+        }
+        
+        .MuiIconButton-sizeSmall.MuiIconButton-edgeEnd {
+            margin-right: -3px;
+        }
+        
+        .MuiIconButton-colorInherit {
+            color: inherit;
+        }
+        
+        .MuiIconButton-colorPrimary {
+            color: #213858;
+        }
+        
+        .MuiIconButton-colorPrimary:hover {
+            background-color: rgba(33, 56, 88, 0.04);
+        }
+        
+        @media (hover: none) {
+            .MuiIconButton-colorPrimary:hover {
+                background-color: transparent;
+            }
+        }
+        
+        .MuiIconButton-colorSecondary {
+            color: #665dfe;
+        }
+        
+        .MuiIconButton-colorSecondary:hover {
+            background-color: rgba(102, 93, 254, 0.04);
+        }
+        
+        @media (hover: none) {
+            .MuiIconButton-colorSecondary:hover {
+                background-color: transparent;
+            }
+        }
+        
+        .MuiIconButton-sizeSmall {
+            padding: 3px;
+            font-size: 1.125rem;
+        }
+        
+        .MuiIconButton-label {
+            width: 100%;
+            display: flex;
+            align-items: inherit;
+            justify-content: inherit;
+        }
+        
+        .MuiAppBar-root {
+            width: 100%;
+            display: flex;
+            z-index: 1100;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            flex-direction: column;
+        }
+        
+        .MuiAppBar-positionFixed {
+            top: 0;
+            left: auto;
+            right: 0;
+            position: fixed;
+        }
+        
+        @media print {
+            .MuiAppBar-positionFixed {
+                position: absolute;
+            }
+        }
+        
+        .MuiAppBar-positionAbsolute {
+            top: 0;
+            left: auto;
+            right: 0;
+            position: absolute;
+        }
+        
+        .MuiAppBar-positionSticky {
+            top: 0;
+            left: auto;
+            right: 0;
+            position: sticky;
+        }
+        
+        .MuiAppBar-positionStatic {
+            position: static;
+        }
+        
+        .MuiAppBar-positionRelative {
+            position: relative;
+        }
+        
+        .MuiAppBar-colorDefault {
+            color: rgba(0, 0, 0, 0.87);
+            background-color: #f5f5f5;
+        }
+        
+        .MuiAppBar-colorPrimary {
+            color: #fff;
+            background-color: #213858;
+        }
+        
+        .MuiAppBar-colorSecondary {
+            color: #fff;
+            background-color: #665dfe;
+        }
+        
+        .MuiAppBar-colorInherit {
+            color: inherit;
+        }
+        
+        .MuiAppBar-colorTransparent {
+            color: inherit;
+            background-color: transparent;
+        }
+        
+        .MuiTypography-root {
+            margin: 0;
+        }
+        
+        .MuiTypography-body2 {
+            font-size: 0.875rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 400;
+            line-height: 1.43;
+        }
+        
+        .MuiTypography-body1 {
+            font-size: 1rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        .MuiTypography-caption {
+            font-size: 0.75rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 400;
+            line-height: 1.66;
+        }
+        
+        .MuiTypography-button {
+            font-size: 0.875rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 500;
+            line-height: 1.75;
+            text-transform: uppercase;
+        }
+        
+        .MuiTypography-h1 {
+            font-size: 6rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 300;
+            line-height: 1.167;
+        }
+        
+        .MuiTypography-h2 {
+            font-size: 3.75rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        .MuiTypography-h3 {
+            font-size: 3rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 400;
+            line-height: 1.167;
+        }
+        
+        .MuiTypography-h4 {
+            font-size: 2.125rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 400;
+            line-height: 1.235;
+        }
+        
+        .MuiTypography-h5 {
+            font-size: 1.5rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 400;
+            line-height: 1.334;
+        }
+        
+        .MuiTypography-h6 {
+            font-size: 1.25rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 500;
+            line-height: 1.6;
+        }
+        
+        .MuiTypography-subtitle1 {
+            font-size: 1rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 400;
+            line-height: 1.75;
+        }
+        
+        .MuiTypography-subtitle2 {
+            font-size: 0.875rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 500;
+            line-height: 1.57;
+        }
+        
+        .MuiTypography-overline {
+            font-size: 0.75rem;
+            font-family: 'Gordita', 'sans-serif';
+            font-weight: 400;
+            line-height: 2.66;
+            text-transform: uppercase;
+        }
+        
+        .MuiTypography-srOnly {
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            position: absolute;
+        }
+        
+        .MuiTypography-alignLeft {
+            text-align: left;
+        }
+        
+        .MuiTypography-alignCenter {
+            text-align: center;
+        }
+        
+        .MuiTypography-alignRight {
+            text-align: right;
+        }
+        
+        .MuiTypography-alignJustify {
+            text-align: justify;
+        }
+        
+        .MuiTypography-noWrap {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        
+        .MuiTypography-gutterBottom {
+            margin-bottom: 0.35em;
+        }
+        
+        .MuiTypography-paragraph {
+            margin-bottom: 16px;
+        }
+        
+        .MuiTypography-colorInherit {
+            color: inherit;
+        }
+        
+        .MuiTypography-colorPrimary {
+            color: #213858;
+        }
+        
+        .MuiTypography-colorSecondary {
+            color: #665dfe;
+        }
+        
+        .MuiTypography-colorTextPrimary {
+            color: rgba(0, 0, 0, 0.87);
+        }
+        
+        .MuiTypography-colorTextSecondary {
+            color: rgba(0, 0, 0, 0.54);
+        }
+        
+        .MuiTypography-colorError {
+            color: #f44336;
+        }
+        
+        .MuiTypography-displayInline {
+            display: inline;
+        }
+        
+        .MuiTypography-displayBlock {
+            display: block;
+        }
+        
+        @media print {
+            .MuiDialog-root {
+                position: absolute !important;
+            }
+        }
+        
+        .MuiDialog-scrollPaper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .MuiDialog-scrollBody {
+            overflow-x: hidden;
+            overflow-y: auto;
+            text-align: center;
+        }
+        
+        .MuiDialog-scrollBody:after {
+            width: 0;
+            height: 100%;
+            content: "";
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .MuiDialog-container {
+            height: 100%;
+            outline: 0;
+        }
+        
+        @media print {
+            .MuiDialog-container {
+                height: auto;
+            }
+        }
+        
+        .MuiDialog-paper {
+            margin: 32px;
+            position: relative;
+            overflow-y: auto;
+        }
+        
+        @media print {
+            .MuiDialog-paper {
+                box-shadow: none;
+                overflow-y: visible;
+            }
+        }
+        
+        .MuiDialog-paperScrollPaper {
+            display: flex;
+            max-height: calc(100% - 64px);
+            flex-direction: column;
+        }
+        
+        .MuiDialog-paperScrollBody {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+        }
+        
+        .MuiDialog-paperWidthFalse {
+            max-width: calc(100% - 64px);
+        }
+        
+        .MuiDialog-paperWidthXs {
+            max-width: 444px;
+        }
+        
+        @media (max-width:507.95px) {
+            .MuiDialog-paperWidthXs.MuiDialog-paperScrollBody {
+                max-width: calc(100% - 64px);
+            }
+        }
+        
+        .MuiDialog-paperWidthSm {
+            max-width: 600px;
+        }
+        
+        @media (max-width:663.95px) {
+            .MuiDialog-paperWidthSm.MuiDialog-paperScrollBody {
+                max-width: calc(100% - 64px);
+            }
+        }
+        
+        .MuiDialog-paperWidthMd {
+            max-width: 960px;
+        }
+        
+        @media (max-width:1023.95px) {
+            .MuiDialog-paperWidthMd.MuiDialog-paperScrollBody {
+                max-width: calc(100% - 64px);
+            }
+        }
+        
+        .MuiDialog-paperWidthLg {
+            max-width: 1280px;
+        }
+        
+        @media (max-width:1343.95px) {
+            .MuiDialog-paperWidthLg.MuiDialog-paperScrollBody {
+                max-width: calc(100% - 64px);
+            }
+        }
+        
+        .MuiDialog-paperWidthXl {
+            max-width: 1920px;
+        }
+        
+        @media (max-width:1983.95px) {
+            .MuiDialog-paperWidthXl.MuiDialog-paperScrollBody {
+                max-width: calc(100% - 64px);
+            }
+        }
+        
+        .MuiDialog-paperFullWidth {
+            width: calc(100% - 64px);
+        }
+        
+        .MuiDialog-paperFullScreen {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            max-width: 100%;
+            max-height: none;
+            border-radius: 0;
+        }
+        
+        .MuiDialog-paperFullScreen.MuiDialog-paperScrollBody {
+            margin: 0;
+            max-width: 100%;
+        }
+        
+        .MuiDrawer-docked {
+            flex: 0 0 auto;
+        }
+        
+        .MuiDrawer-paper {
+            top: 0;
+            flex: 1 0 auto;
+            height: 100%;
+            display: flex;
+            outline: 0;
+            z-index: 1200;
+            position: fixed;
+            overflow-y: auto;
+            flex-direction: column;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .MuiDrawer-paperAnchorLeft {
+            left: 0;
+            right: auto;
+        }
+        
+        .MuiDrawer-paperAnchorRight {
+            left: auto;
+            right: 0;
+        }
+        
+        .MuiDrawer-paperAnchorTop {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: auto;
+            height: auto;
+            max-height: 100%;
+        }
+        
+        .MuiDrawer-paperAnchorBottom {
+            top: auto;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: auto;
+            max-height: 100%;
+        }
+        
+        .MuiDrawer-paperAnchorDockedLeft {
+            border-right: 1px solid rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiDrawer-paperAnchorDockedTop {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiDrawer-paperAnchorDockedRight {
+            border-left: 1px solid rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiDrawer-paperAnchorDockedBottom {
+            border-top: 1px solid rgba(0, 0, 0, 0.12);
+        }
+        
+        .MuiList-root {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            list-style: none;
+        }
+        
+        .MuiList-padding {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        
+        .MuiList-subheader {
+            padding-top: 0;
+        }
+        
+        .MuiListItem-root {
+            width: 100%;
+            display: flex;
+            position: relative;
+            box-sizing: border-box;
+            text-align: left;
+            align-items: center;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            justify-content: flex-start;
+            text-decoration: none;
+        }
+        
+        .MuiListItem-root.Mui-focusVisible {
+            background-color: rgba(0, 0, 0, 0.08);
+        }
+        
+        .MuiListItem-root.Mui-selected,
+        .MuiListItem-root.Mui-selected:hover {
+            background-color: rgba(0, 0, 0, 0.08);
+        }
+        
+        .MuiListItem-root.Mui-disabled {
+            opacity: 0.5;
+        }
+        
+        .MuiListItem-container {
+            position: relative;
+        }
+        
+        .MuiListItem-dense {
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+        
+        .MuiListItem-alignItemsFlexStart {
+            align-items: flex-start;
+        }
+        
+        .MuiListItem-divider {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+            background-clip: padding-box;
+        }
+        
+        .MuiListItem-gutters {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+        
+        .MuiListItem-button {
+            transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        }
+        
+        .MuiListItem-button:hover {
+            text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+        
+        @media (hover: none) {
+            .MuiListItem-button:hover {
+                background-color: transparent;
+            }
+        }
+        
+        .MuiListItem-secondaryAction {
+            padding-right: 48px;
+        }
+        
+        .MuiListItemIcon-root {
+            color: rgba(0, 0, 0, 0.54);
+            display: inline-flex;
+            min-width: 56px;
+            flex-shrink: 0;
+        }
+        
+        .MuiListItemIcon-alignItemsFlexStart {
+            margin-top: 8px;
+        }
+        
+        .MuiListItemText-root {
+            flex: 1 1 auto;
+            min-width: 0;
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+        
+        .MuiListItemText-multiline {
+            margin-top: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .MuiListItemText-inset {
+            padding-left: 56px;
+        }
+        
+        .MuiSnackbar-root {
+            left: 8px;
+            right: 8px;
+            display: flex;
+            z-index: 1400;
+            position: fixed;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .MuiSnackbar-anchorOriginTopCenter {
+            top: 8px;
+        }
+        
+        @media (min-width:600px) {
+            .MuiSnackbar-anchorOriginTopCenter {
+                top: 24px;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+            }
+        }
+        
+        .MuiSnackbar-anchorOriginBottomCenter {
+            bottom: 8px;
+        }
+        
+        @media (min-width:600px) {
+            .MuiSnackbar-anchorOriginBottomCenter {
+                left: 50%;
+                right: auto;
+                bottom: 24px;
+                transform: translateX(-50%);
+            }
+        }
+        
+        .MuiSnackbar-anchorOriginTopRight {
+            top: 8px;
+            justify-content: flex-end;
+        }
+        
+        @media (min-width:600px) {
+            .MuiSnackbar-anchorOriginTopRight {
+                top: 24px;
+                left: auto;
+                right: 24px;
+            }
+        }
+        
+        .MuiSnackbar-anchorOriginBottomRight {
+            bottom: 8px;
+            justify-content: flex-end;
+        }
+        
+        @media (min-width:600px) {
+            .MuiSnackbar-anchorOriginBottomRight {
+                left: auto;
+                right: 24px;
+                bottom: 24px;
+            }
+        }
+        
+        .MuiSnackbar-anchorOriginTopLeft {
+            top: 8px;
+            justify-content: flex-start;
+        }
+        
+        @media (min-width:600px) {
+            .MuiSnackbar-anchorOriginTopLeft {
+                top: 24px;
+                left: 24px;
+                right: auto;
+            }
+        }
+        
+        .MuiSnackbar-anchorOriginBottomLeft {
+            bottom: 8px;
+            justify-content: flex-start;
+        }
+        
+        @media (min-width:600px) {
+            .MuiSnackbar-anchorOriginBottomLeft {
+                left: 24px;
+                right: auto;
+                bottom: 24px;
+            }
+        }
+        
+        .MuiToolbar-root {
+            display: flex;
+            position: relative;
+            align-items: center;
+        }
+        
+        .MuiToolbar-gutters {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+        
+        @media (min-width:600px) {
+            .MuiToolbar-gutters {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+        }
+        
+        .MuiToolbar-regular {
+            min-height: 56px;
+        }
+        
+        @media (min-width:0px) and (orientation: landscape) {
+            .MuiToolbar-regular {
+                min-height: 48px;
+            }
+        }
+        
+        @media (min-width:600px) {
+            .MuiToolbar-regular {
+                min-height: 64px;
+            }
+        }
+        
+        .MuiToolbar-dense {
+            min-height: 48px;
+        }
+        
+        .makeStyles-copyRight-37 {
+            color: #fff;
+            padding: 10px 0;
+            font-size: 13px;
+            border-top: 1px solid #777;
+            text-align: center;
+        }
+        
+        .makeStyles-copyRight-37 p {
+            font-size: 12px;
+            margin-bottom: 0;
+        }
+        
+        .makeStyles-scrollTopButton-38 {
+            color: #fff;
+            right: 20px;
+            bottom: 20px;
+            opacity: 0.8;
+            padding: 5px 6px;
+            z-index: 999;
+            position: fixed;
+            box-shadow: 4px 7px 24px 0 #0000000f;
+            transition: .3s;
+            border-radius: 5px;
+            background-color: #213858;
+        }
+        
+        .makeStyles-scrollTopButton-38 svg {
+            width: 22px !important;
+            height: 22px;
+            transition: .3s;
+        }
+        
+        .makeStyles-scrollTopButton-38:hover {
+            opacity: 0.8;
+            transform: translate(0, -5px);
+        }
+        
+        .makeStyles-heading-34 {
+            padding: 0;
+        }
+        
+        .makeStyles-heading-34 h2 {
+            padding: 10px 24px 0;
+            text-transform: capitalize;
+        }
+        
+        .makeStyles-icon-35 {
+            width: 60px;
+            height: 60px;
+            margin: 20px auto 0px;
+            display: flex;
+            align-items: center;
+            border-radius: 60px;
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+        .makeStyles-icon-35 svg {
+            font-size: 35px;
+        }
+        
+        .makeStyles-closeButton-36 {
+            color: #444;
+            right: 0;
+            width: 35px;
+            height: 35px;
+            position: absolute;
+            text-align: center;
+            line-height: 35px;
+        }
+        
+        .makeStyles-unVerifiedMailStrip-1 {
+            top: 0;
+            left: 0;
+            color: #ffbb33;
+            width: 100vw;
+            display: flex;
+            z-index: 999;
+            position: fixed;
+            transition: .5s;
+            flex-direction: row;
+            background-color: #fef6e5;
+        }
+        
+        .makeStyles-unVerifiedMailStrip-1 .text {
+            width: calc(100vw - 40px);
+            cursor: pointer;
+            padding: 0 10px;
+            line-height: 40px;
+        }
+        
+        .makeStyles-unVerifiedMailStrip-1 .icon {
+            width: 40px;
+            cursor: pointer;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .makeStyles-unVerifiedMailStrip-1 .text p {
+            margin-bottom: 0;
+        }
+        
+        .makeStyles-collapsedStrip-2 {
+            transform: scaleY(0);
+        }
+        
+        .makeStyles-LoginRegisterButton-27 {
+            text-align: left;
+        }
+        
+        .makeStyles-LoginRegisterButton-27 .tiltLine {
+            font-size: 20px;
+        }
+        
+        .makeStyles-LoginRegisterButton-27 a {
+            color: #666;
+            display: flex;
+            transition: .3s;
+            align-items: baseline;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        
+        .makeStyles-LoginRegisterButton-27>Span {
+            display: inline-flex;
+            padding: 5px;
+        }
+        
+        .makeStyles-LoginRegisterButton-27>Span svg {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        
+        .makeStyles-LoginRegisterButton-27>Span span {
+            font-size: 16px;
+        }
+        
+        .makeStyles-LoginRegisterButton-27 a:hover {
+            color: #1d2746;
+        }
+        
+        .makeStyles-LoginRegisterButton_T-28 .tiltLine {
+            font-size: 16px;
+        }
+        
+        .makeStyles-LoginRegisterButton_T-28>Span {
+            padding: 3px;
+        }
+        
+        .makeStyles-LoginRegisterButton_T-28>Span svg {
+            font-size: 14px;
+            margin-right: 3px;
+        }
+        
+        .makeStyles-LoginRegisterButton_T-28>Span span {
+            font-size: 14px;
+        }
+        
+        .makeStyles-list-16 {
+            top: 0;
+            left: 0;
+            margin: 0;
+            display: none;
+            padding: 10px;
+            position: absolute;
+            min-width: 200px;
+            transition: .5s;
+            background-color: transparent;
+        }
+        
+        .makeStyles-list-16 .listView {
+            display: flex;
+            padding: 10px 5px;
+            position: relative;
+            flex-wrap: wrap;
+            max-width: 650px;
+            background: #fff;
+            box-shadow: 4px 7px 24px 0 #0000000f;
+            border-radius: 5px;
+            flex-direction: row;
+        }
+        
+        .makeStyles-list-16 .listView>li>a {
+            width: 100%;
+        }
+        
+        .makeStyles-ArrowTip-17 {
+            position: absolute;
+            background: #fff;
+        }
+        
+        .makeStyles-listItem-18 {
+            color: #666;
+            width: 100%;
+            margin: 0;
+            padding: 5px 10px;
+            font-size: 14px;
+            transition: .3s;
+        }
+        
+        .makeStyles-listItem-18:hover>a span {
+            color: #1d2746;
+            font-weight: 600;
+        }
+        
+        .makeStyles-listItem-18:hover svg {
+            color: #1d2746;
+            font-weight: 600;
+        }
+        
+        .makeStyles-listItemText-19 span {
+            color: #444;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+        
+        .makeStyles-listItemIcon-20 {
+            min-width: 20px;
+        }
+        
+        .makeStyles-navBar-3 {
+            color: #213858;
+            box-shadow: 5px 5px 25px 0 #aeaec033;
+            background-color: #fff !important;
+        }
+        
+        .makeStyles-LogoWrap-4 {
+            width: 120px;
+            cursor: pointer;
+            margin-top: 7px;
+        }
+        
+        @media (min-width:600px) {
+            .makeStyles-LogoWrap-4 {
+                width: 190px;
+            }
+        }
+        
+        .makeStyles-LogoWrap-4 img {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .makeStyles-navLinkSectionsWrap-5 {
+            display: flex;
+            padding: 0 calc(5% - 10px);
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        
+        .makeStyles-LinkWrap-6 .link {
+            margin: 0 20px;
+            display: inline-block;
+            position: relative;
+            line-height: 64px;
+        }
+        
+        .makeStyles-LinkWrap-6 a {
+            color: #4a5568;
+            padding: 0 10px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        
+        .makeStyles-LinkWrap-6 .menuItem {
+            position: relative;
+        }
+        
+        .makeStyles-LinkWrap-6 .menuItem:hover .menu {
+            display: block;
+        }
+        
+        .makeStyles-LinkWrap-6 span:hover a {
+            color: #1d2746;
+        }
+        
+        .makeStyles-LinkWrap-6 span:hover .menu {
+            display: block;
+        }
+        
+        .makeStyles-LinkWrap_T-7 {
+            padding: 0px 20px;
+        }
+        
+        .makeStyles-LinkWrap_T-7 .link {
+            margin: 0 10px;
+        }
+        
+        .makeStyles-LinkWrap_T-7 .link a {
+            padding: 0;
+            font-size: 14px;
+        }
+        
+        .makeStyles-menuIcon-9 {
+            color: gray;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        
+        .makeStyles-UserMenuIcon-10 {
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+        }
+        
+        .makeStyles-profileImageButtonWrap-11 {
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .makeStyles-profileImageButtonWrap-11 div {
+            color: gray;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+        .makeStyles-profileImageButtonWrap-11 p {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .makeStyles-profileImageButtonWrap-11 .arrow {
+            transition: .5s;
+            margin-left: 5px;
+        }
+        
+        .makeStyles-profileImageButtonWrap-11 .arrow-down {
+            transform: rotate(180deg);
+        }
+        
+        .makeStyles-profileMenuWrap-12 {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .makeStyles-profileImageButton-13 {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            overflow: hidden;
+            min-width: 0;
+        }
+        
+        .makeStyles-profileImageButton-13 img {
+            width: 100%;
+        }
+        
+        .makeStyles-UnverifiedEmailIndicator-14 {
+            top: 4px;
+            right: -2px;
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            border-radius: 10px;
+            background-color: red;
+        }
+        
+        .makeStyles-row-15 {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .makeStyles-container-29 {
+            margin: 20px 0;
+            padding: 0 5%;
+            transition: ease-in-out .3s;
+            align-items: center;
+        }
+        
+        .makeStyles-container-29 ol {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+        }
+        
+        .makeStyles-container-29 ol li {
+            display: inline-block;
+            text-align: left;
+        }
+        
+        .makeStyles-container-29 ol li::after {
+            color: #1d2746;
+            content: "/";
+            padding: 0 6px;
+            font-size: 10px;
+        }
+        
+        .makeStyles-container-29 ol li a {
+            color: #1d2746;
+            font-size: 10px;
+            transition: ease-in-out .3s;
+            text-transform: capitalize !important;
+            text-decoration: none;
+        }
+        
+        .makeStyles-container-29 ol li:last-child a {
+            font-weight: 600;
+        }
+        
+        .makeStyles-container-29 ol li:last-child::after {
+            content: "";
+        }
+        
+        .makeStyles-container-29 ol li a:hover {
+            color: #665dfe;
+        }
+        
+        .makeStyles-container-31 {
+            width: 780px;
+            margin: 30px auto;
+            padding: 30px 20px;
+            max-width: 100%;
+            box-shadow: 4px 7px 24px 0 #0000000f;
+            border-radius: 10px;
+        }
+        
+        .makeStyles-imagwWrap-32 {
+            width: 200px;
+            margin: 0 auto 30px;
+        }
+        
+        .makeStyles-imagwWrap-32 img {
+            width: 100%;
+        }
+        
+        .makeStyles-message-33 .head {
+            color: #213858;
+            font-size: 22px;
+            font-family: gorditaMedium;
+            margin-bottom: 20px;
+            text-transform: capitalize;
+        }
+        
+        .makeStyles-message-33 .desc {
+            color: #374957;
+            font-size: 16px;
+            line-height: 24px;
+        }
+        
+        @media (max-width:599.95px) {
+            .makeStyles-message-33 .desc {
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width:599.95px) {
+            .makeStyles-message-33 .head {
+                font-size: 18px;
+            }
+        }
+        
+        .makeStyles-closeButton-21 {
+            top: 20px;
+            color: #ddd;
+            right: 20px;
+            position: absolute;
+        }
+        
+        .makeStyles-mainContainer-22 {
+            display: flex;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .makeStyles-mainContainer-22.active {
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9;
+            overflow: hidden;
+            position: fixed;
+            animation: makeStyles-keyframes-OpenPage-23 1s forwards;
+            transition: .5s;
+            background-color: #000a;
+        }
+        
+        @keyframes makeStyles-keyframes-OpenPage-23 {
+            0% {
+                clip-path: circle(40px at right);
+                backdrop-filter: blur( 0px);
+            }
+            100% {
+                clip-path: circle(0px at center);
+                backdrop-filter: blur( 4.5px);
+            }
+        }
+        
+        .makeStyles-searchWrap-24 {
+            width: 700px;
+            margin: auto;
+            max-width: 95%;
+        }
+        
+        .makeStyles-ORSeparator-25 {
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .makeStyles-ORSeparator-25 .divider {
+            width: 50px;
+            background-color: #ddd;
+        }
+        
+        .makeStyles-ORSeparator-25 .text {
+            color: #ddd;
+            padding: 0 10px;
+            font-size: 14px;
+        }
+        
+        .makeStyles-selectWrap-26 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .makeStyles-selectWrap-26 .select {
+            color: #ddd;
+            border: none;
+            margin: 0 10px;
+            font-size: 16px;
+            min-width: 100px;
+            background: transparent;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        .makeStyles-selectWrap-26 .text {
+            color: #ddd;
+            font-size: 16px;
+            padding-bottom: 5px;
+        }
+        
+        .makeStyles-selectWrap-26 .select option {
+            background: #213858;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="__next">
+        <div id="__mainPage" style="display:flex;flex-direction:column;min-height:100vh">
+            <div style="transition:.5s;padding-top:0;flex-grow:1">
+                <div class="makeStyles-unVerifiedMailStrip-1 makeStyles-collapsedStrip-2">
+                    <div class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></div>
+                </div>
+                <header class="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary makeStyles-navBar-3 mui-fixed MuiPaper-elevation4">
+                    <div class="makeStyles-navLinkSectionsWrap-5">
+                        <div class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters">
+                            <div class="makeStyles-LogoWrap-4"><img src="/assets/images/BLogo.webp" alt="College Disha" /></div>
+                        </div>
+                        <div class="MuiToolbar-root MuiToolbar-regular makeStyles-LinkWrap-6 MuiToolbar-gutters">
+                            <div class="menuItem"><span class="link"><a href="/">College By Stream</a></span>
+                                <ul class="MuiList-root navMenu makeStyles-list-16 menu MuiList-padding" style="left:0%;top:64px">
+                                    <div class="listView">
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-0">
+                                            <a href="">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Engineering</span></div>
+                                            </a>
+                                            <div class="MuiListItemIcon-root makeStyles-listItemIcon-20"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></div>
+                                            <div style="display:none">
+                                                <ul class="MuiList-root navMenu-0 makeStyles-list-16 menu MuiList-padding" style="left:100%;top:-20px">
+                                                    <div class="listView">
+                                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-0-0">
+                                                            <a href="">
+                                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">B.Tech</span></div>
+                                                            </a>
+                                                            <div style="display:none"></div>
+                                                        </li>
+                                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-0-1">
+                                                            <a href="">
+                                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">M.Tech</span></div>
+                                                            </a>
+                                                            <div style="display:none"></div>
+                                                        </li>
+                                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-0-2">
+                                                            <a href="">
+                                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">BCA</span></div>
+                                                            </a>
+                                                            <div style="display:none"></div>
+                                                        </li>
+                                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-0-3">
+                                                            <a href="">
+                                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">B.E</span></div>
+                                                            </a>
+                                                            <div style="display:none"></div>
+                                                        </li>
+                                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-0-4">
+                                                            <a href="">
+                                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">M.E</span></div>
+                                                            </a>
+                                                            <div style="display:none"></div>
+                                                        </li>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-1">
+                                            <a href="">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Management</span></div>
+                                            </a>
+                                            <div class="MuiListItemIcon-root makeStyles-listItemIcon-20"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></div>
+                                            <div style="display:none">
+                                                <ul class="MuiList-root navMenu-1 makeStyles-list-16 menu MuiList-padding" style="left:100%;top:-20px">
+                                                    <div class="listView">
+                                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-1-0">
+                                                            <a href="">
+                                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">B.B.A</span></div>
+                                                            </a>
+                                                            <div style="display:none"></div>
+                                                        </li>
+                                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-1-1">
+                                                            <a href="">
+                                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">M.B.A</span></div>
+                                                            </a>
+                                                            <div style="display:none"></div>
+                                                        </li>
+                                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-1-2">
+                                                            <a href="">
+                                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">PGDMA</span></div>
+                                                            </a>
+                                                            <div style="display:none"></div>
+                                                        </li>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-2">
+                                            <a href="">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Medical</span></div>
+                                            </a>
+                                            <div class="MuiListItemIcon-root makeStyles-listItemIcon-20"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></div>
+                                            <div style="display:none">
+                                                <ul class="MuiList-root navMenu-2 makeStyles-list-16 menu MuiList-padding" style="left:100%;top:-20px">
+                                                    <div class="listView">
+                                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-2-0">
+                                                            <a href="">
+                                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">MBBS</span></div>
+                                                            </a>
+                                                            <div style="display:none"></div>
+                                                        </li>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-3">
+                                            <a href="">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Commerce</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-4">
+                                            <a href="">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Arts</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                            <div class="menuItem"><span class="link"><a href="/">Counselling</a></span>
+                                <ul class="MuiList-root navMenu makeStyles-list-16 menu MuiList-padding" style="left:0%;top:64px">
+                                    <div class="listView">
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-0">
+                                            <a href="">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Colleges</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-1">
+                                            <a href="">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Courses</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-2">
+                                            <a href="">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Career</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                            <div class="menuItem"><span class="link"><a href="/">Study Material</a></span>
+                                <ul class="MuiList-root navMenu makeStyles-list-16 menu MuiList-padding" style="left:0%;top:64px">
+                                    <div class="listView">
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-0">
+                                            <a href="/articles">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Article</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-1">
+                                            <a href="/universities">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Universities</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-2">
+                                            <a href="/courses">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Top Courses</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-3">
+                                            <a href="/colleges">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Colleges</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-4">
+                                            <a href="/education-boards">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Boards</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-5">
+                                            <a href="/news">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">News</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-6">
+                                            <a href="/exams">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Exams</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-7">
+                                            <a href="/coaching">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Coaching</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                        <li class="MuiListItem-root makeStyles-listItem-18 menuItem MuiListItem-gutters" style="cursor:pointer" id="navMenu-8">
+                                            <a href="/career-options">
+                                                <div class="MuiListItemText-root makeStyles-listItemText-19 listItemText"><span class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock">Career Options</span></div>
+                                            </a>
+                                            <div style="display:none"></div>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters" style="padding-left:5px"><button class="MuiButtonBase-root MuiIconButton-root" tabindex="0" type="button"><span class="MuiIconButton-label"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></span></button>
+                            <div class="makeStyles-LoginRegisterButton-27"><span><a href="/login"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="lock" class="svg-inline--fa fa-lock fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z"></path></svg><span class="text">Login</span></a>
+                                </span><i class="tiltLine">/</i><span><a href="/register"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" class="svg-inline--fa fa-user fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg><span class="text">Register</span></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height:3px;width:100%">
+                        <div style="height:100%;width:0%;background:#213858"></div>
+                    </div>
+                </header>
+                <div style="padding-top:64px;flex-grow:1">
+                    <div id="App">
+                        <div>
+                            <div class="container">
+                                <div class="makeStyles-container-29"></div>
+                            </div>
+                            <div class="makeStyles-container-31">
+                                <div class="makeStyles-imagwWrap-32"><img src="/assets/images/wentWrong.webp" /></div>
+                                <div class="makeStyles-message-33">
+                                    <p class="MuiTypography-root head MuiTypography-body1">Oops! Something went wrong</p>
+                                    <p class="MuiTypography-root desc MuiTypography-body1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus ab iste perspiciatis veniam aliquid repellendus sit itaque.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="makeStyles-copyRight-37" style="background-color:#1a3352;color:#fff">
+                <div>
+                    <p>Copyright @
+                        <!-- -->2021
+                        <!-- -->. CollegeDisha.com . All rights reserved</p>
+                </div><span class="makeStyles-scrollTopButton-38" style="display:none"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg></span></div>
+        </div>
+    </div>
+    <script src="/_next/static/chunks/react-refresh.js?ts=1612958572122"></script>
+    <script id="__NEXT_DATA__" type="application/json">
+        {
+            "props": {
+                "pageProps": {},
+                "__N_SSG": true
+            },
+            "page": "/courses/[courseSlug]",
+            "query": {},
+            "buildId": "development",
+            "nextExport": false,
+            "isFallback": true,
+            "gsp": true
+        }
+    </script>
+    <script nomodule="" src="/_next/static/chunks/polyfills.js?ts=1612958572122"></script>
+    <script src="/_next/static/chunks/main.js?ts=1612958572122"></script>
+    <script src="/_next/static/chunks/webpack.js?ts=1612958572122"></script>
+    <script src="/_next/static/chunks/pages/_app.js?ts=1612958572122"></script>
+    <script src="/_next/static/chunks/pages/courses/%5BcourseSlug%5D.js?ts=1612958572122"></script>
+    <script src="/_next/static/development/_buildManifest.js?ts=1612958572122"></script>
+    <script src="/_next/static/development/_ssgManifest.js?ts=1612958572122"></script>
+</body>
+
+</html>

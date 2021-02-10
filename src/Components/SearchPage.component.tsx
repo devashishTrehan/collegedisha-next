@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import { Routes, Theme } from '../Services/App.service';
-import { Close, Search as SearchIcon } from '@material-ui/icons';
+import { ArrowForward, ArrowForwardIosRounded, Close, Search as SearchIcon } from '@material-ui/icons';
 import classNames from 'classnames';
 import { SearchForm } from './Search.component';
 import SelectField from './SelectField.component/SelectField.component';
@@ -37,7 +37,7 @@ export const SearchPage = (props: any) => {
             position: 'absolute',
             right: 20,
             top: 20,
-            color:'#ddd',
+            color: '#ddd',
         },
         mainContainer: {
             display: 'flex',
@@ -100,7 +100,7 @@ export const SearchPage = (props: any) => {
                 color: '#ddd',
                 fontSize: 16,
                 border: 'none',
-                borderBottom: '1px solid #ddd',
+                borderBottom: `1px solid #ddd`,
                 paddingBottom: 5,
                 '& option': {
                     background: Theme.primary,
@@ -110,7 +110,9 @@ export const SearchPage = (props: any) => {
                 color: '#ddd',
                 fontSize: 16,
                 paddingBottom: 5,
-            }
+                fontFamily: 'gorditaMedium'
+            },
+
         }
     });
 
@@ -183,6 +185,10 @@ export const SearchPage = (props: any) => {
                                     <option value='gaziabad'>gaziabad</option>
                                 </select>
                                 <Typography className='text'>city</Typography>
+
+                                <IconButton color='secondary' style={{ marginLeft: 15 }}>
+                                    <ArrowForward />
+                                </IconButton>
                             </div>
 
                         </div>

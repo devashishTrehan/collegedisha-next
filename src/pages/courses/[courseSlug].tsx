@@ -2,11 +2,15 @@
 import { Grid, IconButton, Theme as MuiTheme, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
-import { Theme } from '../../Services/App.service';
+import { GetPageInitialData, Theme } from '../../Services/App.service';
 import classNames from 'classnames';
-import { detailedArticle, } from '@/Services/DataTypes/article';
 import { AccessTimeOutlined, CalendarToday, CommentOutlined, ShareOutlined, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
 import MarkdownParser from '@/Components/MarkdownParser.component';
+import { detailedCourse, G_CourseDetailType } from '@/Services/DataTypes/Courses';
+import { ApiResponseHandler, GetAllCourses, GetCourseDetails } from '@/Services/Api.service';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
+import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
+import PageSEO from '@/Components/PageSEO.component';
 
 
 const useStyles = makeStyles({
@@ -15,187 +19,100 @@ const useStyles = makeStyles({
   }
 })
 
-const defaultImage = '/assets/images/defaults/article.jpg';
+const getData = async (params) => {
 
-function Article(props: any) {
+  return await GetCourseDetails(params);
+}
 
-  const isMobile = useMediaQuery('(max-width:600px)');
+
+const defaultImage = '/assets/images/defaults/course.jpg';
+
+interface Props {
+  data: ApiResponse
+}
+
+function CourseDetails(props: Props) {
+
+  const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
+  const [data, setData] = React.useState<G_CourseDetailType | null>(result ?? {});
+  const [loading, setLoading] = React.useState(false);
+  const [pageState, setPageState] = React.useState<pageStateType>(responseType);
+  const [pageSEO, setPageSEO] = React.useState<PageSEOProps>(__pageSeo);
+  const isMobile = useMediaQuery('(max-width:769px)');
   const isTablet = useMediaQuery('(max-width:992px)');
-
-  const [data, setData] = React.useState<detailedArticle | null>({
-    id: 1,
-    title: 'UP Police SI Registration form 2021 - Check Sub Inspector Vacancy Open in Uttar Pradesh',
-    views: 123,
-    commentCount: 12,
-    voteCount: 123,
-    slug: 'xyz',
-    readTime: '3 min',
-    thumbnail: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
-    author: 'dev trehan',
-    publishedOn: '23-12-2020',
-    isSaved: false,
-    banner: 'https://www.collegedisha.com/images/thumbnail/1578546489UP-Police-SI-Registration-Form-thumbnail.jpg',
-    content: `
-    Hierank Business School is a private college. MBA program of the college is
-    affiliated to Dr. Abdul Kalam Technical University. It was established in 2006
-    since then it has managed to remain in the list of top engineering colleges of
-    Noida. The Integrated campus Approved by AICTE. The college works under ABR
-    Education Foundation which is a non-profitable foundation. It was established
-    by Rajesh Sahay who is the former director of Amity.\
-    College provides Total 5 UG and PG Programmes. Admission in the college is
-    done on the basis of Entrance Exam.\
-    With the help of experience and cooperative faculty, it becomes easier for
-    students to soar higher. Highly reputed companies visit campus for placement.
-    Till now their highest package is 18 lakhs while their average package is 3.2
-    lakh.
-    
-    Hierank Business School also provides scholarship which is done on the basis
-    of scores obtained by the candidate in the National Level Entrance Test called
-    as Board Analysis Test (BAT), conducted by CAT 7.
-    
-    #### Courses and Fees
-    
-    - Master of Business Administration (MBA)
-    - Bachelor of Business Administration (BBA)
-    - Bachelor of Computer Application (BCA)
-    - Bachelor of Education (B.Ed.)
-    - Post Graduate Programme in Hospital Administration (PGPHA)
-    
-    #### Eligibility Criteria
-    
-    <table>  
-    <tr>  
-    <td>#### **Name of Courses**</td>  
-    <td>#### **Eligibility**</td>  
-    <td>#### **Selection Criteria**</td>
-    </tr>  
-    <tr>  
-    <td>Bachelor of Education (B.Ed.)</td>  
-    <td>10+2 with at least 50% marks in aggregate</td>  
-    <td>Scored obtained in the Entrance Exam conducted by UP Govt. followed by GD & PI
-    held at the Institute</td>
-    </tr>  
-    <tr>  
-    <td>Bachelor of Computer Application (BCA)</td>  
-    <td>10+2 with at least 45% marks in aggregate</td>  
-    <td>On basis of candidates performance in GD & PI conducted by the Institute</td>
-    </tr>  
-    <tr>  
-    <td>Bachelor of Business Administration (BBA)</td>
-    </tr>  
-    <tr>  
-    <td>Master of Business Administration (MBA)</td>  
-    <td>Graduation with minimum 50% marks in aggregate</td>  
-    <td>UPSEE/ CMAT/ CAT/ MAT/ ATMA Entrance Exam Score followed by GD & PI held at
-the Institute</td>
-</tr>  
-<tr>  
-<td>Post Graduate Programme in Hospital Administration (PGPHA)</td>
-</tr>
-</table>
-
-#### Fees Structure
-
-#### Master of Business Administration (MBA)
-
-<table>  
-<tr>  
-<td>**1st year**</td>  
-<td>**2nd year**</td>  
-<td>**Grand Total**</td>
-</tr>  
-<tr>  
-<td>180,000</td>  
-<td>130,000</td>  
-<td>310,000</td>
-</tr>
-</table>
-
-#### Bachelor of Education (B.Ed.)
-
-<table>  
-<tr>  
-<td>**1st year**</td>  
-<td>**2nd year**</td>  
-<td>**Grand Total**</td>
-</tr>  
-<tr>  
-<td>58,750</td>  
-<td>30,000</td>  
-<td>88,750</td>
-</tr>
-</table>
-
-#### BACHELOR OF BUSINESS ADMINISTRATION (BBA)
-
-<table>  
-<tr>  
-<td>**1st year**</td>  
-<td>**2nd year**</td>  
-<td>**3rd year**</td>  
-<td>**Grand Total**</td>
-</tr>  
-<tr>  
-<td>80,000</td>  
-<td>75,000</td>  
-<td>75,000</td>  
-<td>230,000</td>
-</tr>
-</table>
-
-#### BACHELOR OF COMPUTER APPLICATION (BCA)
-
-<table>  
-<tr>  
-<td>**1st year**</td>  
-<td>**2nd year**</td>  
-<td>**3rd year**</td>  
-<td>**Grand Total**</td>
-</tr>  
-<tr>  
-<td>80,000</td>  
-<td>75,000</td>  
-<td>75,000</td>  
-<td>230,000</td>
-</tr>
-</table>`,
-  })
-
-
   const styles = useStyles();
 
 
   React.useEffect(() => {
-  }, [])
+    OnPageResponseHandler(props?.data);
+  }, [props.data])
+
+
+  const OnPageResponseHandler = (data) => {
+    let response = ApiResponseHandler(data, {
+      onNoData: () => { setData(null) },
+      onSuccess: () => {
+        setData(data?.result)
+      },
+    });
+    console.log('detail page data', data);
+    setPageState(response);
+  }
 
 
   return (
-
     <>
+      <PageSEO data={pageSEO} />
+      <DataPageWrapper loading={loading} pageState={pageState} >
 
-      <div className='container' >
-        <div className={'wrapper'} style={{ padding: '30px 5%' }}>
+        <div className='container' >
+          <div className={'wrapper'} style={{ padding: '30px 5%' }}>
 
-          <Grid container>
-            <Grid item xs={12} md={9} >
-              <div className={'pageSectionContainer'}>
+            <Grid container>
+              <Grid item xs={12} md={9} >
+                <div className={'pageSectionContainer'}>
 
-                <ThisPageHeader {...data} />
+                  <ThisPageHeader {...data} />
 
-                <MarkdownParser content={data.content} />
-              </div>
+                  <MarkdownParser content={data?.content} />
+                </div>
+              </Grid>
             </Grid>
-          </Grid>
 
+          </div>
         </div>
-      </div>
+      </DataPageWrapper>
     </>
 
   );
 }
 
-export default Article;
+export default CourseDetails;
 
+export async function getStaticPaths() {
+  const res = await GetAllCourses()
+  let courses = [];
+  if (res) {
+    courses = res?.data?.result;
+  }
+
+  let paths = courses.map((course) => ({
+    params: { courseSlug: course.slug }
+  }))
+
+  return { paths, fallback: true }
+}
+
+export async function getStaticProps({ params }) {
+
+  let returnData = { props: { data: null }, revalidate: 1 }
+  let response = await getData({ slug: params?.courseSlug });
+  if (response) {
+    returnData.props.data = response.data;
+  }
+  return returnData;
+
+}
 
 
 const ThisPageHeaderStyles = makeStyles((theme: MuiTheme) => ({
@@ -299,12 +216,13 @@ const ThisPageHeaderStyles = makeStyles((theme: MuiTheme) => ({
 
 
 const defaultBanner = '/assets/images/defaults/banner.jpg';
-const ThisPageHeader = (props: detailedArticle) => {
+
+const ThisPageHeader = (props: G_CourseDetailType) => {
 
   const isMobile = useMediaQuery('(max-width:600px)');
   const isTablet = useMediaQuery('(max-width:992px)');
 
-  const [data, setData] = React.useState<detailedArticle>(null);
+  const [data, setData] = React.useState<G_CourseDetailType>(null);
   const { title, banner, commentCount, views, publishedOn, readTime, voteCount } = data ?? {};
 
   React.useEffect(() => {
@@ -359,7 +277,6 @@ const ThisPageHeader = (props: detailedArticle) => {
       <div className={classNames(customStyles.imageWrap)} >
         <img src={banner ? banner : defaultImage} alt='' />
       </div>
-
 
     </div >
   )

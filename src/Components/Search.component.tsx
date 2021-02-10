@@ -84,6 +84,7 @@ export const SearchForm = (props: Props) => {
     const [loading, setLoading] = React.useState(false);
     const router = useRouter();
     const isMobile = useMediaQuery('(max-width:767px');
+    let SearchTimeout = React.useRef(null);
 
     React.useEffect(() => {
         const query: any = router.query;
@@ -100,6 +101,17 @@ export const SearchForm = (props: Props) => {
                 [field]: value
             }
         })
+        SearchResult();
+    }
+
+    const SearchResult = () => {
+        clearTimeout(SearchTimeout.current);
+        SearchTimeout.current = setTimeout(() => {
+            setLoading(true);
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000)
+        }, 500);
     }
 
     const submit = (event: any) => {

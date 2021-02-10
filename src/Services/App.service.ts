@@ -6,8 +6,8 @@ import { ApiResponse, PageSEOProps } from "./Interfaces.interface";
 export const Theme = {
     // primary: '#44b4d6',
     primary: '#213858',
-    // secondary: '#33a0ab',
-    secondary: '#665dfe',
+    secondary: '#33a0ab',
+    // secondary: '#665dfe',
     tertiary: '#385a64',
     secondaryFontColor: '#5c6b8a',
     fontColor: '#444',
@@ -76,7 +76,7 @@ export const Routes = {
     CareerOptions: '/career-options',
     Exams: '/exams',
     ExamCategory: '/category',
-    Boards: '/boards',
+    Boards: '/education-boards',
     Articles: '/articles',
     Courses: '/courses',
     News: '/news',
@@ -258,20 +258,22 @@ export function GetCookie(cname) {
 
 
 //---------- The function to get data for initial page render -------\\
-export function GetPageInitialData(responseData: ApiResponse): { result: any, responseType: pageStateType, pageSeo: PageSEOProps } {
+export function GetPageInitialData(responseData: ApiResponse): { result: any, responseType: pageStateType, pageSeo: PageSEOProps, hasMore } {
 
     let responseType = ApiResponseHandler(responseData, {});
     if (responseData) {
         return {
             result: responseData?.result,
             responseType: responseType,
-            pageSeo: responseData?.additionalData?.pageSEO
+            pageSeo: responseData?.additionalData?.pageSEO,
+            hasMore: responseData?.additionalData?.hasMore,
         }
     } else {
         return {
             result: null,
             responseType: responseType,
-            pageSeo: null
+            pageSeo: null,
+            hasMore: true,
         }
     }
 }

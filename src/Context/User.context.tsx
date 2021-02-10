@@ -97,7 +97,7 @@ export function UserContextProvider(props: any) {
     }
 
     React.useEffect(() => {
-        AsyncTokenRefresh();
+        // AsyncTokenRefresh();
     }, [])
 
     const refreshToken = async (token: any = Tokens, _user: User_info | null) => {

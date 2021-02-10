@@ -36,10 +36,22 @@ export interface G_CourseItemType {
 export interface G_CourseCategory {
     id: number,
     title: string,
-    image?: string,
+    logo?: string,
+    slug: string,
     courseList: G_CourseItemType[]
 }
 
-export interface CourseDetailType extends G_CourseItemType {
+export interface G_CourseDetailType {
+    id: number,
+    title: string,
+    views: number,
+    banner?: string,
+    content: string,
+    slug: string,
+    commentCount: number,
+    voteCount: number,
+    publishedOn: string,
+    readTime: string,
+
 }
 // ----- Institute course types to here ----- \\

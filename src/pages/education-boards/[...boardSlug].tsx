@@ -1,15 +1,17 @@
 import { GetCookie, GetPageInitialData, Routes, Storages, Theme } from '@/Services/App.service';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
+import { UrlObject } from '@/Components/CustomBreadCrumb.component';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { PageNavigation } from '@/Components/PageNavigation.component';
+import { InnerPageHead } from '@/Components/InnerPageHead.component';
+import { detailedBoard } from '@/Services/DataTypes/Boards';
 import MarkdownParser from '@/Components/MarkdownParser.component';
-import { detailedExam } from '@/Services/DataTypes/Exams';
-import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
 import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
+import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
+import { ApiResponseHandler, GetAllBoardClasses, GetBoardDetails, GetBoardSectionDetails } from '@/Services/Api.service';
 import PageSEO from '@/Components/PageSEO.component';
-import { ApiResponseHandler, GetExamDetails, GetExamSectionDetails, GetExamsList } from '@/Services/Api.service';
 
 
 
@@ -24,23 +26,22 @@ interface Props {
 }
 
 
-const LastBreadcrumbs = [{ name: 'exams', endPoint: `${Routes.Exams}` }];
+const LastBreadcrumbs = [{ name: 'boards', endPoint: `${Routes.Boards}` }];
 
 const defaultImage = '/assets/images/defaults/institute.jpg';
 
 const getData = async (params) => {
 
-    return await GetExamDetails(params);
-
+    return await GetBoardDetails({ ...params });
 }
 
-function examDetailsPage(props: Props) {
+function BoardDetailsPage(props: Props) {
     const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
 
-    const [examDetails, setExamDetails] = useState<detailedExam | null>(result ?? {});
+    const [boardDetails, setBoardDetails] = useState<detailedBoard | null>(result ?? {});
     const [slugs, setSlugs] = useState<string[]>([]);
     const { navHeight } = useContext(NavbarContext);
-    const { id, name, examSections, initialSection } = examDetails;
+    const { id, name, boardSections, initialSection } = boardDetails;
     const [loading, setLoading] = useState(false);
     const [pageState, setPageState] = useState<pageStateType>(responseType);
     const [pageSeo, setPageSeo] = useState<PageSEOProps>(__pageSeo);
@@ -50,14 +51,14 @@ function examDetailsPage(props: Props) {
 
 
     useEffect(() => {
-        if (router.query.examSlug?.length) {
-            let slugList = router.query.examSlug as string[];
+        if (router.query.boardSlug?.length) {
+            let slugList = router.query.boardSlug as string[];
             if (!slugList[1]) {
                 slugList[1] = ''
             }
             setSlugs([...slugList]);
         }
-    }, [router.query?.examSlug])
+    }, [router.query?.boardSlug])
 
     useEffect(() => {
         console.log('page data', props)
@@ -67,12 +68,9 @@ function examDetailsPage(props: Props) {
 
     const OnPageResponseHandler = (data) => {
         let response = ApiResponseHandler(data, {
-            onError: () => { },
-            onFailed: () => { },
-            onUnAuthenticated: () => { },
-            onNoData: () => { setExamDetails(null) },
+            onNoData: () => { setBoardDetails(null) },
             onSuccess: () => {
-                setExamDetails(data?.result);
+                setBoardDetails(data?.result);
             },
         });
         console.log('detail page data', data);
@@ -82,54 +80,67 @@ function examDetailsPage(props: Props) {
 
     const showpageSection = (section: string) => {
         router.push({
-            pathname: `${Routes.Exams}/${slugs[0]}/${examSections[section]}`,
+            pathname: `${Routes.Boards}/${slugs[0]}/${boardSections[section]}`,
         }, undefined, { shallow: true })
     }
 
-
     return (
-        <>
+        <div>
             <PageSEO data={pageSeo} />
             <DataPageWrapper loading={loading} pageState={pageState} >
-                <div>
+                <>
+                    <InnerPageHead {...boardDetails} />
 
-                    <PageNavigation pageSections={examSections} currentSection={slugs[1]} onLinkClick={(section: string) => showpageSection(section)} />
+                    {
+                        boardSections ?
+                            <PageNavigation pageSections={boardSections} currentSection={slugs[1]} onLinkClick={(section: string) => showpageSection(section)} />
+                            : null
+                    }
 
-
-                    <div className='container'>
-                        <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '50px 5%' }}>
-                            <Grid container >
-                                <Grid item xs={12} md={9} >
-                                    {
-                                        <RenderPageSection {...initialSection} />
-                                    }
-                                </Grid>
-                            </Grid>
-                        </div>
-                    </div>
-
-                </div>
+                    {
+                        initialSection ?
+                            <div className='container'>
+                                <div className='wrapper' style={{ padding: isMobile ? '20px 5%' : '50px 5%' }}>
+                                    <Grid container >
+                                        <Grid item xs={12} md={9} >
+                                            {
+                                                <RenderPageSection {...initialSection} />
+                                            }
+                                        </Grid>
+                                    </Grid>
+                                </div>
+                            </div>
+                            : null
+                    }
+                </>
             </DataPageWrapper>
-        </>
+
+        </div>
     );
 }
 
-export default examDetailsPage;
+export default BoardDetailsPage;
 
 
 export async function getStaticPaths() {
-    const res = await GetExamsList({ size: 10000, pageNo: 1, userId: null, token: '' })
-    let exams = [];
+    const res = await GetAllBoardClasses();
+    let classes = [];
     if (res) {
-        exams = res?.data?.result.examList;
+        classes = res?.data?.result;
     }
 
     let paths = [];
-    exams?.map((exam) => {
-        let sections = exam?.links;
+    classes?.map((board) => {
+        let sections = [];
+        if (board?.pageSections) {
+            sections = Object.values(board?.pageSections);
+        } else {
+            sections = [''];
+        }
+
         sections.map((section) => {
             paths.push({
-                params: { examSlug: [exam.slug, section.url] },
+                params: { boardSlug: [board.slug, section] },
             })
         })
     })
@@ -140,14 +151,13 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
 
     let returnData = { props: { data: null }, revalidate: 1 }
-    let response = await getData({ slug: params?.examSlug[0], section: params?.examSlug[1] });
+    let response = await getData({ slug: params?.boardSlug[0], section: params?.boardSlug[1] });
     if (response) {
         returnData.props.data = response.data;
     }
     return returnData;
 
 }
-
 
 
 //   ------ section styles start------   \\
@@ -172,7 +182,7 @@ const RenderPageSection = (props: PageSectionProps) => {
 
     const router = useRouter();
     const [data, setData] = useState(props);
-    const [section, setSection] = useState(router.query?.examSlug);
+    const [section, setSection] = useState(router.query?.boardSlug);
     const styles = sectionStyles();
     const [loading, setLoading] = useState(false);
     const [pageState, setPageState] = useState<pageStateType>('__request_success__');
@@ -180,11 +190,11 @@ const RenderPageSection = (props: PageSectionProps) => {
 
 
     const requestData = async (sectionSlug: string) => {
-        let examSlug = router?.query?.examSlug[0];
+        let boardSlug = router?.query?.boardSlug[0];
         let userId = parseInt(GetCookie(Storages.UserId));
         let token = GetCookie(Storages.AccessToken);
         setLoading(true);
-        let response = await GetExamSectionDetails({ token: token, userId: userId, slug: examSlug, section: sectionSlug });
+        let response = await GetBoardSectionDetails({ token: token, userId: userId, slug: boardSlug, section: sectionSlug });
         setLoading(false);
         console.log('response data', response);
         OnPageResponseHandler(response ? response.data : null);
@@ -202,9 +212,9 @@ const RenderPageSection = (props: PageSectionProps) => {
     }
 
     useEffect(() => {
-        const { query: { examSlug } } = router;
-        console.log('examSlug', examSlug[1], section)
-        let sectionSlug = examSlug[1];
+        const { query: { boardSlug } } = router;
+        console.log('boardSlug', boardSlug[1], section)
+        let sectionSlug = boardSlug[1];
         if (!sectionSlug) {
             sectionSlug = '';
         }
@@ -212,7 +222,7 @@ const RenderPageSection = (props: PageSectionProps) => {
             sectionSlug && requestData(sectionSlug);
             setSection(sectionSlug);
         }
-    }, [router.query?.examSlug])
+    }, [router.query?.boardSlug])
 
     return (
         <>

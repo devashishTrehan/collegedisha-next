@@ -9,6 +9,7 @@ import MarkdownParser from '@/Components/MarkdownParser.component';
 import { ApiResponseHandler, GetAllArticles, GetArticleDetails } from '@/Services/Api.service';
 import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
 import { PageSEOProps } from '@/Services/Interfaces.interface';
+import PageSEO from '@/Components/PageSEO.component';
 
 
 const useStyles = makeStyles({
@@ -27,7 +28,6 @@ const defaultImage = '/assets/images/defaults/article.jpg';
 function Article(props: any) {
 
   const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
-
 
   const [data, setData] = React.useState<detailedArticle | null>(result ?? {})
   const [loading, setLoading] = React.useState(false);
@@ -58,29 +58,29 @@ function Article(props: any) {
 
 
   return (
+    <>
+      <PageSEO data={pageSEO} />
+      <DataPageWrapper loading={loading} pageState={pageState} >
+        <>
+          <ThisPageHeader {...data} />
 
-    <DataPageWrapper loading={loading} pageState={pageState} >
+          <div className='container' >
+            <div className={'wrapper'} style={{ padding: '30px 5%' }}>
 
-      <>
-        <ThisPageHeader {...data} />
+              <Grid container>
+                <Grid item xs={12} md={9} >
 
-        <div className='container' >
-          <div className={'wrapper'} style={{ padding: '30px 5%' }}>
-
-            <Grid container>
-              <Grid item xs={12} md={9} >
-
-                <div className={'pageSectionContainer'}>
-                  <MarkdownParser content={data?.content} />
-                </div>
+                  <div className={'pageSectionContainer'}>
+                    <MarkdownParser content={data?.content} />
+                  </div>
+                </Grid>
               </Grid>
-            </Grid>
 
+            </div>
           </div>
-        </div>
-      </>
-    </DataPageWrapper>
-
+        </>
+      </DataPageWrapper>
+    </>
   );
 }
 

@@ -149,12 +149,11 @@ const useStyles = makeStyles((theme: MuiTheme) => ({
 interface Props {
     id: number,
     name: string,
-    thumbnail: string,
+    banner?: string,
     rating: number,
     location?: string,
     isApplied?: boolean,
     isSaved?: boolean,
-    slug: string,
     views?: number,
     onSave?: Function,
     defaultImage?: string,
@@ -173,7 +172,7 @@ export const InnerPageHead = (props: Props) => {
     const { navHeight } = useContext(NavbarContext);
 
 
-    const { id, name, location, thumbnail, rating, isApplied, isSaved, views, defaultImage: d_image } = props;
+    const { id, name, location, banner, rating, isApplied, isSaved, views, defaultImage: d_image } = props;
 
     const defaultImage = d_image ? d_image : '/assets/images/defaults/institute.jpg';
 
@@ -185,7 +184,7 @@ export const InnerPageHead = (props: Props) => {
                 <div className={classNames(styles.headContainer, { [styles.HeadContainerSmallImage]: props?.smallImage })}>
                     <div className='wrap'>
                         <div className='imageWrap'>
-                            <img src={thumbnail ? thumbnail : defaultImage} alt='' />
+                            <img src={banner ? banner : defaultImage} alt='' />
                         </div>
                         <div className='detailWrap'>
                             <div className='group'>

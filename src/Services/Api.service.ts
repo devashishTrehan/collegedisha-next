@@ -1,7 +1,5 @@
 import { pageStateType } from "@/Components/DataPageWrapper.component";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { Http2ServerRequest } from "http2";
-import { Storages } from "./App.service";
 import { ApiResponse } from "./Interfaces.interface";
 
 
@@ -18,17 +16,17 @@ import { ApiResponse } from "./Interfaces.interface";
 // export const Domain = 'http://127.0.0.1:8000';
 
 
-// // /////////////////------------ for testing -----------\\\\\\\\\\\\\
+// /////////////////------------ for testing -----------\\\\\\\\\\\\\
 
-// export const BASE_URL = 'http://192.168.1.65:7000/api/';
-// export const Domain = 'http://192.168.1.65:7000';
+export const BASE_URL = 'http://192.168.1.65:7000/api/';
+export const Domain = 'http://192.168.1.65:7000';
 
 
 
-/////////////////------------ for testing -----------\\\\\\\\\\\\\
+// /////////////////------------ for testing -----------\\\\\\\\\\\\\
 
-export const BASE_URL = 'http://192.168.1.52:8000/api/';
-export const Domain = 'http://192.168.1.52:8000';
+// export const BASE_URL = 'http://192.168.1.52:8000/api/';
+// export const Domain = 'http://192.168.1.52:8000';
 
 
 const UserUrl = BASE_URL + 'user/';
@@ -41,6 +39,8 @@ const CoachingUrl = BASE_URL + 'coachings/';
 const ArticleUrl = BASE_URL + 'articles/';
 const NewsUrl = BASE_URL + 'news/';
 const ExamsUrl = BASE_URL + 'exams/';
+const BoardsUrl = BASE_URL + 'boards/';
+const CoursesUrl = BASE_URL + 'courses/';
 
 
 export const GetAccessTokenUrl = UserUrl + 'token/refresh/';
@@ -60,6 +60,8 @@ const ApiRoutes = {
     EducationUpdateUrl: ProfileUpdateUrl + 'education/',
     ProfileImageUpdateUrl: ProfileUpdateUrl + 'image/',
     CoverImageUpdateUrl: ProfileUpdateUrl + 'cover_image/',
+    BoardClassesUrl: BoardsUrl + 'classes/',
+    AllCoursesUrl: CoursesUrl + 'all/',
 }
 
 export const setHeader = (token: string = '') => {
@@ -105,7 +107,11 @@ export const ApiResponseHandler = (response: ApiResponse | undefined, callbacks:
         if (response.isAuthenticated) {
             if (response.status) {
                 const { result } = response;
-                let keys = Object.keys(result);
+                let keys = null;
+                if (result) {
+                    keys = Object.keys(result);
+                }
+
                 let isResultPopulated = keys ? keys?.length : result?.length;
                 if (isResultPopulated) {
                     callbacks.onSuccess && callbacks.onSuccess();
@@ -348,6 +354,63 @@ export const GetExamDetails = async ({ token, userId, slug = '', section = '' }:
 
 export const GetExamSectionDetails = async ({ token, userId, slug = '', section = 'information' }: { token: string, userId: number, slug?: string, section: string }) => {
     return await axios(ExamsUrl + `${slug}/${section}` + `?id=${userId}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetBoardList = async ({ token, userId, pageNo = 1 }: { token: string, userId: number, pageNo?: number }) => {
+    return await axios(BoardsUrl + `?id=${userId}&page=${pageNo}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetAllBoardClasses = async () => {
+    return await axios(ApiRoutes.BoardClassesUrl, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetBoardDetails = async ({ token, userId, slug = '', section = '' }: { token: string, userId: number, slug?: string, section: string }) => {
+    return await axios(BoardsUrl + `${slug}/` + `?id=${userId}&section=${section}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetBoardSectionDetails = async ({ token, userId, slug = '', section = 'information' }: { token: string, userId: number, slug?: string, section: string }) => {
+    return await axios(BoardsUrl + `${slug}/${section}` + `?id=${userId}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetCourseList = async ({ token, userId, pageNo = 1 }: { token: string, userId: number, pageNo?: number }) => {
+    return await axios(CoursesUrl + `?id=${userId}&page=${pageNo}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetAllCourses = async () => {
+    return await axios(ApiRoutes.AllCoursesUrl, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetCourseDetails = async ({ token, userId, slug = '', section = '' }: { token: string, userId: number, slug?: string, section: string }) => {
+    console.log('slug', slug);
+    return await axios(CoursesUrl + `${slug}/` + `?id=${userId}`, {
         // headers: setHeader(token)
     })
         .then(response => response)

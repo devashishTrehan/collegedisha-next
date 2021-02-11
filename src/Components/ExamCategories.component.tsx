@@ -1,6 +1,7 @@
 
 import * as React from 'react';
-import { Routes, Theme } from '@/Services/App.service';
+import {  Theme } from '@/Services/App.service';
+import Routes from '@/Services/Routes';
 import { Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';

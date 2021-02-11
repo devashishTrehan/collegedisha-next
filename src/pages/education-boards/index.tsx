@@ -2,7 +2,8 @@
 import { Grid, MenuItem, Typography, useMediaQuery, Theme as MuiTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { useEffect, useRef, useState } from 'react';
-import { GetCookie, GetPageInitialData, Routes, Storages, Theme } from '@/Services/App.service';
+import { GetCookie, GetPageInitialData, Storages, Theme } from '@/Services/App.service';
+import Routes from '@/Services/Routes';
 import classNames from 'classnames';
 import { PageHead } from '@/Components/PageHead.component';
 import { Filters } from '@/Components/Filter.component';

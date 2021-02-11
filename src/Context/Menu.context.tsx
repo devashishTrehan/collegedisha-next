@@ -1,6 +1,5 @@
-import { Routes } from '@/Services/App.service';
-import * as React from 'react';
-import { MenuListInterface } from '../Services/Interfaces.interface';
+import Routes from '@/Services/Routes';
+import React from 'react';
 
 
 export const MenuContext = React.createContext<any>({});

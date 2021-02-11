@@ -23,11 +23,7 @@ interface Props {
     children?: JSX.Element
 }
 
-// interface PropsWithPageName extends Props {
-// }
 
-// interface PropsWithChildren extends Props {
-// }
 
 export const PageHead = (props: Props) => {
 

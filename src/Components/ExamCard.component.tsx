@@ -1,4 +1,5 @@
-import { Routes, Theme } from '@/Services/App.service';
+import {  Theme } from '@/Services/App.service';
+import Routes from '@/Services/Routes';
 import { Typography, useMediaQuery, Theme as MuiTheme } from '@material-ui/core';
 import { Link as LinkIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';

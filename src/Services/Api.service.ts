@@ -41,6 +41,7 @@ const NewsUrl = BASE_URL + 'news/';
 const ExamsUrl = BASE_URL + 'exams/';
 const BoardsUrl = BASE_URL + 'boards/';
 const CoursesUrl = BASE_URL + 'courses/';
+const CareersUrl = BASE_URL + 'careers/';
 
 
 export const GetAccessTokenUrl = UserUrl + 'token/refresh/';
@@ -62,6 +63,7 @@ const ApiRoutes = {
     CoverImageUpdateUrl: ProfileUpdateUrl + 'cover_image/',
     BoardClassesUrl: BoardsUrl + 'classes/',
     AllCoursesUrl: CoursesUrl + 'all/',
+    AllCareersUrl: CareersUrl + 'all/',
 }
 
 export const setHeader = (token: string = '') => {
@@ -408,9 +410,51 @@ export const GetAllCourses = async () => {
         .catch(error => console.log('error', error));
 }
 
-export const GetCourseDetails = async ({ token, userId, slug = '', section = '' }: { token: string, userId: number, slug?: string, section: string }) => {
+export const GetCourseDetails = async ({ token, userId, slug = '' }: { token: string, userId: number, slug?: string, }) => {
     console.log('slug', slug);
     return await axios(CoursesUrl + `${slug}/` + `?id=${userId}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+
+export const GetCareerList = async ({ token, userId, pageNo = 1 }: { token: string, userId: number, pageNo?: number }) => {
+    return await axios(CareersUrl + `?id=${userId}&page=${pageNo}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetAllCareers = async () => {
+    return await axios(CareersUrl + '?size=10000', {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetAllCareerCourses = async () => {
+    return await axios(ApiRoutes.AllCareersUrl, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetCareerDetails = async ({ token, userId, slug = '' }: { token: string, userId: number, slug?: string, }) => {
+    console.log('slug', slug);
+    return await axios(CareersUrl + `${slug}/` + `?id=${userId}`, {
+        // headers: setHeader(token)
+    })
+        .then(response => response)
+        .catch(error => console.log('error', error));
+}
+
+export const GetCareerCoursesDetails = async ({ token, userId, careerSlug = '', courseSlug = '' }: { token: string, userId: number, careerSlug?: string, courseSlug: string }) => {
+    return await axios(CareersUrl + `${careerSlug}/${courseSlug}` + `?id=${userId}`, {
         // headers: setHeader(token)
     })
         .then(response => response)

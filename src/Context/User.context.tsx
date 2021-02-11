@@ -1,17 +1,15 @@
 import * as React from 'react';
 import { GetUserMailConfirmation, Logout, SendConfirmationMail, VerifyEmail } from '../Services/Api.service';
-import { clearStore, getToken, getUser, StoreUser, Storages, Theme, StoreToken, Routes, SetCookie } from '../Services/App.service';
+import { clearStore, getToken, getUser, StoreUser, Storages, Theme, StoreToken, SetCookie } from '../Services/App.service';
 import { GetAccessTokenUrl } from '../Services/Api.service';
-import { Loader } from '@/Components/Loader.component';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { makeStyles } from '@material-ui/styles';
 import { AppContext } from './App.context';
 import { MailSent } from '@/Components/MailSent.component';
-import { ApiResponse } from '@/Services/Interfaces.interface';
 import { TokenType } from '@/Services/DataTypes/user';
-import { access } from 'fs';
+
 
 interface user {
     user: object,

@@ -2,7 +2,8 @@
 import { Grid, Hidden, IconButton, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { useState, useEffect } from 'react';
-import { GetCookie, GetPageInitialData, Routes, Storages, Theme } from '@/Services/App.service';
+import Routes from '@/Services/Routes';
+import { GetCookie, GetPageInitialData, Storages, Theme } from '@/Services/App.service';
 import classNames from 'classnames';
 import { ViewportTracker } from '@/Components/ViewportTracker.component';
 import { CalendarToday, Category, CommentOutlined, KeyboardArrowLeft, KeyboardArrowRight, VisibilityOutlined } from '@material-ui/icons';

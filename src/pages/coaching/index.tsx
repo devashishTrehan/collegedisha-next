@@ -2,15 +2,16 @@ import DummyCards from '@/Components/DummyCard.component';
 import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
-import { GetCookie, GetPageInitialData, Routes, Storages } from '@/Services/App.service';
+import { GetCookie, GetPageInitialData, Storages } from '@/Services/App.service';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import React, { useEffect, useRef, useState } from 'react';
 import { CoachingListItem } from '@/Services/DataTypes/Coachings';
 import CoachingCard from '@/Components/CoachingCard.component';
 import { ApiResponseHandler, GetCoachingList } from '@/Services/Api.service';
 import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
-import { pageStateType } from '@/Components/DataPageWrapper.component';
+import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
 import PageEndIndicator from '@/Components/PageEndIndicator.component';
+import PageSEO from '@/Components/PageSEO.component';
 
 
 const useStyles = makeStyles({
@@ -104,6 +105,7 @@ function CoachingsPage(props: Props) {
 
     return (
         <>
+            <PageSEO data={pageSeo} />
 
             <div className='container'>
                 <div className='wrapper' style={{ padding: '20px 5% 0' }}>
@@ -117,32 +119,35 @@ function CoachingsPage(props: Props) {
                 </div>
             </div>
 
-            <div className='container'>
-                <div className='wrapper'>
-                    <Grid container justify='flex-start'>
-                        <Grid item md={9} >
-                            <Grid container spacing={5} justify='space-evenly'>
-                                {
-                                    Coachings?.map((coaching: CoachingListItem, index: number) => {
-                                        // if (isMobile) {
-                                        return (<Grid item key={index} xs={12}>
-                                            <CoachingCard {...coaching} />
-                                        </Grid>)
-                                        // } 
-                                    })
-                                }
+            <DataPageWrapper loading={loading} pageState={pageState}>
+                <div className='container'>
+                    <div className='wrapper'>
+                        <Grid container justify='flex-start'>
+                            <Grid item md={9} >
+                                <Grid container spacing={5} justify='space-evenly'>
+                                    {
+                                        Coachings?.map((coaching: CoachingListItem, index: number) => {
+                                            // if (isMobile) {
+                                            return (<Grid item key={index} xs={12}>
+                                                <CoachingCard {...coaching} />
+                                            </Grid>)
+                                            // } 
+                                        })
+                                    }
 
-                                {
-                                    !isMobile ?
-                                        <DummyCards cardCount={Coachings.length} withGrid={true} />
-                                        : null
-                                }
+                                    {
+                                        !isMobile ?
+                                            <DummyCards cardCount={Coachings.length} withGrid={true} />
+                                            : null
+                                    }
+                                </Grid>
+                                <PageEndIndicator loading={infiniteLoading} onIntersection={() => RequestDataOnIntersection()} />
                             </Grid>
-                            <PageEndIndicator loading={infiniteLoading} onIntersection={() => RequestDataOnIntersection()} />
                         </Grid>
-                    </Grid>
+                    </div>
                 </div>
-            </div>
+            </DataPageWrapper>
+
             <SubscribeSection />
             <Footer />
         </>
@@ -152,14 +157,14 @@ function CoachingsPage(props: Props) {
 export default CoachingsPage;
 
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
 
-    let cookies = context.req.cookies;
-    let token = cookies[Storages.AccessToken]
-    let userId = parseInt(cookies[Storages.UserId])
-    let returnData = { props: { data: null } }
+    // let cookies = context.req.cookies;
+    // let token = cookies[Storages.AccessToken]
+    // let userId = parseInt(cookies[Storages.UserId])
+    let returnData = { props: { data: null }, revalidate: true }
 
-    let response = await getData({ token: token, userId: userId });
+    let response = await getData({ token: '', userId: 0 });
     if (response) {
         returnData.props.data = response.data;
     }

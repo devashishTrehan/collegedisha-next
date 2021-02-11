@@ -1,13 +1,11 @@
 
-import { Button, Divider, IconButton, MenuItem, Modal, Select, Typography, useMediaQuery } from '@material-ui/core';
+import { Divider, IconButton, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
-import { useRouter } from 'next/router';
-import { Routes, Theme } from '../Services/App.service';
-import { ArrowForward, ArrowForwardIosRounded, Close, Search as SearchIcon } from '@material-ui/icons';
+import { Theme } from '../Services/App.service';
+import { ArrowForward, Close, Search as SearchIcon } from '@material-ui/icons';
 import classNames from 'classnames';
 import { SearchForm } from './Search.component';
-import SelectField from './SelectField.component/SelectField.component';
 
 // const useStyles = ;
 
@@ -52,7 +50,7 @@ export const SearchPage = (props: any) => {
                 top: 0,
                 left: 0,
                 position: 'fixed',
-                backgroundColor: '#000a',
+                backgroundColor: Theme.primary + '99',
                 height: '100vh',
                 animation: '$OpenPage 1s forwards',
             }

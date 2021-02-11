@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Routes, Theme, } from '@/Services/App.service';
+import { Theme, } from '@/Services/App.service';
+import Routes from '@/Services/Routes';
 import Link from 'next/link';
 import { useRouter, withRouter } from 'next/router';
 import { AppBar, Drawer, IconButton, Slide, Toolbar, Tooltip, useMediaQuery, useScrollTrigger, Theme as MuiTheme } from '@material-ui/core';

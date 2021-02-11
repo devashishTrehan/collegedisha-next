@@ -2,7 +2,8 @@
 import { Button, Divider, Grid, MenuItem, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
-import { Routes, Theme, ValidateFields } from '@/Services/App.service';
+import { Theme, ValidateFields } from '@/Services/App.service';
+import Routes from '@/Services/Routes';
 import InputField from '@/Components/TextField.component/TextField.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
@@ -46,8 +47,9 @@ const useStyles = makeStyles({
     boxShadow: Theme.boxShadow,
     borderRadius: Theme.radius2,
     '& .formHead': {
+      textAlign: 'left',
       '& .heading': {
-        margin: '25px 0 10px',
+        margin: '25px 0 5px',
       },
     },
     '& .fieldsContainer': {

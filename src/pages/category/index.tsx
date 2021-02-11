@@ -1,4 +1,5 @@
-import { Routes, Theme } from '@/Services/App.service';
+import { Theme } from '@/Services/App.service';
+import Routes from '@/Services/Routes';
 import { Typography } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';

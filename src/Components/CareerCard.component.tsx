@@ -1,4 +1,5 @@
-import { Theme, NFormatter, MemoizedClipText, Routes } from '@/Services/App.service';
+import { Theme, NFormatter, MemoizedClipText } from '@/Services/App.service';
+import Routes from '@/Services/Routes';
 import { Button, Typography, IconButton, useMediaQuery, Theme as MuiTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { memo, useState } from 'react';
@@ -81,7 +82,7 @@ const useStyles = makeStyles((theme: MuiTheme) => ({
             height: '100%',
             top: 0,
             right: '-75%',
-            backgroundColor: '#0009',
+            backgroundColor: Theme.primary + '99',
             overflow: 'hidden',
             '& ul': {
                 listStyle: 'none',
@@ -158,7 +159,7 @@ const defaultImage = '/assets/images/defaults/institute.jpg'
 
 const CareerCard = memo(function (props: Props) {
 
-    const { name, image, courses, slug } = props;
+    const { name, thumbnail, courses, slug } = props;
     const [showList, setShowList] = useState(false);
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -177,25 +178,35 @@ const CareerCard = memo(function (props: Props) {
         <div className={classNames(styles.container)}>
             <div className={classNames(styles.HeadSection)}>
                 <div className={'imageWrap'}>
-                    <img src={image ? image : defaultImage} alt={name} />
+                    <img src={thumbnail ? thumbnail : defaultImage} alt={name} />
                 </div>
 
-                <div className={'actionButtonWrap'}>
-                    <ul>
-                        {
-                            courses?.map((course: { name: string, slug: string }) => {
-                                return <Link href={`${Routes.CareerOptions}/${slug}/${course.slug}`}>
-                                    <a>
-                                        <li>{course.name}</li>
-                                    </a>
-                                </Link>
-                            })
-                        }
-                    </ul>
-                </div>
+                {
+                    courses?.length ?
+                        <div className={'actionButtonWrap'}>
+                            <ul>
+                                {
+                                    courses?.map((course: { name: string, slug: string }) => {
+                                        return <Link href={`${Routes.CareerOptions}/${slug}/${course.slug}`}>
+                                            <a>
+                                                <li>{course.name}</li>
+                                            </a>
+                                        </Link>
+                                    })
+                                }
+                            </ul>
+                        </div>
+                        : null
+                }
+
             </div>
             <div onClick={() => ViewDetails(slug)} className={classNames(styles.InfoSetion)}>
-                <Typography className={'productName'} >{ClipText(name)}</Typography>
+
+                <Link href={`${Routes.CareerOptions}/${slug}`} >
+                    <a>
+                        <Typography className={'productName'} >{ClipText(name)}</Typography>
+                    </a>
+                </Link>
 
             </div>
             <div className={classNames(styles.footerSection)}>

@@ -2,7 +2,8 @@
 import { Typography, useMediaQuery, Theme as MuiTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { useState, useEffect, useRef } from 'react';
-import { GetCookie, GetPageInitialData, Routes, Storages, Theme } from '../../Services/App.service';
+import Routes from '@/Services/Routes';
+import { GetCookie, GetPageInitialData, Storages, Theme } from '../../Services/App.service';
 import classNames from 'classnames';
 import { SubscribeSection } from '@/Components/Subscribe.component';
 import { G_CourseCategory, G_CourseItemType } from '@/Services/DataTypes/Courses';

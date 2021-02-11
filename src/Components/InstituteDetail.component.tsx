@@ -32,7 +32,7 @@ interface Props {
 }
 
 export const pageSections = {
-    information: 'information',
+    information: '',
     ['courses & fees']: 'courses-fees',
     admission: 'admission',
     ['review & rating']: 'review',
@@ -48,7 +48,7 @@ const defaultImage = '/assets/images/defaults/institute.jpg';
 function InstituteDetailComponent(props: Props) {
 
     const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);
-
+    console.log('props data', result);
     const [instituteDetails, setInstituteDetails] = useState<detailedInstitute | null>(result ?? null);
     const [slugs, setSlugs] = useState<string[]>([]);
     const [currentSection, setCurrentSection] = useState<string>(pageSections.information);
@@ -62,10 +62,12 @@ function InstituteDetailComponent(props: Props) {
     const styles = useStyles();
     const router = useRouter();
 
+
     useEffect(() => {
         console.log('page data', props)
         OnPageResponseHandler(props?.data);
     }, [props.data])
+
 
     useEffect(() => {
         if (router.query.instituteSlug?.length) {
@@ -91,9 +93,6 @@ function InstituteDetailComponent(props: Props) {
 
     const OnPageResponseHandler = (data) => {
         let response = ApiResponseHandler(data, {
-            onError: () => { },
-            onFailed: () => { },
-            onUnAuthenticated: () => { },
             onNoData: () => { setInstituteDetails(null) },
             onSuccess: () => {
                 setInstituteDetails(data?.result)

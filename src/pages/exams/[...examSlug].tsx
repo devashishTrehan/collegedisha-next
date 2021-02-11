@@ -1,4 +1,5 @@
-import { GetCookie, GetPageInitialData, Routes, Storages, Theme } from '@/Services/App.service';
+import { GetCookie, GetPageInitialData, Storages, Theme } from '@/Services/App.service';
+import Routes from '@/Services/Routes';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';

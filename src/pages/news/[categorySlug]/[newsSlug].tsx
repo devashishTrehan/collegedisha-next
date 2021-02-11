@@ -1,9 +1,10 @@
-import { GetPageInitialData, Routes, Theme } from '@/Services/App.service';
+import { GetPageInitialData, Theme } from '@/Services/App.service';
 import { ApiResponseHandler, GetNewsDetails, GetAllNews } from '@/Services/Api.service';
 import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { NavbarContext } from '@/Context/Navbar.context';
+import Routes from '@/Services/Routes';
 import { detailedNews, } from '@/Services/DataTypes/News';
 import MarkdownParser from '@/Components/MarkdownParser.component';
 import classNames from 'classnames';

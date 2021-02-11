@@ -56,42 +56,6 @@ export const Months: any = {
     '12': 'Dec',
 };
 
-export const Routes = {
-    Home: '/',
-    Login: '/login',
-    User: '/user',
-    About: '/about',
-    Contact: '/contact',
-    Register: '/register',
-    PrivacyPolicy: '/privacy-policy',
-    TermsConditions: '/website-usage-policy',
-    EmailVerification: 'changeloginpassword',
-    FAQ: '/faq',
-    Founder: '/college-disha-founder',
-    Disclaimer: '/disclaimer',
-    Advertisement: '/write-for-us',
-    Institutes: '/institutes',
-    Colleges: '/colleges',
-    Coachings: '/coaching',
-    CareerOptions: '/career-options',
-    Exams: '/exams',
-    ExamCategory: '/category',
-    Boards: '/education-boards',
-    Articles: '/articles',
-    Courses: '/courses',
-    News: '/news',
-    Universities: '/universities',
-    ProfileEdit: '/profile-edit/',
-    Profile: '/profile/',
-    MailSent: '/mailSent',
-    Emailverification: '/email-verication',
-    OtpVerification: '/otpVerication',
-    Verification: '/verification',
-    Mobileverification: '/mobileverification',
-    PasswordChange: '/change-password',
-    ResetPassword: '/reset-password',
-}
-
 export const AppSectionHeights = {
     pageNavigation: 84,
 }
@@ -258,7 +222,7 @@ export function GetCookie(cname) {
 
 
 //---------- The function to get data for initial page render -------\\
-export function GetPageInitialData(responseData: ApiResponse): { result: any, responseType: pageStateType, pageSeo: PageSEOProps, hasMore } {
+export function GetPageInitialData(responseData: ApiResponse): { result: any, responseType: pageStateType, pageSeo: PageSEOProps, hasMore: boolean, relatedResults: any[] } {
 
     let responseType = ApiResponseHandler(responseData, {});
     if (responseData) {
@@ -267,6 +231,7 @@ export function GetPageInitialData(responseData: ApiResponse): { result: any, re
             responseType: responseType,
             pageSeo: responseData?.additionalData?.pageSEO,
             hasMore: responseData?.additionalData?.hasMore,
+            relatedResults: responseData?.additionalData?.relatedResults ?? []
         }
     } else {
         return {
@@ -274,6 +239,7 @@ export function GetPageInitialData(responseData: ApiResponse): { result: any, re
             responseType: responseType,
             pageSeo: null,
             hasMore: true,
+            relatedResults: []
         }
     }
 }

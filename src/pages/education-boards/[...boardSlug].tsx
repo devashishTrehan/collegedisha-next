@@ -1,7 +1,7 @@
-import { GetCookie, GetPageInitialData, Routes, Storages, Theme } from '@/Services/App.service';
+import { GetCookie, GetPageInitialData, Storages, Theme } from '@/Services/App.service';
 import { useRouter } from 'next/router';
+import Routes from '@/Services/Routes';
 import React, { useContext, useEffect, useState } from 'react';
-import { UrlObject } from '@/Components/CustomBreadCrumb.component';
 import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { PageNavigation } from '@/Components/PageNavigation.component';
@@ -12,7 +12,6 @@ import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.com
 import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
 import { ApiResponseHandler, GetAllBoardClasses, GetBoardDetails, GetBoardSectionDetails } from '@/Services/Api.service';
 import PageSEO from '@/Components/PageSEO.component';
-
 
 
 

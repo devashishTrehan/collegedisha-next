@@ -79,6 +79,7 @@ export interface InstituteAdmission {
 
 export interface detailedInstitute extends InstituteListItem {
     views: number,
+    banner: string,
     information?: InstituteInformation,
     courses?: InstituteCourses,
     admission?: { content: string },

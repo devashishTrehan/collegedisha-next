@@ -2,7 +2,8 @@
 import { Button, Divider, Typography, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
-import { Routes, Theme, ValidateFields } from '@/Services/App.service';
+import Routes from '@/Services/Routes';
+import { Theme, ValidateFields } from '@/Services/App.service';
 import InputField from '@/Components/TextField.component/TextField.component';
 import { useRouter } from 'next/router';
 import { MailSent } from '@/Components/MailSent.component';

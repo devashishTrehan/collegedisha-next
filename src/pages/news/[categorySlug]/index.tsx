@@ -2,9 +2,10 @@
 import { Grid, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { useState, useEffect, useRef } from 'react';
-import { GetCookie, GetPageInitialData, Routes, Storages, Theme } from '@/Services/App.service';
+import { GetCookie, GetPageInitialData, Storages, Theme } from '@/Services/App.service';
 import { ApiResponseHandler, GetNewsList, GetNewsHome } from '@/Services/Api.service';
 import classNames from 'classnames';
+import Routes from '@/Services/Routes';
 import { useRouter } from 'next/router';
 import { NewsListItemTypes, NewsListTypes } from '@/Services/DataTypes/News';
 import NewsListCard from '@/Components/NewsListCard.component';

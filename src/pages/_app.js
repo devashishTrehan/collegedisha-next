@@ -38,7 +38,11 @@ function MyApp(props) {
 
   const router = useRouter();
 
-
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      console.log = () => { }
+    }
+  })
 
   return <>
     <ThemeProvider theme={theme}>

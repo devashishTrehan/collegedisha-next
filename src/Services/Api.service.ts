@@ -4,10 +4,10 @@ import { ApiResponse } from "./Interfaces.interface";
 
 
 
-/////////////////------------ for production -----------\\\\\\\\\\\\\
+///////////////------------ for production -----------\\\\\\\\\\\\\
 
-// export const BASE_URL = 'https://newjobshub.com/api/';
-// export const Domain = 'https://newjobshub.com';
+export const BASE_URL = 'https://api-coldisha.newjobshub.com/api/';
+export const Domain = 'https://api-coldisha.newjobshub.com';
 
 
 /////////////////------------ for development -----------\\\\\\\\\\\\\
@@ -16,10 +16,10 @@ import { ApiResponse } from "./Interfaces.interface";
 // export const Domain = 'http://127.0.0.1:8000';
 
 
-// /////////////////------------ for testing -----------\\\\\\\\\\\\\
+// // /////////////////------------ for testing -----------\\\\\\\\\\\\\
 
-export const BASE_URL = 'http://192.168.1.65:7000/api/';
-export const Domain = 'http://192.168.1.65:7000';
+// export const BASE_URL = 'http://192.168.1.65:7000/api/';
+// export const Domain = 'http://192.168.1.65:7000';
 
 
 

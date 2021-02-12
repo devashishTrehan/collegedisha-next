@@ -56,7 +56,7 @@ const useStyles = makeStyles({
   form: {
     width: '100%',
     backgroundColor: Theme.backgroundColor,
-    padding: `${Theme.spacingLess}px ${Theme.spacingMore}px ${Theme.spacingMore}px`,
+    padding: `${Theme.spacingMid}px ${Theme.spacingMore}px ${Theme.spacingMore}px`,
     boxShadow: Theme.boxShadow,
     borderRadius: Theme.radius2,
     '& .formHead': {
@@ -148,16 +148,15 @@ function EmailVerificationPage(props: any) {
               <div className={styles.form} style={isMobile ? { padding: 0 } : {}}>
 
 
-                <div className='formHead'>
-                  <div className='FormLogoWrap' onClick={() => router.replace(Routes.Home)}>
-                    <img src='assets/images/BLogo.webp' alt='College Disha' />
-                  </div>
 
-                  <Divider />
-
-                  <MailSent email={Email} />
-
+                <div className='FormLogoWrap' onClick={() => router.replace(Routes.Home)}>
+                  <img src='assets/images/BLogo.webp' alt='College Disha' />
                 </div>
+
+                <Divider />
+
+                <MailSent email={Email} />
+
 
                 <div className={styles.ORSeparator}>
                   <Divider className='divider' />

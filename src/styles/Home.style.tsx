@@ -26,7 +26,8 @@ export const HeaderStyles = makeStyles({
   HeadWrapper: {
     padding: '0 5%',
     textAlign: 'left',
-    marginTop: 0,
+    margin: '0 auto',
+    maxWidth: '100%',
     paddingBottom: 50,
   },
   banner1: {

@@ -5,11 +5,14 @@ import { Footer } from '@/Components/Footer.component';
 import { ContentCards, Header, CounsellingFormSection, FeaturesSection } from '@/Components/HomeSections';
 import { AlertBox } from '@/Components/AlertBox.component';
 import { SetCookie, Storages } from '@/Services/App.service';
+import { AppContext } from '@/Context/App.context';
+import { MailSent } from '@/Components/MailSent.component';
 
 
 
-function Home(props: any) {
+const Home = React.memo(function () {
 
+  const { showModal } = React.useContext(AppContext);
 
   React.useEffect(() => {
     SetCookie(Storages.UserId, 5, 5);
@@ -17,23 +20,27 @@ function Home(props: any) {
   }, [])
 
 
+  console.log('rendering home')
   return (
-
     <>
       {/* <NavBar home={true} /> */}
+      {/* <button onClick={() => showModal(<MailSent email='devashishTrehan@gmail.com' />)}>show</button> */}
 
       <Header />
+
       <ContentCards />
+
       <CounsellingFormSection />
+
       <FeaturesSection />
+
       <SubscribeSection />
-      {/* <StatSection /> */}
 
       <Footer />
 
     </>
 
   );
-}
+})
 
 export default Home;

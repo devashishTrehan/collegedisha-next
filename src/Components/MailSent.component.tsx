@@ -46,7 +46,8 @@ export const MailSent = (props: Props) => {
                 <img src='/assets/images/emailVerify.webp' alt='' />
             </div>
 
-            <div><Typography variant={'h1'} className={'heading'}>Confirm Your Email</Typography></div>
+            <div className='formHead'><Typography variant={'h1'} className={'heading'}>Confirm Your Email</Typography></div>
+
             <div><Typography variant={'body1'} className={'subHeading'}>We have sent mail to <span>{email}</span> to confirm the validity of your email address. After receiving the email follow the link provided to complete your registration</Typography></div>
         </div>
     )

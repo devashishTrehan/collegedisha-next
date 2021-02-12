@@ -217,7 +217,7 @@ interface Props extends InstituteListItem {
     onShare?: Function,
 }
 
-const defaultImage = '/assets/images/defaults/institute.jpg'
+const defaultImage = '/assets/images/defaults/institute.webp'
 
 const InstituteCard = memo(function (props: Props) {
 

@@ -27,7 +27,7 @@ interface Props {
 
 const LastBreadcrumbs = [{ name: 'exams', endPoint: `${Routes.Exams}` }];
 
-const defaultImage = '/assets/images/defaults/institute.jpg';
+const defaultImage = '/assets/images/defaults/institute.webp';
 
 const getData = async (params) => {
 

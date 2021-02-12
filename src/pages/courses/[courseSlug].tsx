@@ -25,7 +25,7 @@ const getData = async (params) => {
 }
 
 
-const defaultImage = '/assets/images/defaults/course.jpg';
+const defaultImage = '/assets/images/defaults/course.webp';
 
 interface Props {
   data: ApiResponse
@@ -215,7 +215,7 @@ const ThisPageHeaderStyles = makeStyles((theme: MuiTheme) => ({
 }))
 
 
-const defaultBanner = '/assets/images/defaults/banner.jpg';
+const defaultBanner = '/assets/images/defaults/banner.webp';
 
 const ThisPageHeader = (props: G_CourseDetailType) => {
 

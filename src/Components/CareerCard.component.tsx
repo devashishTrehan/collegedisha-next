@@ -1,12 +1,14 @@
 import { Theme, NFormatter, MemoizedClipText } from '@/Services/App.service';
 import Routes from '@/Services/Routes';
-import { Button, Typography, IconButton, useMediaQuery, Theme as MuiTheme } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import { useMediaQuery } from '@material-ui/core';
+import { Theme as MuiTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { memo, useState } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { InstituteListItem } from '@/Services/DataTypes/Institutes';
 import { CareerListItem } from '@/Services/DataTypes/CareerOptions';
 
 
@@ -155,7 +157,7 @@ interface Props extends CareerListItem {
 const ClipText = MemoizedClipText();
 
 
-const defaultImage = '/assets/images/defaults/institute.jpg'
+const defaultImage = '/assets/images/defaults/institute.webp'
 
 const CareerCard = memo(function (props: Props) {
 

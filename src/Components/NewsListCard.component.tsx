@@ -89,7 +89,7 @@ interface Props extends NewsListItemTypes {
     onShare?: Function,
 }
 
-const defaultImage = '/assets/images/defaults/news.jpg'
+const defaultImage = '/assets/images/defaults/news.webp'
 
 const NewsListCard = memo(function (props: Props) {
 

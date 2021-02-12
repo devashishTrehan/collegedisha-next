@@ -26,7 +26,7 @@ const getData = async (params) => {
 }
 
 
-const defaultImage = '/assets/images/defaults/article.jpg';
+const defaultImage = '/assets/images/defaults/article.webp';
 
 function Article(props: any) {
   const { responseType, result, pageSeo: __pageSeo } = GetPageInitialData(props.data);

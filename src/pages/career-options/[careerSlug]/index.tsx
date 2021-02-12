@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme: MuiTheme) => ({
 }))
 
 
-const defaultImage = '/assets/images/defaults/career.jpg';
+const defaultImage = '/assets/images/defaults/career.webp';
 
 const getData = async (params) => {
 

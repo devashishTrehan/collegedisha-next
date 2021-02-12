@@ -42,7 +42,7 @@ export const pageSections = {
     placement: 'placement',
 }
 
-const defaultImage = '/assets/images/defaults/institute.jpg';
+const defaultImage = '/assets/images/defaults/institute.webp';
 
 
 function InstituteDetailComponent(props: Props) {

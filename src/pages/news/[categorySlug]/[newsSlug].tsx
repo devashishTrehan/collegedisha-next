@@ -51,7 +51,7 @@ const getData = async (params) => {
     return await GetNewsDetails(params);
 }
 
-const defaultImage = '/assets/images/defaults/institute.jpg';
+const defaultImage = '/assets/images/defaults/institute.webp';
 
 
 function newsDetailsPage(props: Props) {

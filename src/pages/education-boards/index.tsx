@@ -237,7 +237,7 @@ const RenderBoardCard = (props: BoardListItemTypes) => {
 }
 
 
-const defaultImage = '/assets/images/defaults/institute.jpg'
+const defaultImage = '/assets/images/defaults/institute.webp'
 
 function BoardList(props: any) {
 

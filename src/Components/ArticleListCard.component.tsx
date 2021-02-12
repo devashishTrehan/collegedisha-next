@@ -1,12 +1,19 @@
 import { MemoizedClipText, Theme, } from '@/Services/App.service';
-import { Typography, IconButton, useMediaQuery, } from '@material-ui/core';
-import { AccessTimeOutlined, Bookmark, BookmarkBorder, CalendarToday, Share, ThumbUpOutlined } from '@material-ui/icons';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import AccessTimeOutlined from '@material-ui/icons/AccessTimeOutlined';
+import Bookmark from '@material-ui/icons/Bookmark';
+import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
+import CalendarToday from '@material-ui/icons/CalendarToday';
+import Share from '@material-ui/icons/Share';
+import ThumbUpOutlined from '@material-ui/icons/ThumbUpOutlined';
 import { makeStyles } from '@material-ui/styles';
 import React, { memo, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { ArticleListItemTypes } from '@/Services/DataTypes/article';
 import Link from 'next/link';
+import { useMediaQuery } from '@material-ui/core';
 
 
 
@@ -119,7 +126,7 @@ interface Props extends ArticleListItemTypes {
     type?: 'list' | 'card'
 }
 
-const defaultImage = '/assets/images/defaults/news.jpg'
+const defaultImage = '/assets/images/defaults/news.webp'
 
 const ClipText = MemoizedClipText();
 

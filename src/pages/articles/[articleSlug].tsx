@@ -23,7 +23,7 @@ const getData = async (params) => {
   return await GetArticleDetails(params);
 }
 
-const defaultImage = '/assets/images/defaults/article.jpg';
+const defaultImage = '/assets/images/defaults/article.webp';
 
 function Article(props: any) {
 
@@ -213,7 +213,7 @@ const ThisPageHeaderStyles = makeStyles((theme: MuiTheme) => ({
 }))
 
 
-const defaultBanner = '/assets/images/defaults/banner.jpg';
+const defaultBanner = '/assets/images/defaults/banner.webp';
 const ThisPageHeader = (props: detailedArticle) => {
 
   const isMobile = useMediaQuery('(max-width:600px)');

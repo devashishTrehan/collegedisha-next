@@ -28,7 +28,7 @@ const getData = async (params) => {
   return await GetNewsHome({ ...params });
 }
 
-const defaultImage = '/assets/images/defaults/news.jpg'
+const defaultImage = '/assets/images/defaults/news.webp'
 
 function NewsList(props: any) {
 

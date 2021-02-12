@@ -74,7 +74,7 @@ export function RenderGallery(props: Props) {
 
 
     const RenderImage = ({ image: { image, imageName } }) => {
-        const defaultImage = '/assets/images/defaults/default.jpg';
+        const defaultImage = '/assets/images/defaults/default.webp';
         return (
             <div className={classNames(styles.imageWrap, { [styles.imageWrap_T]: isTablet, [styles.imageWrap_M]: isMobile })}>
                 <img src={image ? image : defaultImage} alt={imageName} />

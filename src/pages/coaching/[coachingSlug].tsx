@@ -48,7 +48,7 @@ const pageSections = {
     ['address & details']: 'address'
 }
 
-const defaultImage = '/assets/images/defaults/institute.jpg';
+const defaultImage = '/assets/images/defaults/institute.webp';
 
 const breadcrumbs = [{ name: 'coachings', endPoint: `${Routes.Coachings}` }];
 

@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Theme, } from '../Services/App.service';
-import { IconButton, Typography, useMediaQuery } from '@material-ui/core';
-import { Category, Close, PauseCircleFilled, PauseCircleOutline, } from '@material-ui/icons';
+import { Typography, useMediaQuery } from '@material-ui/core';
 import { MenuContext } from '../Context/Menu.context';
 import { C_MenuList } from './MultiLevelList.component';
 import { LoginRegisterButton } from './LoginRegisterButton.component';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const useStyles = makeStyles({

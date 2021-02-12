@@ -1,15 +1,15 @@
 import { Theme } from '@/Services/App.service';
-import { detailedInstitute } from '@/Services/DataTypes/Institutes';
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect, useState } from 'react';
-import { Chip, Grid, ListItem, makeStyles, Tooltip, Typography, useMediaQuery } from '@material-ui/core';
+import React, { useContext } from 'react';
+import Chip from '@material-ui/core/Chip';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles, useMediaQuery } from '@material-ui/core';
 import { LocationOnOutlined, Visibility } from '@material-ui/icons';
 import { Rating } from '@material-ui/lab';
 import classNames from 'classnames';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { CoachingListItem } from '@/Services/DataTypes/Coachings';
 import Link from 'next/link';
-
 
 
 
@@ -228,7 +228,7 @@ const pageSections = {
     placement: 'placement',
 }
 
-const defaultImage = '/assets/images/defaults/institute.jpg';
+const defaultImage = '/assets/images/defaults/institute.webp';
 
 
 function CoachingCard(props: Props) {

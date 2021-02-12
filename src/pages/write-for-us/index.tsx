@@ -9,7 +9,7 @@ import { AnimatedSection } from '@/Components/AnimatedView.component';
 
 const useStyles = makeStyles({
   headBG: {
-    backgroundImage: 'url("/assets/images/advertiseImages/headBG.png")',
+    backgroundImage: 'url("/assets/images/advertiseImages/headBG.webp")',
     backgroundSize: '50%',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: '0px',
@@ -196,7 +196,7 @@ const useStyles = makeStyles({
   },
 
   midSecWrap: {
-    backgroundImage: `url('/assets/images/advertiseImages/patternBg.png')`,
+    backgroundImage: `url('/assets/images/advertiseImages/patternBg.webp')`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
@@ -348,12 +348,12 @@ function Advertisement(props: any) {
             'We are hereby looking for professors, principals, teachers, school executives, psychologists, researchers, educational consultants, and PhD students. We also welcome professionals with fresh ideas, interesting comments, and practical advice.',
             'College Disha is a guest posting site for education blogs/guest posting site for education article that helps students to grab more information relevant to education.'
           ]
-      }, image: 'section1.png'
+      }, image: 'section1.webp'
     },
     {
       title: 'Education Guest Posting Site for Blog & Article',
       description: ['College disha content is the most authentic Educational Guest Posting site that provides you the platform to reach a large community of teachers and parents. This site is helping them to increase the educational achievement of children (students) and young people(teachers/parents). Education Guest Post is a website is for education blogs and education articles where students grab more information related to education and studies.'],
-      image: 'section2.png'
+      image: 'section2.webp'
     },
     {
       title: 'Education Guest Posting Site for Blog & Article',
@@ -368,7 +368,7 @@ function Advertisement(props: any) {
           'And it should not be any spelling errors in your articles while post it on site.'
 
         ]
-      }, image: 'section3.png'
+      }, image: 'section3.webp'
     },
     {
       title: 'Articles topics:',
@@ -380,7 +380,7 @@ function Advertisement(props: any) {
           'Article on making learning fun/ easy for students.',
           'Some of the articles written with the relevant topics of courses and subjects for students.',
         ]
-      }, image: 'section4.png'
+      }, image: 'section4.webp'
     },
     {
       title: 'Education Guest Posting Site for Blogs:',
@@ -388,7 +388,7 @@ function Advertisement(props: any) {
         'For Blogs Education Guest Post Site is a website where word limit is around 800 words. And here writing for blogs, the content should be pure and fresh. Content should not be copied from other blog / website. Writing for blogs is not so tricky because the topics are relevant to the education purpose. Main users are our students, we are welcome them with fresh ideas, and interesting comments.',
         'We are writing for the blogs on the website ‘Education Guest Post’. The limited changes that we can edit or changing the heading tags, formatting the text, resizing the image etc.',
       ],
-      image: 'section5.png'
+      image: 'section5.webp'
     },
     {
       title: 'Benefits for Blogs:',
@@ -401,15 +401,15 @@ function Advertisement(props: any) {
           'It is written for describing the specific topic relevant to education in details.',
           'Blogs can build relationships between bloggers, other bloggers and it users or readers through comment section with practical advice.'
         ]
-      }, image: 'section6.png'
+      }, image: 'section6.webp'
     },
   ]
 
   const StatCards: Card[] = [
-    { image: 'impressionIcon.png', count: '10.03M+', info: 'Impression' },
-    { image: 'userIcon.png', count: '470M+', info: 'Users' },
-    { image: 'sessionIcon.png', count: '490M+', info: 'Sessions' },
-    { image: 'viewIcon.png', count: '781k+', info: 'Page Views' },
+    { image: 'impressionIcon.webp', count: '10.03M+', info: 'Impression' },
+    { image: 'userIcon.webp', count: '470M+', info: 'Users' },
+    { image: 'sessionIcon.webp', count: '490M+', info: 'Sessions' },
+    { image: 'viewIcon.webp', count: '781k+', info: 'Page Views' },
   ]
 
   const PlansList: PlanItem[] = [
@@ -583,7 +583,7 @@ function Advertisement(props: any) {
 
         <Hidden smDown>
           <div>
-            <img className='backImage' src='/assets/images/advertiseImages/headBGShape.png' alt='' />
+            <img className='backImage' src='/assets/images/advertiseImages/headBGShape.webp' alt='' />
           </div>
         </Hidden>
 
@@ -595,11 +595,11 @@ function Advertisement(props: any) {
 
               <div className={classNames('imageWrap', { 'imageWrap_M': isMobile })}>
                 <AnimatedSection animationClass='shiftLeft' id='layer1' style={{ margin: isTablet ? 'auto' : 'unset' }} >
-                  <img src='/assets/images/advertiseImages/headImage1.png' alt='' />
+                  <img src='/assets/images/advertiseImages/headImage1.webp' alt='' />
                 </AnimatedSection>
 
                 <AnimatedSection className='womenImage' animationClass='shiftRight' id='layer2'  >
-                  <img src='/assets/images/advertiseImages/womenImage.png' alt='' />
+                  <img src='/assets/images/advertiseImages/womenImage.webp' alt='' />
                 </AnimatedSection>
 
               </div>

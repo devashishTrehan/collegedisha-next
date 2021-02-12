@@ -30,7 +30,7 @@ const getData = async (params) => {
   return await GetCareerList({ ...params });
 }
 
-const defaultImage = '/assets/images/defaults/news.jpg'
+const defaultImage = '/assets/images/defaults/news.webp'
 
 function CareersPage(props: Props) {
 

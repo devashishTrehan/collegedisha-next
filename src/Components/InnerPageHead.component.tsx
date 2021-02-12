@@ -150,6 +150,7 @@ interface Props {
     id: number,
     name: string,
     banner?: string,
+    thumbnail?: string,
     rating: number,
     location?: string,
     isApplied?: boolean,
@@ -172,9 +173,9 @@ export const InnerPageHead = (props: Props) => {
     const { navHeight } = useContext(NavbarContext);
 
 
-    const { id, name, location, banner, rating, isApplied, isSaved, views, defaultImage: d_image } = props;
+    const { id, name, location, banner, rating, isApplied, isSaved, views, defaultImage: d_image, thumbnail } = props;
 
-    const defaultImage = d_image ? d_image : '/assets/images/defaults/institute.jpg';
+    const defaultImage = d_image ? d_image : '/assets/images/defaults/institute.webp';
 
     return (
         <div className={classNames('container', styles.backgroundContainer)} >
@@ -184,7 +185,7 @@ export const InnerPageHead = (props: Props) => {
                 <div className={classNames(styles.headContainer, { [styles.HeadContainerSmallImage]: props?.smallImage })}>
                     <div className='wrap'>
                         <div className='imageWrap'>
-                            <img src={banner ? banner : defaultImage} alt='' />
+                            <img src={banner ? banner : thumbnail ? thumbnail : defaultImage} alt='' />
                         </div>
                         <div className='detailWrap'>
                             <div className='group'>

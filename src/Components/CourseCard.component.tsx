@@ -1,5 +1,8 @@
 import { Theme } from '@/Services/App.service';
-import { Button, Typography, useMediaQuery, Grid } from '@material-ui/core';
+import { useMediaQuery } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import { ArrowRightAlt, Schedule } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import React, { memo } from 'react';
@@ -179,7 +182,7 @@ interface Props extends CourseListItem {
 
 }
 
-const defaultImage = '/assets/images/defaults/exam.jpg'
+const defaultImage = '/assets/images/defaults/exam.webp'
 
 const CourseCard = memo(function (props: Props) {
 

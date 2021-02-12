@@ -13,10 +13,8 @@ class MyDocument extends Document {
                 <Head>
                     <meta charSet="utf-8" />
                     <meta name="theme-color" content={Theme.primary} />
-                    <link
-                        rel="stylesheet"
-                        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
-                    />
+                    <title>College disha</title>
+                    <meta name="description" content="college disha" />
                     <style jsx global>
                         {`
               html,

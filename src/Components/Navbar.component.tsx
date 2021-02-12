@@ -239,7 +239,7 @@ function NavBar(props: any) {
                         </span>
 
                         {/* <div className='menu' > */}
-                        <MultiLevelList list={item?.list} parentIndex={'navMenu'} />
+                        <MultiLevelList list={item?.list} parentIndex={`navMenu-${index}`} />
                         {/* </div> */}
                       </div>
                     )

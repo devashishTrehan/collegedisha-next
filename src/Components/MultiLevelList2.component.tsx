@@ -69,8 +69,13 @@ const useStyles = makeStyles({
     }
 })
 
+interface Props {
+    list: MenuListInterface[],
+    parentIndex: string,
+    level?: number,
+}
 
-export const MultiLevelList = ({ list, parentIndex }: any) => {
+export const MultiLevelList = ({ list, parentIndex, level }: Props) => {
     const [CollapsedItem, setCollapsedItem] = React.useState('');
     const styles = useStyles();
     const router = useRouter();
@@ -91,12 +96,12 @@ export const MultiLevelList = ({ list, parentIndex }: any) => {
     }
 
     if (list?.length) {
-        let isFirst = !Boolean(parentIndex.split('-')?.length > 1);
+        let isFirst = !Boolean(level);
         return (
             // <div className={styles.listContainer}>
             <List
                 className={
-                    classNames(parentIndex, styles.list, 'menu')}
+                    classNames(styles.list, 'menu')}
                 style={{
                     left: `${isFirst ? 0 : 100}%`,
                     top: `${isFirst ? '64px' : '-20px'}`,
@@ -145,7 +150,7 @@ export const MultiLevelList = ({ list, parentIndex }: any) => {
                                             )
                                         }
                                         <div style={{ display: CollapsedItem === id ? 'block' : 'none' }}>
-                                            <MultiLevelList list={item?.list} parentIndex={id} />
+                                            <MultiLevelList list={item?.list} parentIndex={id} level={index + 1} />
                                         </div>
                                     </ListItem>
                                     {/* <div style={{ position: 'absolute'}}>

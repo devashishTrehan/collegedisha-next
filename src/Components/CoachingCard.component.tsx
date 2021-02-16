@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import { NavbarContext } from '@/Context/Navbar.context';
 import { CoachingListItem } from '@/Services/DataTypes/Coachings';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 
@@ -46,6 +47,7 @@ const useStyles = makeStyles({
         '& .imageWrap': {
             width: 100,
             height: 100,
+            position: 'relative'
         },
         '& .detailWrap': {
             padding: '0 0 10px 0',
@@ -154,8 +156,7 @@ const useStyles = makeStyles({
         marginBottom: 10,
         '& .imageWrap': {
             width: 70,
-            height: 70,
-            borderRadius: Theme.radius1,
+            height: 70
         },
         '& .detailWrap': {
             margin: '-5px 0 -5px 10px',
@@ -268,11 +269,11 @@ function CoachingCard(props: Props) {
             <div className={classNames(styles.headContainer, { [styles.headContainer_M]: isMobile })}>
                 <div className='wrap'>
                     <div className='imageWrap'>
-                        <img src={thumbnail ? thumbnail : defaultImage} alt='' />
+                        <Image layout={'fill'} src={thumbnail ? thumbnail + '?tr=w-100,dpr-1' : defaultImage} alt={name} />
                     </div>
 
                     <Link href={`${router.asPath}/${slug}`} >
-                        <a>
+                        <a style={{ width: '100%' }}>
                             <div className='detailWrap'>
                                 <div className='group'>
                                     <Typography variant='h4' className='name'>{name}</Typography>
@@ -324,7 +325,7 @@ function CoachingCard(props: Props) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

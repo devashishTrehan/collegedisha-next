@@ -3,8 +3,8 @@ import { Filters } from '@/Components/Filter.component';
 import { Footer } from '@/Components/Footer.component';
 import { SubscribeSection } from '@/Components/Subscribe.component';
 import { GetCookie, GetPageInitialData, Storages } from '@/Services/App.service';
-import { Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
-import React, { useEffect, useRef, useState } from 'react';
+import { Button, Grid, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { CoachingListItem } from '@/Services/DataTypes/Coachings';
 import CoachingCard from '@/Components/CoachingCard.component';
 import { ApiResponseHandler, GetCoachingList } from '@/Services/Api.service';
@@ -12,6 +12,8 @@ import { ApiResponse, PageSEOProps } from '@/Services/Interfaces.interface';
 import { DataPageWrapper, pageStateType } from '@/Components/DataPageWrapper.component';
 import PageEndIndicator from '@/Components/PageEndIndicator.component';
 import PageSEO from '@/Components/PageSEO.component';
+import { AppContext } from '@/Context/App.context';
+import ApplyForm from '@/Components/ApplyForm.component';
 
 
 const useStyles = makeStyles({
@@ -40,6 +42,7 @@ function CoachingsPage(props: Props) {
     const [infiniteLoading, setInfiniteLoading] = useState(false);
     const [pageState, setPageState] = useState<pageStateType>(responseType);
     const [pageSeo, setPageSeo] = useState<PageSEOProps>(__pageSeo);
+    const { showModal } = useContext(AppContext);
 
     const styles = useStyles();
     let pageOptions = useRef({
@@ -112,7 +115,6 @@ function CoachingsPage(props: Props) {
                     <Typography variant='h1' className='pageHeading'>List of Top coachings</Typography>
                 </div>
             </div>
-
             <div className='container'>
                 <div style={{ padding: '20px 5% 0' }}>
                     <Filters />
@@ -123,7 +125,7 @@ function CoachingsPage(props: Props) {
                 <div className='container'>
                     <div className='wrapper'>
                         <Grid container justify='flex-start'>
-                            <Grid item md={9} >
+                            <Grid item md={9} style={{ width: '100%' }} >
                                 <Grid container spacing={5} justify='space-evenly'>
                                     {
                                         Coachings?.map((coaching: CoachingListItem, index: number) => {

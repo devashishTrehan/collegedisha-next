@@ -215,7 +215,7 @@ function RegisterPage(props: any) {
                 <div className='formHead'>
 
                   <div className='FormLogoWrap' onClick={() => router.replace(Routes.Home)}>
-                    <img src='assets/images/BLogo.webp' alt='College Disha' />
+                    <img src='assets/images/BLogo.svg' alt='College Disha' />
                   </div>
 
                   <Divider />

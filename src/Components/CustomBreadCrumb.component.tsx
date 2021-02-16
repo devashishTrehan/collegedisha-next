@@ -3,6 +3,7 @@ import { Theme as MuiTheme } from '@material-ui/core';
 import * as React from 'react';
 import { Theme } from '../Services/App.service';
 import { Breadcrumbs } from 'nextjs-breadcrumbs';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: MuiTheme) => ({
     container: {
@@ -55,25 +56,40 @@ export interface UrlObject {
 
 function CustomBreadCrumb() {
 
+    const [render, setRender] = React.useState(true);
 
     const makeCrumbList = (crumbs: UrlObject[]) => {
         return [{ name: 'home', endPoint: '/' }, ...crumbs]
     }
-
+    const router = useRouter();
 
     const styles = useStyles();
 
     const crumbs = Breadcrumbs();
 
-    console.log('crumbs', crumbs);
 
-    return (
-        <div className={'container'}>
-            <div className={styles.container}>
-                {crumbs}
+    React.useEffect(() => {
+        let path = router.asPath;
+        console.log('path', path)
+        if (path === '/') {
+            setRender(false);
+        } else {
+            setRender(true);
+        }
+    }, [router.asPath])
+
+
+    if (render) {
+        return (
+            <div className={'container'}>
+                <div className={styles.container} >
+                    {crumbs}
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return null;
+    }
 
 
 }

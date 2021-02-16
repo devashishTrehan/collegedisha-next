@@ -9,6 +9,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { InstituteListItem } from '@/Services/DataTypes/Institutes';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 
@@ -29,6 +30,7 @@ const useStyles = makeStyles({
         '& .imageWrap': {
             width: '100%',
             display: 'flex',
+            position: 'relative',
             alignItems: 'center',
             justifyContent: 'center',
             '& img': {
@@ -139,7 +141,9 @@ const InstituteListCard = memo(function (props: Props) {
 
             <div className={classNames(styles.ImageSection)}>
                 <div className={'imageWrap'}>
-                    <img src={thumbnail ? thumbnail : defaultImage} alt={name} />
+                    <div></div>
+                    <img  src={thumbnail ? thumbnail + '?tr=w-100,dpr-1' : defaultImage} alt={name} />
+                    {/* <Image layout={'fill'} src={thumbnail ? thumbnail + '?tr=w-100,dpr-1' : defaultImage} alt={name} /> */}
                 </div>
             </div>
 

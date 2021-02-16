@@ -17,6 +17,9 @@ import { FormHead } from '@/Components/FormHead.component';
 import { NavbarContext } from '@/Context/Navbar.context';
 import Particles from 'react-particles-js';
 import ParticlesConfig from 'particlesjs-config';
+import Image from 'next/image';
+import Link from 'next/link';
+import Routes from '@/Services/Routes';
 
 let pageContentRef: any = React.createRef();
 let CounsellingSectionRef: any = React.createRef();
@@ -63,7 +66,8 @@ export const Header = () => {
                         <AnimatedSection animationClass='shiftLeft' id='card' className={styles.CounsellingCard} style={{ margin: isTablet ? 'auto' : 'unset' }} >
                             <>
                                 <div className="imgWrap">
-                                    <img src='/assets/images/counsellingCard.webp' alt='' />
+                                    {/* <img src='/assets/images/counsellingCard.webp' alt='' /> */}
+                                    <Image width={273} height={295} layout={'intrinsic'} src='/assets/images/counsellingCard.webp' alt='' />
                                 </div>
 
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -190,6 +194,7 @@ export const ContentCards = () => {
                                 transform: 'scale(1.05)',
                                 border: `1px solid ${Theme.secondary}aa`,
                             } : {}} />
+                            {/* <Image width={80} height={80} layout='intrinsic' src={`/assets/images/stepCard${index + 1}.webp`} alt='' className={index === carouselIndex ? 'active' : ''} /> */}
                         </div>
                         <div className='infoWrap' >
                             <h5>Step {index + 1}</h5>
@@ -235,6 +240,7 @@ export const ContentCards = () => {
 
     const PlayCarouselSlide = () => {
         console.log('entered');
+        return 0;
         StepsCarouselIntervalRef = setInterval(() => {
             slideCaousel('next');
         }, StepsCarouselInterval * 1000)
@@ -440,6 +446,7 @@ export const FeaturesSection = () => {
     interface Feature {
         title: string,
         description: string,
+        link: string
     }
     const isMobile = useMediaQuery('(max-width:600px)');
     const isTablet = useMediaQuery('(max-width:992px)');
@@ -451,14 +458,14 @@ export const FeaturesSection = () => {
     }, [])
 
     const Features: Feature[] = [
-        { title: 'Universities', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis' },
-        { title: 'colleges', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis' },
-        { title: 'coachings', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis' },
-        { title: 'top courses', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis' },
-        { title: 'boards', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis' },
-        { title: 'exams', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis' },
-        { title: 'career options', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis' },
-        { title: 'news', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis' },
+        { title: 'Universities', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis', link: Routes.Universities },
+        { title: 'colleges', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis', link: Routes.Colleges },
+        { title: 'coachings', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis', link: Routes.Coachings },
+        { title: 'top courses', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis', link: Routes.Courses },
+        { title: 'boards', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis', link: Routes.Boards },
+        { title: 'exams', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis', link: Routes.Exams },
+        { title: 'career options', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis', link: Routes.CareerOptions },
+        { title: 'news', description: 'Lorem ipsum dolor sit amet,lit tellus, luctus nec ullamcorper mattis', link: Routes.News },
     ]
 
     const styles = FeatureSectionStyles();
@@ -475,8 +482,10 @@ export const FeaturesSection = () => {
                             flexDirection: 'column',
                             justifyContent: 'unset'
                         }}>
-                            <div style={{ padding: '15px 15px 0px', width: '100%' }}>
-                                <CardMedia
+                            <Link href={item.link} >
+                                <a>
+                                    <div style={{ padding: '15px 15px 0px', width: '100%' }}>
+                                        {/* <CardMedia
                                     style={{
                                         width: '100%',
                                         maxHeight: 180,
@@ -485,12 +494,15 @@ export const FeaturesSection = () => {
                                         borderRadius: Theme.radius2,
                                         backgroundColor: 'gray'
                                     }}
-                                    image={`/assets/images/feature${index + 1}.webp`} />
-                            </div>
-                            <CardContent className='infoWrap'>
-                                <Typography className='title' variant={'h6'}>{title}</Typography>
-                                <Typography className='desc' variant={'body1'}>{description}</Typography>
-                            </CardContent>
+                                image={`/assets/images/feature${index + 1}.webp`} /> */}
+                                        <Image layout={'intrinsic'} width={220} height={160} className={'image'} src={`/assets/images/feature${index + 1}.webp`} alt={title} />
+                                    </div>
+                                    <CardContent className='infoWrap'>
+                                        <Typography className='title' variant={'h6'}>{title}</Typography>
+                                        <Typography className='desc' variant={'body1'}>{description}</Typography>
+                                    </CardContent>
+                                </a>
+                            </Link>
                         </CardActionArea>
                     </Card>
                 </div>

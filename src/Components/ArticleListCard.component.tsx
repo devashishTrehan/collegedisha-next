@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { ArticleListItemTypes } from '@/Services/DataTypes/article';
 import Link from 'next/link';
 import { useMediaQuery } from '@material-ui/core';
+import Image from 'next/image';
 
 
 
@@ -37,7 +38,8 @@ const useStyles = makeStyles({
         // height: '100%',
         '& .imageWrap': {
             width: '100%',
-            '& img': {
+            position: 'relative',
+            '&>div': {
                 maxWidth: '100%',
                 minHeight: 80,
             }
@@ -161,7 +163,11 @@ const ArticleListCard = memo(function (props: Props) {
 
             <div className={classNames(styles.ImageSection, { [styles.ImageSectionCard]: type === 'card' })}>
                 <div className={'imageWrap'}>
-                    <img src={thumbnail ? thumbnail : defaultImage} alt={''} />
+                    {
+                        props.type === 'card' ?
+                            <img src={thumbnail ? thumbnail : defaultImage} alt={''} />
+                            : <Image layout={'fill'} src={thumbnail ? thumbnail + '?tr=w-100,dpr-1' : defaultImage} alt={title} />
+                    }
                 </div>
             </div>
 

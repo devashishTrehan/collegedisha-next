@@ -1,8 +1,10 @@
 
-import { Dialog, Modal, Snackbar } from '@material-ui/core';
+import { Dialog, GridSize, Modal, Snackbar } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import * as React from 'react';
 import { AlertBox } from '@/Components/AlertBox.component';
+import { MailSent } from '@/Components/MailSent.component';
+import { Theme } from '@/Services/App.service';
 
 
 
@@ -30,6 +32,7 @@ export function AppContextProvider(props: any) {
     const [alertMessage, setAlertMessage] = React.useState('');
     const [ModalVisible, setModalVisible] = React.useState(false);
     const [ModalContent, setModalContent]: any = React.useState(null);
+    const [ModalMaxWidth, setModalMaxWidth]: any = React.useState('sm');
     const [alertActionButton, setAlertActionButton]: any = React.useState(null);
     const [snackOpen, setSnackOpen] = React.useState(false);
     const [errorMessages, setErrorMessages]: any = React.useState({ errors: [], type: 'error' });
@@ -67,8 +70,9 @@ export function AppContextProvider(props: any) {
         setAlertMessage('');
     }
 
-    const showModal = (content: HTMLElement) => {
+    const showModal = (content: HTMLElement | JSX.Element, maxWidth: string = 'sm') => {
         setModalContent(content);
+        setModalMaxWidth(maxWidth);
         setModalVisible(true);
     }
 
@@ -123,7 +127,7 @@ export function AppContextProvider(props: any) {
                     }
                 </Alert>
             </Snackbar>
-            <Dialog open={ModalVisible} onClose={hideModal} >
+            <Dialog scroll='body' open={ModalVisible} onClose={hideModal} PaperProps={{ style: { borderRadius: Theme.radius3 } }} fullWidth maxWidth={ModalMaxWidth} >
                 {
                     ModalContent
                 }

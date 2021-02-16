@@ -1,4 +1,4 @@
-import { MemoizedClipText,  Theme, } from '@/Services/App.service';
+import { MemoizedClipText, Theme, } from '@/Services/App.service';
 import Routes from '@/Services/Routes';
 import { Typography, useMediaQuery } from '@material-ui/core';
 import { CalendarToday } from '@material-ui/icons';
@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { NewsListItemTypes } from '@/Services/DataTypes/News';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 
@@ -27,7 +28,8 @@ const useStyles = makeStyles({
         height: '100%',
         '& .imageWrap': {
             width: '100%',
-            '& img': {
+            position: 'relative',
+            '&>div': {
                 maxWidth: '100%',
                 minHeight: 80,
             }
@@ -109,7 +111,7 @@ const NewsListCard = memo(function (props: Props) {
 
             <div className={classNames(styles.ImageSection)}>
                 <div className={'imageWrap'}>
-                    <img src={image ? image : defaultImage} alt={''} />
+                    <Image layout={'fill'} src={image ? image + '?tr=w-100,dpr-1' : defaultImage} alt={title} />
                 </div>
             </div>
 
@@ -122,7 +124,7 @@ const NewsListCard = memo(function (props: Props) {
                     <Link href={`${Routes.News}/${categorySlug}/${slug}`} >
                         <a style={{ textDecoration: 'none' }}>
                             <div className={'nameContainer'}>
-                                <Typography className={'productName'} >{ClipText(title,100)}</Typography>
+                                <Typography className={'productName'} >{ClipText(title, 100)}</Typography>
                             </div>
                         </a>
                     </Link>

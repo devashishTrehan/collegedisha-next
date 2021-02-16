@@ -2,11 +2,14 @@ import { Theme, NFormatter } from '@/Services/App.service';
 import { Button, Typography, IconButton, useMediaQuery } from '@material-ui/core';
 import { Bookmark, BookmarkBorder, GetAppRounded, LocationOnOutlined, Share, StarRateRounded, StarRounded, Visibility } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
-import React, { memo, useMemo } from 'react';
+import React, { memo, useContext, useMemo } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { InstituteListItem } from '@/Services/DataTypes/Institutes';
 import Link from 'next/link';
+import Image from 'next/image';
+import { AppContext } from '@/Context/App.context';
+import ApplyForm from './ApplyForm.component';
 
 
 
@@ -24,7 +27,7 @@ const useStyles = makeStyles({
         boxShadow: Theme.boxShadow,
         overflow: 'hidden',
         '&:hover': {
-            '& .imageWrap': {
+            '& .imageWrap img': {
                 filter: 'blur(6px)',
                 transform: 'scale(1.15)',
             },
@@ -41,7 +44,7 @@ const useStyles = makeStyles({
     },
     HeadSection: {
         width: '100%',
-        minHeight: 100,
+        minHeight: 130,
         position: 'relative',
         overflow: 'hidden',
         '& *': {
@@ -226,11 +229,22 @@ const InstituteCard = memo(function (props: Props) {
     const isMobile = useMediaQuery('(max-width:769px)');
     const isTablet = useMediaQuery('(max-width:992px)');
     const router = useRouter();
+    const { showModal } = useContext(AppContext);
 
 
     const styles = useStyles();
 
     console.log('rendering card')
+
+    const ApplyInInstitute = (institute: InstituteListItem) => {
+        if (false) {
+
+        } else {
+            showModal(<ApplyForm institute={institute} />, 'md')
+
+        }
+    }
+
 
     const renderCard = useMemo(() => {
 
@@ -238,7 +252,7 @@ const InstituteCard = memo(function (props: Props) {
             <div className={classNames(styles.container, { [styles.container_T]: isTablet })}>
                 <div className={classNames(styles.HeadSection, { [styles.HeadSection_T]: isTablet })}>
                     <div className={'imageWrap'}>
-                        <img src={thumbnail ? thumbnail : defaultImage} alt={name} />
+                        <Image layout={'fill'} src={thumbnail ? thumbnail + '?tr=w-260,dpr-1' : defaultImage} alt={name} />
                     </div>
 
                     <div className={'actionButtonWrap'}>
@@ -266,7 +280,7 @@ const InstituteCard = memo(function (props: Props) {
                 </div>
                 <div className={classNames(styles.footerSection, { [styles.footerSection_T]: isTablet })}>
                     <Button variant='contained' color={'primary'} className={'applyButton'} disabled={isApplied}
-                        onClick={() => onApply && onApply()}
+                        onClick={() => ApplyInInstitute(props)}
                     >{
                             isApplied ?
                                 'Applied'

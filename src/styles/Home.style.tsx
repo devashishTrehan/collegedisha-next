@@ -41,10 +41,8 @@ export const HeaderStyles = makeStyles({
     maxWidth: '90%',
     width: 330,
     '& .imgWrap': {
-      width: '100%',
-      minHeight: 180,
       '& img': {
-        width: '100%',
+
       }
     },
     '&>div': {
@@ -418,6 +416,10 @@ export const FeatureSectionStyles = makeStyles({
     position: 'relative',
     background: Theme.backgroundColor,
     margin: 'auto',
+    '& .image': {
+      borderRadius: Theme.radius2,
+      backgroundColor: 'gray'
+    },
     '&:hover': {
       transform: 'scale(1.06)',
       '&::after': {
@@ -448,11 +450,13 @@ export const FeatureSectionStyles = makeStyles({
       '& .title': {
         padding: 5,
         fontSize: 16,
+        color: Theme.primary,
         textTransform: 'capitalize',
         fontFamily: 'gorditaMedium',
 
       },
       '& .desc': {
+        color: Theme.fontColorSecondary,
         padding: 5,
         fontSize: 12,
       },

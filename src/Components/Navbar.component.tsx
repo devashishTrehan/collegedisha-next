@@ -223,7 +223,7 @@ function NavBar(props: any) {
         <div className={styles.navLinkSectionsWrap}>
           <Toolbar>
             <div onClick={() => router.replace(Routes.Home)} className={classNames(styles.LogoWrap)}>
-              <img src={'/assets/images/BLogo.webp'} alt='College Disha' />
+              <img src={'/assets/images/BLogo.svg'} alt='College Disha' />
             </div>
           </Toolbar>
           {
@@ -238,9 +238,9 @@ function NavBar(props: any) {
                           <Link href={Routes.Home} ><a>{item.label}</a></Link>
                         </span>
 
-                        {/* <div className='menu' > */}
-                        <MultiLevelList list={item?.list} parentIndex={`navMenu-${index}`} />
-                        {/* </div> */}
+                        <div className='menu' >
+                          <MultiLevelList list={item?.list} parentIndex={`navMenu-${index}`} level={0} />
+                        </div>
                       </div>
                     )
                   })

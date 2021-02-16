@@ -1,5 +1,12 @@
 import { CourseListItem } from './Courses';
 
+
+
+export interface InstituteCourseType {
+    label: string,
+    value: string
+}
+
 export interface InstituteListItem {
     id: number,
     name: string,
@@ -8,6 +15,7 @@ export interface InstituteListItem {
     location: string,
     isApplied: boolean,
     isSaved: boolean,
+    courses: InstituteCourseType[]
     slug: string
 }
 
@@ -77,7 +85,15 @@ export interface InstituteAdmission {
     content: string
 }
 
-export interface detailedInstitute extends InstituteListItem {
+export interface detailedInstitute {
+    id: number,
+    name: string,
+    thumbnail: string,
+    rating: number,
+    location: string,
+    isApplied: boolean,
+    isSaved: boolean,
+    slug: string
     views: number,
     banner: string,
     information?: InstituteInformation,

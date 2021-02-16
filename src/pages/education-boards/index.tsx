@@ -164,6 +164,7 @@ const RenderBoardCard = (props: BoardListItemTypes) => {
   const { id, name, image, classes } = props;
   const [classList, setClassList] = useState<{ list1: classTypes[], list2: classTypes[] }>({ list1: [], list2: [] })
   const router = useRouter();
+  const isMobile = useMediaQuery('(max-width:600px)');
 
 
 
@@ -207,7 +208,7 @@ const RenderBoardCard = (props: BoardListItemTypes) => {
       <div className='topSecWrap'>
         <div className={classNames(styles.CardImageSection)}>
           <div className={'imageWrap'}>
-            <img src={image ? image : defaultImage} alt={name} />
+            <img src={image ? image + `${isMobile ? '?tr=w-100,dpr-1' : ''}` : defaultImage} alt={name} />
           </div>
         </div>
 

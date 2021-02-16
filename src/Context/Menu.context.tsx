@@ -13,7 +13,7 @@ function MenuContextProvider(props: any) {
             list: [
                 {
                     label: 'Engineering', list: [
-                        { label: 'B.Tech' },
+                        { label: 'B.Tech', },
                         { label: 'M.Tech' },
                         { label: 'BCA' },
                         { label: 'B.E' },

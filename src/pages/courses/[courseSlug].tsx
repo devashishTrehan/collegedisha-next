@@ -96,7 +96,7 @@ export async function getStaticPaths() {
     courses = res?.data?.result;
   }
 
-  let paths = courses.map((course) => ({
+  let paths = courses?.map((course) => ({
     params: { courseSlug: course.slug }
   }))
 

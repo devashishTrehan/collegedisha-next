@@ -450,18 +450,6 @@ export const ArticlePageHeader = (props: { featuredArticles: FeaturedArticlesTyp
     )
   }
 
-  const PlayCarouselSlide = () => {
-    console.log('entered');
-    StepsCarouselIntervalRef = setInterval(() => {
-      console.log('started');
-      slideCaousel('next');
-    }, StepsCarouselInterval * 1000)
-  }
-
-  const PauseCarouselSlide = () => {
-    console.log('exited');
-    clearInterval(StepsCarouselIntervalRef);
-  }
 
   return (
     <div style={{ padding: `${isMobile ? 20 : 30}px 0px` }} >

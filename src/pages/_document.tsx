@@ -13,7 +13,6 @@ class MyDocument extends Document {
                 <Head>
                     <meta charSet="utf-8" />
                     <meta name="theme-color" content={Theme.primary} />
-                    <title>College disha</title>
                     <meta name="description" content="college disha" />
                     <style jsx global>
                         {`

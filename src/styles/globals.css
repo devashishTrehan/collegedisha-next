@@ -1,24 +1,33 @@
-/* @font-face {
-    font-family: 'gorditaThin';
-    src: local('Gordita'), url('@/fonts/gordita/Gordita-Light.otf') format('otf');
-}
-
 @font-face {
     font-family: 'gordita';
-    src: local('Gordita'), url('@/fonts/gordita/Gordita-Regular.otf') format('otf');
+    font-style: normal;
+    font-weight: 400;
+    src: local('Gordita'), url('https://fonts.cdnfonts.com/s/27113/Gordita Regular.woff') format('woff');
 }
 
 @font-face {
-    font-family: 'gorditaBold';
-    src: local('Gordita'), url('@/fonts/gordita/Gordita-Bold.otf') format('otf');
+    font-family: 'gorditaThin';
+    font-style: normal;
+    font-weight: 250;
+    src: local('Gordita'), url('https://fonts.cdnfonts.com/s/27113/Gordita Thin.woff') format('woff');
 }
 
 @font-face {
     font-family: 'gorditaMedium';
-    src: local('Gordita'), url('@/fonts/gordita/Gordita-Medium.otf') format('otf');
-} */
+    font-style: normal;
+    font-weight: 500;
+    src: local('Gordita'), url('https://fonts.cdnfonts.com/s/27113/Gordita Medium.woff') format('woff');
+}
 
 @font-face {
+    font-family: 'gorditaBold';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Gordita'), url('https://fonts.cdnfonts.com/s/27113/Gordita Bold.woff') format('woff');
+}
+
+
+/* @font-face {
     font-family: 'gorditaThin';
     src: local('Gordita'), url('@/fonts/gordita/Gordita Thin.woff') format('woff');
 }
@@ -36,7 +45,7 @@
 @font-face {
     font-family: 'gorditaMedium';
     src: local('Gordita'), url('@/fonts/gordita/Gordita Medium.woff') format('woff');
-}
+} */
 
 :root {
     /* --TPrimary: #44b4d6; */

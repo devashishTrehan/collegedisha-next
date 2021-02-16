@@ -104,7 +104,7 @@ interface ApiResponseCallBacks {
 }
 
 export const ApiResponseHandler = (response: ApiResponse | undefined, callbacks: ApiResponseCallBacks) => {
-    console.log('response object', response)
+    // console.log('response object', response)
     if (response) {
         if (response.isAuthenticated) {
             if (response.status) {

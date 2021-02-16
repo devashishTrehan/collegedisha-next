@@ -8,6 +8,7 @@ import { AppContextProvider } from '@/Context/App.context';
 import { UserContextProvider } from '@/Context/User.context';
 import NavbarContextProvider, { NavbarContext } from '@/Context/Navbar.context';
 import CustomBreadCrumb, { UrlObject } from '@/Components/CustomBreadCrumb.component';
+import Head from 'next/head';
 // import './fonts/gordita/Gordita';
 
 const theme = createMuiTheme({
@@ -47,7 +48,9 @@ function MyApp(props) {
   return <>
     <ThemeProvider theme={theme}>
       <div id='__mainPage' style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-
+        <Head >
+          <title>College disha</title>
+        </Head>
         <AppContextProvider>
           <UserContextProvider>
             <NavbarContextProvider>

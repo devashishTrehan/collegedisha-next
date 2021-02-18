@@ -253,7 +253,6 @@ const InstituteCard = memo(function (props: Props) {
     //       });
     // }
 
-
     const renderCard = useMemo(() => {
 
         return (
@@ -275,7 +274,7 @@ const InstituteCard = memo(function (props: Props) {
                 </div>
                 <div className={classNames(styles.InfoSetion, { [styles.InfoSetion_T]: isTablet })}>
 
-                    <Link href={`${router.asPath}/${slug}`}>
+                    <Link href={`${router.pathname}/${slug}`}>
                         <a>
                             <Typography className={'productName'} >{name}</Typography>
                             <div className={'locationWrap'}>

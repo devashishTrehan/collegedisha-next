@@ -150,7 +150,7 @@ const InstituteListCard = memo(function (props: Props) {
             <div className={classNames(styles.InfoSetion)}>
                 <div className={'topSection'}>
 
-                    <Link href={`${router.asPath}/${slug}`}>
+                    <Link href={`${router.pathname}/${slug}`}>
                         <a style={{ display: 'block' }}>
                             <div className={'nameContainer'}>
                                 <span className={'ratingWrap'}>

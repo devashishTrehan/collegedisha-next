@@ -5,6 +5,7 @@ import * as React from 'react';
 import { useRouter } from 'next/router';
 import { Theme } from '../Services/App.service';
 import { Search as SearchIcon } from '@material-ui/icons';
+import { NavbarContext } from '@/Context/Navbar.context';
 
 
 
@@ -16,6 +17,15 @@ const useStyles = makeStyles((theme: MuiTheme) => ({
         overflow: 'hidden',
         boxShadow: Theme.boxShadow,
         transition: '.4s',
+        position: 'relative',
+        '&>.overlay': {
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            cursor: 'pointer',
+        }
     },
     form: (props: { height }) => ({
         // width: '100%',
@@ -80,11 +90,9 @@ export const SearchForm = (props: Props) => {
     const [Form, setForm] = React.useState({
         keyword: '',
     });
-
-    const [loading, setLoading] = React.useState(false);
+    const { openSearch } = React.useContext(NavbarContext);
     const router = useRouter();
     const isMobile = useMediaQuery('(max-width:767px');
-    let SearchTimeout = React.useRef(null);
 
     React.useEffect(() => {
         const query: any = router.query;
@@ -94,60 +102,32 @@ export const SearchForm = (props: Props) => {
 
     const styles = useStyles({ height: props?.height });
 
-    const fieldChangeHandler = (field: string, value: any) => {
-        setForm(prev => {
-            return {
-                ...prev,
-                [field]: value
-            }
-        })
-        SearchResult();
-    }
-
-    const SearchResult = () => {
-        clearTimeout(SearchTimeout.current);
-        SearchTimeout.current = setTimeout(() => {
-            setLoading(true);
-            setTimeout(() => {
-                setLoading(false);
-            }, 1000)
-        }, 500);
-    }
-
-    const submit = (event: any) => {
-        event.preventDefault();
-        console.log(Form);
-        // props.onSubmit && props.onsubmit()
-    }
 
     return (
         // <div >
         <div className={styles.container}>
-            <form className={styles.form} onSubmit={submit} >
+            <form className={styles.form} >
 
                 <div className={styles.inputContainer}>
 
                     <input
+                        disabled={true}
                         placeholder='Search Colleges, Courses, Coaching'
                         value={Form.keyword}
                         autoComplete={'off'}
                         name={'keyword'}
                         {...props?.inputProps}
-                        onChange={(event: any) => fieldChangeHandler(event?.target?.name, event?.target.value)}
                     />
                 </div>
                 <div className="clearfix"></div>
 
                 <div className={styles.submitButtonContainer}>
                     <Button variant='contained' color='primary' type='submit'>
-                        {
-                            loading ?
-                                <Loader />
-                                : <SearchIcon />
-                        }
+                        <SearchIcon />
                     </Button>
                 </div>
             </form>
+            <div className='overlay' onClick={() => openSearch()}></div>
         </div>
         // </div>
     )
@@ -155,15 +135,15 @@ export const SearchForm = (props: Props) => {
 }
 
 
-const Loader = () => {
+export const CircularLoader = () => {
 
     return (
         <svg style={{ fill: Theme.secondary }} version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xmlSpace="preserve">
-            <path opacity="0.2" fill={'#ddd'} d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+            <path opacity="0.2" fill={'#ccc'} d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
          s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
          c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
-            <path fill={'#ddd'} d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+            <path fill={Theme.secondary} d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
          C22.32,8.481,24.301,9.057,26.013,10.047z">
                 <animateTransform attributeType="xml"
                     attributeName="transform"

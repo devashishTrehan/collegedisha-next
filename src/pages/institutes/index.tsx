@@ -140,30 +140,18 @@ function InstitutesList(props: Props) {
     }
 
     useEffect(() => {
-        OnPageResponseHandler(props?.data);
+        OnPageResponseHandler(props?.data,false);
     }, [props?.data])
 
 
 
     useEffect(() => {
         setLastNavigation(breadcrumbs);
-        // document.body.style.backgroundColor = Theme.secondary + '11';
-        // return (() => {
-        //     document.body.style.backgroundColor = Theme.backgroundColor;
-        // })
+   
     }, [])
 
 
-    // const changePageType = (type: 'university' | 'college') => {
-    //     if (pageType !== type) {
-    //         console.log('pageType----', type)
-    //         setPageType(type);
-    //         pageTypeRef.current = type;
-    //         pageOptions.current = { pageNo: 1, hasMore: true };
-    //         console.log('fetching');
-    //         requestData(type, 1);
-    //     }
-    // }
+ 
 
     const requestData = async (_pageNo: number, toAppend: boolean = false) => {
         let userId = parseInt(GetCookie(Storages.UserId));
@@ -193,21 +181,6 @@ function InstitutesList(props: Props) {
             <div className='container'>
                 <div className='wrapper' style={{ paddingTop: 0 }}>
 
-                    {/* <div className={styles.buttonsContainer} >
-                        <div className='buttonWrap'>
-
-                            <div className={classNames('activeHelper', { 'active': pageType === 'university' })}></div>
-                            <Button color='primary' onClick={() => changePageType('university')}>Universities</Button>
-                        </div>
-
-                        <div className='buttonWrap' >
-
-
-                            <div className={classNames('activeHelper', { 'active': pageType === 'college' })}></div>
-                            <Button color='primary' onClick={() => changePageType('college')}>Colleges</Button>
-                        </div>
-
-                    </div> */}
 
                     <div className={styles.filterContentWrap} >
                         <div style={{ padding: '30px 0 40px' }}>

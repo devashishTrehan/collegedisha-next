@@ -14,6 +14,9 @@ class MyDocument extends Document {
                     <meta charSet="utf-8" />
                     <meta name="theme-color" content={Theme.primary} />
                     <meta name="description" content="college disha" />
+                    {/* <link rel="manifest" href="/manifest.json" />
+                    <link rel="apple-touch-icon" href="/icons/logo-96x96.png" /> */}
+                    <link rel="shortcut icon" href="/favicon.png" />
                     <style jsx global>
                         {`
               html,

@@ -232,13 +232,9 @@ function RegisterPage(props: any) {
                         <InputField
                           ref={(ref: any) => { inputRefs[0] = ref }}
                           label='Name'
-                          variant='outlined'
-                          size='small'
                           error={Form.name === ''}
                           errormessage='Name is required'
-                          isrequired
                           name='name'
-                          color='primary'
                           value={Form.name}
                           onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                       </div>
@@ -253,9 +249,7 @@ function RegisterPage(props: any) {
                           size='small'
                           error={Form.email === ''}
                           errormessage='Email is required'
-                          isrequired
                           name='email'
-                          color='primary'
                           value={Form.email}
                           onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                       </div>
@@ -269,12 +263,8 @@ function RegisterPage(props: any) {
                           label='Password'
                           error={Form.password === ''}
                           errormessage='Password is required'
-                          isrequired
                           type='password'
                           name="password"
-                          variant='outlined'
-                          size='small'
-                          color='primary'
                           value={Form.password}
                           onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                       </div>
@@ -287,12 +277,8 @@ function RegisterPage(props: any) {
                           label='Re Enter Password'
                           error={Form.password !== Form.confirmPassword}
                           errormessage="Passwords doesn't match"
-                          isrequired
                           type='password'
                           name="confirmPassword"
-                          variant='outlined'
-                          size='small'
-                          color='primary'
                           value={Form.confirmPassword}
                           onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                       </div>
@@ -305,12 +291,8 @@ function RegisterPage(props: any) {
                           label='Date of Birth'
                           error={!Form.DOB}
                           errormessage="Date of birth is required"
-                          isrequired
                           type='date'
                           name="DOB"
-                          variant='outlined'
-                          size='small'
-                          color='primary'
                           value={Form.DOB}
                           onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                       </div>
@@ -324,8 +306,6 @@ function RegisterPage(props: any) {
                           error={!Form.gender}
                           errormessage="Gender is required"
                           name="gender"
-                          variant='outlined'
-                          color='primary'
                           value={Form.gender}
                           onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)}>
 
@@ -343,14 +323,10 @@ function RegisterPage(props: any) {
                         <InputField
                           ref={(ref: any) => { inputRefs[6] = ref }}
                           label='Contact number'
-                          variant='outlined'
-                          size='small'
                           error={Form.mobile === ''}
                           errormessage='Contact number is required'
-                          isrequired
                           type='number'
                           name='mobile'
-                          color='primary'
                           value={Form.mobile}
                           onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                       </div>
@@ -361,13 +337,9 @@ function RegisterPage(props: any) {
                         <InputField
                           ref={(ref: any) => { inputRefs[7] = ref }}
                           label='Address'
-                          variant='outlined'
-                          size='small'
                           error={Form.address === ''}
                           errormessage='Address is required'
-                          isrequired
                           name='address'
-                          color='primary'
                           value={Form.address}
                           onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                       </div>

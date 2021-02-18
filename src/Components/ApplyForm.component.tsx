@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme: MuiTheme) => ({
             padding: '30px 50px',
             [theme.breakpoints.down('sm')]: {
                 width: '100%',
+                padding: 30,
+            },
+            [theme.breakpoints.down('xs')]: {
                 padding: 20,
             },
             '& form': {
@@ -135,7 +138,6 @@ function ApplyForm(props: Props) {
                                 label='Fullname'
                                 error={Form.name === ''}
                                 errormessage='Name is required'
-                                isrequired
                                 name='name'
                                 value={Form.name}
                                 onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
@@ -146,7 +148,6 @@ function ApplyForm(props: Props) {
                                 label='Phone Number'
                                 error={Form.phoneNumber === ''}
                                 errormessage='Phone Number is required'
-                                isrequired
                                 name='phoneNumber'
                                 value={Form.phoneNumber}
                                 onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
@@ -157,7 +158,6 @@ function ApplyForm(props: Props) {
                                 label='Email Address'
                                 error={Form.emailId === ''}
                                 errormessage='Email Address is required'
-                                isrequired
                                 name='emailId'
                                 value={Form.emailId}
                                 onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />

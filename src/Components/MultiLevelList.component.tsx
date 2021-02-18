@@ -49,7 +49,7 @@ export const C_MenuList = ({ list, parentIndex, onLinkClick }: Props) => {
     const styles = useStyles();
 
     const ToggleCollapse = (itemId: string = '', link: string, isLast: boolean = false) => {
-        if (link) {
+        if (link && isLast) {
             onLinkClick();
         }
         console.log(itemId);
@@ -80,11 +80,15 @@ export const C_MenuList = ({ list, parentIndex, onLinkClick }: Props) => {
                                     }
                                     <ListItem className={styles.listItem} button onClick={() => ToggleCollapse(id, item?.link, isLast)}
                                         style={{ cursor: 'pointer', }} id={id} >
-                                        <Link href={item.link || ''}>
-                                            <a>
-                                                <ListItemText className={styles.listItemText} >{item.label}</ListItemText>
-                                            </a>
-                                        </Link>
+                                        {
+                                            isLast ?
+                                                <Link href={item.link || ''}>
+                                                    <a>
+                                                        <ListItemText className={styles.listItemText} >{item.label}</ListItemText>
+                                                    </a>
+                                                </Link>
+                                                : <ListItemText className={styles.listItemText} >{item.label}</ListItemText>
+                                        }
                                         {
                                             !isLast && (
 
@@ -99,6 +103,7 @@ export const C_MenuList = ({ list, parentIndex, onLinkClick }: Props) => {
                                         }
                                     </ListItem>
                                     <Collapse in={CollapsedItem === id}>
+
                                         <C_MenuList list={item?.list} parentIndex={id} onLinkClick={onLinkClick} />
                                     </Collapse>
                                 </div>

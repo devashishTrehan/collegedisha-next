@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Theme } from '../../Services/App.service';
 
 interface TextFieldState {
-    error: string,
+    error: string ,
     value: string,
     isTouched: boolean,
     isDirty: boolean,

@@ -11,16 +11,15 @@ interface Props {
 function PageSEO(props: Props) {
 
 
+    console.log('meta data', props);
     if (props?.data) {
 
         const { metaDescription, metaKeywords, metaTitle } = props.data;
-
         return (
             <Head >
                 <title>{metaTitle}</title>
                 <meta property="og:title" content={metaTitle} />
                 <meta property="og:description" content={metaDescription} />
-                {/* <meta property="og:url" content="" /> */}
                 <meta content={metaKeywords} name="keywords" />
             </Head>
         );

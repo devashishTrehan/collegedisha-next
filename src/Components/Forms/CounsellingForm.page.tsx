@@ -69,8 +69,7 @@ export const CounsellingForm = (props: any) => {
                         ref={(ref: any) => { inputRefs[0] = ref }}
                         label='Name'
                         error={Form.name === ''}
-                        errormessage='Name is required'
-                        isrequired
+                        errormessage='Name is required'                        
                         name='name'
                         value={Form.name}
                         onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
@@ -80,8 +79,7 @@ export const CounsellingForm = (props: any) => {
                         ref={(ref: any) => { inputRefs[1] = ref }}
                         label='Phone number'
                         error={Form.phone === ''}
-                        errormessage='Phone Number is required'
-                        isrequired
+                        errormessage='Phone Number is required'                        
                         type='number'
                         name="phone"
                         value={Form.phone}
@@ -92,8 +90,7 @@ export const CounsellingForm = (props: any) => {
                         ref={(ref: any) => { inputRefs[2] = ref }}
                         label='Email'
                         error={Form.email === ''}
-                        errormessage='Email is required'
-                        isrequired
+                        errormessage='Email is required'                        
                         name='email'
                         type='email'
                         value={Form.email}
@@ -104,8 +101,7 @@ export const CounsellingForm = (props: any) => {
                         ref={(ref: any) => { inputRefs[3] = ref }}
                         label='Last Education'
                         error={Form.lastEducation === ''}
-                        errormessage='Last education is required'
-                        isrequired
+                        errormessage='Last education is required'                        
                         name='lastEducation'
                         value={Form.lastEducation}
                         onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
@@ -116,8 +112,7 @@ export const CounsellingForm = (props: any) => {
                         ref={(ref: any) => { inputRefs[4] = ref }}
                         label='Counselling'
                         error={Form.counselling === ''}
-                        errormessage='Counselling is required'
-                        isrequired
+                        errormessage='Counselling is required'                        
                         name='counselling'
                         value={Form.counselling}
                         onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
@@ -127,8 +122,7 @@ export const CounsellingForm = (props: any) => {
                         ref={(ref: any) => { inputRefs[5] = ref }}
                         label='Current location'
                         error={Form.currentLocation === ''}
-                        errormessage='Current location is required'
-                        isrequired
+                        errormessage='Current location is required'                        
                         name='currentLocation'
                         value={Form.currentLocation}
                         onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
@@ -138,8 +132,7 @@ export const CounsellingForm = (props: any) => {
                         ref={(ref: any) => { inputRefs[6] = ref }}
                         label='Preferred location'
                         error={Form.preferredLocation === ''}
-                        errormessage='Preferred Location is required'
-                        isrequired
+                        errormessage='Preferred Location is required'                        
                         name='preferredLocation'
                         value={Form.preferredLocation}
                         onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />

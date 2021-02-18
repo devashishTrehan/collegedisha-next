@@ -245,6 +245,14 @@ const InstituteCard = memo(function (props: Props) {
         }
     }
 
+    // const copyToClipboard = () => {
+    //     navigator.permissions.query({name: "clipboard-write"}).then(result => {
+    //         if (result.state == "granted" || result.state == "prompt") {
+    //           /* write to the clipboard now */
+    //         }
+    //       });
+    // }
+
 
     const renderCard = useMemo(() => {
 

@@ -13,7 +13,8 @@ interface TextFieldState {
     isFocused: boolean,
 }
 
-interface SelectFieldProps extends InputProps {
+interface TextFieldProps extends InputProps {
+    error?: boolean,
     onValueChange?: Function,
     errormessage?: string,
     containerStyle?: CSSProperties,

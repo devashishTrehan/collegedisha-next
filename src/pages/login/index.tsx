@@ -211,13 +211,9 @@ function LoginPage(props: any) {
                     <InputField
                       ref={(ref: any) => { inputRefs[0] = ref }}
                       label='Email'
-                      variant='outlined'
-                      size='small'
                       error={Form.email === ''}
                       errormessage='Email is required'
-                      isrequired
                       name='email'
-                      color='primary'
                       value={Form.email}
                       onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                   </div>
@@ -228,12 +224,8 @@ function LoginPage(props: any) {
                       label='Password'
                       error={Form.password === ''}
                       errormessage='Password is required'
-                      isrequired
                       type='password'
                       name="password"
-                      variant='outlined'
-                      size='small'
-                      color='primary'
                       value={Form.password}
                       onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                   </div>

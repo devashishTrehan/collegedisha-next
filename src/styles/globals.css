@@ -3,6 +3,7 @@
     font-style: normal;
     font-weight: 400;
     src: local('Gordita'), url('https://fonts.cdnfonts.com/s/27113/Gordita Regular.woff') format('woff');
+    font-display: swap;
 }
 
 @font-face {
@@ -10,6 +11,7 @@
     font-style: normal;
     font-weight: 250;
     src: local('Gordita'), url('https://fonts.cdnfonts.com/s/27113/Gordita Thin.woff') format('woff');
+    font-display: swap;
 }
 
 @font-face {
@@ -17,6 +19,7 @@
     font-style: normal;
     font-weight: 500;
     src: local('Gordita'), url('https://fonts.cdnfonts.com/s/27113/Gordita Medium.woff') format('woff');
+    font-display: swap;
 }
 
 @font-face {
@@ -24,6 +27,7 @@
     font-style: normal;
     font-weight: 700;
     src: local('Gordita'), url('https://fonts.cdnfonts.com/s/27113/Gordita Bold.woff') format('woff');
+    font-display: swap;
 }
 
 

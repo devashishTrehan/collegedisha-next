@@ -4,10 +4,10 @@ import { ApiResponse } from "./Interfaces.interface";
 
 
 
-///////////////------------ for production -----------\\\\\\\\\\\\\
+// ///////////////------------ for production -----------\\\\\\\\\\\\\
 
-export const BASE_URL = 'https://api-coldisha.newjobshub.com/api/';
-export const Domain = 'https://api-coldisha.newjobshub.com';
+// export const BASE_URL = 'https://api-coldisha.newjobshub.com/api/';
+// export const Domain = 'https://api-coldisha.newjobshub.com';
 
 
 /////////////////------------ for development -----------\\\\\\\\\\\\\
@@ -16,10 +16,10 @@ export const Domain = 'https://api-coldisha.newjobshub.com';
 // export const Domain = 'http://127.0.0.1:8000';
 
 
-// // /////////////////------------ for testing -----------\\\\\\\\\\\\\
+// /////////////////------------ for testing -----------\\\\\\\\\\\\\
 
-// export const BASE_URL = 'http://192.168.1.65:7000/api/';
-// export const Domain = 'http://192.168.1.65:7000';
+export const BASE_URL = 'http://192.168.1.65:7000/api/';
+export const Domain = 'http://192.168.1.65:7000';
 
 
 
@@ -220,12 +220,12 @@ export const GetFilterOptions = async () => {
         .catch(error => console.log('error', error));
 }
 
-export const GetInstituteList = async ({ token, userId, category = '', pageNo = 1, size = 12 }: { token: string, userId: number, category?: string, pageNo?: number, size?: number }) => {
-    console.log('page Size', size);
-    return await axios(InstituteUrl + `?id=${userId}&category=${category}&page=${pageNo}&size=${size}`, {
+export const GetInstituteList = async ({ token, userId, category = '', pageNo = 1, size = 12, courseName = '', courseType = '' }: { token: string, userId: number, category?: string, pageNo?: number, size?: number, courseName?: string, courseType?: string }) => {
+
+    return await axios(InstituteUrl + `?id=${userId}&category=${category}&page=${pageNo}&size=${size}&courseName=${courseName}&courseType=${courseType}`, {
         // headers: setHeader(token)
     })
-        .then(response => response)
+        .then(response => { console.log('response', response.data); return response })
         .catch(error => console.log('error', error));
 }
 

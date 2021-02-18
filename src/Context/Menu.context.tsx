@@ -13,30 +13,30 @@ function MenuContextProvider(props: any) {
             list: [
                 {
                     label: 'Engineering', list: [
-                        { label: 'B.Tech', },
-                        { label: 'M.Tech' },
-                        { label: 'BCA' },
-                        { label: 'B.E' },
-                        { label: 'M.E' },
-                    ]
+                        { label: 'B.Tech', link: `${Routes.Institutes}/?courseName=B.Tech` },
+                        { label: 'M.Tech' ,link: `${Routes.Institutes}/?courseName=M.Tech`},
+                        { label: 'BCA',link: `${Routes.Institutes}/?courseName=BCA` },
+                        { label: 'B.E',link: `${Routes.Institutes}/?courseName=B.E` },
+                        { label: 'M.E' ,link: `${Routes.Institutes}/?courseName=M.E`},
+                    ],link: `${Routes.Institutes}/?courseType=Engineering`
                 },
                 {
                     label: 'Management', list: [
-                        { label: 'B.B.A' },
-                        { label: 'M.B.A' },
-                        { label: 'PGDMA' },
-                    ]
+                        { label: 'B.B.A' ,link: `${Routes.Institutes}/?courseName=B.B.A`},
+                        { label: 'M.B.A' ,link: `${Routes.Institutes}/?courseName=M.B.A`},
+                        { label: 'PGDMA' ,link: `${Routes.Institutes}/?courseName=PGDMA`},
+                    ],link: `${Routes.Institutes}/?courseType=Management`
                 },
                 {
                     label: 'Medical', list: [
-                        { label: 'MBBS' },
-                    ]
+                        { label: 'MBBS' ,link: `${Routes.Institutes}/?courseName=MBBS`},
+                    ],link: `${Routes.Institutes}/?courseType=Medical`
                 },
                 {
-                    label: 'Commerce', list: []
+                    label: 'Commerce', list: [],link: `${Routes.Institutes}/?courseType=Commerce`
                 },
                 {
-                    label: 'Arts', list: []
+                    label: 'Arts', list: [],link: `${Routes.Institutes}/?courseType=Arts`
                 },
             ]
         },

@@ -6,6 +6,6 @@ module.exports = {
         pagesBufferLength: 5,
     },
     images: {
-        domains: ['ik.imagekit.io'],
-      },
+        domains: ['ik.imagekit.io', 'api-coldisha.newjobshub.com'],
+    },
 }

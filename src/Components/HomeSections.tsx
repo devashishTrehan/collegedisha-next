@@ -73,13 +73,13 @@ export const Header = () => {
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                     <Typography style={{ fontSize: 16 }}>Go for the Counselling</Typography>
 
-                                    <AnimatedSection animationClass='beat' id='counselling-button'>
-                                        <Button
-                                            variant='contained'
-                                            color='primary'
-                                            style={{ fontSize: 10, textTransform: 'capitalize' }}
-                                            onClick={() => scrollTo(CounsellingSectionRef)}>Click Here</Button>
-                                    </AnimatedSection>
+                                    {/* <AnimatedSection animationClass='beat' id='counselling-button'> */}
+                                    <Button
+                                        variant='contained'
+                                        color='primary'
+                                        style={{ fontSize: 10, textTransform: 'capitalize' }}
+                                        onClick={() => scrollTo(CounsellingSectionRef)}>Click Here</Button>
+                                    {/* </AnimatedSection> */}
 
                                 </div>
                             </>

@@ -60,6 +60,7 @@ function examDetailsPage(props: Props) {
         }
     }, [router.query?.examSlug])
 
+
     useEffect(() => {
         console.log('page data', props)
         OnPageResponseHandler(props?.data);

@@ -247,7 +247,7 @@ function About(props: any) {
 
       <div className='container'>
 
-        <div className='wrapper' style={{ margin: `50px 0` }}>
+        <div className='wrapper' >
           <Typography>Welcome To </Typography>
           <div className={classNames('sectionHead', styles.sectionHead)}>
             <h5 className='heading1'>College Disha</h5>
@@ -259,10 +259,10 @@ function About(props: any) {
               ServiceList1?.map((card: Card) => {
                 return (
                   <Grid item
-                    // xs={__window?.innerWidth / 2 >= 305 ? 6 : 12}
-                    // sm={__window?.innerWidth / 3 >= 305 ? 4 : 6}
-                    // md={__window?.innerWidth / 4 >= 305 ? 3 : 4} 
-                    >
+                  // xs={__window?.innerWidth / 2 >= 305 ? 6 : 12}
+                  // sm={__window?.innerWidth / 3 >= 305 ? 4 : 6}
+                  // md={__window?.innerWidth / 4 >= 305 ? 3 : 4} 
+                  >
                     <InfoCard card={card} />
                   </Grid>
                 )

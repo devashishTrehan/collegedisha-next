@@ -65,8 +65,7 @@ export const QueryForm = (props: any) => {
                         variant='outlined'
                         size='small'
                         error={Form.name === ''}
-                        errormessage='Name is required'
-                        isrequired
+                        errormessage='Name is required'                        
                         name='name'
                         color='primary'
                         value={Form.name}
@@ -78,8 +77,7 @@ export const QueryForm = (props: any) => {
                         ref={(ref: any) => { inputRefs[1] = ref }}
                         label='Email'
                         error={Form.email === ''}
-                        errormessage='Email is required'
-                        isrequired
+                        errormessage='Email is required'                        
                         type='email'
                         name="email"
                         variant='outlined'
@@ -94,8 +92,7 @@ export const QueryForm = (props: any) => {
                         ref={(ref: any) => { inputRefs[2] = ref }}
                         label='Subject'
                         error={Form.subject === ''}
-                        errormessage='Subject is required'
-                        isrequired
+                        errormessage='Subject is required'                        
                         name="subject"
                         variant='outlined'
                         size='small'
@@ -109,8 +106,7 @@ export const QueryForm = (props: any) => {
                         ref={(ref: any) => { inputRefs[3] = ref }}
                         label='parent Phone'
                         error={Form.phone === ''}
-                        errormessage='Phone Number is required'
-                        isrequired
+                        errormessage='Phone Number is required'                        
                         type='number'
                         name="phone"
                         variant='outlined'
@@ -125,8 +121,7 @@ export const QueryForm = (props: any) => {
                         ref={(ref: any) => { inputRefs[4] = ref }}
                         label='Message'
                         error={Form.message === ''}
-                        errormessage='Message is required'
-                        isrequired
+                        errormessage='Message is required'                        
                         name="message"
                         variant='outlined'
                         size='small'

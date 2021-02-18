@@ -159,12 +159,8 @@ function ResetPasswordPage(props: any) {
                       label='Password'
                       error={Form.password === ''}
                       errormessage='Password is required'
-                      isrequired
                       type='password'
                       name="password"
-                      variant='outlined'
-                      size='small'
-                      color='primary'
                       value={Form.password}
                       onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                   </div>
@@ -175,12 +171,8 @@ function ResetPasswordPage(props: any) {
                       label='Confirm Password'
                       error={Form.confirmPassword !== Form.password}
                       errormessage="Passwords doesn't match"
-                      isrequired
                       type='assword'
                       name="confirmPassword"
-                      variant='outlined'
-                      size='small'
-                      color='primary'
                       value={Form.confirmPassword}
                       onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                   </div>

@@ -16,6 +16,7 @@ interface SelectFieldState {
 interface SelectFieldProps extends SelectProps {
     onValueChange?: Function,
     errormessage?: string,
+    error?: boolean,
     containerStyle?: CSSProperties,
     label?: string
 
@@ -124,7 +125,7 @@ class SelectField extends React.Component<SelectFieldProps, SelectFieldState> {
                         onFocus={() => this.focusHandler()}
                         onChange={(event: any) => this.keyDownHandler(event)}
                         onBlur={() => this.blurHandler()}
-                        
+
                         className={FieldStyles.input}
                         // style={}
                         MenuProps={{

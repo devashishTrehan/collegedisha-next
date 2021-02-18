@@ -69,6 +69,7 @@ function CustomBreadCrumb() {
 
 
     React.useEffect(() => {
+
         let path = router.asPath;
         console.log('path', path)
         if (path === '/') {
@@ -76,20 +77,29 @@ function CustomBreadCrumb() {
         } else {
             setRender(true);
         }
+        let crumbContainer = document.getElementById('__crumbsContainer');
+        if(crumbContainer){
+            // let crumbs = crumbContainer()
+        }
+
     }, [router.asPath])
 
 
-    if (render) {
-        return (
-            <div className={'container'}>
-                <div className={styles.container} >
-                    {crumbs}
-                </div>
-            </div>
-        )
-    } else {
-        return null;
-    }
+    return (
+        <div id={'__crumbsContainer'}>
+            {
+
+                render ?
+
+                    <div className={'container'}>
+                        <div className={styles.container} >
+                            {crumbs}
+                        </div>
+                    </div>
+                    : null
+            }
+        </div>
+    )
 
 
 }

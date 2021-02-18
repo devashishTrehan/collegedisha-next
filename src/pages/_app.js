@@ -35,6 +35,12 @@ function MyAppMainComponent({ Component, pageProps }) {
   )
 }
 
+
+// export function reportWebVitals(metric) {
+//   console.log('metrices', metric)
+// }
+
+
 function MyApp(props) {
 
   const router = useRouter();

@@ -173,12 +173,8 @@ function EmailVerificationPage(props: any) {
                       label='Enter OTP'
                       error={Form.OTP === ''}
                       errormessage='OTP is required'
-                      isrequired
                       type='OTP'
                       name="OTP"
-                      variant='outlined'
-                      size='small'
-                      color='primary'
                       value={Form.OTP}
                       onValueChange={(event: any) => fieldChangeHandler(event.target.name, event?.target.value)} />
                   </div>
